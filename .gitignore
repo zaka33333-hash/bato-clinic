@@ -1,0 +1,13 @@
+# Internal / strategy — never publish
+Bato-Clinic-Research-Report.md
+
+# Local tooling & tool artifacts
+.claude/
+.extract-design-system/
+.firecrawl/
+design-system/
+
+# OS / editor / deps
+.DS_Store
+node_modules/
+*.log
