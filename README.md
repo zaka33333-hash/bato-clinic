@@ -4,36 +4,33 @@ A cinematic, bilingual (Arabic-first / English) website for **Bato Clinic**, a m
 
 **▶ Live:** https://zaka33333-hash.github.io/bato-clinic/
 
-Built as a single, self-contained `index.html` — no build step, no framework, no dependencies to install.
+A single, self-contained `index.html` — no build step, no framework (Three.js + Lenis load from CDN).
 
 ## Concept — “The Threshold”
-The clinic rendered as a sequence of arched niches (*mihrab*) you are walked through, light deepening toward care. A scroll-as-storytelling experience in the lineage of award sites like aircenter.space, in a warm Gulf register.
+The visitor is walked, on scroll, through an **arcade of arches** — a real-time 3D corridor receding into fog toward a warm light at the end. The literal *“building you walk through”* mechanic (in the aircenter.space lineage), fused with Bato’s threshold-to-care metaphor: you move out of the dark, chamber by chamber, and arrive in the light at the booking step.
 
 ## Features
-- **8-scene scroll journey:** Overture → Manifesto → Skin · Hair · Refinement · Facial → Practitioners → Booking, with calligraphic interludes.
-- **Arabic-first, fully bilingual** with a one-click EN toggle and correct **RTL → LTR** mirroring.
-- **Cinematic motion:** Lenis smooth scroll, mihrab arches that draw on scroll, per-section theme inversion, a counter HUD + progress bar, a custom action-label cursor, and a warm WebGL light wash in the hero (disabled under `prefers-reduced-motion`).
-- **WhatsApp-first booking** form (composes a `wa.me` message — no backend) + a sticky WhatsApp button.
-- **Type:** Reem Kufi · Amiri · IBM Plex Sans Arabic · Fraunces · Source Serif 4 · JetBrains Mono.
-- **Palette:** warm plaster + a single brass light.
+- **WebGL (Three.js) arcade** the camera dollies through as you scroll — fog depth, a warm light at the end, subtle cursor parallax. Graceful fallback if WebGL is unavailable.
+- **8-scene journey:** Overture → Philosophy → Skin · Hair · Refinement · Facial → Practitioners → Booking, each fading in over the moving corridor.
+- **Arabic-first, fully bilingual** with a one-click EN toggle and correct **RTL ⇄ LTR** mirroring.
+- **Architectural / minimal register:** near-monochrome warm stone, monumental type, brutal negative space, a minimal counter-HUD + progress bar, custom cursor.
+- **WhatsApp-first booking** form (composes a `wa.me` message — no backend) + sticky WhatsApp button.
+- **Type:** Reem Kufi (Arabic display) · Fraunces (Latin display) · IBM Plex Sans Arabic · JetBrains Mono.
+- **Lenis** smooth scroll drives the camera. Honors `prefers-reduced-motion`.
 
 ## Compliance (Kuwait MOH)
 Designed to satisfy Kuwait medical-advertising rules: **no patient photos, no before/after, no prices/discounts, no superlatives**; doctor titles factual; a licence-disclosure block in the footer.
 
 ## Run locally
 ```bash
-# any static server works, e.g.
-npx serve .
-# or
-python3 -m http.server 8137
+npx serve .          # or: node .claude/serve.js  → http://localhost:8137
 ```
-…then open the URL. (You can also just open `index.html` directly in a browser.)
+(Or just open `index.html` in a browser.)
 
 ## ⚠️ Before going live — client to complete
 1. **Legal:** replace the footer placeholders with the real **MOH advertising-permit + facility licence numbers** (the site is legally a medical “advertisement” and needs MOH Drug Inspection Dept approval — confirm with local counsel).
-2. **Doctors:** confirm each name/title/credential is factual and licence-backed; swap monogram tiles for consented, MOH-cleared headshots.
-3. **Photography:** optionally drop real photos of the clinic *space* (not patients) into the `[data-photo]` slots.
-4. **Confirm** the WhatsApp number and the **Dubai branch** status before promoting it.
+2. **Doctors:** confirm each name/title/credential is factual and licence-backed.
+3. **Confirm** the WhatsApp number and the **Dubai branch** status before promoting it.
 
 ---
 © 2026 Bato Medical Clinic.
