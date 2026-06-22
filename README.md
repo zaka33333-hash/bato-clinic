@@ -2,7 +2,9 @@
 
 A cinematic, bilingual (Arabic-first / English) website for **Bato Clinic**, a medical-aesthetics & dermatology practice in Kuwait & Dubai. *“Where beauty and health meet.”*
 
-**▶ Live:** https://zaka33333-hash.github.io/bato-clinic/
+**Two concepts to compare (A/B):**
+- **Version A — "The Threshold"** (dark, spatial, architectural): https://zaka33333-hash.github.io/bato-clinic/ — a WebGL camera walks through an arcade of arches toward the light.
+- **Version B — "Luminous Membrane"** (light, editorial, English): https://zaka33333-hash.github.io/bato-clinic/alt.html — a diagnostic loupe focuses on a luminous skin/light shader, resolving each service inside the lens.
 
 A single, self-contained `index.html` — no build step, no framework (Three.js + Lenis load from CDN).
 
