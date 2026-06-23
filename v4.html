@@ -725,11 +725,11 @@ body.dock-on .dock{ opacity:1; transform:none; pointer-events:auto; }
     <div class="wrap">
       <div>
         <div class="eyebrow" data-reveal="rise"><span lang="ar">الأطباء</span> · The practitioners</div>
-        <!-- LAUNCH-BLOCKER: confirm every name/title/credential is factual and MOH-licence-backed before going live -->
+        <!-- Founder/CEO is factual (brand profile). Add the named GP & dermatologist + photos once confirmed. -->
         <div class="prac" style="margin-top:1.6rem">
-          <div class="prac__row prac__row--feat" data-reveal="rise"><span class="prac__n">Dr. Salma Elkheir</span><span class="prac__m">Dermatologist · MBBS · MD · DVD</span></div>
-          <div class="prac__row" data-reveal="rise" style="--d:100ms"><span class="prac__n">Dr. Adwa Ali</span><span class="prac__m">Dermatology &amp; Aesthetics · MBBS · MD</span></div>
-          <div class="prac__row" data-reveal="rise" style="--d:200ms"><span class="prac__n">The Bato team</span><span class="prac__m">Doctors · Nurses · Specialists</span></div>
+          <div class="prac__row prac__row--feat" data-reveal="rise"><span class="prac__n">Fatemeh Hamdavi</span><span class="prac__m">Founder &amp; CEO · BATO Clinics</span></div>
+          <div class="prac__row" data-reveal="rise" style="--d:100ms"><span class="prac__n">Our doctors</span><span class="prac__m">A general practitioner &amp; a dermatologist</span></div>
+          <div class="prac__row" data-reveal="rise" style="--d:200ms"><span class="prac__n">Hair &amp; skin specialists</span><span class="prac__m">Licensed specialists &amp; nurses</span></div>
         </div>
       </div>
       <div>
@@ -825,7 +825,7 @@ body.dock-on .dock{ opacity:1; transform:none; pointer-events:auto; }
       <div class="foot__legal">
         Where beauty and health meet · <span lang="ar">حيث يلتقي الجمال والصحة</span><br>
         DHA Licence 5346564 · Al Safa First, Dubai<br>
-        A Gulf clinic since 2023 · Dubai · Kuwait · Jeddah<br>
+        A Gulf clinic, born in Kuwait 2022 · Now in Al Safa, Dubai<br>
         © 2026 Bato Medical Clinic
       </div>
     </div>
@@ -1195,7 +1195,7 @@ body.dock-on .dock{ opacity:1; transform:none; pointer-events:auto; }
     if(reduce || !mm) return;
     /* photos breathe via gsap.matchMedia(): each context auto-reverts when its query stops
        matching (resize / rotation), so a phone never keeps the desktop zoom. GSAP is now the
-       SOLE writer of the .shot__bg transform — the old per-frame --par loop is gone. */
+       SOLE writer of the .shot__bg transform, the old per-frame --par loop is gone. */
     mm.add({ isDesktop:'(min-width:721px)', isMobile:'(max-width:720px)' }, function(ctx){
       var d = ctx.conditions;
       document.querySelectorAll('.shot__bg').forEach(function(bg){
@@ -1262,7 +1262,7 @@ body.dock-on .dock{ opacity:1; transform:none; pointer-events:auto; }
   /* ── THE pin: Radiance crescendo held + scrubbed (the single climactic moment) ── */
   function buildRadiancePin(){
     if(reduce || typeof ScrollTrigger==='undefined') return;
-    if(matchMedia('(max-width:720px)').matches) return;   /* never pin on phones — framing + scroll feel are sacred */
+    if(matchMedia('(max-width:720px)').matches) return;   /* never pin on phones, framing + scroll feel are sacred */
     var sec = document.querySelector('#s6'); if(!sec) return;
     sec.classList.add('pin-js');   /* silence the CSS one-shots (see .pin-js rule) so they don't fight the scrub */
     var glow=sec.querySelector('.glow'), cast=sec.querySelector('.lattice-cast'), name=sec.querySelector('.shot__name');
@@ -1292,7 +1292,7 @@ body.dock-on .dock{ opacity:1; transform:none; pointer-events:auto; }
     lenis.on('scroll', function(e){ var limit=e.limit||(document.body.scrollHeight-window.innerHeight); paint(limit? e.scroll/limit : 0); });
     if(typeof gsap!=='undefined' && typeof ScrollTrigger!=='undefined'){
       gsap.registerPlugin(ScrollTrigger);
-      /* house motion baseline — mirrors the CSS expo-out reveal curve (0.22,1,0.36,1).
+      /* house motion baseline, mirrors the CSS expo-out reveal curve (0.22,1,0.36,1).
          Scrubbed tweens pass ease:'none' explicitly and are unaffected. */
       gsap.defaults({ duration: 0.9, ease: 'expo.out' });
       lenis.on('scroll', ScrollTrigger.update);
