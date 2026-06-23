@@ -1,0 +1,557 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Bato — First Light</title>
+<meta name="description" content="Bato — a supervised, unhurried approach to skin, hair and face. Kuwait & Dubai. Licence No. 300.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,200..400;1,9..144,200..400&family=Reem+Kufi:wght@400..700&family=Aref+Ruqaa:wght@400;700&family=Inter+Tight:wght@300;400;500&family=Tajawal:wght@300;400;500&family=JetBrains+Mono:wght@300;400&display=swap" rel="stylesheet">
+<style>
+:root{
+  /* palette */
+  --umbra:#15100B; --oud:#2A2017; --linen:#F4EEE3; --halo:#FBF6EC;
+  --sand:#D8C7AB; --amber:#E9A23B; --clay:#8C7B66; --cyan:#5E7C7A;
+  /* light engine (driven by JS scroll) */
+  --sun-y:0;        /* 0 (top of sky) -> 1 (set) */
+  --sun-angle:12;   /* degrees, climbs with scroll */
+  --lit:0;          /* 0 dark -> 1 full radiance */
+  /* themed (set per active section via [data-theme] on body) */
+  --bg:#15100B; --ink:#F4EEE3; --soft:rgba(244,238,227,.6); --rule:rgba(244,238,227,.16);
+  /* type */
+  --serif:'Fraunces', Georgia, serif;
+  --kufi:'Reem Kufi', system-ui, sans-serif;
+  --ruqaa:'Aref Ruqaa', serif;
+  --sans:'Inter Tight', system-ui, sans-serif;
+  --arab:'Tajawal', system-ui, sans-serif;
+  --mono:'JetBrains Mono', ui-monospace, monospace;
+  --ease:cubic-bezier(0.22,1,0.36,1);
+  --ease-lift:cubic-bezier(0.32,0.72,0,1);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{ -webkit-text-size-adjust:100%; }
+body{
+  font-family:var(--sans); font-weight:300; background:var(--bg); color:var(--ink);
+  -webkit-font-smoothing:antialiased; text-rendering:optimizeLegibility; overflow-x:hidden;
+  transition:background-color 1.1s var(--ease-lift), color .8s var(--ease-lift);
+  cursor:none;
+}
+body[data-theme="paper"]{ --bg:#F4EEE3; --ink:#2A2017; --soft:rgba(42,32,23,.62); --rule:rgba(42,32,23,.14); }
+body[data-theme="halo"]{ --bg:#FBF6EC; --ink:#231A12; --soft:rgba(35,26,18,.58); --rule:rgba(35,26,18,.12); }
+body[data-theme="dark"]{ --bg:#15100B; --ink:#F4EEE3; --soft:rgba(244,238,227,.6); --rule:rgba(244,238,227,.16); }
+body[data-theme="oud"]{ --bg:#1C1610; --ink:#F1E9DC; --soft:rgba(241,233,220,.6); --rule:rgba(241,233,220,.14); }
+::selection{ background:var(--amber); color:#1a1206; }
+a{ color:inherit; text-decoration:none; }
+
+/* ─── the sun / bloom — the metaphor's anchor (never a flat ball) ─── */
+.bloom{
+  position:fixed; z-index:1; pointer-events:none;
+  inset-inline-end:-6vw; top:calc(2vh + (var(--sun-y) * 78vh));
+  width:60vw; height:60vw; max-width:780px; max-height:780px;
+  transform:translate3d(0, calc(var(--sun-y) * -2vh), 0);
+  opacity:calc(.25 + var(--lit) * .75);
+  background:
+    radial-gradient(closest-side, rgba(233,162,59,.42), rgba(233,162,59,.14) 42%, rgba(233,162,59,0) 70%);
+  filter:blur(8px); will-change:top,opacity,transform;
+}
+.bloom::before{ /* flare core */
+  content:""; position:absolute; inset:38%; border-radius:50%;
+  background:radial-gradient(closest-side, rgba(255,236,200,.9), rgba(233,162,59,.5) 55%, transparent 75%);
+  filter:blur(2px); opacity:calc(.4 + var(--lit)*.6);
+}
+.bloom::after{ /* faint lens-flare line */
+  content:""; position:absolute; left:-40%; top:50%; width:180%; height:1px;
+  background:linear-gradient(90deg, transparent, rgba(255,230,190,.5), transparent);
+  transform:rotate(calc(var(--sun-angle) * -0.4deg)); opacity:calc(var(--lit)*.5);
+}
+/* grain over everything (fixed, cheap) */
+.grain{ position:fixed; inset:0; z-index:2; pointer-events:none; opacity:.05; mix-blend-mode:overlay;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"); }
+/* mashrabiya lattice — the texture the light passes through (subordinate) */
+.lattice{ position:fixed; inset:0; z-index:1; pointer-events:none; opacity:calc(.06 + var(--lit)*.05);
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='80' viewBox='0 0 80 80'%3E%3Cg fill='none' stroke='%23E9A23B' stroke-width='1'%3E%3Cpath d='M40 0 L80 40 L40 80 L0 40 Z'/%3E%3Cpath d='M40 20 L60 40 L40 60 L20 40 Z'/%3E%3Ccircle cx='40' cy='40' r='6'/%3E%3C/g%3E%3C/svg%3E");
+  background-size:64px 64px; mix-blend-mode:soft-light;
+  -webkit-mask-image:linear-gradient(105deg, #000 0 26%, transparent 52%); mask-image:linear-gradient(105deg,#000 0 26%, transparent 52%); }
+
+/* ─── instrument HUD ─── */
+.hud{ position:fixed; inset:0 0 auto 0; z-index:40; pointer-events:none;
+  display:flex; align-items:flex-start; justify-content:space-between;
+  padding:clamp(16px,2.4vw,30px) clamp(18px,3vw,40px); font-family:var(--mono); font-weight:300;
+  font-size:10.5px; letter-spacing:.22em; text-transform:uppercase; color:var(--ink);
+  mix-blend-mode:difference; }
+.hud__bar{ position:fixed; left:0; top:0; height:2px; width:100%; transform:scaleX(var(--prog,0)); transform-origin:left;
+  background:var(--amber); z-index:41; mix-blend-mode:normal; }
+.hud__index .now{ color:var(--amber); mix-blend-mode:normal; }
+.hud__mid{ text-align:center; line-height:1.9; }
+.hud__deg .lux{ color:var(--amber); }
+.hud__r{ text-align:end; line-height:1.9; }
+@media(max-width:720px){ .hud{ font-size:9px; padding:14px 16px; } .hud__mid{ display:none; } }
+
+/* ─── custom cursor ─── */
+.cur{ position:fixed; top:0; left:0; z-index:60; pointer-events:none; transform:translate3d(-50%,-50%,0); mix-blend-mode:normal; }
+.cur__dot{ position:absolute; top:50%; left:50%; width:7px; height:7px; margin:-3.5px 0 0 -3.5px; border-radius:50%; background:var(--amber);
+  box-shadow:0 0 12px 2px rgba(233,162,59,.55); transition:transform .25s var(--ease), opacity .25s; }
+.cur__ring{ position:absolute; top:50%; left:50%; width:40px; height:40px; margin:-20px 0 0 -20px; border:1px solid rgba(233,162,59,.5); border-radius:50%;
+  transition:transform .3s var(--ease), border-color .3s; will-change:transform; }
+.cur__lbl{ position:absolute; top:50%; left:50%; transform:translate(-50%,18px); font-family:var(--mono); font-size:9px; letter-spacing:.2em; text-transform:uppercase;
+  color:var(--amber); white-space:nowrap; opacity:0; transition:opacity .25s; }
+body.cur-hot .cur__ring{ transform:scale(1.55); border-color:rgba(233,162,59,.85); }
+body.cur-hot .cur__dot{ transform:scale(.4); }
+body.cur-hot .cur__lbl{ opacity:1; }
+@media(hover:none),(pointer:coarse){ body{cursor:auto} .cur{ display:none } }
+
+/* ─── layout shell ─── */
+.stage{ position:relative; min-height:100svh; display:flex; padding:clamp(28px,6vw,90px); z-index:3; }
+.wrap{ width:100%; max-width:1340px; margin-inline:auto; position:relative; z-index:4; }
+.eyebrow{ font-family:var(--mono); font-size:11px; font-weight:300; letter-spacing:.32em; text-transform:uppercase; color:var(--clay); display:flex; gap:.7em; align-items:center; }
+.eyebrow::before{ content:""; width:26px; height:1px; background:currentColor; opacity:.6; }
+.lede{ font-family:var(--serif); font-weight:200; font-size:clamp(1.9rem,4.4vw,3.6rem); line-height:1.12; letter-spacing:-.02em; }
+.lede em{ font-style:italic; }
+.ar{ font-family:var(--arab); direction:rtl; }
+.ar-d{ font-family:var(--kufi); direction:rtl; font-weight:500; }
+.measure{ max-width:34ch; font-size:clamp(1rem,1.4vw,1.22rem); line-height:1.6; color:var(--soft); }
+
+/* ─── reveal library ─── */
+[data-reveal]{ --d:0ms; }
+[data-reveal="lines"] .ln{ display:block; overflow:hidden; }
+[data-reveal="lines"] .ln i{ display:block; font-style:inherit; transform:translateY(108%); transition:transform 1s var(--ease) var(--d); }
+[data-reveal="lines"].in .ln i{ transform:translateY(0); }
+[data-reveal="blur"]{ opacity:0; filter:blur(12px); transform:scale(1.04) translateY(18px); transition:opacity 1s var(--ease) var(--d), filter 1s var(--ease) var(--d), transform 1s var(--ease) var(--d); }
+[data-reveal="blur"].in{ opacity:1; filter:blur(0); transform:none; }
+[data-reveal="rise"]{ opacity:0; transform:translateY(30px); transition:opacity .9s var(--ease) var(--d), transform .9s var(--ease) var(--d); }
+[data-reveal="rise"].in{ opacity:1; transform:none; }
+[data-reveal="draw"]{ transform:scaleX(0); transform-origin:left; transition:transform 1.1s var(--ease-lift) var(--d); }
+[data-reveal="draw"].in{ transform:scaleX(1); }
+
+/* ─── 00 overture ─── */
+#s0{ align-items:center; justify-content:center; text-align:center; }
+.mark{ font-family:var(--kufi); font-weight:600; font-size:clamp(2.4rem,7vw,5.4rem); line-height:1; letter-spacing:.01em; direction:rtl; }
+.mark__en{ display:block; font-family:var(--serif); font-weight:200; font-style:italic; font-size:.34em; letter-spacing:.5em; text-transform:uppercase; color:var(--amber); margin-top:1.1rem; direction:ltr; }
+.whisper{ margin-top:clamp(2.6rem,6vw,4.2rem); font-family:var(--serif); font-weight:200; font-size:clamp(1.05rem,1.8vw,1.5rem); color:var(--soft); }
+.whisper .ar{ display:block; font-family:var(--ruqaa); font-size:1.3em; margin-bottom:.5rem; color:var(--ink); }
+.cue{ position:absolute; bottom:clamp(22px,4vw,40px); left:50%; transform:translateX(-50%); font-family:var(--mono); font-size:10px; letter-spacing:.3em; text-transform:uppercase; color:var(--soft); animation:cue 2.6s var(--ease) infinite; }
+@keyframes cue{ 0%,100%{opacity:.4; transform:translate(-50%,0)} 50%{opacity:1; transform:translate(-50%,6px)} }
+
+/* ─── 01 hero ─── */
+#s1{ align-items:flex-end; }
+.hero__h{ font-family:var(--serif); font-weight:200; font-size:clamp(3.2rem,12vw,11.5rem); line-height:.9; letter-spacing:-.045em; max-width:14ch; }
+.hero__h em{ font-style:italic; }
+.hero__ar{ font-family:var(--kufi); font-weight:500; direction:rtl; font-size:clamp(1.6rem,4.5vw,3.4rem); line-height:1.2; margin-top:.5rem; color:var(--clay); }
+.hero__sub{ display:flex; flex-wrap:wrap; gap:1.4rem 3rem; align-items:flex-end; justify-content:space-between; margin-top:clamp(2rem,4vw,3.2rem); }
+
+/* ─── manifesto / reading ─── */
+#s2 .wrap{ display:grid; grid-template-columns:1fr; gap:1.6rem; }
+@media(min-width:900px){ #s2 .wrap{ grid-template-columns:0.9fr 1.1fr; align-items:end; } #s2 .reading-lede{ grid-column:2; } #s2 .eyebrow{ grid-column:2; } }
+#s2{ align-items:center; }
+.reading-lede{ font-family:var(--serif); font-weight:200; font-size:clamp(2.1rem,5vw,4.2rem); line-height:1.08; letter-spacing:-.025em; margin:1.2rem 0 1.4rem; }
+.reading-lede em{ font-style:italic; }
+.reading-ar{ font-family:var(--kufi); direction:rtl; font-weight:500; color:var(--clay); font-size:clamp(1.3rem,3vw,2rem); }
+
+/* ─── photo chapters ─── */
+.shot{ position:relative; min-height:100svh; display:flex; align-items:flex-end; overflow:hidden; z-index:3; }
+.shot__bg{ position:absolute; inset:0; background:var(--img) center/cover no-repeat; clip-path:inset(0 0 0 100%);
+  transition:clip-path 1.3s var(--ease-lift); will-change:clip-path,transform; transform:translateY(var(--par,0)) scale(1.06); }
+.shot[data-dir="left"] .shot__bg{ clip-path:inset(0 100% 0 0); }
+.shot.in .shot__bg{ clip-path:inset(0); }
+.shot__veil{ position:absolute; inset:0; background:linear-gradient(100deg, rgba(20,15,9,.46) 0 30%, rgba(20,15,9,.05) 60%, transparent); }
+.shot[data-dir="left"] .shot__veil{ background:linear-gradient(260deg, rgba(20,15,9,.42) 0 32%, transparent 62%); }
+.shot__c{ position:relative; z-index:4; padding:clamp(28px,6vw,90px); color:var(--halo); max-width:680px; }
+.shot__tag{ font-family:var(--mono); font-size:11px; letter-spacing:.3em; text-transform:uppercase; color:rgba(251,246,236,.8); }
+.shot__name{ font-family:var(--serif); font-weight:200; font-size:clamp(3rem,9vw,8rem); line-height:.92; letter-spacing:-.03em; margin:.4rem 0 .2rem; }
+.shot__name .ar{ font-family:var(--kufi); font-weight:500; font-size:.42em; color:var(--amber); margin-inline-start:.4em; }
+.shot__d{ max-width:40ch; font-size:clamp(1rem,1.3vw,1.18rem); line-height:1.55; color:rgba(251,246,236,.82); margin-top:1rem; }
+/* signature: hair shimmer */
+.shimmer{ position:absolute; inset:0; z-index:5; pointer-events:none; opacity:0;
+  background:linear-gradient(105deg, transparent 40%, rgba(255,232,190,.55) 50%, transparent 60%);
+  mix-blend-mode:screen; transform:translateX(-30%); }
+.shot.in .shimmer{ animation:sweep 2.6s var(--ease) .9s 1 forwards; }
+@keyframes sweep{ 0%{opacity:0; transform:translateX(-30%)} 18%{opacity:1} 100%{opacity:0; transform:translateX(40%)} }
+/* the four-point glyph (from refinement.jpg) */
+.spark{ position:absolute; z-index:6; width:30px; height:30px; right:7%; bottom:14%; opacity:0;
+  background:conic-gradient(from 0deg, transparent, var(--amber), transparent 25%, transparent 50%, var(--amber), transparent 75%);
+  -webkit-mask:radial-gradient(closest-side, #000 0 0); }
+.shot.in .spark{ animation:twk 1.4s var(--ease) 1.2s forwards; }
+@keyframes twk{ 0%{opacity:0; transform:scale(.2) rotate(0)} 60%{opacity:1; transform:scale(1) rotate(120deg)} 100%{opacity:.85; transform:scale(.9) rotate(180deg)} }
+/* mashrabiya dissolve on radiance */
+.shot--radiance .lattice-cast{ position:absolute; inset:0; z-index:5; pointer-events:none;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='80' viewBox='0 0 80 80'%3E%3Cg fill='none' stroke='%23E9A23B' stroke-width='1.4'%3E%3Cpath d='M40 0 L80 40 L40 80 L0 40 Z'/%3E%3Cpath d='M40 20 L60 40 L40 60 L20 40 Z'/%3E%3C/g%3E%3C/svg%3E");
+  background-size:90px 90px; mix-blend-mode:soft-light; opacity:.5; transition:opacity 1.1s var(--ease), filter 1.1s var(--ease); }
+.shot--radiance.in .lattice-cast{ opacity:0; filter:blur(10px); }
+
+/* ─── diagnostic band ─── */
+.diag{ position:relative; z-index:3; background:var(--umbra); color:#EDE4D4; padding:clamp(48px,9vw,120px) clamp(28px,6vw,90px); }
+.diag__head{ font-family:var(--serif); font-weight:200; font-size:clamp(1.8rem,4vw,3.2rem); line-height:1.1; letter-spacing:-.02em; max-width:18ch; }
+.diag__ar{ font-family:var(--kufi); direction:rtl; color:var(--cyan); font-weight:500; font-size:clamp(1.2rem,2.6vw,1.7rem); margin-bottom:.6rem; }
+.diag__grid{ margin-top:clamp(2.4rem,5vw,3.6rem); display:grid; gap:0; border-top:1px solid rgba(94,124,122,.4); }
+.diag__row{ display:flex; justify-content:space-between; gap:1.5rem; padding:1.1rem 0; border-bottom:1px solid rgba(94,124,122,.22); font-family:var(--mono); font-size:12px; letter-spacing:.06em; }
+.diag__row span:first-child{ color:#EDE4D4; } .diag__row span:last-child{ color:var(--cyan); text-align:end; }
+.scan{ position:absolute; left:0; right:0; height:1px; background:linear-gradient(90deg,transparent,var(--cyan),transparent); opacity:0; }
+.diag.in .scan{ animation:scan 2.2s var(--ease) .4s 1; }
+@keyframes scan{ 0%{opacity:0; top:18%} 10%{opacity:.9} 90%{opacity:.9} 100%{opacity:0; top:88%} }
+
+/* ─── voices + practitioners + 68k ─── */
+#s7{ align-items:center; }
+#s7 .wrap{ display:flex; flex-direction:column; gap:clamp(3rem,7vw,5.5rem); }
+.prac{ display:flex; flex-direction:column; }
+.prac__row{ display:flex; justify-content:space-between; align-items:baseline; gap:1.5rem; padding:1.2rem 0; border-top:1px solid var(--rule); }
+.prac__row:last-child{ border-bottom:1px solid var(--rule); }
+.prac__n{ font-family:var(--serif); font-weight:300; font-size:clamp(1.3rem,2.6vw,2rem); letter-spacing:-.01em; }
+.prac__row--feat .prac__n{ font-size:clamp(1.8rem,4vw,3rem); font-style:italic; }
+.prac__m{ font-family:var(--mono); font-size:10.5px; letter-spacing:.18em; text-transform:uppercase; color:var(--clay); text-align:end; }
+.voices{ display:grid; gap:1.6rem; grid-template-columns:1fr; }
+@media(min-width:780px){ .voices{ grid-template-columns:repeat(3,1fr); } }
+.q{ border-top:1px solid var(--rule); padding-top:1.2rem; }
+.q blockquote{ font-family:var(--serif); font-weight:300; font-size:clamp(1.1rem,1.5vw,1.35rem); line-height:1.4; letter-spacing:-.01em; }
+.q figcaption{ margin-top:.9rem; font-family:var(--mono); font-size:10px; letter-spacing:.18em; text-transform:uppercase; color:var(--clay); }
+.bignum{ display:flex; align-items:baseline; gap:1.4rem; flex-wrap:wrap; }
+.bignum b{ font-family:var(--serif); font-weight:200; font-size:clamp(4.5rem,18vw,16rem); line-height:.82; letter-spacing:-.04em; }
+.bignum .lab{ font-family:var(--mono); font-size:11px; letter-spacing:.2em; text-transform:uppercase; color:var(--clay); }
+.bignum .lab .ar{ font-family:var(--kufi); display:block; font-size:1.4em; color:var(--ink); letter-spacing:0; margin-bottom:.3rem; direction:rtl; }
+
+/* ─── booking + footer ─── */
+#s8{ align-items:center; }
+#s8 .wrap{ display:grid; gap:clamp(2.4rem,5vw,4rem); }
+.book__h{ font-family:var(--serif); font-weight:200; font-size:clamp(2.4rem,7vw,6rem); line-height:.96; letter-spacing:-.035em; }
+.book__h em{ font-style:italic; }
+.book__ar{ font-family:var(--kufi); direction:rtl; font-weight:500; color:var(--clay); font-size:clamp(1.3rem,3vw,2rem); margin-top:.4rem; }
+.book__grid{ display:grid; gap:clamp(2rem,4vw,3.4rem); grid-template-columns:1fr; }
+@media(min-width:880px){ .book__grid{ grid-template-columns:1.1fr .9fr; } }
+.form{ display:flex; flex-direction:column; gap:1.4rem; }
+.field{ display:flex; flex-direction:column; gap:.4rem; border-bottom:1px solid var(--rule); padding-bottom:.6rem; }
+.field label{ font-family:var(--mono); font-size:10px; letter-spacing:.2em; text-transform:uppercase; color:var(--clay); }
+.field input,.field select{ background:transparent; border:0; color:var(--ink); font-family:var(--serif); font-weight:300; font-size:1.3rem; outline:none; }
+.field select{ font-family:var(--sans); font-size:1.05rem; }
+.actions{ display:flex; gap:1rem; flex-wrap:wrap; margin-top:.6rem; }
+.btn{ position:relative; display:inline-flex; align-items:center; gap:.7em; padding:.95em 1.5em; border-radius:999px; font-family:var(--mono); font-size:11px; letter-spacing:.18em; text-transform:uppercase;
+  border:1px solid var(--ink); transition:transform .12s var(--ease), background-color .4s var(--ease), color .4s; will-change:transform; }
+.btn--solid{ background:var(--ink); color:var(--bg); }
+.btn--ghost{ background:transparent; color:var(--ink); }
+.btn:active{ transform:scale(.97); }
+.btn .i{ display:inline-flex; align-items:center; justify-content:center; width:1.7em; height:1.7em; border-radius:50%; background:rgba(255,255,255,.16); transition:transform .3s var(--ease); }
+.btn--ghost .i{ background:rgba(0,0,0,.06); }
+.btn:hover .i{ transform:translate(2px,-1px) scale(1.06); }
+.coords{ display:grid; gap:1rem; }
+.coord{ border:1px solid var(--rule); border-radius:18px; padding:6px; }
+.coord__in{ border:1px solid var(--rule); border-radius:13px; padding:1.1rem 1.2rem; box-shadow:inset 0 1px 0 rgba(255,255,255,.12); }
+.coord h4{ font-family:var(--mono); font-size:10px; letter-spacing:.2em; text-transform:uppercase; color:var(--clay); font-weight:400; }
+.coord p{ font-size:1rem; line-height:1.5; margin-top:.4rem; color:var(--soft); }
+.coord a{ color:var(--amber); }
+.foot{ position:relative; z-index:3; background:var(--umbra); color:#EDE4D4; padding:clamp(40px,8vw,90px) clamp(28px,6vw,90px) clamp(28px,5vw,50px); }
+.foot__mark{ font-family:var(--kufi); direction:rtl; font-weight:600; font-size:clamp(3rem,12vw,9rem); line-height:1; color:#EDE4D4; }
+.foot__mark em{ font-family:var(--serif); font-style:italic; font-weight:200; font-size:.3em; letter-spacing:.4em; text-transform:uppercase; color:var(--amber); direction:ltr; display:block; margin-top:.6rem; }
+.foot__legal{ margin-top:clamp(2rem,5vw,3rem); font-family:var(--mono); font-size:10px; letter-spacing:.14em; text-transform:uppercase; color:rgba(237,228,212,.5); line-height:2; }
+
+/* reduced motion — cinematic by default, calm + complete when opted out */
+@media (prefers-reduced-motion:reduce){
+  body{ cursor:auto; }
+  .cur,.cue,.grain{ display:none; }
+  [data-reveal]{ opacity:1!important; filter:none!important; transform:none!important; }
+  [data-reveal="lines"] .ln i{ transform:none!important; }
+  .shot__bg{ clip-path:inset(0)!important; transform:none!important; }
+  .shimmer,.spark,.scan,.shot--radiance .lattice-cast{ display:none; }
+  .bloom{ opacity:.55; top:14vh; }
+}
+</style>
+</head>
+<body data-theme="dark">
+
+<div class="hud__bar" aria-hidden="true"></div>
+<div class="bloom" aria-hidden="true"></div>
+<div class="lattice" aria-hidden="true"></div>
+<div class="grain" aria-hidden="true"></div>
+
+<header class="hud" aria-hidden="true">
+  <div class="hud__index" style="direction:ltr"><bdi class="now">٠٠</bdi> / <bdi>٠٧</bdi></div>
+  <div class="hud__mid"><span id="hudName">السكون · STILLNESS</span></div>
+  <div class="hud__r">
+    <div class="hud__deg">LIGHT · <span class="lux" id="hudDeg">12°</span></div>
+    <div>الكويت ٢٩°N</div>
+  </div>
+</header>
+
+<div class="cur" aria-hidden="true"><span class="cur__ring"></span><span class="cur__dot"></span><span class="cur__lbl" id="curLbl"></span></div>
+
+<main>
+
+  <!-- 00 · OVERTURE -->
+  <section class="stage" id="s0" data-stage data-theme="dark" data-idx="0" data-name="السكون · STILLNESS">
+    <div class="wrap">
+      <div class="mark" data-reveal="blur">مستوصف باتو<span class="mark__en">Bato Clinic</span></div>
+      <p class="whisper" data-reveal="blur" style="--d:300ms">
+        <span class="ar" style="font-family:var(--ruqaa)">النور يعود إلى البشرة</span>
+        Light returns to the skin.
+      </p>
+    </div>
+    <div class="cue">Follow the light ↓</div>
+  </section>
+
+  <!-- 01 · DAYBREAK HERO -->
+  <section class="stage" id="s1" data-stage data-theme="paper" data-idx="1" data-name="النور · FIRST LIGHT">
+    <div class="wrap">
+      <div class="eyebrow" data-reveal="rise">Bato · Medical Aesthetics · Kuwait & Dubai</div>
+      <h1 class="hero__h" data-reveal="lines" style="margin-top:1.4rem">
+        <span class="ln"><i>Where light</i></span>
+        <span class="ln"><i>returns to</i></span>
+        <span class="ln"><i><em>the skin.</em></i></span>
+      </h1>
+      <div class="hero__ar" data-reveal="rise" style="--d:200ms">حيث يعود النور إلى البشرة</div>
+      <div class="hero__sub">
+        <p class="measure" data-reveal="rise" style="--d:300ms">A supervised, unhurried approach to skin, hair and face, delivered by doctors and specialists.</p>
+        <div class="eyebrow" data-reveal="rise" style="--d:400ms">Licence No. 300</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 02 · THE READING -->
+  <section class="stage" id="s2" data-stage data-theme="paper" data-idx="2" data-name="القراءة · THE READING">
+    <div class="wrap">
+      <div class="eyebrow" data-reveal="rise">الفلسفة · The Reading</div>
+      <div class="reading-lede" data-reveal="lines">
+        <span class="ln"><i>We begin by looking</i></span>
+        <span class="ln"><i>closely, <em>before</em> we</i></span>
+        <span class="ln"><i>promise anything.</i></span>
+      </div>
+      <p class="reading-ar" data-reveal="rise" style="--d:200ms">ننظر عن قرب، قبل أن نَعِد بأي شيء.</p>
+    </div>
+  </section>
+
+  <!-- 03 · SKIN -->
+  <section class="shot" id="s3" data-stage data-theme="paper" data-idx="3" data-name="البشرة · SKIN">
+    <div class="shot__bg" style="--img:url(assets/skin.jpg?v=4)"></div>
+    <div class="shot__veil"></div>
+    <div class="shot__c">
+      <div class="shot__tag" data-reveal="rise">الجلدية · Dermatology</div>
+      <h2 class="shot__name" data-reveal="rise" style="--d:120ms">Skin<span class="ar">البشرة</span></h2>
+      <p class="shot__d" data-reveal="rise" style="--d:240ms">We read the surface and restore its clarity, within a plan your physician defines. Medical-grade care, never rushed.</p>
+    </div>
+  </section>
+
+  <!-- 04 · HAIR (signature: god-ray dock) -->
+  <section class="shot" id="s4" data-stage data-dir="left" data-theme="paper" data-idx="4" data-name="الشعر · HAIR" data-dock="1">
+    <div class="shot__bg" style="--img:url(assets/hair.jpg?v=4)"></div>
+    <div class="shot__veil"></div>
+    <div class="shimmer"></div>
+    <div class="shot__c" style="margin-inline-start:auto; text-align:end">
+      <div class="shot__tag" data-reveal="rise">العناية بالشعر · Hair</div>
+      <h2 class="shot__name" data-reveal="rise" style="--d:120ms">Hair<span class="ar">الشعر</span></h2>
+      <p class="shot__d" data-reveal="rise" style="--d:240ms; margin-inline-start:auto">Care that begins at the root: massage, steam, cleanse, serum. A considered ritual that restores vitality.</p>
+    </div>
+  </section>
+
+  <!-- 05 · REFINEMENT (dark) -->
+  <section class="shot shot--ref" id="s5" data-stage data-theme="dark" data-idx="5" data-name="النحت · REFINEMENT">
+    <div class="shot__bg" style="--img:url(assets/refinement.jpg?v=4)"></div>
+    <div class="shot__veil" style="background:linear-gradient(90deg,rgba(20,15,9,.7) 0 38%,rgba(20,15,9,.1) 70%,transparent)"></div>
+    <div class="spark"></div>
+    <div class="shot__c">
+      <div class="shot__tag" data-reveal="rise">النحت · Fillers &amp; Botox</div>
+      <h2 class="shot__name" data-reveal="rise" style="--d:120ms; font-size:clamp(2.6rem,7vw,6rem)">The measured hand<span class="ar" style="display:block; margin:0">اللمسة المدروسة</span></h2>
+      <p class="shot__d" data-reveal="rise" style="--d:240ms">The smallest touch, a natural approach, by specialists, within a plan considered with calm.</p>
+    </div>
+  </section>
+
+  <!-- DIAGNOSTIC BAND (the medical moat) -->
+  <section class="diag" id="diag" data-stage data-theme="dark" data-idx="5" data-name="القراءة · DIAGNOSTIC">
+    <div class="scan" aria-hidden="true"></div>
+    <div class="wrap">
+      <p class="diag__ar" data-reveal="rise">كل خطة تبدأ بقراءة</p>
+      <h3 class="diag__head" data-reveal="lines">
+        <span class="ln"><i>Every plan begins</i></span>
+        <span class="ln"><i>with a reading.</i></span>
+      </h3>
+      <p class="measure" style="margin-top:1.4rem; color:rgba(237,228,212,.62)" data-reveal="rise" style="--d:160ms">Bato is a medical clinic, not a spa. Diagnostics and blood analysis sit behind the aesthetics, supervised by doctors. Care begins with understanding your health.</p>
+      <div class="diag__grid" data-reveal="rise" style="--d:240ms">
+        <div class="diag__row"><span>Dermatology &amp; medical skin</span><span>تحت إشراف طبي</span></div>
+        <div class="diag__row"><span>Blood analysis &amp; diagnostics</span><span>تحاليل الدم</span></div>
+        <div class="diag__row"><span>Doctor-supervised planning</span><span>خطة لكل حالة</span></div>
+        <div class="diag__row"><span>Facility licence</span><span>رقم ٣٠٠ · No. 300</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 06 · RADIANCE (full sun) -->
+  <section class="shot shot--radiance" id="s6" data-stage data-theme="halo" data-idx="6" data-name="النضارة · RADIANCE">
+    <div class="shot__bg" style="--img:url(assets/radiance.jpg?v=4)"></div>
+    <div class="lattice-cast" aria-hidden="true"></div>
+    <div class="shot__veil" style="background:linear-gradient(100deg,rgba(20,15,9,.34) 0 26%,transparent 58%)"></div>
+    <div class="shot__c">
+      <div class="shot__tag" data-reveal="rise">النضارة · Glow &amp; Radiance</div>
+      <h2 class="shot__name" data-reveal="rise" style="--d:120ms">Radiance<span class="ar">النضارة</span></h2>
+      <p class="shot__d" data-reveal="rise" style="--d:240ms">Light returns to the surface. Radiance treatments and glow boosters, delivered by specialists within a considered plan.</p>
+    </div>
+  </section>
+
+  <!-- 07 · VOICES + PRACTITIONERS + 68k -->
+  <section class="stage" id="s7" data-stage data-theme="paper" data-idx="7" data-name="الأطباء · THE TEAM">
+    <div class="wrap">
+      <div>
+        <div class="eyebrow" data-reveal="rise">الأطباء · The practitioners</div>
+        <!-- confirm each title/credential is factual & MOH-licence-backed before launch -->
+        <div class="prac" style="margin-top:1.6rem">
+          <div class="prac__row prac__row--feat" data-reveal="rise"><span class="prac__n">Dr. Salma Elkheir</span><span class="prac__m">Dermatologist · MBBS · MD · DVD</span></div>
+          <div class="prac__row" data-reveal="rise" style="--d:100ms"><span class="prac__n">Dr. Adwa Ali</span><span class="prac__m">Dermatology &amp; Aesthetics · MBBS · MD</span></div>
+          <div class="prac__row" data-reveal="rise" style="--d:200ms"><span class="prac__n">The Bato team</span><span class="prac__m">Doctors · Nurses · Specialists</span></div>
+        </div>
+      </div>
+      <div>
+        <div class="eyebrow" data-reveal="rise" style="margin-bottom:1.6rem">آراؤكم · In their words</div>
+        <!-- representative experience quotes — replace with real consented reviews from @batoclinic "آرائكم" highlights; keep experience-based, no medical-outcome claims -->
+        <div class="voices">
+          <figure class="q" data-reveal="rise"><blockquote>"The calmest clinic I have walked into. Every detail is considered."</blockquote><figcaption>H. A. · Salmiya</figcaption></figure>
+          <figure class="q" data-reveal="rise" style="--d:100ms"><blockquote>"They listen first, and I never feel rushed."</blockquote><figcaption>M. K. · Kuwait</figcaption></figure>
+          <figure class="q" data-reveal="rise" style="--d:200ms"><blockquote>"Quiet, precise, and genuinely kind. It is the place I trust."</blockquote><figcaption>N. S. · Kuwait</figcaption></figure>
+        </div>
+      </div>
+      <a class="bignum" href="https://www.instagram.com/batoclinic/" target="_blank" rel="noopener" data-mag data-cursor="Follow" data-reveal="rise">
+        <b data-count="68000">68,000</b>
+        <span class="lab"><span class="ar">مجتمع على إنستغرام</span>A community on Instagram · @batoclinic</span>
+      </a>
+    </div>
+  </section>
+
+  <!-- 08 · BEGIN + FOOTER -->
+  <section class="stage" id="s8" data-stage data-theme="halo" data-idx="7" data-name="احجزي · BEGIN">
+    <div class="wrap">
+      <div>
+        <div class="eyebrow" data-reveal="rise">ابدئي · Begin</div>
+        <h2 class="book__h" data-reveal="lines" style="margin-top:1rem">
+          <span class="ln"><i>Begin with a</i></span>
+          <span class="ln"><i>quiet <em>reading.</em></i></span>
+        </h2>
+        <div class="book__ar" data-reveal="rise" style="--d:160ms">ابدئي بقراءة هادئة</div>
+      </div>
+      <div class="book__grid">
+        <form class="form" id="bookForm" data-reveal="rise">
+          <div class="field"><label for="bn">Name · الاسم</label><input id="bn" type="text" autocomplete="name"></div>
+          <div class="field"><label for="bs">Interest · الخدمة</label>
+            <select id="bs"><option>Dermatology</option><option>Hair</option><option>Fillers &amp; Botox</option><option>Radiance &amp; glow injections</option><option>Diagnostics</option><option>Consultation</option></select></div>
+          <div class="actions">
+            <button type="submit" class="btn btn--solid" data-mag data-cursor="Book">Send via WhatsApp<span class="i">↗</span></button>
+            <a class="btn btn--ghost" href="tel:+96560072702" data-mag data-cursor="Call">Call</a>
+          </div>
+        </form>
+        <div class="coords" data-reveal="rise" style="--d:160ms">
+          <div class="coord"><div class="coord__in"><h4>Kuwait</h4><p>Salmiya · Block 1 · Street 2 · Building 24 · Floors 1 &amp; 2</p></div></div>
+          <div class="coord"><div class="coord__in"><h4>Dubai</h4><p>Al Safa First · Al Wasl Road</p></div></div>
+          <div class="coord"><div class="coord__in"><h4>Direct</h4><p><a href="https://wa.me/96560072702" target="_blank" rel="noopener" data-mag data-cursor="WhatsApp">WhatsApp +965 6007 2702</a><br><a href="https://reach.link/batoclinickw" target="_blank" rel="noopener" data-mag>Book online · reach.link</a><br><a href="https://www.instagram.com/batoclinic/" target="_blank" rel="noopener" data-mag>Instagram @batoclinic</a></p></div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="foot" data-stage data-theme="dark" data-idx="7" data-name="باتو · BATO">
+    <div class="wrap">
+      <div class="foot__mark" data-reveal="rise">باتو<em>Bato</em></div>
+      <div class="foot__legal">
+        Where beauty and health meet · حيث يلتقي الجمال والصحة<br>
+        Licence No. ٣٠٠ · Salmiya, Kuwait · Dubai<br>
+        © 2026 Bato Medical Clinic
+      </div>
+    </div>
+  </footer>
+
+</main>
+
+<script src="https://cdn.jsdelivr.net/npm/lenis@1.1.14/dist/lenis.min.js"></script>
+<script>
+(function(){
+  var reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var AR = ['٠٠','٠١','٠٢','٠٣','٠٤','٠٥','٠٦','٠٧'];
+  var root = document.documentElement;
+
+  /* ── reveal library ── */
+  var rio = new IntersectionObserver(function(es){
+    es.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add('in'); rio.unobserve(e.target);
+      if(e.target.matches('.bignum')) countUp(e.target.querySelector('[data-count]')); } });
+  }, { threshold:0.2, rootMargin:'0px 0px -8% 0px' });
+  document.querySelectorAll('[data-reveal],.shot,.diag,.bignum').forEach(function(el){ rio.observe(el); });
+
+  function countUp(el){ if(!el||reduce) return; var t=+el.getAttribute('data-count'),s=null;
+    function step(ts){ if(!s)s=ts; var p=Math.min((ts-s)/1400,1); var v=Math.floor((1-Math.pow(1-p,3))*t);
+      el.textContent=v.toLocaleString('en-US'); if(p<1) requestAnimationFrame(step); else el.textContent=t.toLocaleString('en-US'); }
+    requestAnimationFrame(step); }
+
+  /* ── section-state machine (persistent) → HUD + theme ── */
+  var stages = [].slice.call(document.querySelectorAll('[data-stage]'));
+  var hudIdx = document.querySelector('.hud__index .now');
+  var hudName = document.getElementById('hudName');
+  var current = null;
+  var sio = new IntersectionObserver(function(es){
+    es.forEach(function(e){ if(e.isIntersecting && e.intersectionRatio>0.5){
+      var el=e.target; if(el===current) return; current=el;
+      document.body.setAttribute('data-theme', el.getAttribute('data-theme'));
+      if(hudIdx) hudIdx.textContent = AR[+el.getAttribute('data-idx')] || '٠٠';
+      if(hudName) hudName.textContent = el.getAttribute('data-name') || '';
+      document.body.classList.toggle('cur-dark', (el.getAttribute('data-theme')==='dark'||el.getAttribute('data-theme')==='oud'));
+    }});
+  }, { threshold:[0.5,0.75] });
+  stages.forEach(function(s){ sio.observe(s); });
+
+  /* ── light engine + scroll choreography ── */
+  var bloom = document.querySelector('.bloom');
+  var bar = document.querySelector('.hud__bar');
+  var hudDeg = document.getElementById('hudDeg');
+  var shots = [].slice.call(document.querySelectorAll('.shot__bg'));
+  var lastDeg = -1;
+
+  function paint(progress){
+    var p = Math.max(0, Math.min(1, progress));
+    root.style.setProperty('--sun-y', p.toFixed(4));
+    var lit = Math.sin(Math.min(p,0.78)/0.78 * Math.PI*0.5); /* rises to ~radiance then holds */
+    root.style.setProperty('--lit', lit.toFixed(4));
+    var deg = Math.round(12 + p*52);
+    if(deg!==lastDeg){ root.style.setProperty('--sun-angle', deg); if(hudDeg) hudDeg.textContent = deg+'°'; lastDeg=deg; }
+    if(bar) bar.style.transform = 'scaleX('+p.toFixed(4)+')';
+    /* photo parallax */
+    var vh = window.innerHeight;
+    shots.forEach(function(bg){ var r=bg.parentElement.getBoundingClientRect(); if(r.bottom<0||r.top>vh) return;
+      var rel = (r.top + r.height/2 - vh/2) / vh; bg.style.setProperty('--par', (rel*-26).toFixed(1)+'px'); });
+  }
+
+  function start(){
+    if(typeof Lenis==='undefined'){ return setTimeout(start, 60); }
+    if(reduce){ paint(0); document.querySelectorAll('.shot__bg').forEach(function(b){b.classList&&0;});
+      // static: still set a mid light
+      root.style.setProperty('--lit','0.6'); return; }
+    var lenis = new Lenis({ smoothWheel:true, wheelMultiplier:0.9, touchMultiplier:1.5, lerp:0.08 });
+    function raf(t){ lenis.raf(t); requestAnimationFrame(raf); } requestAnimationFrame(raf);
+    lenis.on('scroll', function(e){ var limit=e.limit||(document.body.scrollHeight-window.innerHeight); paint(limit? e.scroll/limit : 0); });
+    paint(0);
+    /* anchor scrolls */
+    document.querySelectorAll('a[href^="#"]').forEach(function(a){ a.addEventListener('click', function(ev){
+      var t=document.querySelector(a.getAttribute('href')); if(t){ ev.preventDefault(); lenis.scrollTo(t); } }); });
+  }
+  start();
+  window.addEventListener('resize', function(){ /* reflow parallax baseline */ });
+
+  /* ── custom cursor (communicates + magnetic) ── */
+  if(!reduce && matchMedia('(hover:hover) and (pointer:fine)').matches){
+    var cur=document.querySelector('.cur'), lbl=document.getElementById('curLbl');
+    var cx=innerWidth/2, cy=innerHeight/2, rx=cx, ry=cy;
+    addEventListener('mousemove', function(e){ cx=e.clientX; cy=e.clientY; });
+    (function loop(){ rx+=(cx-rx)*0.2; ry+=(cy-ry)*0.2; if(cur) cur.style.transform='translate3d('+rx+'px,'+ry+'px,0)'; requestAnimationFrame(loop); })();
+    var hot='a,button,[data-mag],input,select,.bignum';
+    document.querySelectorAll(hot).forEach(function(el){
+      el.addEventListener('mouseenter', function(){ document.body.classList.add('cur-hot'); if(lbl) lbl.textContent=el.getAttribute('data-cursor')||''; });
+      el.addEventListener('mouseleave', function(){ document.body.classList.remove('cur-hot'); if(lbl) lbl.textContent=''; el.style.transform=''; });
+    });
+    /* magnetic pull */
+    document.querySelectorAll('[data-mag]').forEach(function(el){
+      el.addEventListener('mousemove', function(e){ var r=el.getBoundingClientRect();
+        var dx=(e.clientX-(r.left+r.width/2))/r.width, dy=(e.clientY-(r.top+r.height/2))/r.height;
+        el.style.transform='translate('+(dx*10).toFixed(1)+'px,'+(dy*10).toFixed(1)+'px)'; el.style.transition='transform .1s'; });
+      el.addEventListener('mouseleave', function(){ el.style.transition='transform .4s var(--ease)'; el.style.transform=''; });
+    });
+  }
+
+  /* ── booking → WhatsApp ── */
+  var f=document.getElementById('bookForm');
+  if(f) f.addEventListener('submit', function(e){ e.preventDefault();
+    var n=(document.getElementById('bn').value||'').trim(), s=document.getElementById('bs').value;
+    var msg='Hello Bato — I would like to book a '+s+(n?(' consultation for '+n):' consultation')+'.';
+    window.open('https://wa.me/96560072702?text='+encodeURIComponent(msg),'_blank','noopener'); });
+})();
+</script>
+</body>
+</html>
