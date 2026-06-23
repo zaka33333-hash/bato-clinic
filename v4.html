@@ -329,6 +329,16 @@ body.dock-on .dock{ opacity:1; transform:none; pointer-events:auto; }
 .inside__c{ position:relative; z-index:4; padding:clamp(28px,6vw,90px); color:#efe7d9; max-width:680px; }
 .inside__h{ font-family:var(--serif); font-weight:200; font-size:clamp(2.4rem,7vw,6rem); line-height:.95; letter-spacing:-.03em; margin-top:.5rem; }
 .inside__h em{ font-style:italic; font-weight:400; }
+/* "The work" — real doctor-supervised treatments gallery */
+.work{ position:relative; z-index:3; background:var(--bg); padding:clamp(46px,8vw,96px) 0; transition:background-color 1.1s var(--ease-lift); }
+.work__head{ padding:0 clamp(28px,6vw,90px); }
+.work__lede{ font-family:var(--serif); font-weight:200; font-size:clamp(1.8rem,4.4vw,3.2rem); line-height:1.05; letter-spacing:-.02em; margin-top:1rem; }
+.work__lede em{ font-style:italic; font-weight:400; }
+.work__strip{ display:flex; gap:14px; overflow-x:auto; padding:1.6rem clamp(28px,6vw,90px); scroll-snap-type:x mandatory; -webkit-overflow-scrolling:touch; scrollbar-width:none; }
+.work__strip::-webkit-scrollbar{ display:none; }
+.work__item{ flex:0 0 clamp(220px,30vw,300px); aspect-ratio:3/4; border-radius:14px; overflow:hidden; position:relative; scroll-snap-align:start; background:#1b150d; }
+.work__item img,.work__item video{ width:100%; height:100%; object-fit:cover; display:block; }
+.work__item figcaption{ position:absolute; left:0; right:0; bottom:0; padding:.7em .9em; font-family:var(--mono); font-size:10px; letter-spacing:.18em; text-transform:uppercase; color:#efe7d9; background:linear-gradient(to top, rgba(28,22,14,.85), transparent); }
 @media (prefers-reduced-motion:reduce){ .inside__v{ display:none; } .inside{ background-image:url(assets/inside-bato-poster.jpg); } }
 .diag__head{ font-family:var(--serif); font-weight:200; font-size:clamp(1.8rem,4vw,3.2rem); line-height:1.12; letter-spacing:-.02em; max-width:18ch; }
 .diag__ar{ font-family:var(--kufi); direction:rtl; color:var(--cyan); font-weight:500; font-size:clamp(1.2rem,2.6vw,1.7rem); margin-bottom:.6rem; }
@@ -641,6 +651,22 @@ body.dock-on .dock{ opacity:1; transform:none; pointer-events:auto; }
         <b data-count="68000">68,000</b>
         <span class="lab"><span class="ar" lang="ar">مجتمع على إنستغرام</span>A community on Instagram · @batoclinic</span>
       </a>
+    </div>
+  </section>
+
+  <!-- "The work" — real doctor-supervised treatments (clinic footage) -->
+  <section class="work" aria-label="Real treatments at Bato">
+    <div class="work__head">
+      <div class="eyebrow" data-reveal="rise"><span lang="ar">عملنا</span> · The work, doctor-supervised</div>
+      <p class="work__lede" data-reveal="rise" style="--d:120ms">Real treatments, in <em>our</em> rooms.</p>
+    </div>
+    <div class="work__strip">
+      <figure class="work__item"><video autoplay muted loop playsinline preload="none" poster="assets/work-walk-poster.jpg" aria-hidden="true"><source src="assets/work-walk.webm" type="video/webm"><source src="assets/work-walk.mp4" type="video/mp4"></video><figcaption><span lang="ar">داخل العيادة</span> · Inside</figcaption></figure>
+      <figure class="work__item"><img src="assets/work-facial.webp" alt="Facial and skin treatment in progress at Bato Clinic" loading="lazy"><figcaption>Facial &amp; skin</figcaption></figure>
+      <figure class="work__item"><img src="assets/work-meso.webp" alt="Mesotherapy treatment at Bato Clinic" loading="lazy"><figcaption>Mesotherapy</figcaption></figure>
+      <figure class="work__item"><img src="assets/work-laser.webp" alt="Laser treatment room at Bato Clinic" loading="lazy"><figcaption>Laser</figcaption></figure>
+      <figure class="work__item"><img src="assets/work-hair.webp" alt="Hair treatment room at Bato Clinic" loading="lazy"><figcaption>Hair</figcaption></figure>
+      <figure class="work__item"><img src="assets/work-plasma.webp" alt="Plasma / PRP preparation at Bato Clinic" loading="lazy"><figcaption>Plasma &amp; PRP</figcaption></figure>
     </div>
   </section>
 
