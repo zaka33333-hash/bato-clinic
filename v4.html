@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Bato Medical Clinic — First Light · Salmiya, Kuwait</title>
+<title>Bato Medical Clinic — First Light · Kuwait & Dubai</title>
 <meta name="description" content="Bato Medical Clinic, Salmiya Kuwait — a doctor-led clinic uniting general medicine with dermatology & cosmetology. A supervised, unhurried approach to skin, hair and face. Licence No. 300.">
 <meta name="theme-color" content="#3a2e1e">
 <link rel="canonical" href="https://zaka33333-hash.github.io/bato-clinic/v4.html">
@@ -449,7 +449,7 @@ body.dock-on .dock{ opacity:1; transform:none; pointer-events:auto; }
   <!-- 01 · DAYBREAK HERO -->
   <section class="stage" id="s1" data-stage data-theme="paper" data-idx="2" data-name="النور · FIRST LIGHT">
     <div class="wrap">
-      <div class="eyebrow" data-reveal="rise">Bato · Medical Clinic · Salmiya, Kuwait</div>
+      <div class="eyebrow" data-reveal="rise">Bato · Medical Clinic · Kuwait &amp; Dubai</div>
       <p class="hero__h" data-reveal="lines" style="margin-top:1.4rem">
         <span class="ln"><i>Where light</i></span>
         <span class="ln"><i>returns to</i></span>
@@ -626,6 +626,7 @@ body.dock-on .dock{ opacity:1; transform:none; pointer-events:auto; }
         </form>
         <div class="coords" data-reveal="rise" style="--d:160ms">
           <div class="coord"><div class="coord__in"><h4>Salmiya · Kuwait</h4><p>Block 1 · Street 2 · Building 24 · Floors 1 &amp; 2</p></div></div>
+          <div class="coord"><div class="coord__in"><h4>Al Safa · Dubai</h4><p>Al Safa First · Al Wasl Road</p></div></div>
           <div class="coord"><div class="coord__in"><h4>Hours · <span lang="ar">ساعات العمل</span></h4><p>Sat–Wed · 11:00 – 19:00<br>Thu–Fri · 11:00 – 18:00</p></div></div>
           <div class="coord"><div class="coord__in"><h4>Direct</h4><p><a href="tel:+96522027200" data-mag data-cursor="Call">Clinic +965 2202 7200</a><br><a href="https://wa.me/96560072702" target="_blank" rel="noopener" data-mag data-cursor="WhatsApp">WhatsApp +965 6007 2702</a><br><a href="https://reach.link/batoclinickw" target="_blank" rel="noopener" data-mag>Book online · reach.link</a><br><a href="https://www.instagram.com/batoclinic/" target="_blank" rel="noopener" data-mag>Instagram @batoclinic</a></p></div></div>
         </div>
@@ -638,13 +639,150 @@ body.dock-on .dock{ opacity:1; transform:none; pointer-events:auto; }
       <div class="foot__mark" data-reveal="rise" lang="ar">باتو<em lang="en">Bato</em></div>
       <div class="foot__legal">
         Where beauty and health meet · <span lang="ar">حيث يلتقي الجمال والصحة</span><br>
-        Licence No.&nbsp;<bdi lang="ar">٣٠٠</bdi> · Salmiya, Kuwait<br>
+        Licence No.&nbsp;<bdi lang="ar">٣٠٠</bdi> · Salmiya, Kuwait · Al Safa, Dubai<br>
         © 2026 Bato Clinic
       </div>
     </div>
   </footer>
 
 </main>
+
+<!-- ═══════════ BATO CONCIERGE (AI chat widget) ═══════════ -->
+<div id="bato-bot" aria-live="polite">
+  <button id="bb-launch" type="button" aria-label="Open Bato concierge">
+    <span class="bb-spark" aria-hidden="true"></span>
+    <span class="bb-launch-ar">نور</span><span class="bb-launch-en">Ask&nbsp;Noor</span>
+  </button>
+  <section id="bb-panel" role="dialog" aria-label="Bato concierge" hidden>
+    <header class="bb-head">
+      <div class="bb-id"><span class="bb-dot" aria-hidden="true"></span><div><b>Noor</b><small>Bato concierge · نور</small></div></div>
+      <button id="bb-close" type="button" aria-label="Close">✕</button>
+    </header>
+    <div id="bb-log" class="bb-log"></div>
+    <div id="bb-chips" class="bb-chips"></div>
+    <form id="bb-form" class="bb-form">
+      <input id="bb-input" type="text" autocomplete="off" placeholder="Ask about treatments, prices, booking…" aria-label="Message">
+      <button id="bb-send" type="submit" aria-label="Send">↑</button>
+    </form>
+    <p class="bb-fine">Noor is an AI assistant, not a doctor — for medical advice, book a consultation.</p>
+  </section>
+</div>
+<style>
+#bato-bot{ position:fixed; z-index:70; inset-inline-start:clamp(14px,3vw,30px); bottom:clamp(14px,3vw,30px); font-family:var(--sans,system-ui,sans-serif); }
+#bb-launch{ display:inline-flex; align-items:center; gap:.6em; padding:.8em 1.15em; border-radius:999px; border:1px solid #3a2e1e;
+  background:#2c2318; color:#efe7d9; font-family:var(--mono,ui-monospace,monospace); font-size:11px; letter-spacing:.16em; text-transform:uppercase; cursor:pointer;
+  box-shadow:0 10px 30px -12px rgba(0,0,0,.6); transition:transform .25s cubic-bezier(.22,1,.36,1), opacity .3s; }
+#bb-launch:hover{ transform:translateY(-2px); }
+.bb-launch-ar{ font-family:'Reem Kufi',sans-serif; font-size:1.5em; line-height:1; color:#d3b63c; }
+.bb-spark{ width:7px; height:7px; border-radius:50%; background:#d3b63c; box-shadow:0 0 12px 2px rgba(211,182,60,.6); animation:bbPulse 2.6s ease-in-out infinite; }
+@keyframes bbPulse{ 0%,100%{ transform:scale(1); opacity:.85 } 50%{ transform:scale(1.5); opacity:1 } }
+#bb-panel{ position:absolute; bottom:calc(100% + 12px); inset-inline-start:0; width:min(380px,calc(100vw - 28px)); height:min(560px,72vh);
+  display:flex; flex-direction:column; background:#241d13; color:#efe7d9; border:1px solid #3a2e1e; border-radius:20px; overflow:hidden;
+  box-shadow:0 26px 70px -24px rgba(0,0,0,.7); transform-origin:bottom left; }
+#bb-panel[hidden]{ display:none; }
+#bb-panel.bb-in{ animation:bbOpen .35s cubic-bezier(.22,1,.36,1); }
+@keyframes bbOpen{ from{ opacity:0; transform:translateY(14px) scale(.97) } to{ opacity:1; transform:none } }
+.bb-head{ display:flex; align-items:center; justify-content:space-between; padding:14px 16px; border-bottom:1px solid #3a2e1e; background:#2c2318; }
+.bb-id{ display:flex; align-items:center; gap:.7em; }
+.bb-id b{ font-family:var(--serif,Georgia,serif); font-weight:400; font-size:16px; letter-spacing:.01em; }
+.bb-id small{ display:block; font-family:var(--mono,monospace); font-size:9.5px; letter-spacing:.16em; text-transform:uppercase; color:#b9ac96; }
+.bb-dot{ width:8px; height:8px; border-radius:50%; background:#7fae7f; box-shadow:0 0 8px #7fae7f; }
+#bb-close{ background:none; border:0; color:#b9ac96; font-size:15px; cursor:pointer; padding:4px 6px; }
+.bb-log{ flex:1; overflow-y:auto; padding:16px; display:flex; flex-direction:column; gap:12px; scrollbar-width:thin; }
+.bb-msg{ max-width:84%; padding:.7em .9em; border-radius:14px; font-size:14px; line-height:1.5; white-space:pre-wrap; word-wrap:break-word; }
+.bb-msg.user{ align-self:flex-end; background:#3a2e1e; color:#f3ecdf; border-bottom-right-radius:5px; }
+.bb-msg.bot{ align-self:flex-start; background:#1b150d; color:#e9e0d1; border:1px solid #34291b; border-bottom-left-radius:5px; }
+.bb-msg a{ color:#e6c46a; text-decoration:underline; }
+.bb-msg.bot.bb-typing::after{ content:'…'; animation:bbBlink 1.2s steps(3) infinite; }
+@keyframes bbBlink{ 0%{opacity:.3} 50%{opacity:1} 100%{opacity:.3} }
+.bb-chips{ display:flex; flex-wrap:wrap; gap:6px; padding:0 16px 6px; }
+.bb-chip{ font-family:var(--mono,monospace); font-size:10px; letter-spacing:.08em; text-transform:uppercase; color:#d8c8aa; background:#2c2318; border:1px solid #3a2e1e; border-radius:999px; padding:.5em .8em; cursor:pointer; transition:background .2s; }
+.bb-chip:hover{ background:#3a2e1e; }
+.bb-form{ display:flex; gap:8px; padding:12px 16px; border-top:1px solid #3a2e1e; background:#2c2318; }
+#bb-input{ flex:1; background:#1b150d; border:1px solid #3a2e1e; border-radius:12px; padding:.7em .85em; color:#efe7d9; font-size:14px; outline:none; }
+#bb-input::placeholder{ color:#8f836e; }
+#bb-input:focus-visible{ border-color:#d3b63c; }
+#bb-send{ width:42px; flex:none; border:0; border-radius:12px; background:#d3b63c; color:#2c2318; font-size:18px; font-weight:600; cursor:pointer; transition:transform .12s; }
+#bb-send:active{ transform:scale(.94); }
+#bb-send:disabled{ opacity:.5; cursor:default; }
+.bb-fine{ margin:0; padding:0 16px 12px; font-size:10px; line-height:1.4; color:#8f836e; background:#2c2318; }
+@media (prefers-reduced-motion:reduce){ .bb-spark,#bb-panel.bb-in{ animation:none } }
+@media (max-width:720px){ #bato-bot{ inset-inline-start:12px; bottom:12px; } }
+</style>
+<script>
+(function(){
+  // ⚙️ SET THIS to your deployed Cloudflare Worker URL (see bato-concierge-worker.js):
+  var BATO_BOT = { endpoint: "" };  // e.g. "https://bato-concierge.yourname.workers.dev"
+  var WA = "https://wa.me/96560072702";
+
+  var launch=document.getElementById('bb-launch'), panel=document.getElementById('bb-panel'),
+      closeB=document.getElementById('bb-close'), log=document.getElementById('bb-log'),
+      chips=document.getElementById('bb-chips'), form=document.getElementById('bb-form'),
+      input=document.getElementById('bb-input'), send=document.getElementById('bb-send');
+  if(!launch) return;
+  var history=[], busy=false, greeted=false;
+  var SUGGESTIONS=["What helps dull, tired skin?","Botox prices in Dubai?","ساعات العمل؟","احجزي موعد"];
+  var isAr=function(s){ return /[؀-ۿ]/.test(s); };
+  var URL_RE=/(https?:\/\/[^\s)]+)/g;
+
+  // safe rich text: split on URLs → text nodes + real anchor elements (no innerHTML)
+  function setRich(el,text){ while(el.firstChild) el.removeChild(el.firstChild);
+    text.split(URL_RE).forEach(function(p){ if(!p) return;
+      if(/^https?:\/\//.test(p)){ var a=document.createElement('a'); a.href=p; a.target='_blank'; a.rel='noopener'; a.textContent=p; el.appendChild(a); }
+      else el.appendChild(document.createTextNode(p)); }); }
+
+  function bubble(role,txt){ var d=document.createElement('div'); d.className='bb-msg '+role;
+    if(isAr(txt)) d.setAttribute('dir','rtl'); setRich(d,txt); log.appendChild(d); log.scrollTop=log.scrollHeight; return d; }
+
+  function clearKids(n){ while(n.firstChild) n.removeChild(n.firstChild); }
+  function renderChips(){ clearKids(chips);
+    SUGGESTIONS.forEach(function(s){ var b=document.createElement('button'); b.type='button'; b.className='bb-chip';
+      b.textContent=s; if(isAr(s)) b.setAttribute('dir','rtl'); b.onclick=function(){ input.value=s; form.requestSubmit(); }; chips.appendChild(b); }); }
+
+  function open(){ panel.hidden=false; panel.classList.add('bb-in'); launch.style.opacity='0'; launch.style.pointerEvents='none';
+    setTimeout(function(){ input.focus(); },120);
+    if(!greeted){ greeted=true; bubble('bot',"Hello — I'm Noor, Bato's concierge. Ask me about treatments, prices, or booking, in English or العربية. How can I help?"); renderChips(); } }
+  function close(){ panel.hidden=true; launch.style.opacity=''; launch.style.pointerEvents=''; }
+  launch.onclick=open; closeB.onclick=close;
+  document.addEventListener('keydown',function(e){ if(e.key==='Escape' && !panel.hidden) close(); });
+
+  form.addEventListener('submit', function(e){ e.preventDefault();
+    var text=(input.value||'').trim(); if(!text||busy) return;
+    input.value=''; clearKids(chips);
+    bubble('user',text); history.push({role:'user',content:text});
+    if(!BATO_BOT.endpoint){ bubble('bot',"I'm not connected to the clinic brain yet. In the meantime, message the team on WhatsApp: "+WA); return; }
+    talk();
+  });
+
+  function talk(){
+    busy=true; send.disabled=true;
+    var out=bubble('bot',''); out.classList.add('bb-typing'); var acc='';
+    fetch(BATO_BOT.endpoint,{ method:'POST', headers:{'content-type':'application/json'}, body:JSON.stringify({ messages:history }) })
+    .then(function(res){
+      if(!res.ok||!res.body) throw new Error('bad');
+      var reader=res.body.getReader(), dec=new TextDecoder(), buf='';
+      function done(){ out.classList.remove('bb-typing');
+        if(acc){ history.push({role:'assistant',content:acc}); }
+        else { setRich(out,"Sorry — I had trouble responding. You can reach the team on WhatsApp: "+WA); }
+        busy=false; send.disabled=false; input.focus(); }
+      (function pump(){ return reader.read().then(function(r){
+        if(r.done){ done(); return; }
+        buf+=dec.decode(r.value,{stream:true}); var lines=buf.split('\n'); buf=lines.pop();
+        lines.forEach(function(line){ line=line.trim(); if(line.indexOf('data:')!==0) return;
+          var payload=line.slice(5).trim(); if(!payload) return;
+          try{ var j=JSON.parse(payload);
+            if(j.type==='content_block_delta'&&j.delta&&j.delta.type==='text_delta'){ acc+=j.delta.text;
+              out.classList.remove('bb-typing'); setRich(out,acc); if(isAr(acc))out.setAttribute('dir','rtl'); log.scrollTop=log.scrollHeight; }
+          }catch(_){ } });
+        return pump();
+      }); })();
+    })
+    .catch(function(){ out.classList.remove('bb-typing');
+      setRich(out,"I'm having trouble connecting right now. Please message the team on WhatsApp: "+WA);
+      busy=false; send.disabled=false; });
+  }
+})();
+</script>
 
 <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.14/dist/lenis.min.js" integrity="sha384-O55L/6rhHr9CFvrxqv5luxOCcmVaBmETbZbJDP+Do8T0pztTACsFBD/IXCNkj7DV" crossorigin="anonymous" onerror="window.__lenisFailed=true"></script>
 <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/gsap.min.js"></script>
