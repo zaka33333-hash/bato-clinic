@@ -736,7 +736,10 @@ body.dock-on .dock{ opacity:1; transform:none; pointer-events:auto; }
 .bb-ai-status{ margin:0 16px 8px; font-family:var(--mono,ui-monospace,monospace); font-size:10px; line-height:1.45; color:#b9ac96; }
 .bb-ai-status[hidden]{ display:none; }
 @media (prefers-reduced-motion:reduce){ .bb-spark,#bb-panel.bb-in{ animation:none } }
-@media (max-width:720px){ #bato-bot{ inset-inline-start:12px; bottom:12px; } }
+@media (max-width:720px){
+  #bato-bot{ inset-inline-start:12px; bottom:calc(12px + env(safe-area-inset-bottom,0px)); }
+  #bb-panel{ position:fixed; inset-inline:8px; bottom:calc(8px + env(safe-area-inset-bottom,0px)); width:auto; height:min(82vh,640px); height:min(82dvh,640px); }
+}
 </style>
 <script>
 (function(){
