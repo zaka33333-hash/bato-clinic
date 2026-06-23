@@ -720,7 +720,7 @@ body.dock-on .dock{ opacity:1; transform:none; pointer-events:auto; }
 (function(){
   var WA = "https://wa.me/96560072702";
   // Optional in-browser open-source model (free, private, runs on the visitor's device via WebGPU).
-  var LOCAL_MODEL = "Llama-3.2-1B-Instruct-q4f32_1-MLC";   // ~1GB, cached after first load
+  var LOCAL_MODEL = "Qwen2.5-1.5B-Instruct-q4f32_1-MLC";   // Qwen2.5 — stronger Arabic/multilingual; ~1.3GB, cached after first load
 
   var launch=document.getElementById('bb-launch'), panel=document.getElementById('bb-panel'),
       closeB=document.getElementById('bb-close'), log=document.getElementById('bb-log'),
@@ -852,7 +852,7 @@ body.dock-on .dock{ opacity:1; transform:none; pointer-events:auto; }
   async function enableLocalAI(){
     if(loadingAI||engine) return;
     if(!('gpu' in navigator) || !navigator.gpu){ setStatus("On-device AI needs a WebGPU browser (recent Chrome/Edge, or Safari 18+). No worries — I'll keep answering instantly without it."); aiBtn.hidden=true; return; }
-    loadingAI=true; aiBtn.hidden=true; setStatus("Loading on-device AI… first time downloads ~1GB to your browser cache, then it's instant & fully private. You can keep chatting meanwhile.");
+    loadingAI=true; aiBtn.hidden=true; setStatus("Loading on-device AI (Qwen2.5)… first time downloads ~1.3GB to your browser cache, then it's instant & fully private. You can keep chatting meanwhile.");
     try{
       var webllm=await import("https://esm.run/@mlc-ai/web-llm");
       engine=await webllm.CreateMLCEngine(LOCAL_MODEL,{ initProgressCallback:function(p){ setStatus("Loading on-device AI… "+Math.round((p.progress||0)*100)+"%"); } });
