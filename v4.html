@@ -309,6 +309,14 @@ body.dock-on .dock{ opacity:1; transform:none; pointer-events:auto; }
 .diag__num{ font-family:var(--serif); font-weight:200; font-size:clamp(3.4rem,9vw,7rem); line-height:.85; letter-spacing:-.02em; color:#efe7d9; }
 .diag__num bdi{ font-size:.34em; letter-spacing:.03em; color:var(--cyan); }
 .diag__numcap{ font-family:var(--mono); font-size:11px; letter-spacing:.2em; text-transform:uppercase; color:var(--cyan); line-height:1.5; }
+/* INTERIOR — "Inside Bato" real-clinic atmosphere band (muted video loop) */
+.inside{ position:relative; min-height:100svh; display:flex; align-items:flex-end; overflow:hidden; z-index:3; background:#1b150d center/cover no-repeat; }
+.inside__v{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover; }
+.inside__veil{ position:absolute; inset:0; background:linear-gradient(to top, rgba(28,22,14,.82) 0%, rgba(28,22,14,.18) 50%, rgba(28,22,14,.5) 100%); }
+.inside__c{ position:relative; z-index:4; padding:clamp(28px,6vw,90px); color:#efe7d9; max-width:680px; }
+.inside__h{ font-family:var(--serif); font-weight:200; font-size:clamp(2.4rem,7vw,6rem); line-height:.95; letter-spacing:-.03em; margin-top:.5rem; }
+.inside__h em{ font-style:italic; font-weight:400; }
+@media (prefers-reduced-motion:reduce){ .inside__v{ display:none; } .inside{ background-image:url(assets/inside-bato-poster.jpg); } }
 .diag__head{ font-family:var(--serif); font-weight:200; font-size:clamp(1.8rem,4vw,3.2rem); line-height:1.12; letter-spacing:-.02em; max-width:18ch; }
 .diag__ar{ font-family:var(--kufi); direction:rtl; color:var(--cyan); font-weight:500; font-size:clamp(1.2rem,2.6vw,1.7rem); margin-bottom:.6rem; }
 .diag__grid{ margin-top:clamp(2.4rem,5vw,3.6rem); display:grid; gap:0; border-top:1px solid rgba(211,182,60,.45); }
@@ -562,6 +570,18 @@ body.dock-on .dock{ opacity:1; transform:none; pointer-events:auto; }
         <div class="diag__row"><span>ECG · injections · wound care</span><span lang="ar">تخطيط القلب والحقن والغيارات</span></div>
         <div class="diag__row"><span>Diabetic-foot screening</span><span lang="ar">كشف القدم للسكري</span></div>
       </div>
+    </div>
+  </section>
+
+  <!-- INTERIOR · Inside Bato (real clinic, muted loop) -->
+  <section class="inside" aria-label="Inside Bato Clinic">
+    <video class="inside__v" autoplay muted loop playsinline preload="metadata" poster="assets/inside-bato-poster.jpg" aria-hidden="true">
+      <source src="assets/inside-bato.webm" type="video/webm"><source src="assets/inside-bato.mp4" type="video/mp4">
+    </video>
+    <div class="inside__veil"></div>
+    <div class="inside__c">
+      <div class="eyebrow" data-reveal="rise"><span lang="ar">داخل باتو</span> · Inside the clinic</div>
+      <p class="inside__h" data-reveal="lines"><span class="ln"><i>Where the light</i></span><span class="ln"><i>actually <em>lives.</em></i></span></p>
     </div>
   </section>
 
