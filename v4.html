@@ -12,15 +12,18 @@
 
 <!-- social share -->
 <meta property="og:type" content="website">
-<meta property="og:site_name" content="Bato Clinic">
-<meta property="og:title" content="Bato Clinic — First Light">
+<meta property="og:site_name" content="Bato Medical Clinic">
+<meta property="og:title" content="Bato Medical Clinic — First Light">
 <meta property="og:description" content="A supervised, unhurried approach to skin, hair and face. Doctor-led general medicine & dermatology in Salmiya, Kuwait. Licence No. 300.">
 <meta property="og:url" content="https://zaka33333-hash.github.io/bato-clinic/v4.html">
 <meta property="og:image" content="https://zaka33333-hash.github.io/bato-clinic/assets/refinement.jpg?v=4">
+<meta property="og:image:width" content="2200">
+<meta property="og:image:height" content="1228">
+<meta property="og:image:alt" content="Bato Medical Clinic — serene profile portrait in warm light">
 <meta property="og:locale" content="en_US">
 <meta property="og:locale:alternate" content="ar_KW">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Bato Clinic — First Light">
+<meta name="twitter:title" content="Bato Medical Clinic — First Light">
 <meta name="twitter:description" content="Doctor-led medical clinic in Salmiya, Kuwait — general medicine, dermatology & cosmetology. Skin, hair and face, unhurried.">
 <meta name="twitter:image" content="https://zaka33333-hash.github.io/bato-clinic/assets/refinement.jpg?v=4">
 
@@ -43,6 +46,10 @@
   "medicalSpecialty": ["Dermatology", "PrimaryCare"],
   "currenciesAccepted": "KWD",
   "address": { "@type": "PostalAddress", "streetAddress": "Block 1, Street 2, Building 24, Floors 1 & 2", "addressLocality": "Salmiya", "addressCountry": "KW" },
+  "location": [
+    { "@type": "MedicalClinic", "name": "Bato Medical Clinic — Salmiya, Kuwait", "address": { "@type": "PostalAddress", "streetAddress": "Block 1, Street 2, Building 24, Floors 1 & 2", "addressLocality": "Salmiya", "addressCountry": "KW" } },
+    { "@type": "MedicalClinic", "name": "Bato Medical Clinic — Al Safa, Dubai", "address": { "@type": "PostalAddress", "streetAddress": "Al Safa First, Al Wasl Road", "addressLocality": "Dubai", "addressCountry": "AE" } }
+  ],
   "sameAs": [
     "https://www.instagram.com/batoclinic/",
     "https://www.linkedin.com/company/bato-clinic/",
@@ -242,7 +249,7 @@ body.dock-on .dock{ opacity:1; transform:none; pointer-events:auto; }
 /* ─── 00 overture ─── */
 #s0{ align-items:center; justify-content:center; text-align:center; }
 .mark{ font-family:var(--kufi); font-weight:600; font-size:clamp(2.4rem,7vw,5.4rem); line-height:1; letter-spacing:.01em; direction:rtl; }
-.mark__en{ display:block; font-family:var(--serif); font-weight:200; font-style:italic; font-size:.34em; letter-spacing:.5em; text-transform:uppercase; color:var(--amber); margin-top:1.1rem; direction:ltr; }
+.mark__en{ display:block; font-family:var(--serif); font-weight:200; font-style:italic; font-size:.32em; letter-spacing:.34em; text-transform:uppercase; color:var(--amber); margin-top:1.1rem; direction:ltr; }
 .whisper{ margin-top:clamp(2.6rem,6vw,4.2rem); font-family:var(--serif); font-weight:200; font-size:clamp(1.05rem,1.8vw,1.5rem); color:var(--soft); }
 .whisper .ar{ display:block; font-family:var(--ruqaa); font-size:1.3em; margin-bottom:.5rem; color:var(--ink); }
 .cue{ position:absolute; bottom:clamp(22px,4vw,40px); left:50%; transform:translateX(-50%); font-family:var(--mono); font-size:10px; letter-spacing:.3em; text-transform:uppercase; color:var(--soft); animation:cue 2.6s var(--ease) infinite; }
@@ -279,7 +286,7 @@ body.dock-on .dock{ opacity:1; transform:none; pointer-events:auto; }
 .shot__c{ position:relative; z-index:4; padding:clamp(28px,6vw,90px); color:var(--halo); max-width:680px; }
 .shot__tag{ font-family:var(--mono); font-size:11px; letter-spacing:.3em; text-transform:uppercase; color:rgba(251,246,236,.86); }
 .shot__name{ font-family:var(--serif); font-weight:200; font-size:clamp(3rem,9vw,8rem); line-height:.92; letter-spacing:-.03em; margin:.4rem 0 .2rem; }
-.shot__name .ar{ font-family:var(--kufi); font-weight:500; font-size:.42em; color:var(--amber); margin-inline-start:.4em; }
+.shot__name .ar{ font-family:var(--kufi); font-weight:500; font-size:.42em; color:var(--amber); display:block; margin:.06em 0 0; }
 .shot__d{ max-width:40ch; font-size:clamp(1rem,1.3vw,1.18rem); line-height:1.55; color:rgba(251,246,236,.9); margin-top:1rem; text-shadow:0 1px 14px rgba(28,22,14,.45); }
 /* signature: hair shimmer */
 .shimmer{ position:absolute; inset:0; z-index:5; pointer-events:none; opacity:0;
@@ -467,7 +474,7 @@ body.dock-on .dock{ opacity:1; transform:none; pointer-events:auto; }
   <!-- 00 · OVERTURE -->
   <section class="stage" id="s0" data-stage data-theme="dark" data-idx="1" data-name="السكون · STILLNESS">
     <div class="wrap">
-      <h1 class="mark" data-reveal="blur" lang="ar">مستوصف باتو<span class="mark__en" lang="en">Bato Clinic</span></h1>
+      <h1 class="mark" data-reveal="blur" lang="ar">مستوصف باتو<span class="mark__en" lang="en">Bato Medical Clinic</span></h1>
       <p class="whisper" data-reveal="blur" style="--d:300ms">
         <span class="ar" lang="ar" style="font-family:var(--ruqaa)">النور يعود إلى البشرة</span>
         Light returns to the skin.
@@ -642,7 +649,7 @@ body.dock-on .dock{ opacity:1; transform:none; pointer-events:auto; }
         <div class="book__ar" data-reveal="rise" style="--d:160ms" lang="ar">ابدئي بقراءة هادئة</div>
       </div>
       <div class="book__grid">
-        <form class="form" id="bookForm" data-reveal="rise" action="https://wa.me/96560072702" method="get">
+        <form class="form" id="bookForm" data-reveal="rise">
           <div class="field"><label for="bn">Name · <span lang="ar">الاسم</span></label><input id="bn" name="name" type="text" autocomplete="name" placeholder="Your name"></div>
           <div class="field"><label for="bs">Interest · <span lang="ar">الخدمة</span></label>
             <select id="bs" name="interest">
@@ -682,7 +689,7 @@ body.dock-on .dock{ opacity:1; transform:none; pointer-events:auto; }
       <div class="foot__legal">
         Where beauty and health meet · <span lang="ar">حيث يلتقي الجمال والصحة</span><br>
         Licence No.&nbsp;<bdi lang="ar">٣٠٠</bdi> · Salmiya, Kuwait · Al Safa, Dubai<br>
-        © 2026 Bato Clinic
+        © 2026 Bato Medical Clinic
       </div>
     </div>
   </footer>
@@ -690,17 +697,17 @@ body.dock-on .dock{ opacity:1; transform:none; pointer-events:auto; }
 </main>
 
 <!-- ═══════════ BATO CONCIERGE (AI chat widget) ═══════════ -->
-<div id="bato-bot" aria-live="polite">
+<div id="bato-bot">
   <button id="bb-launch" type="button" aria-label="Open Bato concierge">
     <span class="bb-spark" aria-hidden="true"></span>
     <span class="bb-launch-ar">نور</span><span class="bb-launch-en">Ask&nbsp;Noor</span>
   </button>
-  <section id="bb-panel" role="dialog" aria-label="Bato concierge" hidden>
+  <section id="bb-panel" role="dialog" aria-modal="true" aria-label="Bato concierge" hidden>
     <header class="bb-head">
       <div class="bb-id"><span class="bb-dot" aria-hidden="true"></span><div><b>Noor</b><small>Bato concierge · نور</small></div></div>
       <button id="bb-close" type="button" aria-label="Close">✕</button>
     </header>
-    <div id="bb-log" class="bb-log"></div>
+    <div id="bb-log" class="bb-log" aria-live="polite"></div>
     <div id="bb-chips" class="bb-chips"></div>
     <button id="bb-ai" class="bb-ai" type="button">✦ Enable smarter on-device AI · private · free</button>
     <div id="bb-ai-status" class="bb-ai-status" hidden></div>
@@ -869,20 +876,28 @@ body.dock-on .dock{ opacity:1; transform:none; pointer-events:auto; }
   // ── shared UI helpers ──
   function setRich(el,text){ while(el.firstChild) el.removeChild(el.firstChild);
     text.split(URL_RE).forEach(function(p){ if(!p) return;
-      if(/^https?:\/\//.test(p)){ var a=document.createElement('a'); a.href=p; a.target='_blank'; a.rel='noopener'; a.textContent=p; el.appendChild(a); }
-      else el.appendChild(document.createTextNode(p)); }); }
-  function bubble(role,txt){ var d=document.createElement('div'); d.className='bb-msg '+role;
-    if(isAr(txt)) d.setAttribute('dir','rtl'); setRich(d,txt); log.appendChild(d); log.scrollTop=log.scrollHeight; return d; }
+      if(/^https?:\/\//.test(p)){ var a=document.createElement('a'); a.href=p; a.target='_blank'; a.rel='noopener'; a.dir='ltr'; a.textContent=p; el.appendChild(a); }
+      else { var s=document.createElement('bdi'); s.textContent=p; el.appendChild(s); } }); }   // bdi isolates each run → mixed AR/EN reorders correctly
+  function bubble(role,txt){ var d=document.createElement('div'); d.className='bb-msg '+role; d.dir='auto';
+    setRich(d,txt); log.appendChild(d); log.scrollTop=log.scrollHeight; return d; }
   function clearKids(n){ while(n.firstChild) n.removeChild(n.firstChild); }
   function renderChips(){ clearKids(chips);
     SUGGESTIONS.forEach(function(s){ var b=document.createElement('button'); b.type='button'; b.className='bb-chip';
-      b.textContent=s; if(isAr(s)) b.setAttribute('dir','rtl'); b.onclick=function(){ input.value=s; form.requestSubmit(); }; chips.appendChild(b); }); }
+      b.textContent=s; b.dir='auto'; b.onclick=function(){ input.value=s; form.requestSubmit(); }; chips.appendChild(b); }); }
   function setStatus(t){ if(!aiStatus) return; aiStatus.hidden=!t; aiStatus.textContent=t||''; }
 
-  function open(){ panel.hidden=false; panel.classList.add('bb-in'); launch.style.opacity='0'; launch.style.pointerEvents='none';
+  var lastFocus=null;
+  function open(){ lastFocus=document.activeElement; panel.hidden=false; panel.classList.add('bb-in');
+    launch.style.opacity='0'; launch.style.pointerEvents='none'; try{launch.inert=true;}catch(_){}   // remove launcher from focus/AT while modal open
     setTimeout(function(){ input.focus(); },120);
-    if(!greeted){ greeted=true; bubble('bot',"Hello! I'm Noor, Bato's concierge. Ask me about treatments, prices, hours or booking, in English or العربية. How can I help?"); renderChips(); } }
-  function close(){ panel.hidden=true; launch.style.opacity=''; launch.style.pointerEvents=''; }
+    if(!greeted){ greeted=true; bubble('bot',"Hello! I'm Noor, the concierge at Bato Medical Clinic. Ask me about treatments, prices, hours or booking, in English or العربية. How can I help?"); renderChips(); } }
+  function close(){ panel.hidden=true; launch.style.opacity=''; launch.style.pointerEvents=''; try{launch.inert=false;}catch(_){}
+    (lastFocus&&lastFocus.focus?lastFocus:launch).focus(); }
+  function trapTab(e){ if(e.key!=='Tab'||panel.hidden) return; var f=panel.querySelectorAll('button,a[href],input,select,textarea'); if(!f.length) return;
+    var first=f[0], last=f[f.length-1];
+    if(e.shiftKey && document.activeElement===first){ e.preventDefault(); last.focus(); }
+    else if(!e.shiftKey && document.activeElement===last){ e.preventDefault(); first.focus(); } }
+  panel.addEventListener('keydown', trapTab);
   launch.onclick=open; closeB.onclick=close;
   document.addEventListener('keydown',function(e){ if(e.key==='Escape' && !panel.hidden) close(); });
 
@@ -915,7 +930,7 @@ body.dock-on .dock{ opacity:1; transform:none; pointer-events:auto; }
       var msgs=[{role:'system',content:buildSys()}].concat(history.slice(-8));
       var stream=await engine.chat.completions.create({ messages:msgs, stream:true, temperature:0.3, max_tokens:480 });
       for await (var c of stream){ var d=c.choices&&c.choices[0]&&c.choices[0].delta&&c.choices[0].delta.content;
-        if(d){ acc+=d; out.classList.remove('bb-typing'); setRich(out,acc); if(isAr(acc))out.setAttribute('dir','rtl'); log.scrollTop=log.scrollHeight; } }
+        if(d){ acc+=d; out.classList.remove('bb-typing'); setRich(out,acc); log.scrollTop=log.scrollHeight; } }
     }catch(err){ acc=answerLocal(history[history.length-1].content); }
     out.classList.remove('bb-typing'); if(!out.textContent) setRich(out,acc);
     if(acc) history.push({role:'assistant',content:acc});
@@ -933,8 +948,8 @@ body.dock-on .dock{ opacity:1; transform:none; pointer-events:auto; }
 </script>
 
 <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.14/dist/lenis.min.js" integrity="sha384-O55L/6rhHr9CFvrxqv5luxOCcmVaBmETbZbJDP+Do8T0pztTACsFBD/IXCNkj7DV" crossorigin="anonymous" onerror="window.__lenisFailed=true"></script>
-<script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/gsap.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/ScrollTrigger.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/gsap.min.js" integrity="sha384-HOvlOYPIs/zjoIkWUGXkVmXsjr8GuZLV+Q+rcPwmJOVZVpvTSXQChiN4t9Euv9Vc" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/ScrollTrigger.min.js" integrity="sha384-P8VzCVnT9NBUkMrpcIZrJbA7EBjJvh/fJS6PmP+4nLIM284DtsImIv8D0fFjIkeh" crossorigin="anonymous"></script>
 <script>
 (function(){
   var reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -1076,7 +1091,7 @@ body.dock-on .dock{ opacity:1; transform:none; pointer-events:auto; }
   var f=document.getElementById('bookForm'), note=document.getElementById('formNote');
   if(f) f.addEventListener('submit', function(e){ e.preventDefault();
     var n=(document.getElementById('bn').value||'').trim(), s=document.getElementById('bs').value||'a consultation';
-    var msg='Hello Bato — I would like to book '+s+(n?(' for '+n):'')+'.';
+    var msg='Hello Bato Medical Clinic — I would like to book '+s+(n?(' for '+n):'')+'.';
     var url='https://wa.me/96560072702?text='+encodeURIComponent(msg);
     var w=window.open(url,'_blank');
     if(w){ try{ w.opener=null; }catch(_){ } if(note) note.textContent='Opening WhatsApp…'; }
