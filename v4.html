@@ -445,6 +445,27 @@ body.dock-on .dock{ opacity:1; transform:none; pointer-events:auto; }
 .coord h4{ font-family:var(--mono); font-size:10px; letter-spacing:.2em; text-transform:uppercase; color:var(--clay); font-weight:400; }
 .coord p{ font-size:1rem; line-height:1.5; margin-top:.4rem; color:var(--soft); }
 .coord a{ color:var(--link); text-decoration:underline; text-decoration-thickness:1px; text-underline-offset:3px; }
+/* ── elevated booking: invitation + framed photo + typographic ledger ── */
+.book__invite{ margin-top:clamp(1.2rem,2.4vw,1.7rem); max-width:46ch; font-size:clamp(1.02rem,1.3vw,1.18rem); line-height:1.58; color:var(--soft); text-wrap:pretty; }
+#s8 .book__grid{ align-items:start; }
+.book__col{ display:flex; flex-direction:column; gap:clamp(1.4rem,3vw,2rem); }
+.book__col .book__invite{ margin-top:0; max-width:40ch; }
+.book__fig{ position:relative; }
+.book__fig picture{ display:block; }
+.book__fig img{ width:100%; height:min(54vh,520px); object-fit:cover; border-radius:5px; border:1px solid rgba(111,86,22,.28); box-shadow:0 30px 70px -34px rgba(28,18,8,.55); filter:contrast(1.03) saturate(1.04); }
+.book__fig figcaption{ position:absolute; inset-inline-start:14px; bottom:12px; font-family:var(--mono); font-size:10px; letter-spacing:.16em; text-transform:uppercase; color:#f3ecdf; text-shadow:0 1px 12px rgba(20,14,7,.7); }
+.ledger{ margin-top:clamp(.5rem,2vw,1.4rem); display:grid; grid-template-columns:1fr; border-top:1px solid rgba(111,86,22,.35); }
+@media(min-width:760px){ .ledger{ grid-template-columns:repeat(4,1fr); } }
+.ledger__row{ display:flex; flex-direction:column; gap:.55rem; padding:1.15rem 0; border-bottom:1px solid var(--rule); }
+@media(min-width:760px){ .ledger__row{ padding:1.4rem 1.7rem; border-bottom:0; border-inline-start:1px solid var(--rule); } .ledger__row:first-child{ border-inline-start:0; padding-inline-start:0; } }
+.ledger__k{ font-family:var(--mono); font-size:10px; letter-spacing:.2em; text-transform:uppercase; color:var(--hud-accent); }
+.ledger__k .ar{ font-family:var(--kufi); letter-spacing:0; }
+.ledger__v{ font-size:.98rem; line-height:1.55; color:var(--soft); }
+.ledger__links{ display:flex; flex-direction:column; gap:.32rem; }
+.ledger__links a{ position:relative; width:max-content; max-width:100%; color:var(--ink); transition:color .3s var(--ease); }
+.ledger__links a::after{ content:''; position:absolute; inset-inline-start:0; bottom:-1px; width:100%; height:1px; background:var(--hud-accent); transform:scaleX(0); transform-origin:left; transition:transform .35s var(--ease); }
+.ledger__links a:hover{ color:var(--hud-accent); }
+.ledger__links a:hover::after{ transform:scaleX(1); }
 .foot{ position:relative; z-index:3; background:var(--umbra); color:#e4dbd2; padding:clamp(40px,8vw,90px) clamp(28px,6vw,90px) clamp(28px,5vw,50px); }
 .foot__mark{ font-family:var(--kufi); direction:rtl; font-weight:600; font-size:clamp(3rem,12vw,9rem); line-height:1; color:#e4dbd2; }
 .foot__mark em{ font-family:var(--serif); font-style:italic; font-weight:200; font-size:.3em; letter-spacing:.4em; text-transform:uppercase; color:var(--amber); direction:ltr; display:block; margin-top:.6rem; }
@@ -744,7 +765,9 @@ body.dock-on .dock{ opacity:1; transform:none; pointer-events:auto; }
         <div class="book__ar" data-reveal="rise" style="--d:160ms" lang="ar">ابدئي بقراءة هادئة</div>
       </div>
       <div class="book__grid">
-        <form class="form" id="bookForm" data-reveal="rise">
+        <div class="book__col">
+        <p class="book__invite" data-reveal="rise" style="--d:200ms">Tell us a little, and we'll arrange the rest on WhatsApp — at a pace that suits you. No charge to ask.</p>
+        <form class="form" id="bookForm" data-reveal="rise" style="--d:280ms">
           <div class="field"><label for="bn">Name · <span lang="ar">الاسم</span></label><input id="bn" name="name" type="text" autocomplete="name" placeholder="Your name"></div>
           <div class="field"><label for="bs">Interest · <span lang="ar">الخدمة</span></label>
             <select id="bs" name="interest">
@@ -768,12 +791,21 @@ body.dock-on .dock{ opacity:1; transform:none; pointer-events:auto; }
           <p class="formnote" id="formNote" role="status" aria-live="polite"></p>
           <noscript><p class="formnote">Message us directly on <a href="https://wa.me/96560072702" style="color:var(--link);text-decoration:underline">WhatsApp +965 6007 2702</a>.</p></noscript>
         </form>
-        <div class="coords" data-reveal="rise" style="--d:160ms">
-          <div class="coord"><div class="coord__in"><h4>Salmiya · Kuwait</h4><p>Block 1 · Street 2 · Building 24 · Floors 1 &amp; 2</p></div></div>
-          <div class="coord"><div class="coord__in"><h4>Al Safa · Dubai</h4><p>Al Safa First · Al Wasl Road</p></div></div>
-          <div class="coord"><div class="coord__in"><h4>Hours · <span lang="ar">ساعات العمل</span></h4><p>Sat–Wed · 11:00 – 19:00<br>Thu–Fri · 11:00 – 18:00</p></div></div>
-          <div class="coord"><div class="coord__in"><h4>Direct</h4><p><a href="tel:+96522027200" data-mag data-cursor="Call">Clinic +965 2202 7200</a><br><a href="https://wa.me/96560072702" target="_blank" rel="noopener" data-mag data-cursor="WhatsApp">WhatsApp +965 6007 2702</a><br><a href="https://reach.link/batoclinickw" target="_blank" rel="noopener" data-mag>Book online · reach.link</a><br><a href="https://www.instagram.com/batoclinic/" target="_blank" rel="noopener" data-mag>Instagram @batoclinic</a></p></div></div>
         </div>
+        <figure class="book__fig" data-reveal="rise" style="--d:240ms">
+          <picture>
+            <source type="image/avif" srcset="assets/about-4-760.avif 760w, assets/about-4-1200.avif 1200w" sizes="(max-width:960px) 92vw, 40vw">
+            <source type="image/webp" srcset="assets/about-4-760.webp 760w, assets/about-4-1200.webp 1200w" sizes="(max-width:960px) 92vw, 40vw">
+            <img src="assets/about-4.jpg" alt="A designer chair and a glass table of fresh roses in Bato's calm window light" loading="lazy" decoding="async">
+          </picture>
+          <figcaption>Salmiya · the waiting room</figcaption>
+        </figure>
+      </div>
+      <div class="ledger" data-reveal="rise" style="--d:300ms">
+        <div class="ledger__row"><span class="ledger__k">Salmiya · Kuwait</span><span class="ledger__v">Block 1 · Street 2 · Building 24 · Floors 1 &amp; 2</span></div>
+        <div class="ledger__row"><span class="ledger__k">Al Safa · Dubai</span><span class="ledger__v">Al Safa First · Al Wasl Road</span></div>
+        <div class="ledger__row"><span class="ledger__k">Hours · <span class="ar" lang="ar">ساعات</span></span><span class="ledger__v">Sat–Wed · 11:00–19:00<br>Thu–Fri · 11:00–18:00</span></div>
+        <div class="ledger__row"><span class="ledger__k">Direct</span><span class="ledger__v ledger__links"><a href="tel:+96522027200" data-mag data-cursor="Call">Clinic +965 2202 7200</a><a href="https://wa.me/96560072702" target="_blank" rel="noopener" data-mag data-cursor="WhatsApp">WhatsApp +965 6007 2702</a><a href="https://reach.link/batoclinickw" target="_blank" rel="noopener" data-mag>reach.link</a><a href="https://www.instagram.com/batoclinic/" target="_blank" rel="noopener" data-mag>@batoclinic</a></span></div>
       </div>
     </div>
   </section>
