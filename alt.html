@@ -4,14 +4,14 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
   <meta name="theme-color" content="#F7F3EC" />
-  <title>Bato Clinic — Where beauty and health meet</title>
-  <meta name="description" content="Bato Clinic — a precise, supervised approach to skin, hair and facial care. Kuwait & Dubai. English." />
+  <title>Bato Clinic · Where beauty and health meet</title>
+  <meta name="description" content="Bato Clinic · a precise, supervised approach to skin, hair and facial care. Kuwait & Dubai. English." />
 
   <!--
   ════════════════════════════════════════════════════════════════════
-  BATO CLINIC — Version B  ·  "Luminous Membrane" (English, light register)
+  BATO CLINIC · Version B  ·  "Luminous Membrane" (English, light register)
   Concept by GPT-5/Codex, built to A/B against Version A (the dark WebGL arcade).
-  Signature: a diagnostic LOUPE — scroll focuses the lens and each service
+  Signature: a diagnostic LOUPE · scroll focuses the lens and each service
   resolves inside it, over a luminous skin/light shader membrane.
   Same compliance: NO patient photos / before-after / prices / superlatives.
   Replace [MOH AD PERMIT] / [FACILITY LICENCE] before launch; confirm doctor titles.
@@ -20,7 +20,7 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400;0,6..96,500;1,6..96,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
   <link href="https://api.fontshare.com/v2/css?f[]=satoshi@400,500,700&display=swap" rel="stylesheet" />
 
   <script defer src="https://unpkg.com/lenis@1.1.18/dist/lenis.min.js"></script>
@@ -31,9 +31,10 @@
     :root{
       --pearl:#F7F3EC; --white:#FFFEFA; --gold:#BFA46A; --gold-deep:#9C854E;
       --taupe:#A89282; --ink:#241C18; --ink-soft:#5A4E44; --serum:#DCECF0;
-      --display:'Instrument Serif', Georgia, serif;
+      --display:'Bodoni Moda', Georgia, serif;
       --sans:'Satoshi', system-ui, sans-serif;
       --mono:'JetBrains Mono', ui-monospace, monospace;
+      --ease-out:cubic-bezier(0.23,1,0.32,1); --ease-soft:cubic-bezier(0.32,0.72,0,1);
       --lx:50%; --ly:44%; --lr:30vmin;
     }
     *,*::before,*::after{ box-sizing:border-box; margin:0; padding:0; }
@@ -41,7 +42,7 @@
     body{
       background:var(--pearl); color:var(--ink); font-family:var(--sans); font-weight:400;
       line-height:1.6; -webkit-font-smoothing:antialiased; text-rendering:optimizeLegibility;
-      overflow-x:hidden;
+      overflow-x:hidden; font-optical-sizing:auto;
     }
     a{ color:inherit; text-decoration:none; }
     button{ background:none;border:0;color:inherit;font:inherit;cursor:pointer; }
@@ -73,8 +74,9 @@
     .hud__bar{ width:54px; height:1px; background:rgba(36,28,24,0.18); position:relative; overflow:hidden; }
     .hud__bar::after{ content:''; position:absolute; inset-inline-start:0; top:0; height:100%; width:var(--prog,0%); background:var(--gold-deep); }
     .hud__book{ justify-self:end; font-family:var(--mono); font-size:11px; letter-spacing:0.18em; text-transform:uppercase;
-      border:1px solid var(--ink); border-radius:999px; padding:0.5rem 1.1rem; transition:background .35s,color .35s; }
+      border:1px solid var(--ink); border-radius:999px; padding:0.5rem 1.1rem; transition:background 220ms var(--ease-out), color 220ms var(--ease-out), transform 150ms var(--ease-out); }
     .hud__book:hover{ background:var(--ink); color:var(--pearl); }
+    .hud__book:active{ transform:scale(0.96); }
 
     /* cursor */
     .cursor{ position:fixed; top:0; left:0; width:8px; height:8px; margin:-4px 0 0 -4px; border-radius:50%;
@@ -86,7 +88,9 @@
 
     /* generic section */
     .sec{ position:relative; min-height:100svh; display:grid; place-items:center; padding:7rem clamp(1.5rem,6vw,5rem); }
-    .eyebrow{ font-family:var(--mono); font-size:11px; letter-spacing:0.34em; text-transform:uppercase; color:var(--gold-deep); }
+    .eyebrow{ font-family:var(--mono); font-size:11px; letter-spacing:0.3em; text-transform:uppercase; color:var(--gold-deep);
+      display:inline-flex; align-items:center; gap:0.6rem; }
+    .eyebrow::before{ content:''; width:6px; height:6px; border-radius:50%; background:currentColor; opacity:0.65; }
 
     /* hero */
     .hero{ text-align:center; }
@@ -128,7 +132,7 @@
       box-shadow:0 0 0 1px rgba(255,255,255,0.6), inset 0 0 40px rgba(255,255,255,0.45), 0 30px 80px rgba(36,28,24,0.12); }
     .loupe::after{ content:''; position:absolute; inset:-1px; border-radius:50%;
       background:conic-gradient(from 0deg, transparent, rgba(191,164,106,0.35), transparent 30%); opacity:0.5; }
-    /* labels — always crisp, below the loupe */
+    /* labels · always crisp, below the loupe */
     .lens__labels{ position:absolute; inset:0; z-index:4; display:grid; place-items:center; pointer-events:none; }
     .plate{ position:absolute; bottom:14vh; inset-inline:0; text-align:center; opacity:0; transform:translateY(14px); }
     .plate__no{ font-family:var(--mono); font-size:11px; letter-spacing:0.3em; color:var(--gold-deep); }
@@ -160,9 +164,14 @@
     .form input:focus,.form select:focus{ border-color:var(--gold-deep); }
     .form select{ appearance:none; cursor:pointer; }
     .btns{ display:flex; gap:0.8rem; justify-content:center; flex-wrap:wrap; margin-top:0.6rem; }
-    .btn{ display:inline-flex; align-items:center; gap:0.6rem; padding:0.95rem 1.9rem; font-family:var(--mono); font-size:11px;
-      letter-spacing:0.2em; text-transform:uppercase; border:1px solid var(--ink); transition:background .3s,color .3s; }
+    .btn{ display:inline-flex; align-items:center; gap:0.7rem; padding:0.8rem 0.8rem 0.8rem 1.6rem; font-family:var(--mono); font-size:11px;
+      letter-spacing:0.2em; text-transform:uppercase; border:1px solid var(--ink); border-radius:999px;
+      transition:background 220ms var(--ease-out), color 220ms var(--ease-out), transform 150ms var(--ease-out); }
     .btn:hover{ background:var(--ink); color:var(--pearl); }
+    .btn:active{ transform:scale(0.97); }
+    .btn__ico{ display:inline-grid; place-items:center; width:1.7rem; height:1.7rem; border-radius:50%; font-size:0.8rem;
+      border:1px solid color-mix(in srgb,currentColor 32%,transparent); transition:transform 320ms var(--ease-out); }
+    .btn:hover .btn__ico{ transform:translate(2px,-1px) scale(1.06); }
     .btn--solid{ background:var(--ink); color:var(--pearl); } .btn--solid:hover{ background:var(--gold-deep); border-color:var(--gold-deep); }
 
     /* footer */
@@ -215,10 +224,10 @@
     <!-- HERO -->
     <section class="sec hero" id="s0">
       <div>
-        <div class="eyebrow">Bato Medical Clinic — Kuwait & Dubai</div>
+        <div class="eyebrow">Bato Medical Clinic · Kuwait & Dubai</div>
         <h1 class="hero__brand">Ba<i>t</i>o</h1>
         <div class="hero__tag">Where beauty and health meet.</div>
-        <p class="hero__sub">A precise, supervised approach to skin, hair and facial care — read closely, treated gently.</p>
+        <p class="hero__sub">A precise, supervised approach to skin, hair and facial care · read closely, treated gently.</p>
       </div>
       <a class="cue" href="#lens" data-link>Focus the lens</a>
     </section>
@@ -226,8 +235,8 @@
     <!-- MANIFESTO -->
     <section class="sec" id="s1">
       <div class="manifesto">
-        <div class="eyebrow">01 — The Philosophy</div>
-        <h2 class="manifesto__line">Care begins <em>beneath</em> the surface — with looking closely, before promising anything.</h2>
+        <div class="eyebrow">01 · The Philosophy</div>
+        <h2 class="manifesto__line">Care begins <em>beneath</em> the surface · with looking closely, before promising anything.</h2>
         <p class="manifesto__body">A plan made for you alone, supervised by a team of doctors and specialists. We believe real beauty begins with the health of skin and hair.</p>
       </div>
     </section>
@@ -257,12 +266,12 @@
 
         <div class="loupe" id="loupe" aria-hidden="true"></div>
 
-        <div class="lens__hint">Scroll — read each layer</div>
+        <div class="lens__hint">Scroll · read each layer</div>
         <div class="lens__labels">
-          <div class="plate" data-p="0"><div class="plate__no">03 / SKIN</div><div class="plate__name">Dermatology</div><p class="plate__desc">A science that reads the skin's surface, and care that restores its clarity — within a plan your physician defines.</p></div>
-          <div class="plate" data-p="1"><div class="plate__no">04 / HAIR</div><div class="plate__name">Hair Care</div><p class="plate__desc">A ritual that begins at the root — massage, steam, cleanse, serum — to restore the hair's vitality and health.</p></div>
-          <div class="plate" data-p="2"><div class="plate__no">05 / REFINEMENT</div><div class="plate__name">Fillers & Botox</div><p class="plate__desc">The measured hand: a measured touch, a natural result — delivered by specialists, considered with calm.</p></div>
-          <div class="plate" data-p="3"><div class="plate__no">06 / RADIANCE</div><div class="plate__name">Facial Care</div><p class="plate__desc">Light returns to the surface — facial sessions that close the journey in a moment of quiet.</p></div>
+          <div class="plate" data-p="0"><div class="plate__no">03 / SKIN</div><div class="plate__name">Dermatology</div><p class="plate__desc">A science that reads the skin's surface, and care that restores its clarity · within a plan your physician defines.</p></div>
+          <div class="plate" data-p="1"><div class="plate__no">04 / HAIR</div><div class="plate__name">Hair Care</div><p class="plate__desc">A ritual that begins at the root · massage, steam, cleanse, serum · to restore the hair's vitality and health.</p></div>
+          <div class="plate" data-p="2"><div class="plate__no">05 / REFINEMENT</div><div class="plate__name">Fillers & Botox</div><p class="plate__desc">The measured hand: a measured touch, a natural result · delivered by specialists, considered with calm.</p></div>
+          <div class="plate" data-p="3"><div class="plate__no">06 / RADIANCE</div><div class="plate__name">Facial Care</div><p class="plate__desc">Light returns to the surface · facial sessions that close the journey in a moment of quiet.</p></div>
         </div>
       </div>
     </section>
@@ -270,7 +279,7 @@
     <!-- PRACTITIONERS -->
     <section class="sec" id="s2">
       <div class="pract">
-        <div class="eyebrow">06 — The Practitioners</div>
+        <div class="eyebrow">06 · The Practitioners</div>
         <h2 class="pract__h">Hands that know what they're doing.</h2>
         <!-- Confirm each title/credential is factual & MOH-licence-backed before launch -->
         <div class="pract__list">
@@ -283,7 +292,7 @@
     <!-- BOOKING -->
     <section class="sec" id="book">
       <div class="book">
-        <div class="eyebrow">07 — Begin</div>
+        <div class="eyebrow">07 · Begin</div>
         <h2 class="book__h">Book a <em>quiet</em> consultation.</h2>
         <p class="book__sub">Reach us on WhatsApp or by phone, or send the form and we'll arrange your appointment.</p>
         <form class="form" id="bookForm">
@@ -291,7 +300,7 @@
           <div><label for="bs">Service</label>
             <select id="bs"><option>Dermatology</option><option>Hair Care</option><option>Fillers & Botox</option><option>Facial Care</option><option>Consultation</option></select></div>
           <div class="btns">
-            <button type="submit" class="btn btn--solid" data-link>Send via WhatsApp</button>
+            <button type="submit" class="btn btn--solid" data-link>Send via WhatsApp<span class="btn__ico" aria-hidden="true">↗</span></button>
             <a class="btn" href="tel:+96522027200" data-link>Call</a>
           </div>
         </form>
@@ -302,7 +311,7 @@
   <footer class="foot">
     <div class="foot__top">
       <div><div class="foot__mark">Bato</div><div class="foot__tag">Where beauty and health meet</div></div>
-      <div><h4>Locations</h4><div class="foot__col"><div><b>Kuwait</b> — Salmiya · Block 1 · Street 75 · Building 24</div><div><b>Dubai</b> — Al Safa First · Al Wasl Road</div></div></div>
+      <div><h4>Locations</h4><div class="foot__col"><div><b>Kuwait</b> · Salmiya · Block 1 · Street 75 · Building 24</div><div><b>Dubai</b> · Al Safa First · Al Wasl Road</div></div></div>
       <div><h4>Contact</h4><div class="foot__col">
         <a href="https://wa.me/96560072702" target="_blank" rel="noopener" data-link>WhatsApp · +965 6007 2702</a>
         <a href="tel:+96522027200" data-link>Phone · 2202 7200</a>

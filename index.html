@@ -4,14 +4,14 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
   <meta name="theme-color" content="#15120D" />
-  <title>عيادة باتو · BATO — حيث يلتقي الجمال بالصحة</title>
-  <meta name="description" content="عيادة باتو الطبية — رحلة عناية بالبشرة والشعر والوجه عبر سلسلة من العتبات، يشرف عليها فريق من الأطباء والمختصّين. Bato Clinic — a supervised medical journey, Kuwait & Dubai." />
+  <title>عيادة باتو · BATO · حيث يلتقي الجمال بالصحة</title>
+  <meta name="description" content="عيادة باتو الطبية · رحلة عناية بالبشرة والشعر والوجه عبر سلسلة من العتبات، يشرف عليها فريق من الأطباء والمختصّين. Bato Clinic · a supervised medical journey, Kuwait & Dubai." />
 
   <!--
   ════════════════════════════════════════════════════════════════════
-  BATO CLINIC — cinematic WebGL site  ·  "The Threshold"
+  BATO CLINIC · cinematic WebGL site  ·  "The Threshold"
   A camera walks the visitor through an arcade of arches, toward the light.
-  Architectural / minimal / monochrome register — in the aircenter.space lineage.
+  Architectural / minimal / monochrome register · in the aircenter.space lineage.
   HANDOVER: replace [MOH AD PERMIT NO.] / [FACILITY LICENCE NO.] in the footer;
   confirm doctor titles (factual, MOH-licence-backed); confirm WhatsApp + Dubai status.
   NO patient photos / before-after / prices / superlatives (Kuwait MOH rules).
@@ -37,6 +37,9 @@
       --ar:     'Reem Kufi', 'IBM Plex Sans Arabic', serif;
       --ar-body:'IBM Plex Sans Arabic', system-ui, sans-serif;
       --mono:   'JetBrains Mono', ui-monospace, monospace;
+      /* motion · strong custom curves (emil-design-eng / review-animations craft bar) */
+      --ease-out:  cubic-bezier(0.23, 1, 0.32, 1);
+      --ease-soft: cubic-bezier(0.32, 0.72, 0, 1);
     }
     *,*::before,*::after{ box-sizing:border-box; margin:0; padding:0; }
     html{ background:var(--ink); }
@@ -107,7 +110,7 @@
       animation:cue 2.4s ease-in-out infinite; }
     @keyframes cue{ 0%,100%{ transform:scaleY(.25); opacity:.3 } 50%{ transform:scaleY(1); opacity:.9 } }
 
-    /* doctors — sparse list, no cards */
+    /* doctors · sparse list, no cards */
     .docs{ display:flex; flex-direction:column; gap:clamp(1rem,2.2vw,1.7rem); margin-top:2.4rem; }
     .doc{ display:flex; justify-content:center; align-items:baseline; gap:1rem; flex-wrap:wrap;
       border-top:1px solid color-mix(in srgb,var(--bone) 22%,transparent); padding-top:clamp(.8rem,1.6vw,1.2rem); }
@@ -122,15 +125,20 @@
     .book__row label{ font-family:var(--mono); font-size:10px; letter-spacing:0.2em; text-transform:uppercase; color:var(--ink-2); }
     .book input,.book select{ width:100%; padding:0.85rem 0; background:transparent; color:var(--ink);
       border:0; border-bottom:1px solid color-mix(in srgb,var(--ink) 30%,transparent); font-family:inherit;
-      font-size:1rem; outline:none; transition:border-color .25s; }
+      font-size:1rem; outline:none; transition:border-color 220ms var(--ease-out); }
     .book input:focus,.book select:focus{ border-color:var(--brass); }
     .book select{ appearance:none; cursor:pointer; }
     .cta-row{ display:flex; gap:0.8rem; flex-wrap:wrap; justify-content:center; margin-top:0.6rem; }
     .btn{
-      pointer-events:auto; display:inline-flex; align-items:center; gap:0.6rem; padding:0.95rem 1.8rem;
+      pointer-events:auto; display:inline-flex; align-items:center; gap:0.7rem; padding:0.8rem 0.8rem 0.8rem 1.5rem;
       font-family:var(--mono); font-size:11px; letter-spacing:0.22em; text-transform:uppercase;
-      border:1px solid currentColor; transition:background .3s,color .3s;
+      border:1px solid currentColor; border-radius:999px;
+      transition:background 220ms var(--ease-out), color 220ms var(--ease-out), transform 150ms var(--ease-out);
     }
+    .btn:active{ transform:scale(0.97); }
+    .btn__ico{ display:inline-grid; place-items:center; width:1.7rem; height:1.7rem; border-radius:50%; font-size:0.8rem;
+      border:1px solid color-mix(in srgb,currentColor 32%,transparent); transition:transform 320ms var(--ease-out); }
+    .btn:hover .btn__ico{ transform:translate(2px,-1px) scale(1.06); }
     .panel--light .btn{ color:var(--ink); }
     .panel--light .btn:hover{ background:var(--ink); color:var(--bone); }
     .btn--solid{ background:var(--ink); color:var(--bone); border-color:var(--ink); }
@@ -152,7 +160,9 @@
     .hud__bar{ width:60px; height:1px; background:rgba(232,227,217,.3); position:relative; overflow:hidden; }
     .hud__bar::after{ content:''; position:absolute; inset-inline-start:0; top:0; height:100%; width:var(--bar,0%); background:var(--brass); }
     .hud__right{ justify-self:end; display:inline-flex; align-items:center; gap:1.1rem; }
+    .hud__lang,.hud__book{ transition:color 200ms var(--ease-out), transform 150ms var(--ease-out); }
     .hud__lang:hover,.hud__book:hover{ color:var(--brass); }
+    .hud__lang:active,.hud__book:active{ transform:scale(0.95); }
     .hud__book{ border:1px solid currentColor; border-radius:999px; padding:0.4rem 0.9rem; }
     @media(max-width:600px){ .hud__label,.hud__book span{ display:none; } }
 
@@ -183,8 +193,9 @@
 
     .wa{ position:fixed; inset-block-end:1.3rem; inset-inline-end:1.3rem; z-index:45; width:50px; height:50px;
       border-radius:50%; background:var(--brass); color:var(--ink); display:grid; place-items:center;
-      box-shadow:0 8px 28px rgba(0,0,0,.4); transition:transform .3s; }
-    .wa:hover{ transform:scale(1.1); }
+      box-shadow:0 14px 34px rgba(0,0,0,.30); transition:transform 300ms var(--ease-soft); }
+    .wa:hover{ transform:scale(1.08) rotate(-3deg); }
+    .wa:active{ transform:scale(0.95); }
     .wa svg{ width:24px; height:24px; }
 
     @media(prefers-reduced-motion:reduce){ .scroll-cue::after{ animation:none; } }
@@ -219,7 +230,7 @@
               <span class="tag"><span class="ar-only">عيادة باتو الطبية · الكويت ودبي</span><span class="en-only">BATO MEDICAL CLINIC · KUWAIT & DUBAI</span></span>
               <div class="word">باتو</div>
               <div class="lockup">BATO &nbsp;·&nbsp; CLINIC</div>
-              <p class="line"><span class="ar-only">رحلةُ عنايةٍ طبية تُمشى خطوةً بخطوة — من العتبة الأولى نحو النور.</span><span class="en-only">A medical journey, walked step by step — from the first threshold toward the light.</span></p>
+              <p class="line"><span class="ar-only">رحلةُ عنايةٍ طبية تُمشى خطوةً بخطوة · من العتبة الأولى نحو النور.</span><span class="en-only">A medical journey, walked step by step · from the first threshold toward the light.</span></p>
             </div>
             <div class="scroll-cue"><span class="ar-only">مرّري للدخول</span><span class="en-only">Scroll to enter</span></div>
           </div>
@@ -227,52 +238,52 @@
           <!-- 02 MANIFESTO -->
           <div class="panel" data-s="0.12" data-e="0.23" data-label-ar="المنهج" data-label-en="Philosophy">
             <div class="panel__inner">
-              <span class="tag"><span class="ar-only">٠٢ — المنهج</span><span class="en-only">02 — The Philosophy</span></span>
+              <span class="tag"><span class="ar-only">٠٢ · المنهج</span><span class="en-only">02 · The Philosophy</span></span>
               <div class="word word--sm"><span class="ar-only">نُصغي أولًا</span><span class="en-only">We listen first</span></div>
-              <p class="line"><span class="ar-only">خطةُ عنايةٍ مصمّمةٌ لكِ وحدكِ، يشرف عليها فريقٌ من الأطباء والمختصّين. الجمال يبدأ من الصحة — لا من حلولٍ عابرة.</span><span class="en-only">A care plan made for you alone, supervised by a team of doctors and specialists. Beauty begins with health — not with passing fixes.</span></p>
+              <p class="line"><span class="ar-only">خطةُ عنايةٍ مصمّمةٌ لكِ وحدكِ، يشرف عليها فريقٌ من الأطباء والمختصّين. الجمال يبدأ من الصحة · لا من حلولٍ عابرة.</span><span class="en-only">A care plan made for you alone, supervised by a team of doctors and specialists. Beauty begins with health · not with passing fixes.</span></p>
             </div>
           </div>
 
           <!-- 03 SKIN -->
           <div class="panel" data-s="0.26" data-e="0.37" data-label-ar="البشرة" data-label-en="Skin">
             <div class="panel__inner">
-              <span class="tag"><span class="ar-only">٠٣ — الجلدية · العناية بالبشرة</span><span class="en-only">03 — Dermatology</span></span>
+              <span class="tag"><span class="ar-only">٠٣ · الجلدية · العناية بالبشرة</span><span class="en-only">03 · Dermatology</span></span>
               <div class="word"><span class="ar-only">البشرة</span><span class="en-only">Skin</span></div>
-              <p class="line"><span class="ar-only">علمٌ يقرأ سطح البشرة، وعنايةٌ تُعيد صفاءه — ضمن خطةٍ يحدّدها الطبيب.</span><span class="en-only">A science that reads the skin, and care that restores its clarity — within a plan your physician defines.</span></p>
+              <p class="line"><span class="ar-only">علمٌ يقرأ سطح البشرة، وعنايةٌ تُعيد صفاءه · ضمن خطةٍ يحدّدها الطبيب.</span><span class="en-only">A science that reads the skin, and care that restores its clarity · within a plan your physician defines.</span></p>
             </div>
           </div>
 
           <!-- 04 HAIR -->
           <div class="panel" data-s="0.40" data-e="0.51" data-label-ar="الشعر" data-label-en="Hair">
             <div class="panel__inner">
-              <span class="tag"><span class="ar-only">٠٤ — علاجات الشعر</span><span class="en-only">04 — Hair Treatments</span></span>
+              <span class="tag"><span class="ar-only">٠٤ · علاجات الشعر</span><span class="en-only">04 · Hair Treatments</span></span>
               <div class="word"><span class="ar-only">الشعر</span><span class="en-only">Hair</span></div>
-              <p class="line"><span class="ar-only">من الجذر تبدأ العناية: تدليك، بخار، تنظيف، وسيروم — طقسٌ يستعيد حيوية الشعر.</span><span class="en-only">Care begins at the root: massage, steam, cleanse, serum — a ritual that restores the hair's vitality.</span></p>
+              <p class="line"><span class="ar-only">من الجذر تبدأ العناية: تدليك، بخار، تنظيف، وسيروم · طقسٌ يستعيد حيوية الشعر.</span><span class="en-only">Care begins at the root: massage, steam, cleanse, serum · a ritual that restores the hair's vitality.</span></p>
             </div>
           </div>
 
           <!-- 05 REFINEMENT -->
           <div class="panel" data-s="0.54" data-e="0.64" data-label-ar="اللمسة" data-label-en="Refinement">
             <div class="panel__inner">
-              <span class="tag"><span class="ar-only">٠٥ — الفيلر والبوتوكس</span><span class="en-only">05 — Fillers & Botox</span></span>
+              <span class="tag"><span class="ar-only">٠٥ · الفيلر والبوتوكس</span><span class="en-only">05 · Fillers & Botox</span></span>
               <div class="word word--sm"><span class="ar-only">اللمسة المتزنة</span><span class="en-only">The measured hand</span></div>
-              <p class="line"><span class="ar-only">أصغرُ لمسة، نتيجةٌ طبيعية — يقدّمها مختصّون ضمن خطةٍ موضوعةٍ بهدوء.</span><span class="en-only">The smallest touch, a natural result — delivered by specialists within a plan considered with calm.</span></p>
+              <p class="line"><span class="ar-only">أصغرُ لمسة، نتيجةٌ طبيعية · يقدّمها مختصّون ضمن خطةٍ موضوعةٍ بهدوء.</span><span class="en-only">The smallest touch, a natural result · delivered by specialists within a plan considered with calm.</span></p>
             </div>
           </div>
 
           <!-- 06 FACIAL -->
           <div class="panel" data-s="0.67" data-e="0.77" data-label-ar="النضارة" data-label-en="Radiance">
             <div class="panel__inner">
-              <span class="tag"><span class="ar-only">٠٦ — العناية بالوجه</span><span class="en-only">06 — Facial Care</span></span>
+              <span class="tag"><span class="ar-only">٠٦ · العناية بالوجه</span><span class="en-only">06 · Facial Care</span></span>
               <div class="word"><span class="ar-only">النضارة</span><span class="en-only">Radiance</span></div>
-              <p class="line"><span class="ar-only">النورُ يعود إلى السطح — جلساتُ عنايةٍ تُختَتم بها الرحلة.</span><span class="en-only">Light returns to the surface — facial sessions that close the journey.</span></p>
+              <p class="line"><span class="ar-only">النورُ يعود إلى السطح · جلساتُ عنايةٍ تُختَتم بها الرحلة.</span><span class="en-only">Light returns to the surface · facial sessions that close the journey.</span></p>
             </div>
           </div>
 
           <!-- 07 PRACTITIONERS -->
           <div class="panel" data-s="0.80" data-e="0.89" data-label-ar="المختصّون" data-label-en="Practitioners">
             <div class="panel__inner">
-              <span class="tag"><span class="ar-only">٠٧ — المختصّون</span><span class="en-only">07 — The Practitioners</span></span>
+              <span class="tag"><span class="ar-only">٠٧ · المختصّون</span><span class="en-only">07 · The Practitioners</span></span>
               <div class="word word--xs"><span class="ar-only">أيدٍ تعرف ما تفعل</span><span class="en-only">Hands that know</span></div>
               <!-- Confirm each title/credential is factual & MOH-licence-backed before launch -->
               <div class="docs">
@@ -285,7 +296,7 @@
           <!-- 08 BOOKING (arrival, in the light) -->
           <div class="panel panel--light" data-s="0.91" data-e="1.2" data-label-ar="الحجز" data-label-en="Booking">
             <div class="panel__inner">
-              <span class="tag"><span class="ar-only">٠٨ — العتبة</span><span class="en-only">08 — The Threshold</span></span>
+              <span class="tag"><span class="ar-only">٠٨ · العتبة</span><span class="en-only">08 · The Threshold</span></span>
               <div class="word word--xs"><span class="ar-only">ابدئي رحلتكِ</span><span class="en-only">Begin your journey</span></div>
               <form class="book" id="bookForm">
                 <div class="book__row"><label for="bn"><span class="ar-only">الاسم</span><span class="en-only">Name</span></label><input id="bn" type="text" autocomplete="name"></div>
@@ -296,7 +307,7 @@
                     <option>استشارة / Consultation</option>
                   </select></div>
                 <div class="cta-row">
-                  <button type="submit" class="btn btn--solid" data-cur-ar="أرسلي" data-cur-en="SEND"><span class="ar-only">إرسال عبر واتساب</span><span class="en-only">Send via WhatsApp</span></button>
+                  <button type="submit" class="btn btn--solid" data-cur-ar="أرسلي" data-cur-en="SEND"><span class="ar-only">إرسال عبر واتساب</span><span class="en-only">Send via WhatsApp</span><span class="btn__ico" aria-hidden="true">↗</span></button>
                   <a class="btn" href="tel:+96522027200" data-cur-ar="اتصلي" data-cur-en="CALL"><span class="ar-only">اتصلي</span><span class="en-only">Call</span></a>
                 </div>
               </form>
@@ -316,8 +327,8 @@
         <div>
           <h4><span class="ar-only">مواقعنا</span><span class="en-only">Locations</span></h4>
           <div class="foot__col">
-            <div><b><span class="ar-only">الكويت</span><span class="en-only">Kuwait</span></b> — <span class="ar-only">السالمية · قطعة ١ · شارع ٧٥ · مبنى ٢٤</span><span class="en-only">Salmiya · Block 1 · Street 75 · Building 24</span></div>
-            <div><b><span class="ar-only">دبي</span><span class="en-only">Dubai</span></b> — <span class="ar-only">الصفا الأولى · شارع الوصل</span><span class="en-only">Al Safa First · Al Wasl Road</span></div>
+            <div><b><span class="ar-only">الكويت</span><span class="en-only">Kuwait</span></b> · <span class="ar-only">السالمية · قطعة ١ · شارع ٧٥ · مبنى ٢٤</span><span class="en-only">Salmiya · Block 1 · Street 75 · Building 24</span></div>
+            <div><b><span class="ar-only">دبي</span><span class="en-only">Dubai</span></b> · <span class="ar-only">الصفا الأولى · شارع الوصل</span><span class="en-only">Al Safa First · Al Wasl Road</span></div>
           </div>
         </div>
         <div>
