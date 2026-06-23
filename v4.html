@@ -26,7 +26,7 @@
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,200..400;1,9..144,200..400&family=Reem+Kufi:wght@400..700&family=Aref+Ruqaa:wght@400;700&family=Inter+Tight:wght@300;400;500&family=JetBrains+Mono:wght@300;400&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,200..600;1,9..144,200..600&family=Reem+Kufi:wght@400..700&family=Aref+Ruqaa:wght@400;700&family=Inter+Tight:wght@300;400;500&family=JetBrains+Mono:wght@300;400&display=swap" rel="stylesheet">
 
 <!-- structured data: discoverability + AI answer engines -->
 <script type="application/ld+json">
@@ -120,6 +120,15 @@ a{ color:inherit; text-decoration:none; }
 /* accessible focus for keyboard users */
 :focus{ outline:none; }
 :focus-visible{ outline:2px solid var(--hud-accent); outline-offset:3px; border-radius:3px; }
+/* next-level refinements (impeccable · high-end-visual-design · Lamborghini reference) */
+body{ font-optical-sizing:auto; font-kerning:normal; }
+.hero__h em,.book__h em,.diag__head em{ font-weight:400; }
+.reading-lede em{ font-weight:420; }
+.shot__d{ font-weight:340; }
+.hero__h,.reading-lede,.diag__head,.book__h{ text-wrap:balance; }
+.measure,.shot__d{ text-wrap:pretty; }
+.hud__index,.hud__deg{ font-variant-numeric:tabular-nums; font-feature-settings:'tnum' 1; }
+.hud__index .now,.hud__index .tot{ display:inline-block; min-width:2.4ch; text-align:center; }
 
 /* skip link */
 .skip{ position:fixed; left:14px; top:-60px; z-index:80; background:var(--ink); color:var(--bg);
@@ -180,9 +189,9 @@ body.motes-on .motes{ opacity:1; }
 /* ─── custom cursor ─── */
 .cur{ position:fixed; top:0; left:0; z-index:60; pointer-events:none; transform:translate3d(-50%,-50%,0); opacity:0; transition:opacity .3s; }
 body.is-cursor-custom .cur{ opacity:1; }
-.cur__dot{ position:absolute; top:50%; left:50%; width:7px; height:7px; margin:-3.5px 0 0 -3.5px; border-radius:50%; background:var(--amber);
-  box-shadow:0 0 12px 2px rgba(211,182,60,.55); transition:transform .25s var(--ease), opacity .25s; }
-.cur__ring{ position:absolute; top:50%; left:50%; width:40px; height:40px; margin:-20px 0 0 -20px; border:1px solid rgba(211,182,60,.5); border-radius:50%;
+.cur__dot{ position:absolute; top:50%; left:50%; width:7px; height:7px; margin:-3.5px 0 0 -3.5px; border-radius:50%; background:var(--sand);
+  box-shadow:0 0 10px 2px rgba(196,170,139,.4); transition:transform .25s var(--ease), opacity .25s; }
+.cur__ring{ position:absolute; top:50%; left:50%; width:40px; height:40px; margin:-20px 0 0 -20px; border:1px solid rgba(196,170,139,.4); border-radius:50%;
   transition:transform .3s var(--ease), border-color .3s; will-change:transform; }
 .cur__lbl{ position:absolute; top:50%; left:50%; transform:translate(-50%,18px); font-family:var(--mono); font-size:9px; letter-spacing:.2em; text-transform:uppercase;
   color:var(--amber); white-space:nowrap; opacity:0; transition:opacity .25s; }
@@ -487,7 +496,7 @@ body.dock-on .dock{ opacity:1; transform:none; pointer-events:auto; }
     <div class="shot__c">
       <div class="shot__tag" data-reveal="rise"><span lang="ar">الجلدية</span> · Dermatology</div>
       <h2 class="shot__name" data-reveal="rise" style="--d:120ms">Skin<span class="ar" lang="ar">البشرة</span></h2>
-      <p class="shot__d" data-reveal="rise" style="--d:240ms">We read the surface and restore its clarity — peels, laser and medical-grade dermatology, within a plan your physician defines. Never rushed.</p>
+      <p class="shot__d" data-reveal="rise" style="--d:240ms">We read the surface and restore its clarity. Peels, laser and medical-grade dermatology, within a plan your physician defines. Never rushed.</p>
     </div>
   </section>
 
@@ -503,7 +512,7 @@ body.dock-on .dock{ opacity:1; transform:none; pointer-events:auto; }
     <div class="shot__c" style="margin-inline-start:auto; text-align:end">
       <div class="shot__tag" data-reveal="rise"><span lang="ar">العناية بالشعر</span> · Hair</div>
       <h2 class="shot__name" data-reveal="rise" style="--d:120ms">Hair<span class="ar" lang="ar">الشعر</span></h2>
-      <p class="shot__d" data-reveal="rise" style="--d:240ms; margin-inline-start:auto">Care that begins at the root — massage, steam, cleanse, serum. A considered ritual that restores vitality.</p>
+      <p class="shot__d" data-reveal="rise" style="--d:240ms; margin-inline-start:auto">Care that begins at the root: massage, steam, cleanse, serum. A considered ritual that restores vitality.</p>
     </div>
   </section>
 
@@ -519,7 +528,7 @@ body.dock-on .dock{ opacity:1; transform:none; pointer-events:auto; }
     <div class="shot__c">
       <div class="shot__tag" data-reveal="rise"><span lang="ar">النحت</span> · Fillers &amp; Botox</div>
       <h2 class="shot__name" data-reveal="rise" style="--d:120ms; font-size:clamp(2.6rem,7vw,6rem)">The measured hand<span class="ar" lang="ar" style="display:block; margin:0">اللمسة المدروسة</span></h2>
-      <p class="shot__d" data-reveal="rise" style="--d:240ms">The smallest touch — a natural result, shaped by specialists with unhurried, considered care.</p>
+      <p class="shot__d" data-reveal="rise" style="--d:240ms">The smallest touch. A natural result, shaped by specialists with unhurried, considered care.</p>
     </div>
   </section>
 
@@ -532,7 +541,7 @@ body.dock-on .dock{ opacity:1; transform:none; pointer-events:auto; }
         <span class="ln"><i>Every plan begins</i></span>
         <span class="ln"><i>with a reading.</i></span>
       </h2>
-      <p class="measure" style="margin-top:1.4rem; color:rgba(237,228,212,.74)" data-reveal="rise">Bato is a medical clinic, not a spa. Behind the aesthetics sits a full general-medicine department — consultations, laboratory analysis, ECG and wound care — supervised by doctors. Care begins with understanding your health.</p>
+      <p class="measure" style="margin-top:1.4rem; color:rgba(237,228,212,.74)" data-reveal="rise">Bato is a medical clinic, not a spa. Behind the aesthetics sits a full general-medicine department: consultations, laboratory analysis, ECG and wound care, all supervised by doctors. Care begins with understanding your health.</p>
       <div class="diag__grid" data-reveal="rise" style="--d:240ms">
         <div class="diag__row"><span>General medicine &amp; consultations</span><span lang="ar">استشارات عامة</span></div>
         <div class="diag__row"><span>Laboratory &amp; blood analysis</span><span lang="ar">تحاليل الدم</span></div>
@@ -556,7 +565,7 @@ body.dock-on .dock{ opacity:1; transform:none; pointer-events:auto; }
     <div class="shot__c">
       <div class="shot__tag" data-reveal="rise"><span lang="ar">النضارة</span> · Glow &amp; Radiance</div>
       <h2 class="shot__name" data-reveal="rise" style="--d:120ms">Radiance<span class="ar" lang="ar">النضارة</span></h2>
-      <p class="shot__d" data-reveal="rise" style="--d:240ms">Light returns to the surface — mesotherapy, plasma and glow boosters, delivered by specialists at an unhurried pace.</p>
+      <p class="shot__d" data-reveal="rise" style="--d:240ms">Light returns to the surface: mesotherapy, plasma and glow boosters, delivered by specialists at an unhurried pace.</p>
     </div>
   </section>
 
