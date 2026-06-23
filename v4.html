@@ -392,7 +392,8 @@ body.dock-on .dock{ opacity:1; transform:none; pointer-events:auto; }
 .q blockquote{ font-family:var(--serif); font-weight:300; font-size:clamp(1.1rem,1.5vw,1.35rem); line-height:1.4; letter-spacing:-.01em; }
 .q figcaption{ margin-top:.9rem; font-family:var(--mono); font-size:10px; letter-spacing:.18em; text-transform:uppercase; color:var(--clay); }
 .bignum{ display:flex; align-items:baseline; gap:1.4rem; flex-wrap:wrap; }
-.bignum b{ font-family:var(--serif); font-weight:200; font-size:clamp(4.5rem,18vw,16rem); line-height:.82; letter-spacing:-.04em; }
+.bignum b{ font-family:var(--serif); font-weight:200; font-size:clamp(4.5rem,18vw,16rem); line-height:.82; letter-spacing:-.04em;
+  font-variant-numeric:tabular-nums; font-feature-settings:'tnum' 1; display:inline-block; }
 .bignum .lab{ font-family:var(--mono); font-size:11px; letter-spacing:.2em; text-transform:uppercase; color:var(--clay); }
 .bignum .lab .ar{ font-family:var(--kufi); display:block; font-size:1.4em; color:var(--ink); letter-spacing:0; margin-bottom:.3rem; direction:rtl; }
 
@@ -1126,10 +1127,30 @@ body.dock-on .dock{ opacity:1; transform:none; pointer-events:auto; }
     if(document.fonts && document.fonts.ready){ document.fonts.ready.then(go); setTimeout(go,1200); } else { go(); }
   })();
 
-  function countUp(el){ if(!el||reduce) return; var t=+el.getAttribute('data-count'),s=null;
-    function step(ts){ if(!s)s=ts; var p=Math.min((ts-s)/1400,1); var v=Math.floor((1-Math.pow(1-p,3))*t);
-      el.textContent=v.toLocaleString('en-US'); if(p<1) requestAnimationFrame(step); else el.textContent=t.toLocaleString('en-US'); }
-    requestAnimationFrame(step); }
+  function countUp(el){ if(!el||reduce) return;
+    var run=function(){
+      var t=+el.getAttribute('data-count');
+      /* lock the box to the final tabular width so the counter fills in without reflowing
+         itself or shoving the label (the old jitter = proportional figures + per-frame reflow) */
+      el.style.display='inline-block'; el.style.textAlign='left';
+      el.textContent=t.toLocaleString('en-US');
+      el.style.minWidth=Math.ceil(el.getBoundingClientRect().width)+'px';
+      el.textContent=(0).toLocaleString('en-US');
+      if(typeof gsap!=='undefined'){
+        var o={ v:0 };
+        gsap.to(o, { v:t, duration:1.9, ease:'power2.out', snap:{ v:1 }, overwrite:true,
+          onUpdate:function(){ el.textContent=Math.round(o.v).toLocaleString('en-US'); },
+          onComplete:function(){ el.textContent=t.toLocaleString('en-US'); } });
+      } else {
+        var s=null; function step(ts){ if(!s)s=ts; var p=Math.min((ts-s)/1900,1);
+          el.textContent=Math.floor((1-Math.pow(1-p,4))*t).toLocaleString('en-US');
+          if(p<1) requestAnimationFrame(step); else el.textContent=t.toLocaleString('en-US'); }
+        requestAnimationFrame(step);
+      }
+    };
+    /* wait for the serif to settle so the locked width matches the real glyphs */
+    if(document.fonts && document.fonts.ready){ document.fonts.ready.then(run); } else { run(); }
+  }
 
   /* ── section-state machine → HUD + theme + dock ── */
   var stages = [].slice.call(document.querySelectorAll('[data-stage]'));
