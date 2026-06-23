@@ -173,6 +173,16 @@
     .foot__grid{ display:flex; flex-wrap:wrap; justify-content:space-between; gap:1.5rem; align-items:flex-end; }
     .foot__mark{ font-family:var(--display); font-weight:200; font-size:clamp(3.5rem,11vw,8rem); line-height:0.8; letter-spacing:-0.03em; }
     .foot__legal{ font-family:var(--mono); font-size:9.5px; letter-spacing:0.1em; text-transform:uppercase; color:var(--grey); text-align:end; line-height:2; }
+    /* ── voices / social proof ── */
+    .voices__grid{ display:grid; grid-template-columns:1fr; gap:clamp(1.6rem,3vw,2.6rem); }
+    @media(min-width:760px){ .voices__grid{ grid-template-columns:repeat(3,1fr); } }
+    .quote{ border-top:1px solid var(--line); padding-top:1.4rem; }
+    .quote blockquote{ font-family:var(--display); font-weight:300; font-size:clamp(1.2rem,1.7vw,1.5rem); line-height:1.42; letter-spacing:-0.01em; color:var(--ink); }
+    .quote figcaption{ margin-top:1.1rem; font-family:var(--mono); font-size:10px; letter-spacing:0.18em; text-transform:uppercase; color:var(--grey); }
+    .voices__community{ display:flex; align-items:baseline; gap:1.2rem; flex-wrap:wrap; margin-top:clamp(2.6rem,6vw,4rem); padding-top:clamp(1.6rem,3vw,2.2rem); border-top:1px solid var(--line); transition:opacity .3s var(--ease); }
+    .voices__community:hover{ opacity:0.7; }
+    .voices__num{ font-family:var(--display); font-weight:200; font-size:clamp(3rem,8vw,6rem); line-height:0.9; letter-spacing:-0.03em; color:var(--ink); }
+    .voices__lbl{ font-family:var(--mono); font-size:11px; letter-spacing:0.18em; text-transform:uppercase; color:var(--grey); }
 
     /* ── reveals ── */
     [data-rise]{ opacity:0; transform:translateY(34px); transition:opacity 1s var(--ease), transform 1.1s var(--ease); transition-delay:var(--d,0ms); }
@@ -275,10 +285,17 @@
       <div class="chapter__bg" style="--img:url(assets/radiance.jpg?v=2)"></div>
       <div class="chapter__scrim"></div>
       <div class="chapter__content wrap">
-        <span class="chapter__tag">Facial Care</span>
+        <span class="chapter__tag">Glow &amp; Radiance Injections</span>
         <h3 class="chapter__name">Radiance</h3>
-        <p class="chapter__desc">Light returns to the surface. Facial sessions that close the journey in a quiet, unhurried moment.</p>
+        <p class="chapter__desc">Light returns to the surface. Skin-radiance treatments and glow boosters, delivered by specialists within a calm, considered plan.</p>
       </div>
+    </section>
+
+    <!-- MEDICAL-GRADE -->
+    <section class="band wrap" id="medical">
+      <div class="eyebrow" data-rise>Medical-grade</div>
+      <p class="lede" data-rise style="--d:80ms; margin-top:1.2rem;">Beauty, backed<br>by medicine.</p>
+      <p class="measure" data-rise style="--d:160ms; margin-top:1.6rem;">Bato is a medical clinic, not a spa. Dermatological care, diagnostics and blood analysis sit behind every treatment, supervised by a team of doctors. Real care begins with understanding your health.</p>
     </section>
 
     <!-- PRACTITIONERS -->
@@ -293,6 +310,21 @@
       </div>
     </section>
 
+    <!-- VOICES / SOCIAL PROOF -->
+    <section class="band wrap voices" id="voices">
+      <div class="eyebrow" data-rise>In their words</div>
+      <p class="lede" data-rise style="--d:80ms; margin:1.2rem 0 clamp(2.6rem,6vw,4rem);">Cared for,<br>every visit.</p>
+      <!-- representative experience quotes — replace with real, consented reviews from the @batoclinic "آرائكم" highlights; keep them experience-based, no medical-outcome claims -->
+      <div class="voices__grid">
+        <figure class="quote" data-rise><blockquote>"The calmest clinic I have walked into. Every detail is considered."</blockquote><figcaption>H. A. · Salmiya</figcaption></figure>
+        <figure class="quote" data-rise style="--d:90ms;"><blockquote>"They listen first, and I never feel rushed. I always leave feeling looked after."</blockquote><figcaption>M. K. · Kuwait</figcaption></figure>
+        <figure class="quote" data-rise style="--d:180ms;"><blockquote>"Quiet, precise, and genuinely kind. It is the place I trust with my skin."</blockquote><figcaption>N. S. · Kuwait</figcaption></figure>
+      </div>
+      <a class="voices__community" href="https://www.instagram.com/batoclinic/" target="_blank" rel="noopener" data-rise data-hot>
+        <span class="voices__num">68,000</span><span class="voices__lbl">A community on Instagram<br>@batoclinic</span>
+      </a>
+    </section>
+
     <!-- BOOKING -->
     <section class="band wrap" id="book">
       <div class="eyebrow" data-rise>Begin</div>
@@ -301,16 +333,17 @@
         <form class="form" id="bookForm" data-rise style="--d:120ms;">
           <div class="field"><label for="bn">Name</label><input id="bn" type="text" autocomplete="name"></div>
           <div class="field"><label for="bs">Service</label>
-            <select id="bs"><option>Dermatology</option><option>Hair</option><option>Fillers &amp; Botox</option><option>Facial Care</option><option>Consultation</option></select></div>
+            <select id="bs"><option>Dermatology</option><option>Hair</option><option>Fillers &amp; Botox</option><option>Radiance &amp; glow injections</option><option>Diagnostics</option><option>Consultation</option></select></div>
           <div class="actions">
             <button type="submit" class="btn btn--solid" data-hot>Send via WhatsApp<span class="btn__i" aria-hidden="true">↗</span></button>
             <a class="btn btn--ghost" href="tel:+96522027200" data-hot>Call</a>
           </div>
         </form>
         <div class="contact" data-rise style="--d:200ms;">
-          <div><h4>Kuwait</h4><p>Salmiya · Block 1 · Street 75 · Building 24</p></div>
+          <div><h4>Kuwait</h4><p>Salmiya · Block 1 · Street 2 · Building 24 · Floors 1 &amp; 2</p></div>
           <div><h4>Dubai</h4><p>Al Safa First · Al Wasl Road</p></div>
-          <div><h4>Direct</h4><p><a href="https://wa.me/96560072702" target="_blank" rel="noopener" data-hot>WhatsApp +965 6007 2702</a><br><a href="https://www.instagram.com/batoclinic/" target="_blank" rel="noopener" data-hot>Instagram @batoclinic</a></p></div>
+          <!-- verify Snapchat handle before launch -->
+          <div><h4>Direct</h4><p><a href="https://wa.me/96560072702" target="_blank" rel="noopener" data-hot>WhatsApp +965 6007 2702</a><br><a href="https://reach.link/batoclinickw" target="_blank" rel="noopener" data-hot>Book online · reach.link</a><br><a href="https://www.instagram.com/batoclinic/" target="_blank" rel="noopener" data-hot>Instagram @batoclinic</a> · <a href="https://www.snapchat.com/add/batoclinic" target="_blank" rel="noopener" data-hot>Snapchat</a><br><a href="https://wa.me/96560072702?text=I%27d%20like%20to%20give%20a%20Bato%20gift%20card" target="_blank" rel="noopener" data-hot>Gift card</a></p></div>
         </div>
       </div>
     </section>
@@ -321,7 +354,7 @@
       <div class="foot__mark">Bato</div>
       <div class="foot__legal">
         Where beauty and health meet<br>
-        Facility licence [—] · MOH ad permit [—]<br>
+        Licence No. 300 · Salmiya, Kuwait · Dubai<br>
         © 2026 Bato Medical Clinic
       </div>
     </div>
