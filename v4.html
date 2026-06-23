@@ -711,9 +711,12 @@ body.dock-on .dock{ opacity:1; transform:none; pointer-events:auto; }
   /* ── continuous scroll-scrubbed motion (progressive enhancement via GSAP) ── */
   function buildScrub(){
     if(reduce) return;
-    /* photos breathe: scale + drift continuously as they pass, both directions */
+    /* photos breathe: scale + drift continuously as they pass — gentle on desktop,
+       framing-safe on phones (a landscape photo in a tall viewport can't afford extra zoom) */
+    var mob = matchMedia('(max-width:720px)').matches;
     document.querySelectorAll('.shot__bg').forEach(function(bg){
-      gsap.fromTo(bg, { yPercent:-4, scale:1.18 }, { yPercent:4, scale:1.10, ease:'none',
+      if(mob){ gsap.set(bg, { scale:1.03, yPercent:0 }); return; }
+      gsap.fromTo(bg, { yPercent:-2, scale:1.10 }, { yPercent:2, scale:1.05, ease:'none',
         scrollTrigger:{ trigger:bg.closest('.shot'), start:'top bottom', end:'bottom top', scrub:1 } });
     });
     /* section content drifts at a different depth than its background */
