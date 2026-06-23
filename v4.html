@@ -660,6 +660,8 @@ body.dock-on .dock{ opacity:1; transform:none; pointer-events:auto; }
     </header>
     <div id="bb-log" class="bb-log"></div>
     <div id="bb-chips" class="bb-chips"></div>
+    <button id="bb-ai" class="bb-ai" type="button">✦ Enable smarter on-device AI · private · free</button>
+    <div id="bb-ai-status" class="bb-ai-status" hidden></div>
     <form id="bb-form" class="bb-form">
       <input id="bb-input" type="text" autocomplete="off" placeholder="Ask about treatments, prices, booking…" aria-label="Message">
       <button id="bb-send" type="submit" aria-label="Send">↑</button>
@@ -706,81 +708,182 @@ body.dock-on .dock{ opacity:1; transform:none; pointer-events:auto; }
 #bb-send:active{ transform:scale(.94); }
 #bb-send:disabled{ opacity:.5; cursor:default; }
 .bb-fine{ margin:0; padding:0 16px 12px; font-size:10px; line-height:1.4; color:#8f836e; background:#2c2318; }
+.bb-ai{ margin:2px 16px 8px; padding:.55em .8em; border:1px dashed #4a3d2a; background:transparent; color:#d3b63c; border-radius:10px; font-family:var(--mono,ui-monospace,monospace); font-size:9.5px; letter-spacing:.1em; text-transform:uppercase; cursor:pointer; transition:background .2s; }
+.bb-ai:hover{ background:#2c2318; }
+.bb-ai[hidden]{ display:none; }
+.bb-ai-status{ margin:0 16px 8px; font-family:var(--mono,ui-monospace,monospace); font-size:10px; line-height:1.45; color:#b9ac96; }
+.bb-ai-status[hidden]{ display:none; }
 @media (prefers-reduced-motion:reduce){ .bb-spark,#bb-panel.bb-in{ animation:none } }
 @media (max-width:720px){ #bato-bot{ inset-inline-start:12px; bottom:12px; } }
 </style>
 <script>
 (function(){
-  // ⚙️ SET THIS to your deployed Cloudflare Worker URL (see bato-concierge-worker.js):
-  var BATO_BOT = { endpoint: "" };  // e.g. "https://bato-concierge.yourname.workers.dev"
   var WA = "https://wa.me/96560072702";
+  // Optional in-browser open-source model (free, private, runs on the visitor's device via WebGPU).
+  var LOCAL_MODEL = "Llama-3.2-1B-Instruct-q4f32_1-MLC";   // ~1GB, cached after first load
 
   var launch=document.getElementById('bb-launch'), panel=document.getElementById('bb-panel'),
       closeB=document.getElementById('bb-close'), log=document.getElementById('bb-log'),
       chips=document.getElementById('bb-chips'), form=document.getElementById('bb-form'),
-      input=document.getElementById('bb-input'), send=document.getElementById('bb-send');
+      input=document.getElementById('bb-input'), send=document.getElementById('bb-send'),
+      aiBtn=document.getElementById('bb-ai'), aiStatus=document.getElementById('bb-ai-status');
   if(!launch) return;
-  var history=[], busy=false, greeted=false;
-  var SUGGESTIONS=["What helps dull, tired skin?","Botox prices in Dubai?","ساعات العمل؟","احجزي موعد"];
+  var history=[], busy=false, greeted=false, engine=null, loadingAI=false;
+  var SUGGESTIONS=["What helps dull, tired skin?","Botox price in Dubai?","ساعات العمل؟","احجزي موعد"];
   var isAr=function(s){ return /[؀-ۿ]/.test(s); };
   var URL_RE=/(https?:\/\/[^\s)]+)/g;
 
-  // safe rich text: split on URLs → text nodes + real anchor elements (no innerHTML)
+  // ── Tier-1 knowledge engine (no LLM — instant, free, accurate) ──
+  var M = function(n,p,k){ return {n:n,p:p,k:k.split(' ')}; };
+  var MENU = [
+    M("HydraFacial","1,365","hydrafacial hydra facial تنظيف بشرة تنطيف"),
+    M("Plasma injections (per area)","1,890","plasma بلازما"),
+    M("Dermapen / microneedling","2,100","dermapen microneedling ديرمابن"),
+    M("Green Peeling","1,050","green peel تقشير اخضر"),
+    M("Chemical Peel (knees/elbows)","1,050","chemical peel knee elbow تقشير كيميائي"),
+    M("Cosmelan Peel – Face","3,150","cosmelan كوزميلان"),
+    M("Cosmelan Peel – Bikini","3,150","cosmelan bikini بكيني"),
+    M("Chemical Peel – Bikini","2,415","peel bikini تقشير بكيني"),
+    M("Salicylic Acid session","735","salicylic ساليسيليك"),
+    M("Consultation (Meso/PRP)","525","consultation meso استشارة"),
+    M("Consultation (Facial & Skin)","525","consultation facial skin استشارة بشرة"),
+    M("Dermatologist / Aesthetic GP","787.50","dermatologist aesthetic طبيب جلدية"),
+    M("General Practitioner","472.50","general practitioner gp طبيب عام"),
+    M("Laser hair removal consult","525","laser consult استشارة ليزر"),
+    M("Profhilo","1,680","profhilo بروفايلو"),
+    M("Neofound","1,680","neofound نيوفاوند"),
+    M("Profound","1,680","profound بروفاوند"),
+    M("Yaqout radiance injection","1,680","yaqout ياقوت نضارة"),
+    M("Saffron radiance injection","1,680","saffron زعفران"),
+    M("Hyaluronidase (filler dissolver, 1ML)","315","hyaluronidase dissolve اذابة فيلر هيالورونيداز"),
+    M("Filler – Juvéderm (1ML)","2,047.50","filler juvederm فيلر جوفيدرم lips lip cheek شفايف خدود"),
+    M("Botox – Forehead","1,365","botox forehead بوتكس جبهة"),
+    M("Botox – Forehead + Browlift","1,890","forehead browlift رفع حواجب"),
+    M("Botox – Browlift","1,123.50","browlift رفع الحواجب"),
+    M("Botox – Nose","735","botox nose بوتكس انف"),
+    M("Botox – Gummy Smile","525","gummy smile ابتسامة لثوية"),
+    M("Botox – Jawline","997.50","jawline تحديد فك"),
+    M("Botox – Neck","1,785","botox neck بوتكس رقبة"),
+    M("Botox – Hyperhidrosis (underarm)","2,520","hyperhidrosis sweat underarm تعرق ابط"),
+    M("Botox – Hyperhidrosis (hands)","1,365","sweat hands تعرق يدين"),
+    M("Botox – Migraine","997.50","migraine صداع شقيقة"),
+    M("Botox – Masseter (jaw slimming)","997.50","masseter نحت فك ماضغة"),
+    M("Hair Mesotherapy – half-head, women (offer)","7,875","hair mesotherapy ميزوثيرابي شعر half"),
+    M("Hair Mesotherapy – full scalp, women (offer)","11,812.50","full scalp women شعر كامل نساء"),
+    M("Hair Mesotherapy – full scalp, men (offer)","9,975","full scalp men رجال شعر"),
+    M("Hair PRP (single)","1,890","hair prp بلازما شعر"),
+    M("Hair PRP (3 sessions)","4,567.50","hair prp package جلسات شعر"),
+    M("Laser hair removal – full body (women)","1,050","laser full body ليزر جسم كامل"),
+    M("Laser – full body (no back & stomach)","892.50","laser body بدون بطن ظهر"),
+    M("Vitamin D test","189","vitamin d فيتامين د"),
+    M("Iron test","84","iron حديد"),
+    M("Ferritin test","115.5","ferritin مخزون حديد"),
+    M("Vitamin B12 test","115.5","b12 بي12"),
+    M("Zinc test","147","zinc زنك"),
+    M("CBC (full blood count)","115.5","cbc صورة دم"),
+    M("TSH (thyroid)","84","tsh thyroid غدة درقية"),
+    M("Testosterone (total)","84","testosterone تستوستيرون"),
+    M("Vitamin Test Package","813.75","vitamin package باقة فيتامينات"),
+    M("Hormone Test Package","997.50","hormone package باقة هرمونات")
+  ];
+  var CONCERNS = [
+    [["dull","tired","glow","radiance","نضارة","باهت","تعب"], "For dull, tired skin: HydraFacial, a peel, or radiance boosters (Profhilo / Yaqout / Saffron). A short consultation picks the right plan."],
+    [["wrinkle","line","aging","anti-age","تجاعيد","خطوط"], "For lines & wrinkles: Botox (forehead, brow, etc.) and dermal fillers — matched to you after a doctor's reading."],
+    [["hair loss","thinning","bald","hairfall","تساقط","صلع","شعر يطيح"], "For hair loss/thinning: Hair Mesotherapy and PRP packages stimulate the scalp. We start with an assessment."],
+    [["pigment","melasma","dark spot","كلف","تصبغ","بقع"], "For pigmentation/melasma: Cosmelan peeling and medical chemical peels, doctor-supervised."],
+    [["sweat","hyperhidrosis","تعرق"], "For excess sweating: Botox for hyperhidrosis — underarms or hands."],
+    [["acne","pimple","حبوب","بثور"], "For acne-prone skin: medical peels, HydraFacial, and a dermatologist's plan."],
+    [["lip","cheek","jaw","contour","شفايف","خدود","فك"], "For shaping: fillers (Juvéderm) for lips/cheeks/jawline; Botox masseter for jaw slimming."]
+  ];
+  function norm(s){ return s.toLowerCase().replace(/[ً-ْـ]/g,'').trim(); }
+  function findService(q){ var best=null,sc=0; MENU.forEach(function(m){ var s=0; m.k.forEach(function(k){ if(k&&q.indexOf(k)>=0) s+=k.length; }); if(s>sc){sc=s;best=m;} }); return sc>0?best:null; }
+  function cityOf(q){ if(/kuwait|salmiya|الكويت|السالمية|كويت/.test(q)) return 'kw'; if(/dubai|دبي/.test(q)) return 'dubai'; return null; }
+
+  function answerLocal(raw){
+    var q=norm(raw), ar=isAr(raw);
+    if(/^(hi|hello|hey|yo|salam|سلام|مرحبا|هلا|اهلا|أهلا)/.test(q)) return ar?"أهلاً! أنا نور من مستوصف باتو. أقدر أساعدك بالعلاجات والأسعار (دبي) والمواعيد والحجز. كيف أقدر أخدمك؟":"Hello! I'm Noor from Bato. I can help with treatments, prices (Dubai), hours, locations, and booking. What would you like?";
+    if(/hour|open|close|timing|متى|الدوام|ساعات|تفتح|تسكر/.test(q)) return ar?"ساعات العمل: السبت–الأربعاء ١١ص–٧م، والخميس–الجمعة ١١ص–٦م.":"Hours: Saturday–Wednesday 11:00–19:00, and Thursday–Friday 11:00–18:00.";
+    if(/where|location|address|branch|directions|وين|فين|مكان|عنوان|فرع/.test(q)) return ar?"لدينا فرعان: السالمية، الكويت (قطعة ١، شارع ٢، بناية ٢٤، الدورين ١ و٢)، ودبي (الصفا الأولى، شارع الوصل).":"Two branches: Salmiya, Kuwait (Block 1, Street 2, Building 24, Floors 1 & 2) and Al Safa First, Al Wasl Road, Dubai.";
+    if(/phone|call|number|contact|whatsapp|رقم|اتصال|تواصل|واتس/.test(q)) return (ar?"تواصلي معنا على واتساب ":"Reach us on WhatsApp ")+WA+(ar?" · أو العيادة ٢٢٠٢٧٢٠٠ ٩٦٥+":" · or clinic +965 2202 7200");
+    if(/book|appointment|reserve|schedule|احجز|حجز|موعد|ابي اجي/.test(q)) return (ar?"بكل سرور — احجزي عبر واتساب وبنرتب موعدك بأقرب وقت: ":"Happy to help — book on WhatsApp and we'll arrange the soonest time: ")+WA;
+    if(/instagram|insta|snap|social|انستا|انستقرام|سناب/.test(q)) return (ar?"تابعينا على إنستغرام @batoclinic، وللحجز واتساب: ":"Follow @batoclinic on Instagram; to book, WhatsApp: ")+WA;
+    if(/doctor|safe|side ?effect|pregnan|diagnos|medical advice|طبيب|آمن|أعراض|حامل|تشخيص/.test(q)) return ar?"أنا مساعِدة ذكية ولستُ طبيبة، فلا أقدّم تشخيصاً أو وعوداً بالنتائج. الأفضل حجز استشارة مع طبيب باتو ليقيّم حالتك بدقة. أحجزلك عبر واتساب؟ "+WA:"I'm an AI assistant, not a doctor — I can't diagnose or promise results. The best step is a consultation with a Bato doctor who'll assess you properly. Want me to set up a WhatsApp booking? "+WA;
+    var priceQ=/price|cost|how much|how many|fee|rate|aed|كم|بكم|بكام|سعر|تكلفة|كلفة/.test(q);
+    var m=findService(q), city=cityOf(q);
+    if(priceQ){
+      if(city==='kw') return (ar?"أسعار فرع الكويت لا تُنشر إلكترونياً (تعليمات وزارة الصحة الكويتية). راسلينا على واتساب وبنعطيك التفاصيل: ":"Kuwait prices aren't published online (Kuwait MOH rules). Message us on WhatsApp for Kuwait pricing: ")+WA;
+      if(m) return m.n+" — "+m.p+" AED (Dubai). "+(ar?"السعر تقريبي والخطة النهائية يحددها الطبيب بعد الفحص. أحجزلك؟ ":"Indicative; your final plan is confirmed by the doctor after a reading. Want me to book it? ")+WA;
+      return ar?"عندي قائمة أسعار دبي كاملة — أي خدمة تقصدين؟ (بوتكس، فيلر، هيدرافيشل، تقشير، ليزر، ميزوثيرابي شعر، تحاليل…)":"I have the full Dubai price list — which treatment? (Botox, filler, HydraFacial, peels, laser, hair mesotherapy, lab tests…)";
+    }
+    for(var i=0;i<CONCERNS.length;i++){ if(CONCERNS[i][0].some(function(k){return q.indexOf(k)>=0;})) return CONCERNS[i][1]+" "+(ar?"أحجزلك استشارة؟ ":"Want me to book a consultation? ")+WA; }
+    if(m) return m.n+" — Dubai price "+m.p+" AED. "+(ar?"تحبين تفاصيل أكثر أو حجز؟ ":"Want more detail or to book? ")+WA;
+    if(/thank|thx|شكرا|مشكور|يعطيك/.test(q)) return ar?"العفو! نتشرف بخدمتك 🌿":"You're very welcome 🌿";
+    return ar?"أقدر أساعدك بالعلاجات والأسعار (دبي) وساعات العمل والفروع والحجز. اكتبي اسم الخدمة أو سؤالك — أو راسلينا على واتساب: "+WA:"I can help with treatments, prices (Dubai), hours, locations, and booking. Tell me a treatment or question — or message us on WhatsApp: "+WA;
+  }
+
+  // ── shared UI helpers ──
   function setRich(el,text){ while(el.firstChild) el.removeChild(el.firstChild);
     text.split(URL_RE).forEach(function(p){ if(!p) return;
       if(/^https?:\/\//.test(p)){ var a=document.createElement('a'); a.href=p; a.target='_blank'; a.rel='noopener'; a.textContent=p; el.appendChild(a); }
       else el.appendChild(document.createTextNode(p)); }); }
-
   function bubble(role,txt){ var d=document.createElement('div'); d.className='bb-msg '+role;
     if(isAr(txt)) d.setAttribute('dir','rtl'); setRich(d,txt); log.appendChild(d); log.scrollTop=log.scrollHeight; return d; }
-
   function clearKids(n){ while(n.firstChild) n.removeChild(n.firstChild); }
   function renderChips(){ clearKids(chips);
     SUGGESTIONS.forEach(function(s){ var b=document.createElement('button'); b.type='button'; b.className='bb-chip';
       b.textContent=s; if(isAr(s)) b.setAttribute('dir','rtl'); b.onclick=function(){ input.value=s; form.requestSubmit(); }; chips.appendChild(b); }); }
+  function setStatus(t){ if(!aiStatus) return; aiStatus.hidden=!t; aiStatus.textContent=t||''; }
 
   function open(){ panel.hidden=false; panel.classList.add('bb-in'); launch.style.opacity='0'; launch.style.pointerEvents='none';
     setTimeout(function(){ input.focus(); },120);
-    if(!greeted){ greeted=true; bubble('bot',"Hello — I'm Noor, Bato's concierge. Ask me about treatments, prices, or booking, in English or العربية. How can I help?"); renderChips(); } }
+    if(!greeted){ greeted=true; bubble('bot',"Hello — I'm Noor, Bato's concierge. Ask me about treatments, prices, hours or booking, in English or العربية. How can I help?"); renderChips(); } }
   function close(){ panel.hidden=true; launch.style.opacity=''; launch.style.pointerEvents=''; }
   launch.onclick=open; closeB.onclick=close;
   document.addEventListener('keydown',function(e){ if(e.key==='Escape' && !panel.hidden) close(); });
+
+  // ── Tier-2: optional free open-source model, downloaded & run on the visitor's device ──
+  function buildSys(){
+    var prices=MENU.map(function(m){return "- "+m.n+": "+m.p+" AED";}).join("\n");
+    return "You are Noor, the concierge for Bato Medical Clinic (Salmiya, Kuwait & Al Safa, Dubai). Warm, brief (2-4 sentences), expert in skin/hair/aesthetics. Reply in the user's language (English or Arabic).\n"
+      +"Hours: Sat-Wed 11:00-19:00, Thu-Fri 11:00-18:00. WhatsApp "+WA+" ; clinic +965 2202 7200. Instagram @batoclinic. Licence No. 300.\n"
+      +"RULES: You are NOT a doctor — never diagnose, guarantee results, or use superlatives; recommend a consultation for medical questions. Quote DUBAI prices (AED) from the list. For KUWAIT, never quote prices — direct to WhatsApp. To book, give the wa.me link.\n"
+      +"DUBAI PRICE LIST (AED):\n"+prices;
+  }
+  async function enableLocalAI(){
+    if(loadingAI||engine) return;
+    if(!('gpu' in navigator) || !navigator.gpu){ setStatus("On-device AI needs a WebGPU browser (recent Chrome/Edge, or Safari 18+). No worries — I'll keep answering instantly without it."); aiBtn.hidden=true; return; }
+    loadingAI=true; aiBtn.hidden=true; setStatus("Loading on-device AI… first time downloads ~1GB to your browser cache, then it's instant & fully private. You can keep chatting meanwhile.");
+    try{
+      var webllm=await import("https://esm.run/@mlc-ai/web-llm");
+      engine=await webllm.CreateMLCEngine(LOCAL_MODEL,{ initProgressCallback:function(p){ setStatus("Loading on-device AI… "+Math.round((p.progress||0)*100)+"%"); } });
+      setStatus("On-device AI ready — answers are now conversational and run privately on your device 🌿");
+      bubble('bot',"Smart mode is on — I'm now running a free open-source AI model privately on your device. Ask me anything about skin, hair, treatments or prices.");
+    }catch(err){ engine=null; setStatus("Couldn't load on-device AI here — I'll keep answering instantly without it."); }
+    loadingAI=false;
+  }
+  if(aiBtn) aiBtn.onclick=enableLocalAI;
+
+  async function talkAI(){
+    busy=true; send.disabled=true;
+    var out=bubble('bot',''); out.classList.add('bb-typing'); var acc='';
+    try{
+      var msgs=[{role:'system',content:buildSys()}].concat(history.slice(-8));
+      var stream=await engine.chat.completions.create({ messages:msgs, stream:true, temperature:0.3, max_tokens:480 });
+      for await (var c of stream){ var d=c.choices&&c.choices[0]&&c.choices[0].delta&&c.choices[0].delta.content;
+        if(d){ acc+=d; out.classList.remove('bb-typing'); setRich(out,acc); if(isAr(acc))out.setAttribute('dir','rtl'); log.scrollTop=log.scrollHeight; } }
+    }catch(err){ acc=answerLocal(history[history.length-1].content); }
+    out.classList.remove('bb-typing'); if(!out.textContent) setRich(out,acc);
+    if(acc) history.push({role:'assistant',content:acc});
+    busy=false; send.disabled=false; input.focus();
+  }
 
   form.addEventListener('submit', function(e){ e.preventDefault();
     var text=(input.value||'').trim(); if(!text||busy) return;
     input.value=''; clearKids(chips);
     bubble('user',text); history.push({role:'user',content:text});
-    if(!BATO_BOT.endpoint){ bubble('bot',"I'm not connected to the clinic brain yet. In the meantime, message the team on WhatsApp: "+WA); return; }
-    talk();
+    if(engine){ talkAI(); }
+    else { var a=answerLocal(text); bubble('bot',a); history.push({role:'assistant',content:a}); }
   });
-
-  function talk(){
-    busy=true; send.disabled=true;
-    var out=bubble('bot',''); out.classList.add('bb-typing'); var acc='';
-    fetch(BATO_BOT.endpoint,{ method:'POST', headers:{'content-type':'application/json'}, body:JSON.stringify({ messages:history }) })
-    .then(function(res){
-      if(!res.ok||!res.body) throw new Error('bad');
-      var reader=res.body.getReader(), dec=new TextDecoder(), buf='';
-      function done(){ out.classList.remove('bb-typing');
-        if(acc){ history.push({role:'assistant',content:acc}); }
-        else { setRich(out,"Sorry — I had trouble responding. You can reach the team on WhatsApp: "+WA); }
-        busy=false; send.disabled=false; input.focus(); }
-      (function pump(){ return reader.read().then(function(r){
-        if(r.done){ done(); return; }
-        buf+=dec.decode(r.value,{stream:true}); var lines=buf.split('\n'); buf=lines.pop();
-        lines.forEach(function(line){ line=line.trim(); if(line.indexOf('data:')!==0) return;
-          var payload=line.slice(5).trim(); if(!payload) return;
-          try{ var j=JSON.parse(payload);
-            if(j.type==='content_block_delta'&&j.delta&&j.delta.type==='text_delta'){ acc+=j.delta.text;
-              out.classList.remove('bb-typing'); setRich(out,acc); if(isAr(acc))out.setAttribute('dir','rtl'); log.scrollTop=log.scrollHeight; }
-          }catch(_){ } });
-        return pump();
-      }); })();
-    })
-    .catch(function(){ out.classList.remove('bb-typing');
-      setRich(out,"I'm having trouble connecting right now. Please message the team on WhatsApp: "+WA);
-      busy=false; send.disabled=false; });
-  }
 })();
 </script>
 
