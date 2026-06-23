@@ -132,8 +132,9 @@ a{ color:inherit; text-decoration:none; }
 :focus-visible{ outline:2px solid var(--hud-accent); outline-offset:3px; border-radius:3px; }
 /* next-level refinements (impeccable · high-end-visual-design · Lamborghini reference) */
 body{ font-optical-sizing:auto; font-kerning:normal; }
-.hero__h em,.book__h em,.diag__head em{ font-weight:400; }
-.reading-lede em{ font-weight:420; }
+.hero__h em,.book__h em{ font-weight:560; }
+.diag__head em{ font-weight:480; }
+.reading-lede em{ font-weight:540; }
 .shot__d{ font-weight:340; }
 .hero__h,.reading-lede,.diag__head,.book__h{ text-wrap:balance; }
 .measure,.shot__d{ text-wrap:pretty; }
@@ -251,9 +252,20 @@ body.dock-on .dock{ opacity:1; transform:none; pointer-events:auto; }
 
 /* ─── 00 overture ─── */
 #s0{ align-items:center; justify-content:center; text-align:center; }
-.mark{ font-family:var(--kufi); font-weight:600; font-size:clamp(2.4rem,7vw,5.4rem); line-height:1; letter-spacing:.01em; direction:rtl; }
-.mark__en{ display:block; font-family:var(--serif); font-weight:200; font-style:italic; font-size:.32em; letter-spacing:.34em; text-transform:uppercase; color:var(--amber); margin-top:1.1rem; direction:ltr; }
-.whisper{ margin-top:clamp(2.6rem,6vw,4.2rem); font-family:var(--serif); font-weight:200; font-size:clamp(1.05rem,1.8vw,1.5rem); color:var(--soft); }
+.overture{ position:relative; display:inline-flex; flex-direction:column; align-items:center; }
+/* dawn glow blooms behind the name once, on load — the sun cresting */
+.overture::before{ content:""; position:absolute; left:50%; top:46%; width:min(94vw,940px); height:min(58vh,520px);
+  transform:translate(-50%,-50%) scale(.62); background:radial-gradient(closest-side, rgba(255,231,188,.24), rgba(211,182,60,.08) 46%, transparent 72%);
+  opacity:0; filter:blur(8px); pointer-events:none; animation:dawn 4.6s var(--ease) .25s forwards; }
+@keyframes dawn{ 0%{opacity:0; transform:translate(-50%,-50%) scale(.62)} 55%{opacity:1} 100%{opacity:.9; transform:translate(-50%,-50%) scale(1)} }
+.mark{ position:relative; font-family:var(--kufi); font-weight:600; font-size:clamp(3rem,13.5vw,9rem); line-height:.98; letter-spacing:.005em; direction:rtl; color:var(--ink); }
+.mark__en{ display:block; font-family:var(--serif); font-weight:200; font-style:italic; font-size:.2em; letter-spacing:.42em; text-transform:uppercase; color:var(--amber); margin-top:1.5rem; padding-inline-start:.42em; direction:ltr; }
+/* the horizon — first light rests on a line that draws across on load */
+.horizon{ position:relative; width:min(72vw,540px); height:1px; margin:clamp(2rem,4.5vw,3.2rem) auto 0;
+  background:linear-gradient(90deg, transparent, var(--amber) 24%, var(--amber) 76%, transparent);
+  opacity:0; transform:scaleX(0); transform-origin:center; animation:hz 1.7s var(--ease-lift) 1s forwards; }
+@keyframes hz{ to{ opacity:.5; transform:scaleX(1); } }
+.whisper{ margin-top:clamp(1.6rem,4vw,2.8rem); font-family:var(--serif); font-weight:200; font-size:clamp(1.05rem,1.8vw,1.5rem); color:var(--soft); }
 .whisper .ar{ display:block; font-family:var(--ruqaa); font-size:1.3em; margin-bottom:.5rem; color:var(--ink); }
 .cue{ position:absolute; bottom:clamp(22px,4vw,40px); left:50%; transform:translateX(-50%); font-family:var(--mono); font-size:10px; letter-spacing:.3em; text-transform:uppercase; color:var(--soft); animation:cue 2.6s var(--ease) infinite; }
 @keyframes cue{ 0%,100%{opacity:.45; transform:translate(-50%,0)} 50%{opacity:1; transform:translate(-50%,6px)} }
@@ -312,6 +324,9 @@ body.dock-on .dock{ opacity:1; transform:none; pointer-events:auto; }
   background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='80' viewBox='0 0 80 80'%3E%3Cg fill='none' stroke='%23d3b63c' stroke-width='1.4'%3E%3Cpath d='M40 0 L80 40 L40 80 L0 40 Z'/%3E%3Cpath d='M40 20 L60 40 L40 60 L20 40 Z'/%3E%3C/g%3E%3C/svg%3E");
   background-size:90px 90px; mix-blend-mode:soft-light; opacity:.5; transition:opacity 1.1s var(--ease), filter 1.1s var(--ease); }
 .shot--radiance.in .lattice-cast{ opacity:0; filter:blur(10px); }
+/* crescendo — Radiance breaks the chapter rhythm as the climax (bolder pass) */
+.shot--radiance .shot__name{ font-size:clamp(3.4rem,11vw,9.5rem); }
+.shot--radiance.in .shot__name{ text-shadow:0 0 40px rgba(255,226,170,.30); transition:text-shadow 1.6s var(--ease) .7s; }
 
 /* ─── diagnostic band ─── */
 .diag{ position:relative; z-index:3; background:var(--umbra); color:#e4dbd2; padding:clamp(48px,9vw,120px) clamp(28px,6vw,90px); }
@@ -325,7 +340,7 @@ body.dock-on .dock{ opacity:1; transform:none; pointer-events:auto; }
 .inside__veil{ position:absolute; inset:0; background:linear-gradient(to top, rgba(28,22,14,.82) 0%, rgba(28,22,14,.18) 50%, rgba(28,22,14,.5) 100%); }
 .inside__c{ position:relative; z-index:4; padding:clamp(28px,6vw,90px); color:#efe7d9; max-width:680px; }
 .inside__h{ font-family:var(--serif); font-weight:200; font-size:clamp(2.4rem,7vw,6rem); line-height:.95; letter-spacing:-.03em; margin-top:.5rem; }
-.inside__h em{ font-style:italic; font-weight:400; }
+.inside__h em{ font-style:italic; font-weight:460; }
 /* "The work" — real doctor-supervised treatments gallery */
 .work{ position:relative; z-index:3; background:var(--bg); padding:clamp(46px,8vw,96px) 0; transition:background-color 1.1s var(--ease-lift); }
 .work__head{ padding:0 clamp(28px,6vw,90px); }
@@ -435,6 +450,8 @@ body.dock-on .dock{ opacity:1; transform:none; pointer-events:auto; }
   .stage{ padding:clamp(22px,7vw,40px); }
   /* hero: lift the type, kill the dead space, give it presence */
   #s1{ align-items:center; }
+  .mark{ font-size:clamp(2.9rem,12vw,4.4rem); }
+  .horizon{ width:min(80vw,360px); }
   .hero__h{ font-size:clamp(3.1rem,15.5vw,5.4rem); line-height:.96; }
   .hero__sub{ gap:1.1rem 1.5rem; margin-top:1.8rem; }
   .hero__ar{ font-size:clamp(1.7rem,7vw,2.4rem); }
@@ -472,6 +489,8 @@ body.dock-on .dock{ opacity:1; transform:none; pointer-events:auto; }
   .shimmer,.spark,.scan,.shot--radiance .lattice-cast{ display:none; }
   .shot--radiance .glow{ opacity:1; }
   .bloom{ opacity:.6; top:14vh; }
+  .overture::before{ animation:none; opacity:.7; transform:translate(-50%,-50%) scale(1); }
+  .horizon{ animation:none; opacity:.5; transform:none; }
 }
 </style>
 </head>
@@ -509,7 +528,10 @@ body.dock-on .dock{ opacity:1; transform:none; pointer-events:auto; }
   <!-- 00 · OVERTURE -->
   <section class="stage" id="s0" data-stage data-theme="dark" data-idx="1" data-name="السكون · STILLNESS">
     <div class="wrap">
-      <h1 class="mark" data-reveal="blur" lang="ar">مستوصف باتو<span class="mark__en" lang="en">Bato Medical Clinic</span></h1>
+      <div class="overture">
+        <h1 class="mark" data-reveal="blur" lang="ar">مستوصف باتو<span class="mark__en" lang="en">Bato Clinic</span></h1>
+        <div class="horizon" aria-hidden="true"></div>
+      </div>
       <p class="whisper" data-reveal="blur" style="--d:300ms">
         <span class="ar" lang="ar" style="font-family:var(--ruqaa)">النور يعود إلى البشرة</span>
         Light returns to the skin.
