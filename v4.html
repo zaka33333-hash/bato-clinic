@@ -201,13 +201,14 @@ body.cur-hot .cur__lbl{ opacity:1; }
 @media(hover:none),(pointer:coarse){ .cur{ display:none } }
 
 /* ─── persistent booking dock (conversion safety net) ─── */
-.dock{ position:fixed; z-index:45; inset-inline-end:clamp(18px,3vw,40px); bottom:clamp(18px,3vw,34px);
+.dock{ position:fixed; z-index:45; inset-inline-end:clamp(18px,3vw,40px); bottom:calc(clamp(18px,3vw,34px) + env(safe-area-inset-bottom,0px));
   display:inline-flex; align-items:center; gap:.7em; padding:.92em 1.35em; border-radius:999px;
   font-family:var(--mono); font-size:10.5px; letter-spacing:.18em; text-transform:uppercase; font-weight:400;
   background:var(--ink); color:var(--bg); border:1px solid var(--ink);
   opacity:0; transform:translateY(14px) scale(.96); pointer-events:none;
   transition:opacity .5s var(--ease), transform .5s var(--ease), background-color .8s var(--ease-lift), color .8s var(--ease-lift);
-  box-shadow:0 10px 34px -12px rgba(0,0,0,.55); }
+  box-shadow:0 14px 38px -14px rgba(28,18,8,.55), inset 0 1px 0 rgba(255,240,210,.10); }
+.dock:hover{ transform:translateY(-2px) scale(1.01); box-shadow:0 18px 44px -14px rgba(28,18,8,.62), inset 0 1px 0 rgba(255,240,210,.12); }
 body.dock-on .dock{ opacity:1; transform:none; pointer-events:auto; }
 .dock .ar{ font-family:var(--kufi); font-size:1.25em; line-height:1; }
 .dock .i{ display:inline-flex; width:1.55em; height:1.55em; border-radius:50%; align-items:center; justify-content:center; background:rgba(211,182,60,.22); color:var(--amber); }
@@ -230,6 +231,8 @@ body.dock-on .dock{ opacity:1; transform:none; pointer-events:auto; }
 [data-reveal="lines"] .ln i{ display:block; font-style:inherit; transform:translateY(112%); transition:transform 1s var(--ease) var(--d); }
 [data-reveal="lines"].in .ln i{ transform:translateY(0); }
 [data-reveal="blur"]{ opacity:0; filter:blur(12px); transform:scale(1.04) translateY(18px); transition:opacity 1s var(--ease) var(--d), filter 1s var(--ease) var(--d), transform 1s var(--ease) var(--d); }
+[data-reveal="rise-blur"]{ opacity:0; transform:translateY(24px); filter:blur(8px); transition:opacity 1s var(--ease) var(--d), transform 1s var(--ease) var(--d), filter 1s var(--ease) var(--d); }
+[data-reveal="rise-blur"].in{ opacity:1; transform:none; filter:none; }
 [data-reveal="blur"].in{ opacity:1; filter:blur(0); transform:none; }
 [data-reveal="rise"]{ opacity:0; transform:translateY(30px); transition:opacity .9s var(--ease) var(--d), transform .9s var(--ease) var(--d); }
 [data-reveal="rise"].in{ opacity:1; transform:none; }
@@ -263,6 +266,7 @@ body.dock-on .dock{ opacity:1; transform:none; pointer-events:auto; }
 /* ─── photo chapters ─── */
 .shot{ position:relative; min-height:100svh; display:flex; align-items:flex-end; overflow:hidden; z-index:3; }
 .shot__pic{ display:contents; }
+.shot::before{ content:''; position:absolute; left:0; right:0; top:0; height:11vh; z-index:1; pointer-events:none; background:linear-gradient(to top, transparent, var(--bg)); }
 /* art-direction grade — strengthen the two softer frames */
 #s4 .shot__bg{ filter:contrast(1.06) saturate(1.05); }
 #s6 .shot__bg{ filter:contrast(1.05) saturate(1.09) brightness(1.012); }
@@ -301,9 +305,13 @@ body.dock-on .dock{ opacity:1; transform:none; pointer-events:auto; }
 
 /* ─── diagnostic band ─── */
 .diag{ position:relative; z-index:3; background:var(--umbra); color:#e4dbd2; padding:clamp(48px,9vw,120px) clamp(28px,6vw,90px); }
+.diag__licence{ display:flex; align-items:baseline; gap:1.1rem; flex-wrap:wrap; margin-top:clamp(1.8rem,4vw,2.8rem); }
+.diag__num{ font-family:var(--serif); font-weight:200; font-size:clamp(3.4rem,9vw,7rem); line-height:.85; letter-spacing:-.02em; color:#efe7d9; }
+.diag__num bdi{ font-size:.34em; letter-spacing:.03em; color:var(--cyan); }
+.diag__numcap{ font-family:var(--mono); font-size:11px; letter-spacing:.2em; text-transform:uppercase; color:var(--cyan); line-height:1.5; }
 .diag__head{ font-family:var(--serif); font-weight:200; font-size:clamp(1.8rem,4vw,3.2rem); line-height:1.12; letter-spacing:-.02em; max-width:18ch; }
 .diag__ar{ font-family:var(--kufi); direction:rtl; color:var(--cyan); font-weight:500; font-size:clamp(1.2rem,2.6vw,1.7rem); margin-bottom:.6rem; }
-.diag__grid{ margin-top:clamp(2.4rem,5vw,3.6rem); display:grid; gap:0; border-top:1px solid rgba(124,134,137,.4); }
+.diag__grid{ margin-top:clamp(2.4rem,5vw,3.6rem); display:grid; gap:0; border-top:1px solid rgba(211,182,60,.45); }
 .diag__row{ display:flex; justify-content:space-between; gap:1.5rem; padding:1.1rem 0; border-bottom:1px solid rgba(124,134,137,.22); font-family:var(--mono); font-size:12px; letter-spacing:.06em; }
 .diag__row span:first-child{ color:#e4dbd2; } .diag__row span:last-child{ color:var(--cyan); text-align:end; }
 .diag__row [lang="ar"]{ font-family:var(--kufi); letter-spacing:0; }
@@ -342,6 +350,11 @@ body.dock-on .dock{ opacity:1; transform:none; pointer-events:auto; }
 .field{ display:flex; flex-direction:column; gap:.4rem; border-bottom:1px solid var(--rule); padding-bottom:.6rem; }
 .field label{ font-family:var(--mono); font-size:10px; letter-spacing:.2em; text-transform:uppercase; color:var(--clay); }
 .field input,.field select{ background:transparent; border:0; color:var(--ink); font-family:var(--serif); font-weight:300; font-size:1.3rem; outline:none; }
+.field{ transition:border-color .25s var(--ease); }
+.field:hover{ border-bottom-color:color-mix(in srgb, var(--ink) 45%, transparent); }
+.field:focus-within{ border-bottom-color:var(--hud-accent); }
+.field input:not(:placeholder-shown){ border-bottom-color:color-mix(in srgb, var(--ink) 55%, transparent); }
+.field select{ -webkit-appearance:none; appearance:none; padding-right:1.4em; background-repeat:no-repeat; background-position:right .15em center; background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8'%3E%3Cpath d='M1 1l5 5 5-5' fill='none' stroke='%234a453f' stroke-width='1.4'/%3E%3C/svg%3E"); }
 .field input:focus-visible,.field select:focus-visible{ outline:2px solid var(--hud-accent); outline-offset:4px; border-radius:3px; }
 .field input::placeholder{ color:var(--soft); }
 .field select{ font-family:var(--sans); font-size:1.05rem; }
@@ -495,7 +508,7 @@ body.dock-on .dock{ opacity:1; transform:none; pointer-events:auto; }
     <div class="shot__veil"></div>
     <div class="shot__c">
       <div class="shot__tag" data-reveal="rise"><span lang="ar">الجلدية</span> · Dermatology</div>
-      <h2 class="shot__name" data-reveal="rise" style="--d:120ms">Skin<span class="ar" lang="ar">البشرة</span></h2>
+      <h2 class="shot__name" data-reveal="rise-blur" style="--d:120ms">Skin<span class="ar" lang="ar">البشرة</span></h2>
       <p class="shot__d" data-reveal="rise" style="--d:240ms">We read the surface and restore its clarity. Peels, laser and medical-grade dermatology, within a plan your physician defines. Never rushed.</p>
     </div>
   </section>
@@ -511,7 +524,7 @@ body.dock-on .dock{ opacity:1; transform:none; pointer-events:auto; }
     <div class="shimmer"></div>
     <div class="shot__c" style="margin-inline-start:auto; text-align:end">
       <div class="shot__tag" data-reveal="rise"><span lang="ar">العناية بالشعر</span> · Hair</div>
-      <h2 class="shot__name" data-reveal="rise" style="--d:120ms">Hair<span class="ar" lang="ar">الشعر</span></h2>
+      <h2 class="shot__name" data-reveal="rise-blur" style="--d:120ms">Hair<span class="ar" lang="ar">الشعر</span></h2>
       <p class="shot__d" data-reveal="rise" style="--d:240ms; margin-inline-start:auto">Care that begins at the root: massage, steam, cleanse, serum. A considered ritual that restores vitality.</p>
     </div>
   </section>
@@ -527,7 +540,7 @@ body.dock-on .dock{ opacity:1; transform:none; pointer-events:auto; }
     <div class="spark"></div>
     <div class="shot__c">
       <div class="shot__tag" data-reveal="rise"><span lang="ar">النحت</span> · Fillers &amp; Botox</div>
-      <h2 class="shot__name" data-reveal="rise" style="--d:120ms; font-size:clamp(2.6rem,7vw,6rem)">The measured hand<span class="ar" lang="ar" style="display:block; margin:0">اللمسة المدروسة</span></h2>
+      <h2 class="shot__name" data-reveal="rise-blur" style="--d:120ms; font-size:clamp(2.6rem,7vw,6rem)">The measured hand<span class="ar" lang="ar" style="display:block; margin:0">اللمسة المدروسة</span></h2>
       <p class="shot__d" data-reveal="rise" style="--d:240ms">The smallest touch. A natural result, shaped by specialists with unhurried, considered care.</p>
     </div>
   </section>
@@ -542,12 +555,12 @@ body.dock-on .dock{ opacity:1; transform:none; pointer-events:auto; }
         <span class="ln"><i>with a reading.</i></span>
       </h2>
       <p class="measure" style="margin-top:1.4rem; color:rgba(237,228,212,.74)" data-reveal="rise">Bato is a medical clinic, not a spa. Behind the aesthetics sits a full general-medicine department: consultations, laboratory analysis, ECG and wound care, all supervised by doctors. Care begins with understanding your health.</p>
+      <div class="diag__licence" data-reveal="rise" style="--d:160ms"><span class="diag__num">300<bdi lang="ar">٣٠٠</bdi></span><span class="diag__numcap">Facility licence<br><span lang="ar">رخصة المنشأة</span></span></div>
       <div class="diag__grid" data-reveal="rise" style="--d:240ms">
         <div class="diag__row"><span>General medicine &amp; consultations</span><span lang="ar">استشارات عامة</span></div>
         <div class="diag__row"><span>Laboratory &amp; blood analysis</span><span lang="ar">تحاليل الدم</span></div>
         <div class="diag__row"><span>ECG · injections · wound care</span><span lang="ar">تخطيط القلب والحقن والغيارات</span></div>
         <div class="diag__row"><span>Diabetic-foot screening</span><span lang="ar">كشف القدم للسكري</span></div>
-        <div class="diag__row"><span>Facility licence</span><span><bdi lang="ar">رقم ٣٠٠</bdi> · No.&nbsp;300</span></div>
       </div>
     </div>
   </section>
@@ -564,7 +577,7 @@ body.dock-on .dock{ opacity:1; transform:none; pointer-events:auto; }
     <div class="shot__veil" style="background:linear-gradient(100deg,rgba(28,22,14,.40) 0 28%,rgba(28,22,14,.06) 60%,transparent)"></div>
     <div class="shot__c">
       <div class="shot__tag" data-reveal="rise"><span lang="ar">النضارة</span> · Glow &amp; Radiance</div>
-      <h2 class="shot__name" data-reveal="rise" style="--d:120ms">Radiance<span class="ar" lang="ar">النضارة</span></h2>
+      <h2 class="shot__name" data-reveal="rise-blur" style="--d:120ms">Radiance<span class="ar" lang="ar">النضارة</span></h2>
       <p class="shot__d" data-reveal="rise" style="--d:240ms">Light returns to the surface: mesotherapy, plasma and glow boosters, delivered by specialists at an unhurried pace.</p>
     </div>
   </section>
@@ -675,11 +688,11 @@ body.dock-on .dock{ opacity:1; transform:none; pointer-events:auto; }
       <input id="bb-input" type="text" autocomplete="off" placeholder="Ask about treatments, prices, booking…" aria-label="Message">
       <button id="bb-send" type="submit" aria-label="Send">↑</button>
     </form>
-    <p class="bb-fine">Noor is an AI assistant, not a doctor — for medical advice, book a consultation.</p>
+    <p class="bb-fine">Noor is an AI assistant, not a doctor. For medical advice, book a consultation.</p>
   </section>
 </div>
 <style>
-#bato-bot{ position:fixed; z-index:70; inset-inline-start:clamp(14px,3vw,30px); bottom:clamp(14px,3vw,30px); font-family:var(--sans,system-ui,sans-serif); }
+#bato-bot{ position:fixed; z-index:70; inset-inline-start:clamp(14px,3vw,30px); bottom:calc(clamp(14px,3vw,30px) + env(safe-area-inset-bottom,0px)); font-family:var(--sans,system-ui,sans-serif); }
 #bb-launch{ display:inline-flex; align-items:center; gap:.6em; padding:.8em 1.15em; border-radius:999px; border:1px solid #3a2e1e;
   background:#2c2318; color:#efe7d9; font-family:var(--mono,ui-monospace,monospace); font-size:11px; letter-spacing:.16em; text-transform:uppercase; cursor:pointer;
   box-shadow:0 10px 30px -12px rgba(0,0,0,.6); transition:transform .25s cubic-bezier(.22,1,.36,1), opacity .3s; }
@@ -797,7 +810,7 @@ body.dock-on .dock{ opacity:1; transform:none; pointer-events:auto; }
   ];
   var CONCERNS = [
     [["dull","tired","glow","radiance","نضارة","باهت","تعب"], "For dull, tired skin: HydraFacial, a peel, or radiance boosters (Profhilo / Yaqout / Saffron). A short consultation picks the right plan."],
-    [["wrinkle","line","aging","anti-age","تجاعيد","خطوط"], "For lines & wrinkles: Botox (forehead, brow, etc.) and dermal fillers — matched to you after a doctor's reading."],
+    [["wrinkle","line","aging","anti-age","تجاعيد","خطوط"], "For lines & wrinkles: Botox (forehead, brow, etc.) and dermal fillers, matched to you after a doctor's reading."],
     [["hair loss","thinning","bald","hairfall","تساقط","صلع","شعر يطيح"], "For hair loss/thinning: Hair Mesotherapy and PRP packages stimulate the scalp. We start with an assessment."],
     [["pigment","melasma","dark spot","كلف","تصبغ","بقع"], "For pigmentation/melasma: Cosmelan peeling and medical chemical peels, doctor-supervised."],
     [["sweat","hyperhidrosis","تعرق"], "For excess sweating: Botox for hyperhidrosis — underarms or hands."],
@@ -814,18 +827,18 @@ body.dock-on .dock{ opacity:1; transform:none; pointer-events:auto; }
     if(/hour|open|close|timing|متى|الدوام|ساعات|تفتح|تسكر/.test(q)) return ar?"ساعات العمل: السبت–الأربعاء ١١ص–٧م، والخميس–الجمعة ١١ص–٦م.":"Hours: Saturday–Wednesday 11:00–19:00, and Thursday–Friday 11:00–18:00.";
     if(/where|location|address|branch|directions|وين|فين|مكان|عنوان|فرع/.test(q)) return ar?"لدينا فرعان: السالمية، الكويت (قطعة ١، شارع ٢، بناية ٢٤، الدورين ١ و٢)، ودبي (الصفا الأولى، شارع الوصل).":"Two branches: Salmiya, Kuwait (Block 1, Street 2, Building 24, Floors 1 & 2) and Al Safa First, Al Wasl Road, Dubai.";
     if(/phone|call|number|contact|whatsapp|رقم|اتصال|تواصل|واتس/.test(q)) return (ar?"تواصلي معنا على واتساب ":"Reach us on WhatsApp ")+WA+(ar?" · أو العيادة ٢٢٠٢٧٢٠٠ ٩٦٥+":" · or clinic +965 2202 7200");
-    if(/book|appointment|reserve|schedule|احجز|حجز|موعد|ابي اجي/.test(q)) return (ar?"بكل سرور — احجزي عبر واتساب وبنرتب موعدك بأقرب وقت: ":"Happy to help — book on WhatsApp and we'll arrange the soonest time: ")+WA;
+    if(/book|appointment|reserve|schedule|احجز|حجز|موعد|ابي اجي/.test(q)) return (ar?"بكل سرور، احجزي عبر واتساب وبنرتب موعدك بأقرب وقت: ":"Happy to help. Book on WhatsApp and we'll arrange the soonest time: ")+WA;
     if(/instagram|insta|snap|social|انستا|انستقرام|سناب/.test(q)) return (ar?"تابعينا على إنستغرام @batoclinic، وللحجز واتساب: ":"Follow @batoclinic on Instagram; to book, WhatsApp: ")+WA;
-    if(/doctor|safe|side ?effect|pregnan|diagnos|medical advice|طبيب|آمن|أعراض|حامل|تشخيص/.test(q)) return ar?"أنا مساعِدة ذكية ولستُ طبيبة، فلا أقدّم تشخيصاً أو وعوداً بالنتائج. الأفضل حجز استشارة مع طبيب باتو ليقيّم حالتك بدقة. أحجزلك عبر واتساب؟ "+WA:"I'm an AI assistant, not a doctor — I can't diagnose or promise results. The best step is a consultation with a Bato doctor who'll assess you properly. Want me to set up a WhatsApp booking? "+WA;
+    if(/doctor|safe|side ?effect|pregnan|diagnos|medical advice|طبيب|آمن|أعراض|حامل|تشخيص/.test(q)) return ar?"أنا مساعِدة ذكية ولستُ طبيبة، فلا أقدّم تشخيصاً أو وعوداً بالنتائج. الأفضل حجز استشارة مع طبيب باتو ليقيّم حالتك بدقة. أحجزلك عبر واتساب؟ "+WA:"I'm an AI assistant, not a doctor. I can't diagnose or promise results. The best step is a consultation with a Bato doctor who'll assess you properly. Want me to set up a WhatsApp booking? "+WA;
     var priceQ=/price|cost|how much|how many|fee|rate|aed|كم|بكم|بكام|سعر|تكلفة|كلفة/.test(q);
     var m=findService(q), city=cityOf(q);
     if(priceQ){
       if(city==='kw') return (ar?"أسعار فرع الكويت لا تُنشر إلكترونياً (تعليمات وزارة الصحة الكويتية). راسلينا على واتساب وبنعطيك التفاصيل: ":"Kuwait prices aren't published online (Kuwait MOH rules). Message us on WhatsApp for Kuwait pricing: ")+WA;
-      if(m) return m.n+" — "+m.p+" AED (Dubai). "+(ar?"السعر تقريبي والخطة النهائية يحددها الطبيب بعد الفحص. أحجزلك؟ ":"Indicative; your final plan is confirmed by the doctor after a reading. Want me to book it? ")+WA;
+      if(m) return m.n+": "+m.p+" AED (Dubai). "+(ar?"السعر تقريبي والخطة النهائية يحددها الطبيب بعد الفحص. أحجزلك؟ ":"Indicative; your final plan is confirmed by the doctor after a reading. Want me to book it? ")+WA;
       return ar?"عندي قائمة أسعار دبي كاملة — أي خدمة تقصدين؟ (بوتكس، فيلر، هيدرافيشل، تقشير، ليزر، ميزوثيرابي شعر، تحاليل…)":"I have the full Dubai price list — which treatment? (Botox, filler, HydraFacial, peels, laser, hair mesotherapy, lab tests…)";
     }
     for(var i=0;i<CONCERNS.length;i++){ if(CONCERNS[i][0].some(function(k){return q.indexOf(k)>=0;})) return CONCERNS[i][1]+" "+(ar?"أحجزلك استشارة؟ ":"Want me to book a consultation? ")+WA; }
-    if(m) return m.n+" — Dubai price "+m.p+" AED. "+(ar?"تحبين تفاصيل أكثر أو حجز؟ ":"Want more detail or to book? ")+WA;
+    if(m) return m.n+": Dubai price "+m.p+" AED. "+(ar?"تحبين تفاصيل أكثر أو حجز؟ ":"Want more detail or to book? ")+WA;
     if(/thank|thx|شكرا|مشكور|يعطيك/.test(q)) return ar?"العفو! نتشرف بخدمتك 🌿":"You're very welcome 🌿";
     return ar?"أقدر أساعدك بالعلاجات والأسعار (دبي) وساعات العمل والفروع والحجز. اكتبي اسم الخدمة أو سؤالك — أو راسلينا على واتساب: "+WA:"I can help with treatments, prices (Dubai), hours, locations, and booking. Tell me a treatment or question — or message us on WhatsApp: "+WA;
   }
@@ -845,7 +858,7 @@ body.dock-on .dock{ opacity:1; transform:none; pointer-events:auto; }
 
   function open(){ panel.hidden=false; panel.classList.add('bb-in'); launch.style.opacity='0'; launch.style.pointerEvents='none';
     setTimeout(function(){ input.focus(); },120);
-    if(!greeted){ greeted=true; bubble('bot',"Hello — I'm Noor, Bato's concierge. Ask me about treatments, prices, hours or booking, in English or العربية. How can I help?"); renderChips(); } }
+    if(!greeted){ greeted=true; bubble('bot',"Hello! I'm Noor, Bato's concierge. Ask me about treatments, prices, hours or booking, in English or العربية. How can I help?"); renderChips(); } }
   function close(){ panel.hidden=true; launch.style.opacity=''; launch.style.pointerEvents=''; }
   launch.onclick=open; closeB.onclick=close;
   document.addEventListener('keydown',function(e){ if(e.key==='Escape' && !panel.hidden) close(); });
