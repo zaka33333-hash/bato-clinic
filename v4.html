@@ -352,6 +352,11 @@ body.dock-on .dock{ opacity:1; transform:none; pointer-events:auto; }
 .work__item img,.work__item video{ width:100%; height:100%; object-fit:cover; display:block; }
 .work__item figcaption{ position:absolute; left:0; right:0; bottom:0; padding:.7em .9em; font-family:var(--mono); font-size:10px; letter-spacing:.18em; text-transform:uppercase; color:#efe7d9; background:linear-gradient(to top, rgba(28,22,14,.85), transparent); }
 @media (prefers-reduced-motion:reduce){ .inside__v{ display:none; } .inside{ background-image:url(assets/inside-bato-poster.jpg); } }
+.inside__cta{ display:inline-flex; align-items:center; gap:.7em; margin-top:clamp(1.6rem,3vw,2.4rem); padding:.95em 1.5em; border-radius:999px; font-family:var(--mono); font-size:11px; letter-spacing:.18em; text-transform:uppercase; color:#efe7d9; border:1px solid rgba(239,231,217,.55); background:rgba(20,14,7,.28); transition:transform .14s var(--ease), background-color .4s var(--ease), color .4s var(--ease), border-color .4s var(--ease); }
+.inside__cta:hover{ background:#efe7d9; color:#1b150d; border-color:#efe7d9; transform:translateY(-2px); }
+.inside__cta .ar{ font-family:var(--kufi); font-size:1.3em; line-height:1; }
+.inside__cta .i{ display:inline-flex; width:1.6em; height:1.6em; align-items:center; justify-content:center; border-radius:50%; background:rgba(211,182,60,.22); color:var(--amber); transition:transform .3s var(--ease); }
+.inside__cta:hover .i{ transform:translate(2px,-1px) scale(1.06); }
 .diag__head{ font-family:var(--serif); font-weight:200; font-size:clamp(1.8rem,4vw,3.2rem); line-height:1.12; letter-spacing:-.02em; max-width:18ch; }
 .diag__ar{ font-family:var(--kufi); direction:rtl; color:var(--cyan); font-weight:500; font-size:clamp(1.2rem,2.6vw,1.7rem); margin-bottom:.6rem; }
 .diag__grid{ margin-top:clamp(2.4rem,5vw,3.6rem); display:grid; gap:0; border-top:1px solid rgba(211,182,60,.45); }
@@ -662,6 +667,7 @@ body.dock-on .dock{ opacity:1; transform:none; pointer-events:auto; }
     <div class="inside__c">
       <div class="eyebrow" data-reveal="rise"><span lang="ar">داخل باتو</span> · Inside the clinic</div>
       <p class="inside__h" data-reveal="lines"><span class="ln"><i>Where the light</i></span><span class="ln"><i>actually <em>lives.</em></i></span></p>
+      <a class="inside__cta" href="about.html" data-reveal="rise" style="--d:220ms" data-mag data-cursor="About">About Bato<span class="ar" lang="ar">عن باتو</span><span class="i" aria-hidden="true">↗</span></a>
     </div>
   </section>
 
