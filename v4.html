@@ -904,6 +904,10 @@ body.dock-on .dock{ opacity:1; transform:none; pointer-events:auto; }
     text.split(URL_RE).forEach(function(p){ if(!p) return;
       if(/^https?:\/\//.test(p)){ var a=document.createElement('a'); a.href=p; a.target='_blank'; a.rel='noopener'; a.dir='ltr'; a.textContent=p; el.appendChild(a); }
       else { var s=document.createElement('bdi'); s.textContent=p; el.appendChild(s); } }); }   // bdi isolates each run → mixed AR/EN reorders correctly
+  // service → real clinic photo (from "the work" footage)
+  var SVC_IMG=[[/facial|hydrafacial|تنظيف|هيدرا/,'assets/work-facial.webp'],[/meso|profhilo|نضارة|ميزو|بروفايلو/,'assets/work-meso.webp'],[/laser|ليزر/,'assets/work-laser.webp'],[/hair|شعر/,'assets/work-hair.webp'],[/plasma|prp|بلازما/,'assets/work-plasma.webp'],[/botox|filler|بوتكس|فيلر/,'assets/work-facial.webp']];
+  function svcImg(q){ q=(q||'').toLowerCase(); for(var i=0;i<SVC_IMG.length;i++) if(SVC_IMG[i][0].test(q)) return SVC_IMG[i][1]; return null; }
+  function imgBubble(src){ var d=document.createElement('div'); d.className='bb-msg bot'; d.style.cssText='padding:0;max-width:74%;overflow:hidden;background:none;border:0'; var im=document.createElement('img'); im.src=src; im.alt='Treatment at Bato Clinic'; im.loading='lazy'; im.style.cssText='width:100%;border-radius:12px;display:block'; d.appendChild(im); log.appendChild(d); log.scrollTop=log.scrollHeight; }
   function bubble(role,txt){ var d=document.createElement('div'); d.className='bb-msg '+role; d.dir='auto';
     setRich(d,txt); log.appendChild(d); log.scrollTop=log.scrollHeight; return d; }
   function clearKids(n){ while(n.firstChild) n.removeChild(n.firstChild); }
@@ -968,7 +972,7 @@ body.dock-on .dock{ opacity:1; transform:none; pointer-events:auto; }
     input.value=''; clearKids(chips);
     bubble('user',text); history.push({role:'user',content:text});
     if(engine){ talkAI(); }
-    else { var a=answerLocal(text); bubble('bot',a); history.push({role:'assistant',content:a}); }
+    else { var a=answerLocal(text); bubble('bot',a); history.push({role:'assistant',content:a}); var _pic=svcImg(text); if(_pic) imgBubble(_pic); }
   });
 })();
 </script>
