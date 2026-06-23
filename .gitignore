@@ -11,3 +11,7 @@ design-system/
 .DS_Store
 node_modules/
 *.log
+
+# installed skill packs (npx skills) — keep out of the website repo
+.agents/
+skills-lock.json
