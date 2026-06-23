@@ -117,6 +117,9 @@ body{
 }
 /* custom cursor only hides the system cursor once JS has actually drawn it */
 body.is-cursor-custom{ cursor:none; }
+body.is-cursor-custom #bato-bot, body.is-cursor-custom #bato-bot *{ cursor:auto; }
+body.is-cursor-custom #bb-input{ cursor:text; }
+body.is-cursor-custom #bb-launch, body.is-cursor-custom #bb-send, body.is-cursor-custom #bb-close, body.is-cursor-custom .bb-chip, body.is-cursor-custom #bb-log a{ cursor:pointer; }
 body[data-theme="paper"]{ --bg:#e4dbd2; --ink:#3a2e1e; --soft:rgba(58,46,30,.80); --rule:rgba(58,46,30,.18); --hud-accent:#6f5616; --link:#6f5616; }
 body[data-theme="halo"]{ --bg:#eae9e5; --ink:#2c2318; --soft:rgba(44,35,24,.80); --rule:rgba(44,35,24,.16); --hud-accent:#6f5616; --link:#6f5616; }
 body[data-theme="dark"]{ --bg:#3a2e1e; --ink:#eae9e5; --soft:rgba(234,233,229,.74); --rule:rgba(234,233,229,.18); --hud-accent:#d3b63c; --link:#d3b63c; }
