@@ -1,0 +1,344 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Bato Medical Clinic — Where light returns to the skin</title>
+<meta name="description" content="Bato Medical Clinic — doctor-led skin, hair and aesthetic medicine in Kuwait & Dubai. A supervised, unhurried approach. Licence No. 300.">
+<meta name="theme-color" content="#f7f3ec">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%23191410'/%3E%3Ccircle cx='16' cy='16' r='6.5' fill='%23c79a45'/%3E%3Ccircle cx='16' cy='16' r='10' fill='none' stroke='%23c79a45' stroke-opacity='.4'/%3E%3C/svg%3E">
+<link rel="canonical" href="https://zaka33333-hash.github.io/bato-clinic/v5.html">
+<meta property="og:title" content="Bato Medical Clinic — Where light returns to the skin"><meta property="og:description" content="Doctor-led skin, hair and aesthetic medicine in Kuwait & Dubai. A supervised, unhurried approach. Licence No. 300."><meta property="og:image" content="https://zaka33333-hash.github.io/bato-clinic/assets/refinement.jpg?v=4"><meta name="twitter:card" content="summary_large_image">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,300..800&family=Hanken+Grotesk:wght@300;400;500;600&family=Reem+Kufi:wght@400..600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#f7f3ec; --card:#fffdf8; --ink:#191410; --ink2:#4a4236; --muted:#8c8273;
+  --line:rgba(25,20,16,.10); --line2:rgba(25,20,16,.16); --gold:#a9742a; --gold2:#c79a45;
+  --r:22px; --rs:14px; --max:1240px;
+  --disp:'Bricolage Grotesque',Georgia,serif; --sans:'Hanken Grotesk',system-ui,sans-serif; --ar:'Reem Kufi',sans-serif;
+  --ease:cubic-bezier(.22,1,.36,1);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{font-family:var(--sans);font-weight:400;color:var(--ink);background:var(--paper);-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;overflow-x:hidden;line-height:1.5}
+a{color:inherit;text-decoration:none}
+.wrap{width:100%;max-width:var(--max);margin-inline:auto;padding-inline:clamp(20px,5vw,56px)}
+:focus-visible{outline:2px solid var(--gold);outline-offset:3px;border-radius:4px}
+/* grain */
+body::after{content:'';position:fixed;inset:0;z-index:1;pointer-events:none;opacity:.035;mix-blend-mode:multiply;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+
+/* shared bits */
+.badge{display:inline-flex;align-items:center;gap:.55em;padding:.42em .8em;border:1px solid var(--line2);border-radius:999px;background:rgba(255,253,248,.6);font-size:11px;font-weight:500;letter-spacing:.04em;text-transform:uppercase;color:var(--ink2)}
+.badge::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--gold);box-shadow:0 0 8px 1px rgba(169,116,42,.5)}
+.eyebrow{font-size:11.5px;font-weight:600;letter-spacing:.22em;text-transform:uppercase;color:var(--gold)}
+.btn{display:inline-flex;align-items:center;gap:.6em;padding:.85em 1.3em;border-radius:999px;font-weight:500;font-size:14px;transition:transform .2s var(--ease),background-color .3s,color .3s,box-shadow .3s;will-change:transform}
+.btn--dark{background:var(--ink);color:var(--paper)}
+.btn--dark:hover{transform:translateY(-2px);box-shadow:0 12px 30px -12px rgba(25,20,16,.5)}
+.btn--ghost{border:1px solid var(--line2);background:transparent}
+.btn--ghost:hover{background:var(--ink);color:var(--paper);transform:translateY(-2px)}
+.btn .ar{font-family:var(--ar);font-size:1.15em;line-height:1}
+.arrow{display:inline-flex;width:1.7em;height:1.7em;align-items:center;justify-content:center;border-radius:50%;background:rgba(169,116,42,.14);color:var(--gold);transition:transform .25s var(--ease)}
+.card:hover .arrow{transform:translate(2px,-2px)}
+[data-rise]{opacity:0;transform:translateY(26px);transition:opacity .9s var(--ease),transform .9s var(--ease)}
+[data-rise].in{opacity:1;transform:none}
+
+/* iridescent canvas */
+.irid{position:absolute;inset:0;z-index:0;pointer-events:none;filter:blur(2px)}
+
+/* NAV */
+.nav{position:sticky;top:0;z-index:40;transition:background-color .4s,border-color .4s,backdrop-filter .4s;border-bottom:1px solid transparent}
+.nav.scrolled{background:rgba(247,243,236,.82);-webkit-backdrop-filter:saturate(1.4) blur(14px);backdrop-filter:saturate(1.4) blur(14px);border-color:var(--line)}
+.nav__in{display:flex;align-items:center;justify-content:space-between;height:74px}
+.logo{display:flex;align-items:center;gap:.55em;font-family:var(--disp);font-weight:700;font-size:21px;letter-spacing:-.01em}
+.logo svg{width:26px;height:26px}
+.nav__links{display:flex;gap:34px;font-size:14px;color:var(--ink2)}
+.nav__links a{position:relative;padding:4px 0}
+.nav__links a::after{content:'';position:absolute;left:0;bottom:0;height:1px;width:0;background:var(--gold);transition:width .3s var(--ease)}
+.nav__links a:hover::after{width:100%}
+.nav__links a:hover{color:var(--ink)}
+.nav__cta{display:flex;align-items:center;gap:14px}
+@media(max-width:880px){.nav__links{display:none}}
+
+/* HERO */
+.hero{position:relative;padding:clamp(40px,6vw,76px) 0 clamp(54px,7vw,96px)}
+.hero__grid{display:grid;grid-template-columns:1.05fr .95fr;gap:clamp(24px,4vw,60px);align-items:center}
+.hero__h{font-family:var(--disp);font-weight:300;font-size:clamp(2.9rem,7.4vw,6.1rem);line-height:.96;letter-spacing:-.03em;text-transform:uppercase}
+.hero__h b{font-weight:700}
+.hero__h em{font-style:italic;font-weight:400;text-transform:none;color:var(--gold)}
+.hero__sub{max-width:40ch;margin:1.5rem 0 2rem;font-size:clamp(1rem,1.3vw,1.18rem);color:var(--ink2);line-height:1.6}
+.hero__ar{font-family:var(--ar);direction:rtl;color:var(--gold);font-size:clamp(1.2rem,2.4vw,1.7rem);margin-bottom:1rem}
+.hero__cta{display:flex;flex-wrap:wrap;gap:14px;align-items:center}
+.hero__stats{display:flex;gap:32px;margin-top:2.4rem;padding-top:1.6rem;border-top:1px solid var(--line)}
+.hero__stat b{display:block;font-family:var(--disp);font-weight:600;font-size:1.9rem;letter-spacing:-.02em}
+.hero__stat span{font-size:11.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+.hero__visual{position:relative;aspect-ratio:1/1.04;border-radius:30px;overflow:hidden;background:#0f0b07;box-shadow:0 40px 90px -40px rgba(25,20,16,.45)}
+.hero__visual img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;mix-blend-mode:luminosity;opacity:.5}
+.hero__card{position:absolute;left:18px;bottom:18px;z-index:3;display:flex;align-items:center;gap:.7em;padding:.7em 1em;border-radius:14px;background:rgba(255,253,248,.92);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);box-shadow:0 12px 30px -14px rgba(0,0,0,.4)}
+.hero__card .dot{width:9px;height:9px;border-radius:50%;background:#5fae7f;box-shadow:0 0 8px #5fae7f}
+.hero__card small{display:block;font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+.hero__card b{font-weight:600;font-size:13.5px}
+.hero__chip{position:absolute;top:18px;right:18px;z-index:3}
+@media(max-width:880px){.hero__grid{grid-template-columns:1fr;gap:34px}.hero__visual{aspect-ratio:1/.82;order:-1}}
+
+/* PILLARS */
+.section{padding:clamp(54px,8vw,118px) 0}
+.sec-head{display:flex;justify-content:space-between;align-items:flex-end;gap:24px;margin-bottom:clamp(28px,4vw,52px);flex-wrap:wrap}
+.sec-head h2{font-family:var(--disp);font-weight:300;font-size:clamp(2rem,4.4vw,3.5rem);line-height:1.04;letter-spacing:-.025em;max-width:16ch}
+.sec-head h2 em{font-style:italic;color:var(--gold)}
+.sec-head p{max-width:34ch;color:var(--ink2);font-size:1rem}
+.pillars{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+.card{position:relative;display:flex;flex-direction:column;min-height:300px;padding:24px;border:1px solid var(--line);border-radius:var(--r);background:var(--card);transition:transform .3s var(--ease),box-shadow .3s,border-color .3s}
+.card:hover{transform:translateY(-4px);box-shadow:0 22px 50px -28px rgba(25,20,16,.32);border-color:var(--line2)}
+.card__top{display:flex;justify-content:space-between;align-items:flex-start}
+.card__num{font-family:var(--disp);font-weight:300;font-size:clamp(2.6rem,4.6vw,3.6rem);line-height:.9;letter-spacing:-.03em}
+.card__name{margin-top:auto;font-family:var(--disp);font-weight:600;font-size:1.35rem;letter-spacing:-.01em}
+.card__name .ar{display:block;font-family:var(--ar);font-weight:500;font-size:.8em;color:var(--gold);direction:rtl;margin-top:.1em}
+.card__desc{margin-top:.6rem;font-size:13.5px;line-height:1.5;color:var(--ink2)}
+@media(max-width:880px){.pillars{grid-template-columns:1fr 1fr}}
+@media(max-width:520px){.pillars{grid-template-columns:1fr}.card{min-height:auto}}
+
+/* SIGNATURE centerpiece */
+.signature{position:relative;border-radius:34px;overflow:hidden;background:#0e0a06;color:var(--paper);min-height:min(78vh,640px);display:flex;align-items:flex-end;padding:clamp(28px,4vw,52px);box-shadow:0 50px 110px -50px rgba(25,20,16,.6)}
+.signature .irid{filter:blur(0px);opacity:.95}
+.signature__veil{position:absolute;inset:0;z-index:1;background:radial-gradient(120% 120% at 70% 30%,transparent 30%,rgba(8,6,3,.55) 78%)}
+.signature__c{position:relative;z-index:2;max-width:560px}
+.signature__c .eyebrow{color:var(--gold2)}
+.signature__c h3{font-family:var(--disp);font-weight:300;font-size:clamp(2rem,4.6vw,3.6rem);line-height:1.04;letter-spacing:-.025em;margin:.6rem 0 1rem}
+.signature__c h3 em{font-style:italic;color:var(--gold2)}
+.signature__c p{color:rgba(247,243,236,.82);max-width:46ch;font-size:1.02rem;line-height:1.6}
+.signature__tags{display:flex;flex-wrap:wrap;gap:8px;margin-top:1.6rem}
+.signature__tags span{padding:.5em .9em;border:1px solid rgba(247,243,236,.2);border-radius:999px;font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:rgba(247,243,236,.85)}
+
+/* STATS band */
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+.stat{padding:26px;border:1px solid var(--line);border-radius:var(--r);background:var(--card)}
+.stat b{display:block;font-family:var(--disp);font-weight:300;font-size:clamp(2.4rem,5vw,3.6rem);letter-spacing:-.03em;line-height:1}
+.stat span{display:block;margin-top:.5rem;font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+@media(max-width:880px){.stats{grid-template-columns:1fr 1fr}}
+
+/* MOAT */
+.moat{display:grid;grid-template-columns:1fr 1fr;gap:clamp(28px,5vw,70px);align-items:center}
+.moat__list{border-top:1px solid var(--line)}
+.moat__row{display:flex;justify-content:space-between;align-items:baseline;gap:18px;padding:1.15rem 0;border-bottom:1px solid var(--line)}
+.moat__row b{font-family:var(--disp);font-weight:500;font-size:1.1rem}
+.moat__row span{font-family:var(--ar);direction:rtl;color:var(--gold);font-size:1rem}
+@media(max-width:880px){.moat{grid-template-columns:1fr}}
+
+/* TEAM */
+.team{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.member{border:1px solid var(--line);border-radius:var(--r);overflow:hidden;background:var(--card)}
+.member__img{aspect-ratio:1/1;position:relative;overflow:hidden;background:linear-gradient(160deg,#e7ddca,#d8c7ab)}
+.member__img img{width:100%;height:100%;object-fit:cover}
+.member__b{padding:18px}
+.member__b b{font-family:var(--disp);font-weight:600;font-size:1.15rem}
+.member__b span{display:block;margin-top:.2rem;font-size:11.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+@media(max-width:880px){.team{grid-template-columns:1fr}}
+
+/* CTA + FOOTER */
+.cta{position:relative;border-radius:34px;overflow:hidden;background:var(--ink);color:var(--paper);padding:clamp(40px,6vw,84px) clamp(28px,5vw,64px)}
+.cta .irid{opacity:.5}
+.cta__in{position:relative;z-index:2;display:grid;grid-template-columns:1.1fr .9fr;gap:40px;align-items:center}
+.cta h2{font-family:var(--disp);font-weight:300;font-size:clamp(2.2rem,5.4vw,4.4rem);line-height:1;letter-spacing:-.03em}
+.cta h2 em{font-style:italic;color:var(--gold2)}
+.cta__ar{font-family:var(--ar);direction:rtl;color:var(--gold2);font-size:clamp(1.3rem,3vw,2rem);margin-top:.6rem}
+.cta__side{display:flex;flex-direction:column;gap:14px}
+.cta__btns{display:flex;gap:12px;flex-wrap:wrap}
+.cta__btns .btn--dark{background:var(--paper);color:var(--ink)}
+.cta__btns .btn--ghost{border-color:rgba(247,243,236,.3);color:var(--paper)}
+.cta__meta{margin-top:1rem;font-size:13px;line-height:1.9;color:rgba(247,243,236,.7)}
+.cta__meta b{color:var(--paper);font-weight:500}
+@media(max-width:880px){.cta__in{grid-template-columns:1fr;gap:28px}}
+.foot{padding:clamp(40px,6vw,72px) 0 36px}
+.foot__mark{font-family:var(--disp);font-weight:700;font-size:clamp(4rem,18vw,15rem);line-height:.82;letter-spacing:-.04em;color:var(--ink);opacity:.96}
+.foot__row{display:flex;justify-content:space-between;flex-wrap:wrap;gap:16px;margin-top:24px;padding-top:24px;border-top:1px solid var(--line);font-size:12.5px;letter-spacing:.04em;text-transform:uppercase;color:var(--muted)}
+.foot__row a:hover{color:var(--gold)}
+
+@media (prefers-reduced-motion:reduce){[data-rise]{opacity:1;transform:none}.irid{display:none}html{scroll-behavior:auto}}
+</style>
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute"><defs><symbol id="b-mark" viewBox="0 0 32 32"><circle cx="16" cy="16" r="15" fill="none" stroke="currentColor" stroke-width="1.4"/><path d="M11 9h6.2a4 4 0 0 1 0 8H11V9Zm0 8h6.8a4 4 0 0 1 0 8H11v-8Z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></symbol></defs></svg>
+
+<!-- NAV -->
+<nav class="nav" id="nav"><div class="wrap nav__in">
+  <a class="logo" href="#top"><svg style="color:var(--gold)"><use href="#b-mark"/></svg>Bato</a>
+  <div class="nav__links">
+    <a href="#care">Treatments</a><a href="#reading">Diagnostics</a><a href="#team">Clinic</a><a href="#visit">Contact</a>
+  </div>
+  <div class="nav__cta">
+    <span class="badge" style="--x:0">Kuwait &amp; Dubai</span>
+    <a class="btn btn--dark" href="https://wa.me/96560072702" target="_blank" rel="noopener">Book a reading <span class="arrow" style="background:rgba(247,243,236,.18);color:var(--paper)">↗</span></a>
+  </div>
+</div></nav>
+
+<!-- HERO -->
+<header class="hero" id="top"><div class="wrap hero__grid">
+  <div>
+    <span class="badge" data-rise>Bato Medical Clinic · Licence No. 300</span>
+    <h1 class="hero__h" data-rise style="margin-top:1.2rem">Where light <b>returns</b><br>to <em>the skin</em></h1>
+    <div class="hero__ar" data-rise>حيث يعود النور إلى البشرة</div>
+    <p class="hero__sub" data-rise>A supervised, unhurried approach to skin, hair and face — doctor-led medical aesthetics, read closely before anything is promised.</p>
+    <div class="hero__cta" data-rise>
+      <a class="btn btn--dark" href="https://wa.me/96560072702" target="_blank" rel="noopener">Begin a consultation <span class="arrow" style="background:rgba(247,243,236,.18);color:var(--paper)">↗</span></a>
+      <a class="btn btn--ghost" href="#care">Explore treatments</a>
+    </div>
+    <div class="hero__stats" data-rise>
+      <div class="hero__stat"><b data-count="68000">68,000</b><span>Community</span></div>
+      <div class="hero__stat"><b>2</b><span>Clinics · KW · DXB</span></div>
+      <div class="hero__stat"><b>11—7</b><span>Open daily</span></div>
+    </div>
+  </div>
+  <div class="hero__visual" data-rise>
+    <canvas class="irid" id="irid1"></canvas>
+    <img src="assets/refinement-1080.avif" alt="Serene profile portrait in warm light" loading="eager" decoding="async">
+    <span class="hero__chip badge" style="background:rgba(255,253,248,.9)">First Light</span>
+    <div class="hero__card"><span class="dot"></span><div><small>Doctor-led</small><b>Medical aesthetics</b></div></div>
+  </div>
+</div></header>
+
+<!-- PILLARS -->
+<section class="section" id="care"><div class="wrap">
+  <div class="sec-head" data-rise>
+    <h2>Care, read <em>closely</em></h2>
+    <p>Four quiet disciplines — each delivered by doctors and specialists, within a plan that fits you.</p>
+  </div>
+  <div class="pillars">
+    <article class="card" data-rise><div class="card__top"><span class="card__num">01</span><span class="arrow">↗</span></div><div class="card__name">Skin<span class="ar">البشرة</span></div><p class="card__desc">HydraFacial, medical peels, laser and dermatology — clarity restored, never rushed.</p></article>
+    <article class="card" data-rise style="transition-delay:.06s"><div class="card__top"><span class="card__num">02</span><span class="arrow">↗</span></div><div class="card__name">Hair<span class="ar">الشعر</span></div><p class="card__desc">Mesotherapy and PRP that begin at the root — a considered ritual for vitality.</p></article>
+    <article class="card" data-rise style="transition-delay:.12s"><div class="card__top"><span class="card__num">03</span><span class="arrow">↗</span></div><div class="card__name">Refinement<span class="ar">النحت</span></div><p class="card__desc">Botox and fillers — the smallest touch, a natural result, shaped by specialists.</p></article>
+    <article class="card" data-rise style="transition-delay:.18s"><div class="card__top"><span class="card__num">04</span><span class="arrow">↗</span></div><div class="card__name">Diagnostics<span class="ar">التشخيص</span></div><p class="card__desc">Blood, hormone and vitamin panels behind the aesthetics — care begins with knowing.</p></article>
+  </div>
+</div></section>
+
+<!-- SIGNATURE -->
+<section class="section" style="padding-top:0"><div class="wrap">
+  <div class="signature" data-rise>
+    <canvas class="irid" id="irid2"></canvas>
+    <div class="signature__veil"></div>
+    <div class="signature__c">
+      <span class="eyebrow">The reading · القراءة</span>
+      <h3>We read the <em>surface</em>, before we promise anything.</h3>
+      <p>Bato is a medical clinic, not a spa. Behind every treatment sits a full general-medicine department — consultations, laboratory analysis, ECG and wound care — supervised by doctors. Light is restored on a plan, at your pace.</p>
+      <div class="signature__tags"><span>Dermatology</span><span>Lab diagnostics</span><span>Doctor-supervised</span><span>Licence No. 300</span></div>
+    </div>
+  </div>
+</div></section>
+
+<!-- STATS -->
+<section class="section" style="padding-top:0"><div class="wrap stats">
+  <div class="stat" data-rise><b data-count="68000">68,000</b><span>Community on Instagram</span></div>
+  <div class="stat" data-rise style="transition-delay:.06s"><b>02</b><span>Clinics · Kuwait &amp; Dubai</span></div>
+  <div class="stat" data-rise style="transition-delay:.12s"><b>300</b><span>Facility Licence No.</span></div>
+  <div class="stat" data-rise style="transition-delay:.18s"><b>7</b><span>Days a week</span></div>
+</div></section>
+
+<!-- MOAT -->
+<section class="section" id="reading"><div class="wrap moat">
+  <div data-rise>
+    <span class="eyebrow">Medical, not a spa</span>
+    <h2 style="font-family:var(--disp);font-weight:300;font-size:clamp(2rem,4.4vw,3.4rem);line-height:1.04;letter-spacing:-.025em;margin:.6rem 0 1rem">Every plan begins<br>with a reading.</h2>
+    <p style="color:var(--ink2);max-width:42ch">Diagnostics and blood analysis sit behind the aesthetics, supervised by doctors. It is the difference between a treatment and a result.</p>
+    <a class="btn btn--ghost" href="#visit" style="margin-top:1.6rem">Book a diagnostic <span style="color:var(--gold)">↗</span></a>
+  </div>
+  <div class="moat__list" data-rise>
+    <div class="moat__row"><b>General medicine &amp; consultations</b><span>استشارات عامة</span></div>
+    <div class="moat__row"><b>Laboratory &amp; blood analysis</b><span>تحاليل الدم</span></div>
+    <div class="moat__row"><b>Hormone &amp; vitamin panels</b><span>الهرمونات والفيتامينات</span></div>
+    <div class="moat__row"><b>ECG · injections · wound care</b><span>تخطيط القلب</span></div>
+    <div class="moat__row"><b>Diabetic-foot screening</b><span>كشف القدم للسكري</span></div>
+  </div>
+</div></section>
+
+<!-- TEAM -->
+<section class="section" id="team" style="padding-top:0"><div class="wrap">
+  <div class="sec-head" data-rise>
+    <h2>The hands<br>behind the calm</h2>
+    <p>Dermatologists, doctors, nurses and specialists — the quiet expertise of Bato.</p>
+  </div>
+  <div class="team">
+    <article class="member" data-rise><div class="member__img"><img src="assets/skin-768.avif" alt="Dermatology and skin care at Bato" loading="lazy" decoding="async"></div><div class="member__b"><b>Dermatology</b><span>Skin · لجلدية</span></div></article>
+    <article class="member" data-rise style="transition-delay:.08s"><div class="member__img"><img src="assets/refinement-768.avif" alt="Aesthetic refinement at Bato" loading="lazy" decoding="async"></div><div class="member__b"><b>Aesthetics</b><span>Refinement · النحت</span></div></article>
+    <article class="member" data-rise style="transition-delay:.16s"><div class="member__img"><img src="assets/radiance-768.avif" alt="Radiance and glow treatments at Bato" loading="lazy" decoding="async"></div><div class="member__b"><b>Radiance</b><span>Glow · النضارة</span></div></article>
+  </div>
+</div></section>
+
+<!-- CTA -->
+<section class="section" id="visit" style="padding-top:0"><div class="wrap">
+  <div class="cta" data-rise>
+    <canvas class="irid" id="irid3"></canvas>
+    <div class="cta__in">
+      <div>
+        <h2>Begin with a<br>quiet <em>reading</em></h2>
+        <div class="cta__ar">ابدئي بقراءة هادئة</div>
+      </div>
+      <div class="cta__side">
+        <div class="cta__btns">
+          <a class="btn btn--dark" href="https://wa.me/96560072702" target="_blank" rel="noopener">WhatsApp <span class="arrow">↗</span></a>
+          <a class="btn btn--ghost" href="tel:+96522027200">Call the clinic</a>
+        </div>
+        <div class="cta__meta">
+          <b>Kuwait</b> · Salmiya, Block 1, Street 2, Building 24<br>
+          <b>Dubai</b> · Al Safa First, Al Wasl Road<br>
+          <b>Hours</b> · Sat–Wed 11–19 · Thu–Fri 11–18<br>
+          <b>@batoclinic</b> · reach.link/batoclinickw
+        </div>
+      </div>
+    </div>
+  </div>
+</div></section>
+
+<!-- FOOTER -->
+<footer class="foot"><div class="wrap">
+  <div class="foot__mark" data-rise>Bato<span style="color:var(--gold)">.</span></div>
+  <div class="foot__row">
+    <span>© 2026 Bato Medical Clinic · Licence No. 300</span>
+    <span>Where beauty and health meet · <span style="font-family:var(--ar)">حيث يلتقي الجمال والصحة</span></span>
+    <a href="https://www.instagram.com/batoclinic/" target="_blank" rel="noopener">Instagram ↗</a>
+  </div>
+</div></footer>
+
+<script>
+(function(){
+  var reduce=matchMedia('(prefers-reduced-motion:reduce)').matches;
+  // nav blur on scroll
+  var nav=document.getElementById('nav');
+  addEventListener('scroll',function(){ nav.classList.toggle('scrolled',scrollY>20); },{passive:true});
+  // reveal
+  var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);
+    if(e.target.matches('[data-count],:has([data-count])')){} var c=e.target.querySelector?e.target.querySelector('[data-count]'):null; }});},{threshold:.16,rootMargin:'0px 0px -8% 0px'});
+  document.querySelectorAll('[data-rise]').forEach(function(el){io.observe(el)});
+  // count-up
+  document.querySelectorAll('[data-count]').forEach(function(el){
+    var io2=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){run();io2.unobserve(el);}});},{threshold:.5});
+    io2.observe(el);
+    function run(){ if(reduce)return; var t=+el.getAttribute('data-count'),s=null;
+      requestAnimationFrame(function step(ts){ if(!s)s=ts; var p=Math.min((ts-s)/1500,1),v=Math.floor((1-Math.pow(1-p,3))*t);
+        el.textContent=v.toLocaleString('en-US'); if(p<1)requestAnimationFrame(step); else el.textContent=t.toLocaleString('en-US'); }); }
+  });
+  // iridescent "First Light spectrum" canvas — warm, drifting blobs
+  function irid(canvas){
+    if(reduce||!canvas) return;
+    var ctx=canvas.getContext('2d'),dpr=Math.min(devicePixelRatio||1,2),W,H;
+    function size(){ var r=canvas.parentElement.getBoundingClientRect(); W=canvas.width=Math.max(2,r.width*dpr); H=canvas.height=Math.max(2,r.height*dpr); canvas.style.width=r.width+'px'; canvas.style.height=r.height+'px'; }
+    size(); addEventListener('resize',size,{passive:true});
+    var cols=['255,184,107','255,141,163','201,167,255','127,209,230','255,217,138','255,160,90'];
+    var blobs=[]; for(var i=0;i<6;i++){ blobs.push({c:cols[i%cols.length],x:Math.random(),y:Math.random(),r:.34+Math.random()*.3,
+      ax:(Math.random()-.5)*.00018,ay:(Math.random()-.5)*.00018,px:Math.random()*6.28,py:Math.random()*6.28,sp:.0004+Math.random()*.0006}); }
+    var t=0;
+    (function frame(){ t+=1; ctx.clearRect(0,0,W,H); ctx.globalCompositeOperation='lighter';
+      for(var i=0;i<blobs.length;i++){ var b=blobs[i];
+        var x=(b.x+Math.sin(t*b.sp+b.px)*.12)*W, y=(b.y+Math.cos(t*b.sp+b.py)*.12)*H, rad=b.r*Math.min(W,H);
+        var g=ctx.createRadialGradient(x,y,0,x,y,rad);
+        g.addColorStop(0,'rgba('+b.c+',.55)'); g.addColorStop(.5,'rgba('+b.c+',.18)'); g.addColorStop(1,'rgba('+b.c+',0)');
+        ctx.fillStyle=g; ctx.beginPath(); ctx.arc(x,y,rad,0,6.2832); ctx.fill(); }
+      ctx.globalCompositeOperation='source-over'; requestAnimationFrame(frame);
+    })();
+  }
+  ['irid1','irid2','irid3'].forEach(function(id){ irid(document.getElementById(id)); });
+})();
+</script>
+</body>
+</html>
