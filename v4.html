@@ -607,6 +607,14 @@ html[data-lang="en"] .ar{ display:none!important; }
 .mark--logo .bato-logo{ width:min(64vw,440px); color:var(--ink); }
 @media(max-width:720px){ .mark--logo .bato-logo{ width:min(78vw,340px); } }
 .foot__mark--logo .bato-wordmark{ width:min(46vw,300px); color:#e4dbd2; }
+/* ── language-flip "dawn wipe": a thin brass luminance sweeps in the new reading direction ── */
+.langwipe{ position:fixed; inset:0; z-index:96; pointer-events:none; opacity:0; mix-blend-mode:screen;
+  background:linear-gradient(90deg, transparent 0%, rgba(255,226,150,0) 40%, rgba(255,226,150,.22) 50%, rgba(255,226,150,0) 60%, transparent 100%); }
+.langwipe.on{ animation:langwipe .72s var(--ease-lift); }
+@keyframes langwipe{ 0%{opacity:0; transform:translateX(-42%)} 28%{opacity:1} 100%{opacity:0; transform:translateX(42%)} }
+html[dir="rtl"] .langwipe.on{ animation:langwipe-rtl .72s var(--ease-lift); }
+@keyframes langwipe-rtl{ 0%{opacity:0; transform:translateX(42%)} 28%{opacity:1} 100%{opacity:0; transform:translateX(-42%)} }
+@media (prefers-reduced-motion:reduce){ .langwipe.on{ animation:none; } }
 /* the shot/diag Arabic branches are the HEADLINE in Arabic mode (not the old small gold subtitle) */
 .shot__name .ar{ font-size:inherit; color:inherit; margin:0; }
 
@@ -674,6 +682,7 @@ html[dir="rtl"] .bignum b{ text-align:right; }
 </style>
 </head>
 <body data-theme="dark">
+<div class="langwipe" id="langwipe" aria-hidden="true"></div>
 
 <a class="skip" href="#s8">Skip to booking</a>
 <nav class="sr-only" aria-label="Page sections">
@@ -1307,13 +1316,15 @@ html[dir="rtl"] .bignum b{ text-align:right; }
   var hudIdx = document.querySelector('.hud__index .now');
   var hudName = document.getElementById('hudName');
   var current = null;
+  function __hudPick(el){ var n=(el&&el.getAttribute('data-name'))||''; var p=n.split(' · '); return document.documentElement.lang==='ar' ? (p[0]||n) : (p[1]||p[0]||n); }
+  window.__batoHud=function(){ if(current&&hudName) hudName.textContent=__hudPick(current); };
   var sio = new IntersectionObserver(function(es){
     es.forEach(function(e){ if(e.isIntersecting && e.intersectionRatio>0.45){
       var el=e.target; if(el===current) return; current=el;
       var idx=+el.getAttribute('data-idx');
       document.body.setAttribute('data-theme', el.getAttribute('data-theme'));
       if(hudIdx) hudIdx.textContent = AR[idx] || '٠١';
-      if(hudName) hudName.textContent = el.getAttribute('data-name') || '';
+      if(hudName) hudName.textContent = __hudPick(el);
       /* show booking dock once past the overture, hide it on the booking + footer themselves */
       document.body.classList.toggle('dock-on', idx>1 && el.id!=='s8' && !el.matches('.foot'));
     }});
@@ -1561,6 +1572,7 @@ html[dir="rtl"] .bignum b{ text-align:right; }
     document.querySelectorAll('option[data-ar]').forEach(function(o){ if(o.getAttribute('data-en')===null) o.setAttribute('data-en', o.textContent); o.textContent = L==='ar' ? o.getAttribute('data-ar') : o.getAttribute('data-en'); });
     /* let the count-up box re-lock to the active language width */
     var bn=document.querySelector('[data-count]'); if(bn) bn.style.minWidth='';
+    if(window.__batoHud) window.__batoHud();
     /* re-measure the cinematic engine after the dir/font reflow settles */
     if(window.ScrollTrigger){ requestAnimationFrame(function(){ try{ ScrollTrigger.refresh(); }catch(e){} if(window.__batoPaintNow) window.__batoPaintNow(); }); }
     else if(window.__batoPaintNow){ window.__batoPaintNow(); }
@@ -1569,6 +1581,8 @@ html[dir="rtl"] .bignum b{ text-align:right; }
   btn.addEventListener('click', function(){
     var next = document.documentElement.getAttribute('data-lang')==='ar' ? 'en' : 'ar';
     apply(next, true);
+    var w=document.getElementById('langwipe');
+    if(w && !matchMedia('(prefers-reduced-motion:reduce)').matches){ w.classList.remove('on'); void w.offsetWidth; w.classList.add('on'); }
     try{ btn.focus({preventScroll:true}); }catch(e){ btn.focus(); }
   });
 })();
