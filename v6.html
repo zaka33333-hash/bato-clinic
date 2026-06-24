@@ -185,15 +185,17 @@ html[data-lang="ar"] .intro__cue{ font-family:var(--ar-sans); letter-spacing:.02
 .intro__cue .bar{ width:1px; height:46px; background:var(--gold); transform-origin:top; animation:cue 2.4s var(--ease-in-out) infinite; }
 @keyframes cue{ 0%,100%{ transform:scaleY(.3); opacity:.4 } 50%{ transform:scaleY(1); opacity:1 } }
 
-/* ============================================================ 2 · HERO (light · text above, villa cut-out floating on white) */
-.hero{ min-height:100svh; background:var(--paper); position:relative; overflow:hidden; display:flex; flex-direction:column; }
-.hero__inner{ position:relative; z-index:2; flex:0 0 auto; width:100%; max-width:var(--maxw); margin:0 auto;
-  padding:clamp(104px,14vh,168px) var(--pad) clamp(12px,2vh,26px); color:var(--ink); }
+/* ============================================================ 2 · HERO (light · text on the reading side, villa cut-out floating on the other) */
+.hero{ min-height:100svh; background:var(--paper); position:relative; overflow:hidden; }
+.hero__inner{ position:relative; z-index:2; width:100%; max-width:var(--maxw); margin:0 auto; min-height:100svh;
+  display:flex; flex-direction:column; justify-content:center; align-items:flex-start;
+  padding:clamp(118px,16vh,190px) var(--pad) clamp(40px,7vh,90px); color:var(--ink); }
+.hero__inner > *{ max-width:min(46%,560px); }   /* keep text on its side, clear of the villa */
 .hero__eyebrow{ color:var(--gold-deep); }
 .hero__eyebrow::before{ background:var(--gold); }
-.hero__h{ font-size:clamp(2.4rem,4.6vw,5rem); margin:.4em 0 0; max-width:16ch; color:var(--ink); line-height:1.0; }
+.hero__h{ font-size:clamp(2.4rem,4.6vw,5rem); margin:.4em 0 0; max-width:13ch; color:var(--ink); line-height:1.0; }
 .hero__h em{ color:var(--gold-deep); font-style:italic; }
-html[data-lang="ar"] .hero__h{ max-width:18ch; line-height:1.16; }
+html[data-lang="ar"] .hero__h{ max-width:14ch; line-height:1.16; }
 html[data-lang="ar"] .hero__h em{ font-style:normal; color:var(--gold-deep); }
 .hero__cta{ display:flex; gap:14px 22px; flex-wrap:wrap; align-items:center; margin-top:clamp(26px,3.6vh,44px); }
 .hero__textlink{ display:inline-flex; align-items:center; gap:.7em; font-family:var(--sans); font-size:13px; letter-spacing:.08em; text-transform:uppercase; color:var(--ink); }
@@ -205,18 +207,17 @@ html[data-lang="ar"] .hero__textlink{ font-family:var(--ar-sans); letter-spacing
 html[data-lang="ar"] .hero__meta{ font-family:var(--ar-sans); letter-spacing:.02em; text-transform:none; font-size:12.5px; }
 .hero__meta::before{ content:""; width:26px; height:1px; background:var(--line); flex:0 0 auto; }
 .hero__meta .num{ letter-spacing:.1em; }
-/* the villa, cut out, floating across the bottom on white — in-flow so it never overlaps the text */
-.hero__media{ position:relative; z-index:1; flex:1 1 auto; min-height:0; pointer-events:none; }
-.hero__media picture{ display:block; width:100%; height:100%; }
-.hero__media img{ width:100%; height:100%; object-fit:contain; object-position:bottom center; }
-/* clean white floor so the soft cut-out base melts away */
-.hero::after{ content:""; position:absolute; left:0; right:0; bottom:0; height:84px; z-index:1; pointer-events:none;
-  background:linear-gradient(to top, var(--paper) 14%, rgba(255,255,255,0)); }
+/* the villa, cut out, floating on the END side (right in LTR / left in RTL) on white */
+.hero__media{ position:absolute; z-index:1; bottom:0; inset-inline-end:-2vw; width:min(58%,1100px); pointer-events:none; }
+.hero__media picture{ display:block; width:100%; }
+.hero__media img{ display:block; width:100%; height:auto; }
 @media(max-width:860px){
-  .hero__inner{ padding-top:clamp(98px,15vh,140px); }
-  /* narrow screens can't show the whole wide villa — fill the lower area with a building close-up instead of letterboxing */
-  .hero__media{ flex:1 1 auto; min-height:38svh; }
-  .hero__media img{ object-fit:cover; object-position:50% 30%; }
+  .hero{ display:flex; flex-direction:column; }
+  .hero__inner{ min-height:auto; display:block; padding:clamp(98px,15vh,140px) var(--pad) clamp(16px,2vh,28px); }
+  .hero__inner > *{ max-width:none; }
+  /* narrow screens stack — villa fills the lower band as a building close-up */
+  .hero__media{ position:relative; inset:auto; width:100%; flex:1 1 auto; min-height:38svh; }
+  .hero__media img{ height:100%; object-fit:cover; object-position:50% 30%; }
   .hero__h{ font-size:clamp(2.2rem,8vw,3.5rem); max-width:18ch; }
 }
 
@@ -441,7 +442,7 @@ html[data-lang="ar"] .menu__contact{ font-family:var(--ar-sans); }
     <picture>
       <source media="(max-width:860px)" type="image/webp" srcset="assets/villa-hero-1400.webp">
       <source type="image/webp" srcset="assets/villa-hero.webp">
-      <img src="assets/villa-hero.jpg" alt="BATO — the clinic villa in Al Safa, Dubai" loading="eager" fetchpriority="high" width="2400" height="1028">
+      <img src="assets/villa-hero.jpg" alt="BATO — the clinic villa in Al Safa, Dubai" loading="eager" fetchpriority="high" width="2200" height="972">
     </picture>
   </div>
 </section>
