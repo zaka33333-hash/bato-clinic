@@ -598,6 +598,15 @@ html[data-lang="ar"] .en{ display:none!important; }
 html[data-lang="en"] .ar{ display:none!important; }
 /* shared numerals/codes (68,000 · 5346564 · 11:00 · @batoclinic · wa.me) never flip language — stay LTR */
 .num{ direction:ltr; unicode-bidi:isolate; font-variant-numeric:tabular-nums; }
+/* ── official BATO logo · single-colour art masked + painted with currentColor so it themes per section ── */
+.bato-logo,.bato-wordmark{ display:block; background:currentColor;
+  -webkit-mask-position:center; mask-position:center; -webkit-mask-repeat:no-repeat; mask-repeat:no-repeat; -webkit-mask-size:contain; mask-size:contain; }
+.bato-logo{ -webkit-mask-image:url(assets/bato-logo.png); mask-image:url(assets/bato-logo.png); aspect-ratio:1300/923; }
+.bato-wordmark{ -webkit-mask-image:url(assets/bato-wordmark.png); mask-image:url(assets/bato-wordmark.png); aspect-ratio:1300/545; }
+.mark--logo{ display:flex; justify-content:center; }
+.mark--logo .bato-logo{ width:min(64vw,440px); color:var(--ink); }
+@media(max-width:720px){ .mark--logo .bato-logo{ width:min(78vw,340px); } }
+.foot__mark--logo .bato-wordmark{ width:min(46vw,300px); color:#e4dbd2; }
 /* the shot/diag Arabic branches are the HEADLINE in Arabic mode (not the old small gold subtitle) */
 .shot__name .ar{ font-size:inherit; color:inherit; margin:0; }
 
@@ -717,7 +726,7 @@ html[dir="rtl"] .bignum b{ text-align:right; }
   <section class="stage" id="s0" data-stage data-theme="dark" data-idx="1" data-name="السكون · STILLNESS">
     <div class="wrap">
       <div class="overture">
-        <h1 class="mark" data-reveal="blur" lang="ar">مستوصف باتو<span class="mark__en" lang="en">Bato Clinic</span></h1>
+        <h1 class="mark mark--logo" data-reveal="blur" aria-label="BATO — Health and Beauty"><span class="bato-logo" role="img" aria-label="BATO — Health and Beauty"></span></h1>
         <div class="horizon" aria-hidden="true"></div>
       </div>
       <p class="whisper" data-reveal="blur" style="--d:300ms">
@@ -966,7 +975,7 @@ html[dir="rtl"] .bignum b{ text-align:right; }
 
   <footer class="foot" data-stage data-theme="dark" data-idx="10" data-name="باتو · BATO">
     <div class="wrap">
-      <div class="foot__mark" data-reveal="rise" lang="ar">باتو<em lang="en">Bato</em></div>
+      <div class="foot__mark foot__mark--logo" data-reveal="rise" aria-label="BATO"><span class="bato-wordmark" role="img" aria-label="BATO"></span></div>
       <div class="foot__legal">
         <span class="en" lang="en">Where beauty and health meet<br>DHA Licence <span class="num">5346564</span> · Al Safa First, Dubai<br>A Gulf clinic, born in Kuwait 2022 · Now in Al Safa, Dubai<br>© 2026 Bato Medical Clinic</span><span class="ar" lang="ar">حيث يلتقي الجمال بالصحة<br>ترخيص هيئة الصحة بدبي <span class="num">5346564</span> · الصفا الأولى، دبي<br>عيادة خليجية، وُلدت في الكويت ٢٠٢٢ · والآن في الصفا، دبي<br>© ٢٠٢٦ مستوصف باتو الطبي</span>
       </div>
