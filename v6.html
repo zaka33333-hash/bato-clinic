@@ -146,17 +146,15 @@ section{ position:relative; }
   min-height:100svh; display:flex; flex-direction:column; align-items:center; justify-content:center;
   padding:0 var(--pad); position:relative; overflow:hidden;
 }
-.intro__logo{
-  position:relative; z-index:1; width:clamp(250px,40vw,560px); height:auto;
-  opacity:1; animation:introLogo 1.3s var(--ease) both;
-}
-@keyframes introLogo{ from{ transform:translateY(26px) } to{ transform:translateY(0) } }
-.reduce .intro__logo{ animation:none; }
-.intro__top{ position:absolute; top:clamp(86px,11vh,140px); left:var(--pad); right:var(--pad); display:flex; justify-content:space-between; }
-.intro__eyebrow{ position:absolute; bottom:clamp(98px,15vh,150px); left:50%; transform:translateX(-50%); z-index:3; }
+.intro__stage{ position:relative; width:100%; display:flex; align-items:center; justify-content:center; }
+.intro__word{ display:flex; align-items:center; justify-content:center; gap:clamp(4px,.7vw,12px); position:relative; z-index:1; direction:ltr; }
+.ltr{ height:clamp(140px,40vh,360px); width:auto; will-change:transform; }
+.intro__dna{ position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); width:clamp(220px,21vw,400px); height:min(88vh,800px); z-index:3; pointer-events:none; }
+.intro__top{ position:absolute; top:clamp(86px,11vh,140px); left:var(--pad); right:var(--pad); display:flex; justify-content:space-between; z-index:4; }
+.intro__eyebrow{ position:absolute; bottom:clamp(86px,13vh,140px); left:0; right:0; z-index:4; }
 .intro__cue{
-  position:absolute; bottom:clamp(26px,4vh,44px); left:50%; transform:translateX(-50%);
-  display:flex; flex-direction:column; align-items:center; gap:10px; z-index:3;
+  position:absolute; bottom:clamp(26px,4vh,44px); left:0; right:0;
+  display:flex; flex-direction:column; align-items:center; gap:10px; z-index:4;
   font-family:var(--sans); font-size:11px; letter-spacing:.2em; text-transform:uppercase; color:var(--faint);
 }
 html[data-lang="ar"] .intro__cue{ font-family:var(--ar-sans); letter-spacing:.02em; }
@@ -280,8 +278,16 @@ html[data-lang="ar"] .foot__col h4{ font-family:var(--ar-sans); letter-spacing:.
     <span class="frame-label"><span class="en-i">BATO — Medical Aesthetics</span><span class="ar-i">باتو — طب وتجميل</span></span>
     <span class="frame-label"><span class="en-i">Al Safa · Dubai</span><span class="ar-i">الصفا · دبي</span></span>
   </div>
-  <img class="intro__logo" src="assets/bato-logo.png" alt="BATO — Health / Beauty" width="1300" height="920">
-  <div class="intro__eyebrow eyebrow eyebrow--center" data-reveal style="--d:700ms">
+  <div class="intro__stage">
+    <canvas class="intro__dna" id="dna" aria-hidden="true"></canvas>
+    <div class="intro__word" role="img" aria-label="BATO">
+      <img class="ltr" data-x="-26vw" src="assets/bato-B.png" alt="">
+      <img class="ltr" data-x="-8.5vw" src="assets/bato-A.png" alt="">
+      <img class="ltr" data-x="8.5vw" src="assets/bato-T.png" alt="">
+      <img class="ltr" data-x="26vw" src="assets/bato-O.png" alt="">
+    </div>
+  </div>
+  <div class="intro__eyebrow eyebrow eyebrow--center">
     <span class="en-i">Where beauty starts with health</span><span class="ar-i">حيث يبدأ الجمال بالصحة</span>
   </div>
   <div class="intro__cue">
@@ -431,7 +437,73 @@ html[data-lang="ar"] .foot__col h4{ font-family:var(--ar-sans); letter-spacing:.
   });
 })();
 </script>
-<!-- (DNA helix removed — leading with the real BATO logo) -->
+<!-- intro: 3D gold DNA helix (Three.js) + loading→expand choreography (GSAP) -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script>
+(function(){
+  var stage=document.querySelector('.intro__stage'); if(!stage) return;
+  var reduce=matchMedia('(prefers-reduced-motion:reduce)').matches;
+  var canvas=document.getElementById('dna');
+
+  /* ---------- 3D gold DNA double-helix ---------- */
+  if(canvas && window.THREE){
+    var renderer=new THREE.WebGLRenderer({canvas:canvas,alpha:true,antialias:true});
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio||1,2));
+    var scene=new THREE.Scene();
+    var camera=new THREE.PerspectiveCamera(32,1,0.1,100); camera.position.set(0,0,18);
+    scene.add(new THREE.AmbientLight(0xfff1d2,0.40));
+    var l1=new THREE.DirectionalLight(0xffffff,1.05); l1.position.set(6,10,9); scene.add(l1);
+    var l2=new THREE.DirectionalLight(0xffc673,0.55); l2.position.set(-8,-4,6); scene.add(l2);
+    var l3=new THREE.PointLight(0xffdf9e,0.30); l3.position.set(3,2,9); scene.add(l3);
+    var grp=new THREE.Group(); scene.add(grp);
+    var matA=new THREE.MeshPhongMaterial({color:0xAE7C1C,specular:0xE3C268,shininess:44,emissive:0x130c01});
+    var matB=new THREE.MeshPhongMaterial({color:0xD4A736,specular:0xF1D584,shininess:56,emissive:0x1b1204});
+    var matR=new THREE.MeshPhongMaterial({color:0xBB9230,specular:0xD9B45A,shininess:40,emissive:0x140d02});
+    var sphere=new THREE.SphereGeometry(0.46,30,30);
+    var N=36,turns=2.7,H=14,rad=1.9;
+    function cyl(a,b){ var d=new THREE.Vector3().subVectors(b,a),len=d.length();
+      var m=new THREE.Mesh(new THREE.CylinderGeometry(0.13,0.13,len,12),matR);
+      m.position.copy(a).add(b).multiplyScalar(0.5);
+      m.quaternion.setFromUnitVectors(new THREE.Vector3(0,1,0),d.clone().normalize()); return m; }
+    for(var i=0;i<N;i++){ var f=i/(N-1),y=(f-0.5)*H,ang=f*Math.PI*2*turns;
+      var p1=new THREE.Vector3(Math.cos(ang)*rad,y,Math.sin(ang)*rad);
+      var p2=new THREE.Vector3(Math.cos(ang+Math.PI)*rad,y,Math.sin(ang+Math.PI)*rad);
+      var s1=new THREE.Mesh(sphere,matA); s1.position.copy(p1); grp.add(s1);
+      var s2=new THREE.Mesh(sphere,matB); s2.position.copy(p2); grp.add(s2);
+      grp.add(cyl(p1,p2)); }
+    grp.rotation.z=0.12;
+    function rsz(){ var r=canvas.getBoundingClientRect(); if(!r.width) return;
+      renderer.setSize(r.width,r.height,false); camera.aspect=r.width/r.height; camera.updateProjectionMatrix(); }
+    rsz(); window.addEventListener('resize',rsz);
+    var rot=0;
+    function frame(){ rot+=0.006; grp.rotation.y=rot; renderer.render(scene,camera); if(!reduce) requestAnimationFrame(frame); }
+    if(reduce){ grp.rotation.y=0.6; renderer.render(scene,camera); } else frame();
+  }
+
+  /* ---------- loading → expand → DNA choreography ---------- */
+  var letters=[].slice.call(document.querySelectorAll('.ltr'));
+  function px(el){ return parseFloat(el.getAttribute('data-x'))*window.innerWidth/100; }
+  function finalState(){
+    letters.forEach(function(el){ el.style.opacity=1; el.style.transform='translateX('+el.getAttribute('data-x')+')'; });
+    if(canvas) canvas.style.opacity=1;
+    var e=document.querySelector('.intro__eyebrow'),c=document.querySelector('.intro__cue');
+    if(e){ e.style.opacity=1; e.style.transform='none'; } if(c){ c.style.opacity=1; c.style.transform='none'; }
+  }
+  if(window.gsap && !reduce){
+    /* letters stay visible & tight = the loading logo (never a blank hero) */
+    gsap.set('.intro__dna',{opacity:0,scale:0.55});
+    gsap.set(['.intro__eyebrow','.intro__cue'],{opacity:0,y:14});
+    gsap.timeline({delay:1.1})                                                          // hold on the logo (loading)
+      .to(letters,{x:function(i,el){return px(el);},duration:1.7,ease:'power4.inOut'})  // the logo expands
+      .to('.intro__dna',{opacity:1,scale:1,duration:1.7,ease:'power2.out'},'<0.15')     // DNA helix arrives
+      .to(['.intro__eyebrow','.intro__cue'],{opacity:1,y:0,duration:0.8,stagger:0.12,ease:'power2.out'},'<0.8');
+    setTimeout(finalState,6000);                                                        // failsafe: never stuck mid-state
+  } else {
+    finalState();
+  }
+})();
+</script>
 <!-- smooth scroll + reveal choreography -->
 <script src="https://unpkg.com/lenis@1.1.20/dist/lenis.min.js" defer></script>
 <script>
