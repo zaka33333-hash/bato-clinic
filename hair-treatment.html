@@ -121,6 +121,19 @@ em{ font-style:italic; }
   background:linear-gradient(to top, rgba(20,14,7,.78), transparent); opacity:0; transform:translateY(8px); transition:opacity .4s var(--ease), transform .4s var(--ease); }
 .g-item:hover figcaption{ opacity:1; transform:none; }
 
+/* ── full-bleed texture band ── */
+.band{ position:relative; z-index:2; height:clamp(300px,48vw,580px); overflow:hidden; }
+.band img{ width:100%; height:100%; object-fit:cover; filter:contrast(1.04) saturate(1.04); transform:scale(1.03); transition:transform 1.4s var(--ease-lift); }
+.band:hover img{ transform:scale(1); }
+.band figcaption{ position:absolute; left:0; bottom:0; width:100%; padding:clamp(1.4rem,4vw,2.8rem) clamp(22px,6vw,90px);
+  font-family:var(--serif); font-weight:200; font-style:italic; font-size:clamp(1.3rem,3.4vw,2.4rem); letter-spacing:-.01em; color:#f3ecdf;
+  background:linear-gradient(to top, rgba(20,14,7,.66), rgba(20,14,7,.12) 60%, transparent); }
+.band figcaption .ar{ font-style:normal; color:var(--amber); font-size:.8em; margin-inline-start:.5em; }
+
+/* ── in-section program figure ── */
+.progfig{ margin-bottom:clamp(2rem,4vw,3.2rem); border-radius:4px; overflow:hidden; background:#1b150d; }
+.progfig img{ width:100%; height:clamp(300px,42vw,520px); object-fit:cover; object-position:center 38%; filter:contrast(1.03) saturate(1.03); }
+
 /* ── departments ── */
 .dept{ background:var(--oud); }
 .dept__grid{ margin-top:clamp(2.2rem,4vw,3.4rem); display:grid; gap:0; border-top:1px solid rgba(211,182,60,.4); }
@@ -208,7 +221,7 @@ em{ font-style:italic; }
     <picture>
       <source type="image/avif" srcset="assets/hair-768.avif 768w, assets/hair-1440.avif 1440w" sizes="(max-width:920px) 92vw, 45vw">
       <source type="image/webp" srcset="assets/hair-768.webp 768w, assets/hair-1440.webp 1440w" sizes="(max-width:920px) 92vw, 45vw">
-      <img src="assets/hair-fallback.jpg" alt="A specialist examining the scalp under close light in the BATO hair studio" loading="eager" decoding="async">
+      <img src="assets/hair-fallback.jpg" alt="Long, healthy hair in warm morning light at the BATO hair studio in Al Safa, Dubai" loading="eager" decoding="async">
     </picture>
     <figcaption>Al Safa · the hair studio</figcaption>
   </figure>
@@ -226,9 +239,25 @@ em{ font-style:italic; }
   </div>
 </section>
 
+<section class="band rv" aria-label="Hair, read at the root">
+  <picture>
+    <source type="image/avif" srcset="assets/macro-768.avif 768w, assets/macro-1080.avif 1080w, assets/macro-1440.avif 1440w" sizes="100vw">
+    <source type="image/webp" srcset="assets/macro-768.webp 768w, assets/macro-1080.webp 1080w, assets/macro-1440.webp 1440w" sizes="100vw">
+    <img src="assets/macro-fallback.jpg" alt="Macro detail of healthy hair at the root, lit by warm light" loading="lazy" decoding="async">
+  </picture>
+  <figcaption>We read the hair at the root.<span class="ar" lang="ar">من الجذر</span></figcaption>
+</section>
+
 <section class="sec">
   <div class="wrap">
     <div class="eyebrow rv"><span class="ar" lang="ar">برامجنا</span> · Our programs</div>
+    <figure class="progfig rv" style="--d:80ms">
+      <picture>
+        <source type="image/avif" srcset="assets/scalp-768.avif 768w, assets/scalp-1080.avif 1080w, assets/scalp-1440.avif 1440w" sizes="(max-width:1280px) 92vw, 1180px">
+        <source type="image/webp" srcset="assets/scalp-768.webp 768w, assets/scalp-1080.webp 1080w, assets/scalp-1440.webp 1440w" sizes="(max-width:1280px) 92vw, 1180px">
+        <img src="assets/scalp-fallback.jpg" alt="A specialist parting the hair to apply care along the scalp during a hair program at BATO" loading="lazy" decoding="async">
+      </picture>
+    </figure>
     <div class="dept__grid rv" style="--d:120ms">
       <div class="dept__row"><span class="dept__n">OPAUK · multi-phase scalp stimulation and nourishment</span><span class="dept__ar" lang="ar">تحفيز وتغذية متعددة المراحل</span></div>
       <div class="dept__row"><span class="dept__n">PADUAK · scalp renewal and long-term hair health</span><span class="dept__ar" lang="ar">تجديد فروة الرأس وصحة الشعر</span></div>
