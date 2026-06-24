@@ -190,7 +190,7 @@ html[data-lang="ar"] .intro__cue{ font-family:var(--ar-sans); letter-spacing:.02
 .hero__inner{ position:relative; z-index:2; width:100%; max-width:var(--maxw); margin:0 auto; min-height:100svh;
   display:flex; flex-direction:column; justify-content:center; align-items:flex-start;
   padding:clamp(118px,16vh,190px) var(--pad) clamp(40px,7vh,90px); color:var(--ink); }
-.hero__inner > *{ max-width:min(46%,560px); }   /* keep text on its side, clear of the villa */
+.hero__inner > *{ max-width:min(36%,460px); }   /* keep text on its side, clear of the big villa */
 .hero__eyebrow{ color:var(--gold-deep); }
 .hero__eyebrow::before{ background:var(--gold); }
 .hero__h{ font-size:clamp(2.4rem,4.6vw,5rem); margin:.4em 0 0; max-width:13ch; color:var(--ink); line-height:1.0; }
@@ -208,7 +208,7 @@ html[data-lang="ar"] .hero__meta{ font-family:var(--ar-sans); letter-spacing:.02
 .hero__meta::before{ content:""; width:26px; height:1px; background:var(--line); flex:0 0 auto; }
 .hero__meta .num{ letter-spacing:.1em; }
 /* the villa, cut out, floating on the END side (right in LTR / left in RTL) on white */
-.hero__media{ position:absolute; z-index:1; bottom:0; inset-inline-end:-2vw; width:min(58%,1100px); pointer-events:none; }
+.hero__media{ position:absolute; z-index:1; top:50%; transform:translateY(-50%); inset-inline-end:-18vw; width:min(86%,1640px); pointer-events:none; }
 .hero__media picture{ display:block; width:100%; }
 .hero__media img{ display:block; width:100%; height:auto; }
 @media(max-width:860px){
@@ -216,7 +216,7 @@ html[data-lang="ar"] .hero__meta{ font-family:var(--ar-sans); letter-spacing:.02
   .hero__inner{ min-height:auto; display:block; padding:clamp(98px,15vh,140px) var(--pad) clamp(16px,2vh,28px); }
   .hero__inner > *{ max-width:none; }
   /* narrow screens stack — villa fills the lower band as a building close-up */
-  .hero__media{ position:relative; inset:auto; width:100%; flex:1 1 auto; min-height:38svh; }
+  .hero__media{ position:relative; inset:auto; transform:none; width:100%; flex:1 1 auto; min-height:38svh; }
   .hero__media img{ height:100%; object-fit:cover; object-position:50% 30%; }
   .hero__h{ font-size:clamp(2.2rem,8vw,3.5rem); max-width:18ch; }
 }
@@ -425,8 +425,8 @@ html[data-lang="ar"] .menu__contact{ font-family:var(--ar-sans); }
   <div class="hero__inner">
     <div class="eyebrow hero__eyebrow" data-reveal style="--d:120ms"><span class="en-i">Where beauty starts with health</span><span class="ar-i">حيث يبدأ الجمال بالصحة</span></div>
     <h2 class="hero__h serif lines">
-      <span class="en"><span class="ln"><i>BATO Clinic</i></span><span class="ln"><i>is now open</i></span><span class="ln"><i>in <em>Dubai!</em></i></span></span>
-      <span class="ar"><span class="ln"><i>عيادة باتو</i></span><span class="ln"><i>مفتوحة الآن</i></span><span class="ln"><i>في <em>دبي!</em></i></span></span>
+      <span class="en"><span class="ln"><i>Bato is now</i></span><span class="ln"><i>in <em>Dubai!</em></i></span></span>
+      <span class="ar"><span class="ln"><i>باتو كلينيك</i></span><span class="ln"><i>وصل <em>لدبي!</em></i></span></span>
     </h2>
     <div class="hero__cta" data-reveal style="--d:300ms">
       <a class="btn btn--solid" href="#contact"><span class="en-i">Book a consultation</span><span class="ar-i">احجزي استشارة</span><span class="i" aria-hidden="true">↗</span></a>
@@ -438,7 +438,7 @@ html[data-lang="ar"] .menu__contact{ font-family:var(--ar-sans); }
     </div>
   </div>
 
-  <div class="hero__media" data-reveal style="--d:200ms" aria-hidden="true">
+  <div class="hero__media" aria-hidden="true">
     <picture>
       <source media="(max-width:860px)" type="image/webp" srcset="assets/villa-hero-1400.webp">
       <source type="image/webp" srcset="assets/villa-hero.webp">
