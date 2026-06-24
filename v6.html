@@ -149,7 +149,8 @@ section{ position:relative; }
 }
 .intro__stage{ position:relative; width:100%; display:flex; align-items:center; justify-content:center; }
 .intro__word{ position:fixed; top:50%; left:50%; transform:translate(-50%,-50%); transform-origin:center center; display:flex; align-items:center; justify-content:center; gap:clamp(4px,.7vw,12px); z-index:1100; direction:ltr; pointer-events:none; will-change:transform; }
-.intro__word.on-dark .ltr{ filter:invert(1); } /* mini logo turns white over dark sections */
+.intro__word.themed{ mix-blend-mode:difference; }   /* smart mini logo: blends per-pixel with whatever's behind */
+.intro__word.themed .ltr{ filter:invert(1); }       /* white letters → reads black on light, white on dark */
 .ltr{ height:clamp(140px,40vh,360px); width:auto; will-change:transform; }
 .intro__dna{ position:absolute; top:0; left:0; width:100vw; height:100svh; z-index:3; pointer-events:none; }
 .intro__top{ position:absolute; top:clamp(86px,11vh,140px); left:var(--pad); right:var(--pad); display:flex; justify-content:space-between; z-index:4; }
@@ -533,7 +534,7 @@ window.addEventListener('load', function(){
     var vh=window.innerHeight, ww=wordEl.offsetWidth||520, wh=wordEl.offsetHeight||320;
     var s=1+(0.16-1)*p, cy=vh/2+(42-vh/2)*p;
     wordEl.style.transform='translate('+(-ww/2).toFixed(1)+'px,'+(cy-vh/2-wh/2).toFixed(1)+'px) scale('+s.toFixed(4)+')';
-    if(p>0.85) wordEl.classList.toggle('on-dark', topDark()); else wordEl.classList.remove('on-dark');
+    wordEl.classList.toggle('themed', p>0.8);  // turn on the smart blend once it's the mini mark (DNA gone)
     if(p>0){ ltrs.forEach(function(el){ el.style.transform='translateX('+(lpx(el)*(1-p)).toFixed(1)+'px)'; }); if(dnaC) dnaC.style.opacity=Math.max(0,1-p*1.25).toFixed(3); }
   }
   function showAll(){ document.querySelectorAll('[data-reveal], .lines').forEach(function(e){ e.classList.add('in'); }); if(nav) nav.classList.remove('is-hidden'); }
