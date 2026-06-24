@@ -83,8 +83,7 @@ html[data-lang="ar"] .frame-label{ font-family:var(--ar-sans); letter-spacing:.0
   transition:transform .5s var(--ease), opacity .4s var(--ease);
 }
 .nav.is-hidden{ transform:translateY(-110%); opacity:0; }
-.nav__brand{ font-family:var(--serif); font-weight:500; font-size:clamp(20px,2vw,26px); letter-spacing:.22em; }
-html[data-lang="ar"] .nav__brand{ font-family:var(--ar-serif); letter-spacing:0; }
+.nav__brand{ display:block; width:clamp(72px,7vw,96px); aspect-ratio:1300/540; background:currentColor; -webkit-mask:url(assets/bato-wordmark.png) left center/contain no-repeat; mask:url(assets/bato-wordmark.png) left center/contain no-repeat; }
 .nav__links{ display:flex; gap:clamp(18px,2.2vw,38px); align-items:center; }
 .nav__links a{ font-size:12px; letter-spacing:.14em; text-transform:uppercase; opacity:.85; transition:opacity .3s; }
 html[data-lang="ar"] .nav__links a{ letter-spacing:.02em; font-size:13px; }
@@ -147,23 +146,13 @@ section{ position:relative; }
   min-height:100svh; display:flex; flex-direction:column; align-items:center; justify-content:center;
   padding:0 var(--pad); position:relative; overflow:hidden;
 }
-.intro__wordmark{
-  position:relative; z-index:1; text-align:center;
-  font-family:var(--serif); font-weight:300; line-height:.9;
-  font-size:clamp(5rem,27vw,28rem); letter-spacing:.02em;
-  display:flex; gap:.04em; pointer-events:none; direction:ltr;
+.intro__logo{
+  position:relative; z-index:1; width:clamp(250px,40vw,560px); height:auto;
+  opacity:0; transform:translateY(22px) scale(.985);
+  transition:opacity 1.4s var(--ease), transform 1.4s var(--ease);
 }
-/* BATO wordmark is the Latin logo — always Cormorant, both languages */
-.intro__wordmark .ch{ display:inline-block; transform:translateY(115%); opacity:0; }
-.intro.in .intro__wordmark .ch{ transform:none; opacity:1; transition:transform 1.2s var(--ease), opacity 1.2s var(--ease); }
-.reduce .intro__wordmark .ch{ transform:none; opacity:1; }
-/* the gold DNA helix lives between the letters */
-.intro__helix{
-  position:absolute; top:50%; left:50%; transform:translate(-50%,-50%);
-  width:clamp(150px,18vw,300px); height:min(78vh,720px);
-  z-index:2; pointer-events:none; opacity:.92;
-}
-.intro__helix canvas{ width:100%; height:100%; }
+.intro.in .intro__logo{ opacity:1; transform:none; }
+.reduce .intro__logo{ opacity:1; transform:none; }
 .intro__top{ position:absolute; top:clamp(86px,11vh,140px); left:var(--pad); right:var(--pad); display:flex; justify-content:space-between; }
 .intro__eyebrow{ position:absolute; bottom:clamp(98px,15vh,150px); left:50%; transform:translateX(-50%); z-index:3; }
 .intro__cue{
@@ -255,8 +244,7 @@ html[data-lang="ar"] .foot__col h4{ font-family:var(--ar-sans); letter-spacing:.
 .foot__col p,.foot__col a{ display:block; color:var(--night-soft); font-size:.96rem; line-height:1.9; }
 .foot__col a:hover{ color:var(--paper); }
 .foot__brand{ margin-top:clamp(60px,10vh,120px); display:flex; align-items:flex-end; justify-content:space-between; gap:24px; flex-wrap:wrap; }
-.foot__word{ font-family:var(--serif); font-weight:400; font-size:clamp(3.4rem,15vw,12rem); line-height:.8; letter-spacing:.08em; color:var(--paper); }
-html[data-lang="ar"] .foot__word{ font-family:var(--ar-serif); letter-spacing:0; }
+.foot__word{ display:block; width:clamp(220px,34vw,540px); aspect-ratio:1300/540; background:currentColor; -webkit-mask:url(assets/bato-wordmark.png) left bottom/contain no-repeat; mask:url(assets/bato-wordmark.png) left bottom/contain no-repeat; }
 .foot__legal{ font-size:11px; letter-spacing:.06em; color:rgba(244,239,230,.4); text-align:end; }
 
 /* ============================================================ MOTION GUARDS */
@@ -273,7 +261,7 @@ html[data-lang="ar"] .foot__word{ font-family:var(--ar-serif); letter-spacing:0;
 
 <!-- ============================================================ NAV -->
 <nav class="nav" id="nav">
-  <a class="nav__brand" href="#top" aria-label="BATO">BATO</a>
+  <a class="nav__brand" href="#top" aria-label="BATO"></a>
   <div class="nav__links">
     <a class="nav__hideable" href="hair-treatment.html"><span class="en-i">Hair</span><span class="ar-i">الشعر</span></a>
     <a class="nav__hideable" href="skin.html"><span class="en-i">Skin</span><span class="ar-i">البشرة</span></a>
@@ -293,11 +281,8 @@ html[data-lang="ar"] .foot__word{ font-family:var(--ar-serif); letter-spacing:0;
     <span class="frame-label"><span class="en-i">BATO — Medical Aesthetics</span><span class="ar-i">باتو — طب وتجميل</span></span>
     <span class="frame-label"><span class="en-i">Al Safa · Dubai</span><span class="ar-i">الصفا · دبي</span></span>
   </div>
-  <h1 class="intro__wordmark" aria-label="BATO" data-chars>
-    <span class="ch">B</span><span class="ch">A</span><span class="ch">T</span><span class="ch">O</span>
-  </h1>
-  <div class="intro__helix" aria-hidden="true"><canvas id="dna"></canvas></div>
-  <div class="intro__eyebrow eyebrow eyebrow--center" data-reveal style="--d:900ms">
+  <img class="intro__logo" src="assets/bato-logo.png" alt="BATO — Health / Beauty" width="1300" height="920">
+  <div class="intro__eyebrow eyebrow eyebrow--center" data-reveal style="--d:700ms">
     <span class="en-i">Where beauty starts with health</span><span class="ar-i">حيث يبدأ الجمال بالصحة</span>
   </div>
   <div class="intro__cue">
@@ -425,7 +410,7 @@ html[data-lang="ar"] .foot__word{ font-family:var(--ar-serif); letter-spacing:0;
       </div>
     </div>
     <div class="foot__brand">
-      <span class="foot__word">BATO</span>
+      <span class="foot__word" role="img" aria-label="BATO"></span>
       <span class="foot__legal">© <span class="num">2026</span> BATO Medical Clinic.<br><span class="en-i">Medically supervised · Registered nurses</span><span class="ar-i">بإشراف طبي · ممرّضات مسجّلات</span></span>
     </div>
   </div>
@@ -447,47 +432,7 @@ html[data-lang="ar"] .foot__word{ font-family:var(--ar-serif); letter-spacing:0;
   });
 })();
 </script>
-<!-- DNA helix — gold double-helix woven through the wordmark -->
-<script id="helix-slot">
-(function(){
-  var canvas=document.getElementById('dna'); if(!canvas) return;
-  var ctx=canvas.getContext('2d'); if(!ctx) return;
-  var reduce=matchMedia('(prefers-reduced-motion:reduce)').matches;
-  var DPR=Math.min(window.devicePixelRatio||1,2);
-  var W=0,H=0,t=0,raf=null;
-  var TURNS=3.0, N=170, RUNG=5;
-  var HI='230,196,106', MID='201,162,75';
-  function size(){
-    var r=canvas.getBoundingClientRect(); W=r.width; H=r.height;
-    canvas.width=Math.max(1,Math.round(W*DPR)); canvas.height=Math.max(1,Math.round(H*DPR));
-    ctx.setTransform(DPR,0,0,DPR,0,0);
-  }
-  function draw(){
-    ctx.clearRect(0,0,W,H);
-    var cx=W/2, amp=W*0.40, pts=[], rungs=[];
-    for(var i=0;i<N;i++){
-      var f=i/(N-1), y=f*H, ang=f*Math.PI*2*TURNS+t;
-      var xA=cx+Math.sin(ang)*amp, zA=Math.cos(ang);
-      var xB=cx+Math.sin(ang+Math.PI)*amp, zB=Math.cos(ang+Math.PI);
-      pts.push({x:xA,y:y,z:zA},{x:xB,y:y,z:zB});
-      if(i%RUNG===0) rungs.push({x1:xA,x2:xB,y:y,z:(zA+zB)/2});
-    }
-    rungs.sort(function(a,b){return a.z-b.z;});
-    rungs.forEach(function(r){ var d=(r.z+1)/2; ctx.globalAlpha=.10+.46*d; ctx.strokeStyle='rgba('+MID+',1)'; ctx.lineWidth=.5+1.5*d; ctx.beginPath(); ctx.moveTo(r.x1,r.y); ctx.lineTo(r.x2,r.y); ctx.stroke(); });
-    pts.sort(function(a,b){return a.z-b.z;});
-    pts.forEach(function(p){ var d=(p.z+1)/2; ctx.globalAlpha=.22+.78*d; ctx.fillStyle='rgba('+(d>.5?HI:MID)+',1)'; ctx.beginPath(); ctx.arc(p.x,p.y,1.0+3.4*d,0,6.2832); ctx.fill(); });
-    ctx.globalAlpha=1;
-  }
-  function loop(){ t+=.011; draw(); raf=requestAnimationFrame(loop); }
-  function start(){ if(!raf && !reduce) loop(); }
-  function stop(){ if(raf){ cancelAnimationFrame(raf); raf=null; } }
-  size(); draw();
-  if(!reduce){ start();
-    if(window.IntersectionObserver){ new IntersectionObserver(function(es){ es.forEach(function(e){ e.isIntersecting?start():stop(); }); }).observe(canvas); }
-  }
-  var rt; window.addEventListener('resize',function(){ clearTimeout(rt); rt=setTimeout(function(){ size(); draw(); },150); });
-})();
-</script>
+<!-- (DNA helix removed — leading with the real BATO logo) -->
 <!-- smooth scroll + reveal choreography -->
 <script src="https://unpkg.com/lenis@1.1.20/dist/lenis.min.js" defer></script>
 <script>
