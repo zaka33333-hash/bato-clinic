@@ -469,7 +469,8 @@ html[data-lang="ar"] .foot__col h4{ font-family:var(--ar-sans); letter-spacing:.
     scene.environment=pmrem.fromEquirectangular(envTex()).texture;
     var key=new THREE.DirectionalLight(0xffffff,0.65); key.position.set(5,9,8); scene.add(key);
     var rim=new THREE.DirectionalLight(0xffe3aa,0.45); rim.position.set(-7,-3,-5); scene.add(rim);
-    var grp=new THREE.Group(); scene.add(grp);
+    var tilt=new THREE.Group(); tilt.rotation.z=0.52; tilt.rotation.x=-0.05; scene.add(tilt);
+    var grp=new THREE.Group(); tilt.add(grp);
     var matA=new THREE.MeshStandardMaterial({color:0xB47A12,metalness:1.0,roughness:0.18,envMapIntensity:1.15});
     var matB=new THREE.MeshStandardMaterial({color:0xD7A52C,metalness:1.0,roughness:0.12,envMapIntensity:1.28});
     var matR=new THREE.MeshStandardMaterial({color:0xA67915,metalness:1.0,roughness:0.28,envMapIntensity:1.0});
@@ -485,7 +486,7 @@ html[data-lang="ar"] .foot__col h4{ font-family:var(--ar-sans); letter-spacing:.
       var s1=new THREE.Mesh(sphere,matA); s1.position.copy(p1); grp.add(s1);
       var s2=new THREE.Mesh(sphere,matB); s2.position.copy(p2); grp.add(s2);
       grp.add(cyl(p1,p2)); }
-    grp.rotation.z=0.08;
+    /* diagonal tilt is applied by the parent group; grp only spins on its own axis */
     function rsz(){ var r=canvas.getBoundingClientRect(); if(!r.width) return;
       renderer.setSize(r.width,r.height,false); camera.aspect=r.width/r.height; camera.updateProjectionMatrix(); }
     rsz(); window.addEventListener('resize',rsz);
