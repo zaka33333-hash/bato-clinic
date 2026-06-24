@@ -635,8 +635,10 @@ window.addEventListener('load', function(){
   /* parallax — scrubbed */
   var heroImg=document.querySelector('.hero__media img');
   if(heroImg) gsap.fromTo(heroImg,{yPercent:-4,scale:1.14},{yPercent:6,scale:1.14,ease:'none',scrollTrigger:{trigger:'.hero',start:'top bottom',end:'bottom top',scrub:true}});
-  var atmosImg=document.querySelector('.atmos__media video, .atmos__media img');
-  if(atmosImg) gsap.fromTo(atmosImg,{yPercent:-6,scale:1.18},{yPercent:8,scale:1.18,ease:'none',scrollTrigger:{trigger:'.atmos',start:'top bottom',end:'bottom top',scrub:true}});
+  gsap.utils.toArray('.atmos').forEach(function(sec){
+    var im=sec.querySelector('.atmos__media img, .atmos__media video');
+    if(im) gsap.fromTo(im,{yPercent:-6,scale:1.18},{yPercent:8,scale:1.18,ease:'none',scrollTrigger:{trigger:sec,start:'top bottom',end:'bottom top',scrub:true}});
+  });
 
   window.addEventListener('resize', function(){ applyMorph(morphST.progress); });
   ScrollTrigger.refresh();
