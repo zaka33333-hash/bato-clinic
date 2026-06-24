@@ -594,8 +594,8 @@ body.dock-on .dock{ opacity:1; transform:none; pointer-events:auto; }
 /* ═══════════════ BILINGUAL ENGINE — Arabic-first · EN⇄ع toggle · dual-span, CSS-driven ═══════════════ */
 /* one rule drives the whole site; the inactive language leaves the box + the a11y tree */
 .en,.ar{ display:contents; }
-html[data-lang="ar"] .en{ display:none; }
-html[data-lang="en"] .ar{ display:none; }
+html[data-lang="ar"] .en{ display:none!important; }
+html[data-lang="en"] .ar{ display:none!important; }
 /* shared numerals/codes (68,000 · 5346564 · 11:00 · @batoclinic · wa.me) never flip language — stay LTR */
 .num{ direction:ltr; unicode-bidi:isolate; font-variant-numeric:tabular-nums; }
 /* the shot/diag Arabic branches are the HEADLINE in Arabic mode (not the old small gold subtitle) */
