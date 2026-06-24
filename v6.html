@@ -450,20 +450,33 @@ html[data-lang="ar"] .foot__col h4{ font-family:var(--ar-sans); letter-spacing:.
   if(canvas && window.THREE){
     var renderer=new THREE.WebGLRenderer({canvas:canvas,alpha:true,antialias:true});
     renderer.setPixelRatio(Math.min(window.devicePixelRatio||1,2));
+    renderer.toneMapping=THREE.ACESFilmicToneMapping; renderer.toneMappingExposure=0.88;
+    renderer.outputEncoding=THREE.sRGBEncoding;
     var scene=new THREE.Scene();
-    var camera=new THREE.PerspectiveCamera(32,1,0.1,100); camera.position.set(0,0,18);
-    scene.add(new THREE.AmbientLight(0xfff1d2,0.40));
-    var l1=new THREE.DirectionalLight(0xffffff,1.05); l1.position.set(6,10,9); scene.add(l1);
-    var l2=new THREE.DirectionalLight(0xffc673,0.55); l2.position.set(-8,-4,6); scene.add(l2);
-    var l3=new THREE.PointLight(0xffdf9e,0.30); l3.position.set(3,2,9); scene.add(l3);
+    var camera=new THREE.PerspectiveCamera(30,1,0.1,100); camera.position.set(0,0,19);
+    /* procedural studio environment → real metallic gold reflections */
+    var pmrem=new THREE.PMREMGenerator(renderer);
+    function envTex(){
+      var c=document.createElement('canvas'); c.width=512; c.height=256; var x=c.getContext('2d');
+      var g=x.createLinearGradient(0,0,0,256);
+      g.addColorStop(0,'#ffedbe'); g.addColorStop(0.34,'#daa84e'); g.addColorStop(0.60,'#6b4d1e'); g.addColorStop(1,'#090602');
+      x.fillStyle=g; x.fillRect(0,0,512,256);
+      x.globalCompositeOperation='lighter';
+      function spot(cx,cy,r,a){ var rg=x.createRadialGradient(cx,cy,0,cx,cy,r); rg.addColorStop(0,'rgba(255,242,210,'+a+')'); rg.addColorStop(1,'rgba(255,242,210,0)'); x.fillStyle=rg; x.fillRect(cx-r,cy-r,r*2,r*2); }
+      spot(150,56,72,0.7); spot(384,92,96,0.4); spot(70,176,58,0.28);
+      var t=new THREE.CanvasTexture(c); t.mapping=THREE.EquirectangularReflectionMapping; return t;
+    }
+    scene.environment=pmrem.fromEquirectangular(envTex()).texture;
+    var key=new THREE.DirectionalLight(0xffffff,0.65); key.position.set(5,9,8); scene.add(key);
+    var rim=new THREE.DirectionalLight(0xffe3aa,0.45); rim.position.set(-7,-3,-5); scene.add(rim);
     var grp=new THREE.Group(); scene.add(grp);
-    var matA=new THREE.MeshPhongMaterial({color:0xAE7C1C,specular:0xE3C268,shininess:44,emissive:0x130c01});
-    var matB=new THREE.MeshPhongMaterial({color:0xD4A736,specular:0xF1D584,shininess:56,emissive:0x1b1204});
-    var matR=new THREE.MeshPhongMaterial({color:0xBB9230,specular:0xD9B45A,shininess:40,emissive:0x140d02});
-    var sphere=new THREE.SphereGeometry(0.46,30,30);
-    var N=36,turns=2.7,H=14,rad=1.9;
+    var matA=new THREE.MeshStandardMaterial({color:0xB47A12,metalness:1.0,roughness:0.18,envMapIntensity:1.15});
+    var matB=new THREE.MeshStandardMaterial({color:0xD7A52C,metalness:1.0,roughness:0.12,envMapIntensity:1.28});
+    var matR=new THREE.MeshStandardMaterial({color:0xA67915,metalness:1.0,roughness:0.28,envMapIntensity:1.0});
+    var sphere=new THREE.SphereGeometry(0.40,44,44);
+    var N=48,turns=3.3,H=17,rad=1.65;
     function cyl(a,b){ var d=new THREE.Vector3().subVectors(b,a),len=d.length();
-      var m=new THREE.Mesh(new THREE.CylinderGeometry(0.13,0.13,len,12),matR);
+      var m=new THREE.Mesh(new THREE.CylinderGeometry(0.075,0.075,len,18),matR);
       m.position.copy(a).add(b).multiplyScalar(0.5);
       m.quaternion.setFromUnitVectors(new THREE.Vector3(0,1,0),d.clone().normalize()); return m; }
     for(var i=0;i<N;i++){ var f=i/(N-1),y=(f-0.5)*H,ang=f*Math.PI*2*turns;
@@ -472,12 +485,12 @@ html[data-lang="ar"] .foot__col h4{ font-family:var(--ar-sans); letter-spacing:.
       var s1=new THREE.Mesh(sphere,matA); s1.position.copy(p1); grp.add(s1);
       var s2=new THREE.Mesh(sphere,matB); s2.position.copy(p2); grp.add(s2);
       grp.add(cyl(p1,p2)); }
-    grp.rotation.z=0.12;
+    grp.rotation.z=0.08;
     function rsz(){ var r=canvas.getBoundingClientRect(); if(!r.width) return;
       renderer.setSize(r.width,r.height,false); camera.aspect=r.width/r.height; camera.updateProjectionMatrix(); }
     rsz(); window.addEventListener('resize',rsz);
     var rot=0;
-    function frame(){ rot+=0.006; grp.rotation.y=rot; renderer.render(scene,camera); if(!reduce) requestAnimationFrame(frame); }
+    function frame(){ rot+=0.0045; grp.rotation.y=rot; renderer.render(scene,camera); if(!reduce) requestAnimationFrame(frame); }
     if(reduce){ grp.rotation.y=0.6; renderer.render(scene,camera); } else frame();
   }
 
