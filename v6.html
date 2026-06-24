@@ -250,8 +250,9 @@ html[data-lang="ar"] .manifesto__body{ font-size:clamp(1.1rem,1.6vw,1.5rem); }
 .atmos__media{ position:absolute; inset:0; z-index:0; clip-path:inset(0 0 0 0); }
 .atmos__media picture{ position:absolute; inset:0; display:block; }
 .atmos__media img,.atmos__media video{ width:100%; height:100%; object-fit:cover; object-position:50% 50%; opacity:.92; transform:scale(1.12); }
-.atmos--est .atmos__media img{ object-position:50% 36%; }
-.atmos--cozy .atmos__media img{ object-position:50% 30%; }
+/* landscape (outpainted) interiors — full scene fills desktop, no hard crop */
+.atmos--est .atmos__media img{ object-position:50% 46%; }
+.atmos--cozy .atmos__media img{ object-position:50% 52%; }
 .atmos__media::after{ content:""; position:absolute; inset:0; background:radial-gradient(130% 95% at 50% 44%, rgba(20,13,7,.1) 0%, rgba(20,13,7,.5) 60%, rgba(20,13,7,.84) 100%); }
 .atmos__line{ position:relative; z-index:2; width:100%; max-width:var(--maxw); margin:0 auto; padding:0 var(--pad); color:var(--paper); }
 .atmos__line h2{ font-family:var(--serif); font-weight:300; font-size:clamp(2.6rem,9vw,9.5rem); line-height:1; letter-spacing:-.01em; text-shadow:0 2px 40px rgba(8,5,1,.6), 0 1px 8px rgba(8,5,1,.5); }
@@ -475,7 +476,7 @@ html[data-lang="ar"] .menu__contact{ font-family:var(--ar-sans); }
   <div class="atmos__media" data-mask>
     <picture>
       <source type="image/webp" sizes="100vw" srcset="assets/home1-1080.webp 1080w, assets/home1-1440.webp 1440w, assets/home1-1920.webp 1920w">
-      <img src="assets/home1-1440.jpg" alt="Inside BATO — the staircase lounge, daylight" loading="lazy" width="3213" height="5712">
+      <img src="assets/home1-1440.jpg" alt="Inside BATO — the staircase lounge, daylight" loading="lazy" width="2752" height="1536">
     </picture>
   </div>
   <div class="atmos__line">
@@ -490,7 +491,7 @@ html[data-lang="ar"] .menu__contact{ font-family:var(--ar-sans); }
   <div class="atmos__media" data-mask>
     <picture>
       <source type="image/webp" sizes="100vw" srcset="assets/home2-1080.webp 1080w, assets/home2-1440.webp 1440w, assets/home2-1920.webp 1920w">
-      <img src="assets/home2-1440.jpg" alt="Inside BATO — the living-room corner, fresh roses" loading="lazy" width="2231" height="3966">
+      <img src="assets/home2-1440.jpg" alt="Inside BATO — the living-room corner, fresh roses" loading="lazy" width="2752" height="1536">
     </picture>
   </div>
   <div class="atmos__line atmos__line--end">
