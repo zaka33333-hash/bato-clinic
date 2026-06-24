@@ -148,11 +148,10 @@ section{ position:relative; }
 }
 .intro__logo{
   position:relative; z-index:1; width:clamp(250px,40vw,560px); height:auto;
-  opacity:0; transform:translateY(22px) scale(.985);
-  transition:opacity 1.4s var(--ease), transform 1.4s var(--ease);
+  opacity:1; animation:introLogo 1.3s var(--ease) both;
 }
-.intro.in .intro__logo{ opacity:1; transform:none; }
-.reduce .intro__logo{ opacity:1; transform:none; }
+@keyframes introLogo{ from{ transform:translateY(26px) } to{ transform:translateY(0) } }
+.reduce .intro__logo{ animation:none; }
 .intro__top{ position:absolute; top:clamp(86px,11vh,140px); left:var(--pad); right:var(--pad); display:flex; justify-content:space-between; }
 .intro__eyebrow{ position:absolute; bottom:clamp(98px,15vh,150px); left:50%; transform:translateX(-50%); z-index:3; }
 .intro__cue{
@@ -453,6 +452,8 @@ window.addEventListener('load', function(){
   },{ threshold:.16, rootMargin:'0px 0px -6% 0px' });
   document.querySelectorAll('[data-reveal], .lines').forEach(function(el){ io.observe(el); });
   requestAnimationFrame(function(){ var i=document.querySelector('.intro'); if(i) i.classList.add('in'); });
+  /* failsafe: never leave content hidden if the observer/transition is throttled */
+  setTimeout(function(){ document.querySelectorAll('[data-reveal], .lines').forEach(function(e){ e.classList.add('in'); }); }, 2600);
 
   /* nav hide + parallax */
   var nav=document.getElementById('nav'), last=0;
