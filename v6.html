@@ -245,26 +245,22 @@ html[data-lang="ar"] .manifesto__body{ font-size:clamp(1.1rem,1.6vw,1.5rem); }
 @media(min-width:860px){ .manifesto__cta{ justify-self:end; } }
 
 /* ============================================================ 4 · ATMOSPHERE (dark mask reveal) */
-.atmos{ height:92svh; min-height:600px; position:relative; overflow:hidden; background:var(--night); display:flex; align-items:center; }
-.atmos__media{ position:absolute; inset:0; z-index:0; clip-path:inset(0 0 0 0); }
-.atmos__media picture{ position:absolute; inset:0; display:block; }
-.atmos__media img,.atmos__media video{ width:100%; height:100%; object-fit:cover; object-position:50% 50%; opacity:.92; transform:scale(1.12); }
-/* landscape (outpainted) interiors — full scene fills desktop, no hard crop */
-.atmos--est .atmos__media img{ object-position:50% 46%; }
-.atmos--cozy .atmos__media img{ object-position:50% 52%; }
-/* phones get the REAL portrait shots (no AI outpaint) — frame the band like the originals */
-@media(max-width:860px){
-  .atmos--est .atmos__media img{ object-position:50% 36%; }
-  .atmos--cozy .atmos__media img{ object-position:50% 30%; }
-}
-.atmos__media::after{ content:""; position:absolute; inset:0; background:radial-gradient(130% 95% at 50% 44%, rgba(20,13,7,.1) 0%, rgba(20,13,7,.5) 60%, rgba(20,13,7,.84) 100%); }
-.atmos__line{ position:relative; z-index:2; width:100%; max-width:var(--maxw); margin:0 auto; padding:0 var(--pad); color:var(--paper); }
-.atmos__line h2{ font-family:var(--serif); font-weight:300; font-size:clamp(2.6rem,9vw,9.5rem); line-height:1; letter-spacing:-.01em; text-shadow:0 2px 40px rgba(8,5,1,.6), 0 1px 8px rgba(8,5,1,.5); }
-html[data-lang="ar"] .atmos__line h2{ font-family:var(--ar-serif); line-height:1.25; }
-.atmos__line--end h2{ padding-inline-start:36vw; }
-html[dir="rtl"] .atmos__line--end h2{ padding-inline-start:0; padding-inline-end:36vw; }
-.atmos__line .b--2{ display:block; padding-inline-start:26vw; }
-html[dir="rtl"] .atmos__line .b--2{ padding-inline-start:0; padding-inline-end:26vw; }
+/* pinned scene — the line holds still while the interior crossfades behind it */
+.atmos{ position:relative; height:240svh; background:var(--night); }
+.atmos__pin{ position:sticky; top:0; height:100svh; overflow:hidden; display:flex; align-items:center; }
+.atmos__media{ position:absolute; inset:0; z-index:0; }
+.atmos__img{ position:absolute; inset:0; opacity:0; will-change:opacity; }
+.atmos__img:first-child{ opacity:1; }            /* first interior shown; JS scrubs the crossfade */
+.atmos__img img{ width:100%; height:100%; object-fit:cover; object-position:50% 50%; transform:scale(1.06); }
+.atmos__media::after{ content:""; position:absolute; inset:0; z-index:1; background:radial-gradient(130% 100% at 50% 46%, rgba(20,13,7,.16) 0%, rgba(20,13,7,.55) 55%, rgba(20,13,7,.82) 100%); }
+.atmos__line{ position:relative; z-index:2; width:100%; max-width:var(--maxw); margin:0 auto; padding:0 var(--pad); color:var(--paper); will-change:transform; }
+.atmos__h{ font-family:var(--serif); font-optical-sizing:auto; font-weight:300; font-size:clamp(2.8rem,8.5vw,9rem); line-height:1.04; letter-spacing:-.01em; text-shadow:0 2px 40px rgba(8,5,1,.6), 0 1px 8px rgba(8,5,1,.5); }
+html[data-lang="ar"] .atmos__h{ font-family:var(--ar-serif); line-height:1.3; }
+.atmos__h em{ font-style:italic; color:var(--gold-hi); }
+html[data-lang="ar"] .atmos__h em{ font-style:normal; color:var(--gold-hi); }
+.atmos__h .b--2{ display:block; padding-inline-start:24vw; }
+html[dir="rtl"] .atmos__h .b--2{ padding-inline-start:0; padding-inline-end:24vw; }
+@media(max-width:860px){ .atmos{ height:200svh; } }
 
 /* ============================================================ 5 · PROCESS + SERVICES */
 .process{ padding:clamp(110px,16vh,210px) var(--pad) clamp(60px,9vh,110px); max-width:var(--maxw); margin:0 auto; }
@@ -472,38 +468,26 @@ html[data-lang="ar"] .menu__contact{ font-family:var(--ar-sans); }
 </section>
 
 <!-- ============================================================ 4 · ATMOSPHERE -->
-<!-- INTERIOR SEQUENCE — establishing → cozy -->
-<section class="atmos atmos--est" id="atmos" data-theme="dark">
-  <div class="atmos__media" data-mask>
-    <picture>
-      <source media="(max-width:860px)" type="image/webp" srcset="assets/home1-tall-768.webp 768w, assets/home1-tall-1242.webp 1242w">
-      <source media="(max-width:860px)" srcset="assets/home1-tall-1080.jpg">
-      <source type="image/webp" sizes="100vw" srcset="assets/home1-1080.webp 1080w, assets/home1-1440.webp 1440w, assets/home1-1920.webp 1920w">
-      <img src="assets/home1-1440.jpg" alt="Inside BATO — the staircase lounge, daylight" loading="lazy" width="2752" height="1536">
-    </picture>
-  </div>
-  <div class="atmos__line">
-    <h2 class="lines" data-reveal>
-      <span class="en"><span class="ln"><i>A clinic where</i></span></span>
-      <span class="ar"><span class="ln"><i>عيادةٌ تشعرين فيها</i></span></span>
-    </h2>
-  </div>
-</section>
-
-<section class="atmos atmos--cozy" data-theme="dark">
-  <div class="atmos__media" data-mask>
-    <picture>
-      <source media="(max-width:860px)" type="image/webp" srcset="assets/home2-tall-768.webp 768w, assets/home2-tall-1242.webp 1242w">
-      <source media="(max-width:860px)" srcset="assets/home2-tall-1080.jpg">
-      <source type="image/webp" sizes="100vw" srcset="assets/home2-1080.webp 1080w, assets/home2-1440.webp 1440w, assets/home2-1920.webp 1920w">
-      <img src="assets/home2-1440.jpg" alt="Inside BATO — the living-room corner, fresh roses" loading="lazy" width="2752" height="1536">
-    </picture>
-  </div>
-  <div class="atmos__line atmos__line--end">
-    <h2 class="lines" data-reveal>
-      <span class="en"><span class="ln"><i>you feel <em>at home.</em></i></span></span>
-      <span class="ar"><span class="ln"><i>أنكِ في <em>بيتك.</em></i></span></span>
-    </h2>
+<!-- PINNED SCENE — headline holds, interior crossfades -->
+<section class="atmos" id="atmos" data-theme="dark">
+  <div class="atmos__pin">
+    <div class="atmos__media">
+      <div class="atmos__img">
+        <picture><source type="image/webp" sizes="100vw" srcset="assets/home1-1080.webp 1080w, assets/home1-1440.webp 1440w, assets/home1-1920.webp 1920w"><img src="assets/home1-1440.jpg" alt="Inside BATO — the staircase lounge" loading="eager" fetchpriority="high" width="2752" height="1536"></picture>
+      </div>
+      <div class="atmos__img">
+        <picture><source type="image/webp" sizes="100vw" srcset="assets/home2-1080.webp 1080w, assets/home2-1440.webp 1440w, assets/home2-1920.webp 1920w"><img src="assets/home2-1440.jpg" alt="Inside BATO — the living-room corner" loading="lazy" width="2752" height="1536"></picture>
+      </div>
+      <div class="atmos__img">
+        <picture><source type="image/webp" sizes="100vw" srcset="assets/home3-1080.webp 1080w, assets/home3-1440.webp 1440w, assets/home3-1920.webp 1920w"><img src="assets/home3-1440.jpg" alt="Inside BATO — the bright atrium" loading="lazy" width="2752" height="1536"></picture>
+      </div>
+    </div>
+    <div class="atmos__line">
+      <h2 class="atmos__h lines" data-reveal>
+        <span class="en"><span class="ln"><i>A clinic where</i></span><span class="ln b--2"><i>you feel <em>at home.</em></i></span></span>
+        <span class="ar"><span class="ln"><i>عيادةٌ تشعرين فيها</i></span><span class="ln b--2"><i>أنكِ في <em>بيتك.</em></i></span></span>
+      </h2>
+    </div>
   </div>
 </section>
 
@@ -761,10 +745,17 @@ window.addEventListener('load', function(){
   /* parallax — scrubbed */
   var heroImg=document.querySelector('.hero__media img');
   if(heroImg) gsap.fromTo(heroImg,{yPercent:0},{yPercent:7,ease:'none',scrollTrigger:{trigger:'.hero',start:'top top',end:'bottom top',scrub:true}});  /* gentle drift only — no scale-zoom on the floating cut-out */
-  gsap.utils.toArray('.atmos').forEach(function(sec){
-    var im=sec.querySelector('.atmos__media img, .atmos__media video');
-    if(im) gsap.fromTo(im,{yPercent:-6,scale:1.18},{yPercent:8,scale:1.18,ease:'none',scrollTrigger:{trigger:sec,start:'top bottom',end:'bottom top',scrub:true}});
-  });
+  /* atmos pinned scene — crossfade the interior layers across the section scroll; gentle text drift */
+  var atmosScene=document.querySelector('.atmos');
+  if(atmosScene){
+    var aImgs=[].slice.call(atmosScene.querySelectorAll('.atmos__img'));
+    var aLine=atmosScene.querySelector('.atmos__line');
+    ScrollTrigger.create({ trigger:atmosScene, start:'top top', end:'bottom bottom', scrub:0.5, onUpdate:function(self){
+      var p=self.progress, t=p*Math.max(1,aImgs.length-1);
+      aImgs.forEach(function(im,i){ im.style.opacity=Math.max(0,1-Math.abs(t-i)).toFixed(3); });
+      if(aLine) aLine.style.transform='translateY('+(p*-50).toFixed(1)+'px)';
+    }});
+  }
 
   window.addEventListener('resize', function(){ applyMorph(morphST.progress); });
   ScrollTrigger.refresh();
