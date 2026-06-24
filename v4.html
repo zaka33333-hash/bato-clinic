@@ -998,22 +998,22 @@ html[dir="rtl"] .bignum b{ text-align:right; }
 <div id="bato-bot">
   <button id="bb-launch" type="button" aria-label="Open Bato concierge">
     <span class="bb-spark" aria-hidden="true"></span>
-    <span class="bb-launch-ar">نور</span><span class="bb-launch-en">Ask&nbsp;Noor</span>
+    <span class="en" lang="en"><span class="bb-launch-ar">نور</span><span class="bb-launch-en">Ask&nbsp;Noor</span></span><span class="ar bb-launch-arfull" lang="ar">اسألي نور</span>
   </button>
   <section id="bb-panel" role="dialog" aria-modal="true" aria-label="Bato concierge" hidden>
     <header class="bb-head">
-      <div class="bb-id"><span class="bb-dot" aria-hidden="true"></span><div><b>Noor</b><small>Bato concierge · نور</small></div></div>
+      <div class="bb-id"><span class="bb-dot" aria-hidden="true"></span><div><b><span class="en" lang="en">Noor</span><span class="ar" lang="ar">نور</span></b><small><span class="en" lang="en">Bato concierge · نور</span><span class="ar" lang="ar">مساعِدتك في باتو</span></small></div></div>
       <button id="bb-close" type="button" aria-label="Close">✕</button>
     </header>
     <div id="bb-log" class="bb-log" aria-live="polite"></div>
     <div id="bb-chips" class="bb-chips"></div>
-    <button id="bb-ai" class="bb-ai" type="button">✦ Enable smarter on-device AI · private · free</button>
+    <button id="bb-ai" class="bb-ai" type="button"><span class="en" lang="en">✦ Enable smarter on-device AI · private · free</span><span class="ar" lang="ar">✦ فعّلي ذكاءً اصطناعياً أذكى على جهازكِ · خاص · مجاني</span></button>
     <div id="bb-ai-status" class="bb-ai-status" hidden></div>
     <form id="bb-form" class="bb-form">
-      <input id="bb-input" type="text" autocomplete="off" placeholder="Ask about treatments, prices, booking…" aria-label="Message">
+      <input id="bb-input" type="text" autocomplete="off" placeholder="اسألي عن العلاجات والأسعار والحجز…" data-ph-en="Ask about treatments, prices, booking…" data-ph-ar="اسألي عن العلاجات والأسعار والحجز…" aria-label="Message">
       <button id="bb-send" type="submit" aria-label="Send">↑</button>
     </form>
-    <p class="bb-fine">Noor is an AI assistant, not a doctor. For medical advice, book a consultation.</p>
+    <p class="bb-fine"><span class="en" lang="en">Noor is an AI assistant, not a doctor. For medical advice, book a consultation.</span><span class="ar" lang="ar">نور مساعِدة بالذكاء الاصطناعي، وليست طبيبة. للاستشارة الطبية، احجزي موعداً.</span></p>
   </section>
 </div>
 <style>
@@ -1023,6 +1023,7 @@ html[dir="rtl"] .bignum b{ text-align:right; }
   box-shadow:0 10px 30px -12px rgba(0,0,0,.6); transition:transform .25s cubic-bezier(.22,1,.36,1), opacity .3s; }
 #bb-launch:hover{ transform:translateY(-2px); }
 .bb-launch-ar{ font-family:'Reem Kufi',sans-serif; font-size:1.5em; line-height:1; color:#d3b63c; }
+.bb-launch-arfull{ font-family:'Reem Kufi',sans-serif; font-size:1.3em; line-height:1; color:#d3b63c; letter-spacing:0; }
 .bb-spark{ width:7px; height:7px; border-radius:50%; background:#d3b63c; box-shadow:0 0 12px 2px rgba(211,182,60,.6); animation:bbPulse 2.6s ease-in-out infinite; }
 @keyframes bbPulse{ 0%,100%{ transform:scale(1); opacity:.85 } 50%{ transform:scale(1.5); opacity:1 } }
 #bb-panel{ position:absolute; bottom:calc(100% + 12px); inset-inline-start:0; width:min(380px,calc(100vw - 28px)); height:min(560px,72vh);
@@ -1079,7 +1080,9 @@ html[dir="rtl"] .bignum b{ text-align:right; }
       aiBtn=document.getElementById('bb-ai'), aiStatus=document.getElementById('bb-ai-status');
   if(!launch) return;
   var history=[], busy=false, greeted=false, engine=null, loadingAI=false;
-  var SUGGESTIONS=["Hair loss or thinning?","Hair mesotherapy price?","ساعات العمل؟","احجزي موعد"];
+  var SUGG_EN=["Hair loss or thinning?","Hair mesotherapy price?","Working hours?","Book an appointment"];
+  var SUGG_AR=["تساقط الشعر؟","سعر ميزوثيرابي الشعر؟","ساعات العمل؟","احجزي موعداً"];
+  function suggestions(){ return document.documentElement.lang==='ar' ? SUGG_AR : SUGG_EN; }
   var isAr=function(s){ return /[؀-ۿ]/.test(s); };
   var URL_RE=/(https?:\/\/[^\s)]+)/g;
 
@@ -1183,7 +1186,7 @@ html[dir="rtl"] .bignum b{ text-align:right; }
     setRich(d,txt); log.appendChild(d); log.scrollTop=log.scrollHeight; return d; }
   function clearKids(n){ while(n.firstChild) n.removeChild(n.firstChild); }
   function renderChips(){ clearKids(chips);
-    SUGGESTIONS.forEach(function(s){ var b=document.createElement('button'); b.type='button'; b.className='bb-chip';
+    suggestions().forEach(function(s){ var b=document.createElement('button'); b.type='button'; b.className='bb-chip';
       b.textContent=s; b.dir='auto'; b.onclick=function(){ input.value=s; form.requestSubmit(); }; chips.appendChild(b); }); }
   function setStatus(t){ if(!aiStatus) return; aiStatus.hidden=!t; aiStatus.textContent=t||''; }
 
@@ -1191,7 +1194,7 @@ html[dir="rtl"] .bignum b{ text-align:right; }
   function open(){ lastFocus=document.activeElement; panel.hidden=false; panel.classList.add('bb-in');
     launch.style.opacity='0'; launch.style.pointerEvents='none'; try{launch.inert=true;}catch(_){}   // remove launcher from focus/AT while modal open
     setTimeout(function(){ input.focus(); },120);
-    if(!greeted){ greeted=true; bubble('bot',"Hello! I'm Noor, the concierge at Bato Medical Clinic. Ask me about treatments, prices, hours or booking, in English or العربية. How can I help?"); renderChips(); } }
+    if(!greeted){ greeted=true; bubble('bot', document.documentElement.lang==='ar' ? "أهلاً! أنا نور، مساعِدتك في مستوصف باتو. اسأليني عن العلاجات والأسعار وساعات العمل والحجز. كيف أقدر أساعدك؟" : "Hello! I'm Noor, the concierge at Bato Medical Clinic. Ask me about treatments, prices, hours or booking, in English or العربية. How can I help?"); renderChips(); } }
   function close(){ panel.hidden=true; launch.style.opacity=''; launch.style.pointerEvents=''; try{launch.inert=false;}catch(_){}
     (lastFocus&&lastFocus.focus?lastFocus:launch).focus(); }
   function trapTab(e){ if(e.key!=='Tab'||panel.hidden) return; var f=panel.querySelectorAll('button,a[href],input,select,textarea'); if(!f.length) return;
