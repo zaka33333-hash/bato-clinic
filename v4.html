@@ -598,6 +598,8 @@ html[data-lang="ar"] .en{ display:none; }
 html[data-lang="en"] .ar{ display:none; }
 /* shared numerals/codes (68,000 · 5346564 · 11:00 · @batoclinic · wa.me) never flip language — stay LTR */
 .num{ direction:ltr; unicode-bidi:isolate; font-variant-numeric:tabular-nums; }
+/* the shot/diag Arabic branches are the HEADLINE in Arabic mode (not the old small gold subtitle) */
+.shot__name .ar{ font-size:inherit; color:inherit; margin:0; }
 
 /* ── Arabic as the PRIMARY display type (only fires under lang=ar; EN is provably untouched) ── */
 html[lang="ar"] body{ font-family:var(--kufi); font-weight:400; line-height:1.5; }
@@ -698,7 +700,7 @@ html[dir="rtl"] .bignum b{ text-align:right; }
     <a class="menu__link menu__link--cta" href="https://wa.me/96560072702" target="_blank" rel="noopener" style="--i:4"><span class="menu__num">05</span><span class="menu__en">Book</span><span class="menu__ar" lang="ar">احجز</span></a>
   </nav>
   <div class="menu__foot">
-    <span><span class="ar" lang="ar">باتو كلينيك</span> · Al Safa, Dubai</span>
+    <span><span class="en" lang="en">Bato Clinic · Al Safa, Dubai</span><span class="ar" lang="ar">باتو كلينيك · الصفا، دبي</span></span>
     <a href="https://www.instagram.com/batoclinic/" target="_blank" rel="noopener">Instagram @batoclinic</a>
   </div>
 </div>
@@ -706,7 +708,7 @@ html[dir="rtl"] .bignum b{ text-align:right; }
 
 <!-- persistent conversion path -->
 <a class="dock" id="dock" href="#s8" data-mag data-cursor="Book" aria-label="Book a consultation">
-  <span class="ar">احجزي</span><span>Book</span><span class="i" aria-hidden="true">↗</span>
+  <span class="ar" lang="ar">احجزي</span><span class="en" lang="en">Book</span><span class="i" aria-hidden="true">↗</span>
 </a>
 
 <main>
@@ -719,26 +721,23 @@ html[dir="rtl"] .bignum b{ text-align:right; }
         <div class="horizon" aria-hidden="true"></div>
       </div>
       <p class="whisper" data-reveal="blur" style="--d:300ms">
-        <span class="ar" lang="ar" style="font-family:var(--ruqaa)">حيث يلتقي الجمال والصحة</span>
-        Where beauty meets health.
+        <span class="ar" lang="ar" style="font-family:var(--ruqaa)">حيث يلتقي الجمال بالصحة</span><span class="en" lang="en">Where beauty meets health.</span>
       </p>
     </div>
-    <div class="cue">Follow the light ↓</div>
+    <div class="cue"><span class="en" lang="en">Follow the light ↓</span><span class="ar" lang="ar">اتبعي النور ↓</span></div>
   </section>
 
   <!-- 01 · DAYBREAK HERO -->
   <section class="stage" id="s1" data-stage data-theme="paper" data-idx="2" data-name="النور · FIRST LIGHT">
     <div class="wrap">
-      <div class="eyebrow" data-reveal="rise">Bato · Medical Clinic · Al Safa, Dubai</div>
+      <div class="eyebrow" data-reveal="rise"><span class="en" lang="en">Bato · Medical Clinic · Al Safa, Dubai</span><span class="ar" lang="ar">باتو · مستوصف طبي · الصفا، دبي</span></div>
       <p class="hero__h" data-reveal="lines" style="margin-top:1.4rem">
-        <span class="ln"><i>Where beauty</i></span>
-        <span class="ln"><i>begins</i></span>
-        <span class="ln"><i><em>within.</em></i></span>
+        <span class="en" lang="en"><span class="ln"><i>Where beauty</i></span><span class="ln"><i>begins</i></span><span class="ln"><i><em>within.</em></i></span></span>
+        <span class="ar" lang="ar"><span class="ln"><i>حيث يبدأ الجمال</i></span><span class="ln"><i><em>من الداخل</em></i></span></span>
       </p>
-      <div class="hero__ar" data-reveal="rise" style="--d:200ms" lang="ar">حيث يبدأ الجمال من الداخل</div>
       <div class="hero__sub">
-        <p class="measure" data-reveal="rise" style="--d:300ms">An aesthetic and wellness clinic in Al Safa, Dubai. We start with your bloodwork, then shape a plan for skin, hair and face, medically supervised and never rushed.</p>
-        <div class="eyebrow" data-reveal="rise" style="--d:400ms">DHA Licence&nbsp;5346564</div>
+        <p class="measure" data-reveal="rise" style="--d:300ms"><span class="en" lang="en">An aesthetic and wellness clinic in Al Safa, Dubai. We start with your bloodwork, then shape a plan for skin, hair and face, medically supervised and never rushed.</span><span class="ar" lang="ar">عيادة للجمال والعافية في الصفا، دبي. نبدأ بقراءة تحاليلكِ، ثم نضع خطةً للبشرة والشعر والوجه، بإشراف طبي وعلى مهلٍ لا يعرف العجلة.</span></p>
+        <div class="eyebrow" data-reveal="rise" style="--d:400ms"><span class="en" lang="en">DHA Licence&nbsp;<span class="num">5346564</span></span><span class="ar" lang="ar">ترخيص هيئة الصحة بدبي <span class="num">5346564</span></span></div>
       </div>
     </div>
   </section>
@@ -746,13 +745,11 @@ html[dir="rtl"] .bignum b{ text-align:right; }
   <!-- 02 · THE READING -->
   <section class="stage" id="s2" data-stage data-theme="paper" data-idx="3" data-name="القراءة · THE READING">
     <div class="wrap">
-      <div class="eyebrow" data-reveal="rise"><span lang="ar">الفلسفة</span> · The Reading</div>
+      <div class="eyebrow" data-reveal="rise"><span class="en" lang="en">The Reading</span><span class="ar" lang="ar">الفلسفة</span></div>
       <p class="reading-lede" data-reveal="lines">
-        <span class="ln"><i>We listen,</i></span>
-        <span class="ln"><i>we test,</i></span>
-        <span class="ln"><i><em>then we treat.</em></i></span>
+        <span class="en" lang="en"><span class="ln"><i>We listen,</i></span><span class="ln"><i>we test,</i></span><span class="ln"><i><em>then we treat.</em></i></span></span>
+        <span class="ar" lang="ar"><span class="ln"><i>نُصغي، نفحص،</i></span><span class="ln"><i><em>ثم نعالج.</em></i></span></span>
       </p>
-      <p class="reading-ar" data-reveal="rise" style="--d:200ms" lang="ar">نُصغي، نفحص، ثم نعالج.</p>
     </div>
   </section>
 
@@ -760,14 +757,14 @@ html[dir="rtl"] .bignum b{ text-align:right; }
   <section class="tc-sec">
     <div class="tc-wrap">
       <div class="tc-head" data-reveal="rise">
-        <h2>Four disciplines, <em>one reading.</em></h2>
-        <p>Each one led by our clinical team, shaped around you, never a template.</p>
+        <h2><span class="en" lang="en">Four disciplines, <em>one reading.</em></span><span class="ar" lang="ar">أربعة مجالات، <em>وقراءةٌ واحدة.</em></span></h2>
+        <p><span class="en" lang="en">Each one led by our clinical team, shaped around you, never a template.</span><span class="ar" lang="ar">يقودها فريقنا الطبي، ونصوغها على مقاسكِ أنتِ، لا على قالبٍ جاهز.</span></p>
       </div>
       <div class="tc-grid">
-        <a class="tc-card" href="hair-treatment.html" data-reveal="rise"><div class="tc-top"><span class="tc-num">01</span><span class="tc-arrow">↗</span></div><div class="tc-name">Hair<span class="ar" lang="ar">الشعر</span></div><p class="tc-desc">Scalp mesotherapy, plasma (PRP) and targeted care for thinning or tired hair. Honest about what helps.</p></a>
-        <a class="tc-card" href="skin.html" data-reveal="rise" style="--d:80ms"><div class="tc-top"><span class="tc-num">02</span><span class="tc-arrow">↗</span></div><div class="tc-name">Skin<span class="ar" lang="ar">البشرة</span></div><p class="tc-desc">HydraFacial, medical peels, dermaplaning and laser. Clarity, gently restored.</p></a>
-        <article class="tc-card" data-reveal="rise" style="--d:160ms"><div class="tc-top"><span class="tc-num">03</span><span class="tc-arrow">↗</span></div><div class="tc-name">Refinement<span class="ar" lang="ar">النحت</span></div><p class="tc-desc">Botox and filler in small, deliberate doses. A result that still looks like you, only rested.</p></article>
-        <a class="tc-card" href="lab-tests.html" data-reveal="rise" style="--d:240ms"><div class="tc-top"><span class="tc-num">04</span><span class="tc-arrow">↗</span></div><div class="tc-name">Diagnostics<span class="ar" lang="ar">التشخيص</span></div><p class="tc-desc">Blood, hormone and vitamin panels behind the aesthetics. Because beautiful hair and skin begin within.</p></a>
+        <a class="tc-card" href="hair-treatment.html" data-reveal="rise"><div class="tc-top"><span class="tc-num">01</span><span class="tc-arrow">↗</span></div><div class="tc-name"><span class="en" lang="en">Hair</span><span class="ar" lang="ar">الشعر</span></div><p class="tc-desc"><span class="en" lang="en">Scalp mesotherapy, plasma (PRP) and targeted care for thinning or tired hair. Honest about what helps.</span><span class="ar" lang="ar">ميزوثيرابي لفروة الرأس، وبلازما (PRP)، وعناية موجَّهة للشعر الخفيف أو المُتعَب. نصارحكِ بما يُجدي حقاً.</span></p></a>
+        <a class="tc-card" href="skin.html" data-reveal="rise" style="--d:80ms"><div class="tc-top"><span class="tc-num">02</span><span class="tc-arrow">↗</span></div><div class="tc-name"><span class="en" lang="en">Skin</span><span class="ar" lang="ar">البشرة</span></div><p class="tc-desc"><span class="en" lang="en">HydraFacial, medical peels, dermaplaning and laser. Clarity, gently restored.</span><span class="ar" lang="ar">هيدرافيشل، وتقشير طبي، وتنعيم البشرة، وليزر. نقاءٌ يعود برِفق.</span></p></a>
+        <article class="tc-card" data-reveal="rise" style="--d:160ms"><div class="tc-top"><span class="tc-num">03</span><span class="tc-arrow">↗</span></div><div class="tc-name"><span class="en" lang="en">Refinement</span><span class="ar" lang="ar">النحت</span></div><p class="tc-desc"><span class="en" lang="en">Botox and filler in small, deliberate doses. A result that still looks like you, only rested.</span><span class="ar" lang="ar">بوتكس وفيلر بجرعاتٍ صغيرةٍ مدروسة. نتيجةٌ تبقى أنتِ، لكن أكثر راحة.</span></p></article>
+        <a class="tc-card" href="lab-tests.html" data-reveal="rise" style="--d:240ms"><div class="tc-top"><span class="tc-num">04</span><span class="tc-arrow">↗</span></div><div class="tc-name"><span class="en" lang="en">Diagnostics</span><span class="ar" lang="ar">التشخيص</span></div><p class="tc-desc"><span class="en" lang="en">Blood, hormone and vitamin panels behind the aesthetics. Because beautiful hair and skin begin within.</span><span class="ar" lang="ar">تحاليل الدم والهرمونات والفيتامينات خلف كل تجميل. فجمال الشعر والبشرة يبدأ من الداخل.</span></p></a>
       </div>
     </div>
   </section>
@@ -782,9 +779,9 @@ html[dir="rtl"] .bignum b{ text-align:right; }
     <div class="shot__veil"></div>
     <div class="shimmer"></div>
     <div class="shot__c" style="margin-inline-start:auto; text-align:end">
-      <div class="shot__tag" data-reveal="rise"><span lang="ar">العناية بالشعر</span> · Hair</div>
-      <h2 class="shot__name" data-reveal="rise-blur" style="--d:120ms">Hair<span class="ar" lang="ar">الشعر</span></h2>
-      <p class="shot__d" data-reveal="rise" style="--d:240ms; margin-inline-start:auto">For thinning or tired hair, we look at what's happening underneath, including your bloodwork, then treat the scalp with mesotherapy, plasma (PRP) and targeted care. Medically supervised, and honest about what care can do.</p>
+      <div class="shot__tag" data-reveal="rise"><span class="en" lang="en">Hair care</span><span class="ar" lang="ar">العناية بالشعر</span></div>
+      <h2 class="shot__name" data-reveal="rise-blur" style="--d:120ms"><span class="en" lang="en">Hair</span><span class="ar" lang="ar">الشعر</span></h2>
+      <p class="shot__d" data-reveal="rise" style="--d:240ms; margin-inline-start:auto"><span class="en" lang="en">For thinning or tired hair, we look at what's happening underneath, including your bloodwork, then treat the scalp with mesotherapy, plasma (PRP) and targeted care. Medically supervised, and honest about what care can do.</span><span class="ar" lang="ar">حين يخفّ الشعر أو يَتعَب، ننظر أولاً إلى ما يحدث في العمق، ومنه تحاليلكِ، ثم نعتني بفروة الرأس بالميزوثيرابي والبلازما (PRP) وعنايةٍ موجَّهة. كل ذلك بإشراف طبي، وبصراحةٍ عمّا تقدر العناية أن تبلغه.</span></p>
     </div>
   </section>
 
@@ -797,9 +794,9 @@ html[dir="rtl"] .bignum b{ text-align:right; }
     </picture>
     <div class="shot__veil"></div>
     <div class="shot__c">
-      <div class="shot__tag" data-reveal="rise"><span lang="ar">العناية بالبشرة</span> · Skin</div>
-      <h2 class="shot__name" data-reveal="rise-blur" style="--d:120ms">Skin<span class="ar" lang="ar">البشرة</span></h2>
-      <p class="shot__d" data-reveal="rise" style="--d:240ms">We look at your skin and your goals first, then plan peels, laser and skincare to suit it. Clarity, gently restored.</p>
+      <div class="shot__tag" data-reveal="rise"><span class="en" lang="en">Skin</span><span class="ar" lang="ar">العناية بالبشرة</span></div>
+      <h2 class="shot__name" data-reveal="rise-blur" style="--d:120ms"><span class="en" lang="en">Skin</span><span class="ar" lang="ar">البشرة</span></h2>
+      <p class="shot__d" data-reveal="rise" style="--d:240ms"><span class="en" lang="en">We look at your skin and your goals first, then plan peels, laser and skincare to suit it. Clarity, gently restored.</span><span class="ar" lang="ar">ننظر أولاً إلى بشرتكِ وإلى ما تتمنّينه، ثم نرسم خطةً من التقشير والليزر والعناية تليق بها. نقاءٌ يعود برِفق.</span></p>
     </div>
   </section>
 
@@ -813,9 +810,9 @@ html[dir="rtl"] .bignum b{ text-align:right; }
     <div class="shot__veil" style="background:linear-gradient(90deg,rgba(28,22,14,.7) 0 38%,rgba(28,22,14,.1) 70%,transparent)"></div>
     <div class="spark"></div>
     <div class="shot__c">
-      <div class="shot__tag" data-reveal="rise"><span lang="ar">النحت</span> · Fillers &amp; Botox</div>
-      <h2 class="shot__name" data-reveal="rise-blur" style="--d:120ms; font-size:clamp(2.6rem,7vw,6rem)">The measured hand<span class="ar" lang="ar" style="display:block; margin:0">اللمسة المدروسة</span></h2>
-      <p class="shot__d" data-reveal="rise" style="--d:240ms">Botox and filler in the smallest doses that work. We shape slowly, so the result feels like rest, not work.</p>
+      <div class="shot__tag" data-reveal="rise"><span class="en" lang="en">Fillers &amp; Botox</span><span class="ar" lang="ar">النحت · فيلر وبوتكس</span></div>
+      <h2 class="shot__name" data-reveal="rise-blur" style="--d:120ms; font-size:clamp(2.6rem,7vw,6rem)"><span class="en" lang="en">The measured hand</span><span class="ar" lang="ar">اللمسة المدروسة</span></h2>
+      <p class="shot__d" data-reveal="rise" style="--d:240ms"><span class="en" lang="en">Botox and filler in the smallest doses that work. We shape slowly, so the result feels like rest, not work.</span><span class="ar" lang="ar">بوتكس وفيلر بأصغر جرعةٍ تكفي. ننحت على مهل، حتى تبدو النتيجة راحةً لا تكلُّفاً.</span></p>
     </div>
   </section>
 
@@ -823,18 +820,18 @@ html[dir="rtl"] .bignum b{ text-align:right; }
   <section class="diag" id="diag" data-stage data-theme="dark" data-idx="7" data-name="التشخيص · DIAGNOSTIC">
     <div class="scan" aria-hidden="true"></div>
     <div class="wrap">
-      <p class="diag__ar" data-reveal="rise" lang="ar">الجمال يبدأ بالتحاليل</p>
+      <p class="diag__ar" data-reveal="rise"><span class="en" lang="en">Beauty begins with bloodwork</span><span class="ar" lang="ar">الجمال يبدأ بالتحاليل</span></p>
       <h2 class="diag__head" data-reveal="lines">
-        <span class="ln"><i>Beauty,</i></span>
-        <span class="ln"><i><em>tested first.</em></i></span>
+        <span class="en" lang="en"><span class="ln"><i>Beauty,</i></span><span class="ln"><i><em>tested first.</em></i></span></span>
+        <span class="ar" lang="ar"><span class="ln"><i>الجمال،</i></span><span class="ln"><i><em>يبدأ بالفحص.</em></i></span></span>
       </h2>
-      <p class="measure" style="margin-top:1.4rem; color:rgba(237,228,212,.74)" data-reveal="rise">Before any treatment, we can read your bloodwork, hormones, vitamins, iron and thyroid, the quiet things that shape your hair and skin. Samples go to an accredited laboratory, and every plan is approved by our supervising physician.</p>
-      <div class="diag__licence" data-reveal="rise" style="--d:160ms"><span class="diag__num">5346564</span><span class="diag__numcap">Dubai Health Authority<br>Health Facility Licence · Active<br><span lang="ar">رخصة منشأة صحية · هيئة الصحة بدبي</span></span></div>
+      <p class="measure" style="margin-top:1.4rem; color:rgba(237,228,212,.74)" data-reveal="rise"><span class="en" lang="en">Before any treatment, we can read your bloodwork, hormones, vitamins, iron and thyroid, the quiet things that shape your hair and skin. Samples go to an accredited laboratory, and every plan is approved by our supervising physician.</span><span class="ar" lang="ar">قبل أي علاج، نقرأ تحاليلكِ: الدم والهرمونات والفيتامينات والحديد والغدة الدرقية، تلك التفاصيل الهادئة التي ترسم حال شعركِ وبشرتكِ. تُحلَّل العيّنات في مختبرٍ معتمَد، ويعتمد طبيبنا المشرف كل خطةٍ قبل أن تبدأ.</span></p>
+      <div class="diag__licence" data-reveal="rise" style="--d:160ms"><span class="diag__num num">5346564</span><span class="diag__numcap"><span class="en" lang="en">Dubai Health Authority<br>Health Facility Licence · Active</span><span class="ar" lang="ar">رخصة منشأة صحية · هيئة الصحة بدبي · سارية</span></span></div>
       <div class="diag__grid" data-reveal="rise" style="--d:240ms">
-        <div class="diag__row"><span>General medicine &amp; consultations</span><span lang="ar">استشارات عامة</span></div>
-        <div class="diag__row"><span>Laboratory &amp; blood analysis</span><span lang="ar">تحاليل الدم</span></div>
-        <div class="diag__row"><span>ECG · injections · wound care</span><span lang="ar">تخطيط القلب والحقن والغيارات</span></div>
-        <div class="diag__row"><span>Diabetic-foot screening</span><span lang="ar">كشف القدم للسكري</span></div>
+        <div class="diag__row"><span class="en" lang="en">General medicine &amp; consultations</span><span class="ar" lang="ar">طب عام واستشارات</span></div>
+        <div class="diag__row"><span class="en" lang="en">Laboratory &amp; blood analysis</span><span class="ar" lang="ar">مختبر وتحاليل دم</span></div>
+        <div class="diag__row"><span class="en" lang="en">ECG · injections · wound care</span><span class="ar" lang="ar">تخطيط القلب · حقن · غيارات</span></div>
+        <div class="diag__row"><span class="en" lang="en">Diabetic-foot screening</span><span class="ar" lang="ar">فحص القدم السكرية</span></div>
       </div>
     </div>
   </section>
@@ -846,9 +843,9 @@ html[dir="rtl"] .bignum b{ text-align:right; }
     </video>
     <div class="inside__veil"></div>
     <div class="inside__c">
-      <div class="eyebrow" data-reveal="rise"><span lang="ar">داخل باتو</span> · Inside the clinic</div>
-      <p class="inside__h" data-reveal="lines"><span class="ln"><i>Where the light</i></span><span class="ln"><i>actually <em>lives.</em></i></span></p>
-      <a class="inside__cta" href="about.html" data-reveal="rise" style="--d:220ms" data-mag data-cursor="About">About Bato<span class="ar" lang="ar">عن باتو</span><span class="i" aria-hidden="true">↗</span></a>
+      <div class="eyebrow" data-reveal="rise"><span class="en" lang="en">Inside the clinic</span><span class="ar" lang="ar">داخل باتو</span></div>
+      <p class="inside__h" data-reveal="lines"><span class="en" lang="en"><span class="ln"><i>Where the light</i></span><span class="ln"><i>actually <em>lives.</em></i></span></span><span class="ar" lang="ar"><span class="ln"><i>حيث يسكن</i></span><span class="ln"><i><em>النور حقاً.</em></i></span></span></p>
+      <a class="inside__cta" href="about.html" data-reveal="rise" style="--d:220ms" data-mag data-cursor="About"><span class="en" lang="en">About Bato</span><span class="ar" lang="ar">عن باتو</span><span class="i" aria-hidden="true">↗</span></a>
     </div>
   </section>
 
@@ -863,9 +860,9 @@ html[dir="rtl"] .bignum b{ text-align:right; }
     <div class="lattice-cast" aria-hidden="true"></div>
     <div class="shot__veil" style="background:linear-gradient(100deg,rgba(28,22,14,.40) 0 28%,rgba(28,22,14,.06) 60%,transparent)"></div>
     <div class="shot__c">
-      <div class="shot__tag" data-reveal="rise"><span lang="ar">النضارة</span> · Glow &amp; Radiance</div>
-      <h2 class="shot__name" data-reveal="rise-blur" style="--d:120ms">Radiance<span class="ar" lang="ar">النضارة</span></h2>
-      <p class="shot__d" data-reveal="rise" style="--d:240ms">The finishing light. Mesotherapy, plasma and glow boosters, used sparingly, for skin that simply looks well.</p>
+      <div class="shot__tag" data-reveal="rise"><span class="en" lang="en">Glow &amp; Radiance</span><span class="ar" lang="ar">النضارة · إشراق ولمعان</span></div>
+      <h2 class="shot__name" data-reveal="rise-blur" style="--d:120ms"><span class="en" lang="en">Radiance</span><span class="ar" lang="ar">النضارة</span></h2>
+      <p class="shot__d" data-reveal="rise" style="--d:240ms"><span class="en" lang="en">The finishing light. Mesotherapy, plasma and glow boosters, used sparingly, for skin that simply looks well.</span><span class="ar" lang="ar">اللمسة الأخيرة من النور. ميزوثيرابي وبلازما ومعزِّزات نضارة، نستعملها بقدرٍ محسوب، لبشرةٍ تبدو في أحسن حال، ببساطة.</span></p>
     </div>
   </section>
 
@@ -873,26 +870,26 @@ html[dir="rtl"] .bignum b{ text-align:right; }
   <section class="stage" id="s7" data-stage data-theme="paper" data-idx="9" data-name="الأطباء · THE TEAM">
     <div class="wrap">
       <div>
-        <div class="eyebrow" data-reveal="rise"><span lang="ar">الفريق</span> · The team</div>
+        <div class="eyebrow" data-reveal="rise"><span class="en" lang="en">The team</span><span class="ar" lang="ar">الفريق</span></div>
         <!-- Founder/CEO is factual (brand profile). Add the named GP & dermatologist + photos once confirmed. -->
         <div class="prac" style="margin-top:1.6rem">
-          <div class="prac__row prac__row--feat" data-reveal="rise"><span class="prac__n">Fatemeh Hamdavi</span><span class="prac__m">Founder &amp; CEO · BATO Clinics</span></div>
-          <div class="prac__row" data-reveal="rise" style="--d:100ms"><span class="prac__n">Supervising physician</span><span class="prac__m">Approves every plan</span></div>
-          <div class="prac__row" data-reveal="rise" style="--d:200ms"><span class="prac__n">Hair &amp; skin specialists</span><span class="prac__m">Licensed specialists &amp; nurses</span></div>
+          <div class="prac__row prac__row--feat" data-reveal="rise"><span class="prac__n"><span class="en" lang="en">Fatemeh Hamdavi</span><span class="ar" lang="ar">فاطمة همداوي</span></span><span class="prac__m"><span class="en" lang="en">Founder &amp; CEO · BATO Clinics</span><span class="ar" lang="ar">المؤسِّسة والرئيسة التنفيذية · عيادات باتو</span></span></div>
+          <div class="prac__row" data-reveal="rise" style="--d:100ms"><span class="prac__n"><span class="en" lang="en">Supervising physician</span><span class="ar" lang="ar">الطبيب المشرف</span></span><span class="prac__m"><span class="en" lang="en">Approves every plan</span><span class="ar" lang="ar">يعتمد كل خطة</span></span></div>
+          <div class="prac__row" data-reveal="rise" style="--d:200ms"><span class="prac__n"><span class="en" lang="en">Hair &amp; skin specialists</span><span class="ar" lang="ar">أخصائيو الشعر والبشرة</span></span><span class="prac__m"><span class="en" lang="en">Licensed specialists &amp; nurses</span><span class="ar" lang="ar">أخصائيون وممرّضون مرخّصون</span></span></div>
         </div>
       </div>
       <div>
-        <div class="eyebrow" data-reveal="rise" style="margin-bottom:1.6rem"><span lang="ar">آراؤكم</span> · In their words</div>
+        <div class="eyebrow" data-reveal="rise" style="margin-bottom:1.6rem"><span class="en" lang="en">In their words</span><span class="ar" lang="ar">آراؤكم</span></div>
         <!-- LAUNCH-BLOCKER: replace with real, consented reviews from @batoclinic "آرائكم" highlights; keep experience-based, no medical-outcome claims -->
         <div class="voices">
-          <figure class="q" data-reveal="rise"><blockquote>“The calmest clinic I have walked into. Every detail is considered.”</blockquote><figcaption>H. A. · Dubai</figcaption></figure>
-          <figure class="q" data-reveal="rise" style="--d:100ms"><blockquote>“They listen first, and I never feel rushed.”</blockquote><figcaption>M. K. · Dubai</figcaption></figure>
-          <figure class="q" data-reveal="rise" style="--d:200ms"><blockquote>“Quiet, precise, and genuinely kind. It is the place I trust.”</blockquote><figcaption>N. S. · Dubai</figcaption></figure>
+          <figure class="q" data-reveal="rise"><blockquote><span class="en" lang="en">“The calmest clinic I have walked into. Every detail is considered.”</span><span class="ar" lang="ar">«أهدأ عيادةٍ دخلتُها. كل تفصيلٍ فيها محسوبٌ بعناية.»</span></blockquote><figcaption><span class="en" lang="en">H. A. · Dubai</span><span class="ar" lang="ar">هـ. أ. · دبي</span></figcaption></figure>
+          <figure class="q" data-reveal="rise" style="--d:100ms"><blockquote><span class="en" lang="en">“They listen first, and I never feel rushed.”</span><span class="ar" lang="ar">«يُصغون أولاً، ولا أشعر يوماً بأنهم يستعجلونني.»</span></blockquote><figcaption><span class="en" lang="en">M. K. · Dubai</span><span class="ar" lang="ar">م. ك. · دبي</span></figcaption></figure>
+          <figure class="q" data-reveal="rise" style="--d:200ms"><blockquote><span class="en" lang="en">“Quiet, precise, and genuinely kind. It is the place I trust.”</span><span class="ar" lang="ar">«هادئةٌ ودقيقة ولطيفةٌ بصدق. هي المكان الذي أثق به.»</span></blockquote><figcaption><span class="en" lang="en">N. S. · Dubai</span><span class="ar" lang="ar">ن. س. · دبي</span></figcaption></figure>
         </div>
       </div>
       <a class="bignum" href="https://www.instagram.com/batoclinic/" target="_blank" rel="noopener" data-mag data-cursor="Follow" data-reveal="rise">
         <b data-count="68000">68,000</b>
-        <span class="lab"><span class="ar" lang="ar">مجتمع على إنستغرام</span>A community on Instagram · @batoclinic</span>
+        <span class="lab"><span class="en" lang="en">A community on Instagram · <span class="num">@batoclinic</span></span><span class="ar" lang="ar">مجتمعٌ على إنستغرام · <span class="num">@batoclinic</span></span></span>
       </a>
     </div>
   </section>
@@ -900,16 +897,16 @@ html[dir="rtl"] .bignum b{ text-align:right; }
   <!-- "The work", real doctor-supervised treatments (clinic footage) -->
   <section class="work" aria-label="Real treatments at Bato">
     <div class="work__head">
-      <div class="eyebrow" data-reveal="rise"><span lang="ar">عملنا</span> · The work, doctor-supervised</div>
-      <p class="work__lede" data-reveal="rise" style="--d:120ms">Real treatments, in <em>our</em> rooms.</p>
+      <div class="eyebrow" data-reveal="rise"><span class="en" lang="en">The work, medically supervised</span><span class="ar" lang="ar">عملنا، بإشراف طبي</span></div>
+      <p class="work__lede" data-reveal="rise" style="--d:120ms"><span class="en" lang="en">Real treatments, in <em>our</em> rooms.</span><span class="ar" lang="ar">علاجاتٌ حقيقية، في <em>غُرفنا</em> نحن.</span></p>
     </div>
     <div class="work__strip">
-      <figure class="work__item"><video autoplay muted loop playsinline preload="none" poster="assets/work-walk-poster.jpg" aria-hidden="true"><source src="assets/work-walk.webm" type="video/webm"><source src="assets/work-walk.mp4" type="video/mp4"></video><figcaption><span lang="ar">داخل العيادة</span> · Inside</figcaption></figure>
-      <figure class="work__item"><img src="assets/work-facial.webp" alt="Facial and skin treatment in progress at Bato Clinic" loading="lazy"><figcaption>Facial &amp; skin</figcaption></figure>
-      <figure class="work__item"><img src="assets/work-meso.webp" alt="Mesotherapy treatment at Bato Clinic" loading="lazy"><figcaption>Mesotherapy</figcaption></figure>
-      <figure class="work__item"><img src="assets/work-laser.webp" alt="Laser treatment room at Bato Clinic" loading="lazy"><figcaption>Laser</figcaption></figure>
-      <figure class="work__item"><img src="assets/work-hair.webp" alt="Hair treatment room at Bato Clinic" loading="lazy"><figcaption>Hair</figcaption></figure>
-      <figure class="work__item"><img src="assets/work-plasma.webp" alt="Plasma / PRP preparation at Bato Clinic" loading="lazy"><figcaption>Plasma &amp; PRP</figcaption></figure>
+      <figure class="work__item"><video autoplay muted loop playsinline preload="none" poster="assets/work-walk-poster.jpg" aria-hidden="true"><source src="assets/work-walk.webm" type="video/webm"><source src="assets/work-walk.mp4" type="video/mp4"></video><figcaption><span class="en" lang="en">Inside</span><span class="ar" lang="ar">داخل العيادة</span></figcaption></figure>
+      <figure class="work__item"><img src="assets/work-facial.webp" alt="Facial and skin treatment in progress at Bato Clinic" loading="lazy"><figcaption><span class="en" lang="en">Facial &amp; skin</span><span class="ar" lang="ar">عناية بالوجه والبشرة</span></figcaption></figure>
+      <figure class="work__item"><img src="assets/work-meso.webp" alt="Mesotherapy treatment at Bato Clinic" loading="lazy"><figcaption><span class="en" lang="en">Mesotherapy</span><span class="ar" lang="ar">ميزوثيرابي</span></figcaption></figure>
+      <figure class="work__item"><img src="assets/work-laser.webp" alt="Laser treatment room at Bato Clinic" loading="lazy"><figcaption><span class="en" lang="en">Laser</span><span class="ar" lang="ar">ليزر</span></figcaption></figure>
+      <figure class="work__item"><img src="assets/work-hair.webp" alt="Hair treatment room at Bato Clinic" loading="lazy"><figcaption><span class="en" lang="en">Hair</span><span class="ar" lang="ar">الشعر</span></figcaption></figure>
+      <figure class="work__item"><img src="assets/work-plasma.webp" alt="Plasma / PRP preparation at Bato Clinic" loading="lazy"><figcaption><span class="en" lang="en">Plasma &amp; PRP</span><span class="ar" lang="ar">بلازما · PRP</span></figcaption></figure>
     </div>
   </section>
 
@@ -917,38 +914,37 @@ html[dir="rtl"] .bignum b{ text-align:right; }
   <section class="stage" id="s8" data-stage data-theme="halo" data-idx="10" data-name="احجزي · BEGIN">
     <div class="wrap">
       <div>
-        <div class="eyebrow" data-reveal="rise"><span lang="ar">ابدئي</span> · Begin</div>
+        <div class="eyebrow" data-reveal="rise"><span class="en" lang="en">Begin</span><span class="ar" lang="ar">ابدئي</span></div>
         <h2 class="book__h" data-reveal="lines" style="margin-top:1rem">
-          <span class="ln"><i>Begin with a</i></span>
-          <span class="ln"><i>quiet <em>conversation.</em></i></span>
+          <span class="en" lang="en"><span class="ln"><i>Begin with a</i></span><span class="ln"><i>quiet <em>conversation.</em></i></span></span>
+          <span class="ar" lang="ar"><span class="ln"><i>ابدئي</i></span><span class="ln"><i>بمحادثةٍ <em>هادئة.</em></i></span></span>
         </h2>
-        <div class="book__ar" data-reveal="rise" style="--d:160ms" lang="ar">ابدئي بمحادثة هادئة</div>
       </div>
       <div class="book__grid">
         <div class="book__col">
-        <p class="book__invite" data-reveal="rise" style="--d:200ms">Tell us a little about you. We'll take it to WhatsApp and find a time that suits you. No charge to ask.</p>
+        <p class="book__invite" data-reveal="rise" style="--d:200ms"><span class="en" lang="en">Tell us a little about you. We'll take it to WhatsApp and find a time that suits you. No charge to ask.</span><span class="ar" lang="ar">أخبرينا قليلاً عن نفسكِ، ونكمل الحديث على واتساب لنختار وقتاً يناسبكِ. والسؤال لا يكلّفكِ شيئاً.</span></p>
         <form class="form" id="bookForm" data-reveal="rise" style="--d:280ms">
-          <div class="field"><label for="bn">Name · <span lang="ar">الاسم</span></label><input id="bn" name="name" type="text" autocomplete="name" placeholder="Your name"></div>
-          <div class="field"><label for="bs">Interest · <span lang="ar">الخدمة</span></label>
+          <div class="field"><label for="bn"><span class="en" lang="en">Name</span><span class="ar" lang="ar">الاسم</span></label><input id="bn" name="name" type="text" autocomplete="name" placeholder="اسمكِ" data-ph-en="Your name" data-ph-ar="اسمكِ"></div>
+          <div class="field"><label for="bs"><span class="en" lang="en">Interest</span><span class="ar" lang="ar">الخدمة</span></label>
             <select id="bs" name="interest">
-              <option value="a consultation">Consultation</option>
-              <option value="Dermatology &amp; skin">Dermatology &amp; skin</option>
-              <option value="Botox">Botox</option>
-              <option value="Filler">Filler</option>
-              <option value="Mesotherapy">Mesotherapy</option>
-              <option value="Microneedling (Dermapen)">Microneedling · Dermapen</option>
-              <option value="Plasma (PRP)">Plasma · PRP</option>
-              <option value="a chemical peel">Chemical peel</option>
-              <option value="Laser">Laser</option>
-              <option value="Radiance &amp; glow">Radiance &amp; glow</option>
-              <option value="a skin-cleansing facial">Skin cleansing</option>
-              <option value="General medicine">General medicine</option>
+              <option value="a consultation" data-ar="استشارة">Consultation</option>
+              <option value="Dermatology &amp; skin" data-ar="جلدية وبشرة">Dermatology &amp; skin</option>
+              <option value="Botox" data-ar="بوتكس">Botox</option>
+              <option value="Filler" data-ar="فيلر">Filler</option>
+              <option value="Mesotherapy" data-ar="ميزوثيرابي">Mesotherapy</option>
+              <option value="Microneedling (Dermapen)" data-ar="ميكرونيدلنغ · ديرمابن">Microneedling · Dermapen</option>
+              <option value="Plasma (PRP)" data-ar="بلازما · PRP">Plasma · PRP</option>
+              <option value="a chemical peel" data-ar="تقشير كيميائي">Chemical peel</option>
+              <option value="Laser" data-ar="ليزر">Laser</option>
+              <option value="Radiance &amp; glow" data-ar="نضارة وإشراق">Radiance &amp; glow</option>
+              <option value="a skin-cleansing facial" data-ar="تنظيف بشرة">Skin cleansing</option>
+              <option value="General medicine" data-ar="طب عام">General medicine</option>
             </select></div>
           <div class="actions">
-            <button type="submit" class="btn btn--solid" data-mag data-cursor="Book">Send via WhatsApp<span class="i" aria-hidden="true">↗</span></button>
+            <button type="submit" class="btn btn--solid" data-mag data-cursor="Book"><span class="en" lang="en">Send via WhatsApp</span><span class="ar" lang="ar">أرسلي عبر واتساب</span><span class="i" aria-hidden="true">↗</span></button>
           </div>
           <p class="formnote" id="formNote" role="status" aria-live="polite"></p>
-          <noscript><p class="formnote">Message us directly on <a href="https://wa.me/96560072702" style="color:var(--link);text-decoration:underline">WhatsApp</a>.</p></noscript>
+          <noscript><p class="formnote"><span class="en" lang="en">Message us directly on <a href="https://wa.me/96560072702" style="color:var(--link);text-decoration:underline">WhatsApp</a>.</span><span class="ar" lang="ar">راسلينا مباشرةً على <a href="https://wa.me/96560072702" style="color:var(--link);text-decoration:underline">واتساب</a>.</span></p></noscript>
         </form>
         </div>
         <figure class="book__fig" data-reveal="rise" style="--d:240ms">
@@ -957,13 +953,13 @@ html[dir="rtl"] .bignum b{ text-align:right; }
             <source type="image/webp" srcset="assets/about-4-760.webp 760w, assets/about-4-1200.webp 1200w" sizes="(max-width:960px) 92vw, 40vw">
             <img src="assets/about-4.jpg" alt="A designer chair and a glass table of fresh roses in Bato's calm window light" loading="lazy" decoding="async">
           </picture>
-          <figcaption>Al Safa · the waiting room</figcaption>
+          <figcaption><span class="en" lang="en">Al Safa · the waiting room</span><span class="ar" lang="ar">الصفا · غرفة الانتظار</span></figcaption>
         </figure>
       </div>
       <div class="ledger" data-reveal="rise" style="--d:300ms">
-        <div class="ledger__row"><span class="ledger__k">Al Safa · Dubai</span><span class="ledger__v">Al Safa First · Al Wasl Road</span></div>
-        <div class="ledger__row"><span class="ledger__k">Hours · <span class="ar" lang="ar">ساعات</span></span><span class="ledger__v">Sat–Wed · 11:00–19:00<br>Thu–Fri · 11:00–18:00</span></div>
-        <div class="ledger__row"><span class="ledger__k">Direct</span><span class="ledger__v ledger__links"><a href="https://wa.me/96560072702" target="_blank" rel="noopener" data-mag data-cursor="WhatsApp">Book on WhatsApp</a><a href="https://www.instagram.com/batoclinic/" target="_blank" rel="noopener" data-mag>@batoclinic</a></span></div>
+        <div class="ledger__row"><span class="ledger__k"><span class="en" lang="en">Al Safa · Dubai</span><span class="ar" lang="ar">الصفا · دبي</span></span><span class="ledger__v"><span class="en" lang="en">Al Safa First · Al Wasl Road</span><span class="ar" lang="ar">الصفا الأولى · شارع الوصل</span></span></div>
+        <div class="ledger__row"><span class="ledger__k"><span class="en" lang="en">Hours</span><span class="ar" lang="ar">ساعات العمل</span></span><span class="ledger__v"><span class="en" lang="en">Sat–Wed · <span class="num">11:00–19:00</span><br>Thu–Fri · <span class="num">11:00–18:00</span></span><span class="ar" lang="ar">السبت–الأربعاء · <span class="num">11:00–19:00</span><br>الخميس–الجمعة · <span class="num">11:00–18:00</span></span></span></div>
+        <div class="ledger__row"><span class="ledger__k"><span class="en" lang="en">Direct</span><span class="ar" lang="ar">تواصل مباشر</span></span><span class="ledger__v ledger__links"><a href="https://wa.me/96560072702" target="_blank" rel="noopener" data-mag data-cursor="WhatsApp"><span class="en" lang="en">Book on WhatsApp</span><span class="ar" lang="ar">احجزي عبر واتساب</span></a><a href="https://www.instagram.com/batoclinic/" target="_blank" rel="noopener" data-mag><span class="num">@batoclinic</span></a></span></div>
       </div>
     </div>
   </section>
@@ -972,10 +968,7 @@ html[dir="rtl"] .bignum b{ text-align:right; }
     <div class="wrap">
       <div class="foot__mark" data-reveal="rise" lang="ar">باتو<em lang="en">Bato</em></div>
       <div class="foot__legal">
-        Where beauty and health meet · <span lang="ar">حيث يلتقي الجمال والصحة</span><br>
-        DHA Licence 5346564 · Al Safa First, Dubai<br>
-        A Gulf clinic, born in Kuwait 2022 · Now in Al Safa, Dubai<br>
-        © 2026 Bato Medical Clinic
+        <span class="en" lang="en">Where beauty and health meet<br>DHA Licence <span class="num">5346564</span> · Al Safa First, Dubai<br>A Gulf clinic, born in Kuwait 2022 · Now in Al Safa, Dubai<br>© 2026 Bato Medical Clinic</span><span class="ar" lang="ar">حيث يلتقي الجمال بالصحة<br>ترخيص هيئة الصحة بدبي <span class="num">5346564</span> · الصفا الأولى، دبي<br>عيادة خليجية، وُلدت في الكويت ٢٠٢٢ · والآن في الصفا، دبي<br>© ٢٠٢٦ مستوصف باتو الطبي</span>
       </div>
     </div>
   </footer>
