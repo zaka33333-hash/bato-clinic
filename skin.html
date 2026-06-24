@@ -1,9 +1,10 @@
 <!doctype html>
-<html lang="en">
+<html lang="ar" dir="rtl" data-lang="ar">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Skin · Bato Clinic · باتو</title>
+<script>(function(){try{var L=localStorage.getItem('bato-lang');if(L!=='en'&&L!=='ar')L='ar';var h=document.documentElement;h.setAttribute('lang',L);h.setAttribute('dir',L==='ar'?'rtl':'ltr');h.setAttribute('data-lang',L);}catch(e){}})();</script>
+<title>العناية بالبشرة · عيادة باتو · Bato</title>
 <meta name="description" content="Skin care in Al Safa, Dubai. HydraFacial, medical peels, dermaplaning and laser, medically supervised. Book a service. DHA Licence 5346564.">
 <meta name="theme-color" content="#2c2318">
 <link rel="canonical" href="https://zaka33333-hash.github.io/bato-clinic/skin.html">
@@ -15,8 +16,8 @@
 <meta property="og:description" content="Skin care in Al Safa, Dubai. HydraFacial, medical peels, dermaplaning and laser, medically supervised. Book a service. DHA Licence 5346564.">
 <meta property="og:url" content="https://zaka33333-hash.github.io/bato-clinic/skin.html">
 <meta property="og:image" content="https://zaka33333-hash.github.io/bato-clinic/assets/about-2.jpg">
-<meta property="og:locale" content="en_US">
-<meta property="og:locale:alternate" content="ar_AE">
+<meta property="og:locale" content="ar_AE">
+<meta property="og:locale:alternate" content="en_US">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Skin · Bato Clinic">
 <meta name="twitter:image" content="https://zaka33333-hash.github.io/bato-clinic/assets/about-2.jpg">
@@ -173,6 +174,37 @@ em{ font-style:italic; }
   .rv{ opacity:1!important; transform:none!important; transition:none!important; }
   .g-item img{ transition:none; }
 }
+
+/* ═══ BILINGUAL ENGINE (sub-page) ═══ */
+.en,.ar{ display:contents; }
+html[data-lang="ar"] .en{ display:none!important; }
+html[data-lang="en"] .ar{ display:none!important; }
+.num{ direction:ltr; unicode-bidi:isolate; font-variant-numeric:tabular-nums; }
+html[lang="ar"] body{ font-family:var(--kufi); font-weight:400; }
+html[lang="ar"]{ font-synthesis:none; }
+html[lang="ar"] .hero__h, html[lang="ar"] .story__h, html[lang="ar"] .cta__h, html[lang="ar"] .dept__n{ font-family:var(--kufi); font-weight:500; letter-spacing:0; font-style:normal; }
+html[lang="ar"] .story__p, html[lang="ar"] .measure, html[lang="ar"] .card p, html[lang="ar"] .dept__note, html[lang="ar"] .team__p{ font-family:var(--kufi); font-weight:400; line-height:1.7; letter-spacing:0; }
+html[lang="ar"] .eyebrow, html[lang="ar"] .nav__links, html[lang="ar"] .card h4, html[lang="ar"] .foot__legal, html[lang="ar"] .licencechip, html[lang="ar"] .hero__fig figcaption, html[lang="ar"] .g-item figcaption, html[lang="ar"] .btn, html[lang="ar"] .langtog, html[lang="ar"] .bignum .lab{ font-family:var(--kufi); text-transform:none; letter-spacing:.04em; }
+/* official BATO logo (mask + currentColor) */
+.bato-wordmark{ display:block; background:currentColor; -webkit-mask:url(assets/bato-wordmark.png) center/contain no-repeat; mask:url(assets/bato-wordmark.png) center/contain no-repeat; aspect-ratio:1300/545; }
+.nav__home .bato-wordmark{ width:clamp(74px,7vw,96px); color:#fff; }
+.foot__mark--logo{ display:flex; justify-content:center; } .foot__mark--logo .bato-wordmark{ width:min(54vw,280px); color:#e4dbd2; }
+.foot{ text-align:center; } .foot__legal{ text-align:center; }
+/* language toggle (sits in the nav) */
+.langtog{ display:inline-flex; align-items:center; gap:.45em; background:none; border:0; cursor:pointer; color:inherit; font-family:var(--mono); font-size:inherit; letter-spacing:.2em; text-transform:uppercase; padding:0; }
+.langtog .ar-opt{ font-family:var(--kufi); font-size:1.45em; line-height:1; }
+.langtog .langtog__sep{ opacity:.4; }
+html[data-lang="ar"] .langtog .ar-opt{ opacity:.45; } html[data-lang="ar"] .langtog .en-opt{ color:var(--amber); }
+html[data-lang="en"] .langtog .en-opt{ opacity:.45; } html[data-lang="en"] .langtog .ar-opt{ color:var(--amber); }
+.langtog:focus-visible{ outline:2px solid var(--amber); outline-offset:3px; border-radius:4px; }
+/* ═══ RTL overrides ═══ */
+html[dir="rtl"] .skip{ left:auto; right:14px; }
+html[dir="rtl"] .nav__links a::after{ left:auto; right:0; transform-origin:right; }
+html[dir="rtl"] .dept__row{ direction:rtl; }
+html[dir="rtl"] .card h4{ direction:rtl; text-align:right; }
+html[dir="rtl"] .licencechip{ direction:rtl; }
+html[dir="rtl"] .foot__legal{ direction:rtl; }
+html[dir="rtl"] .bignum{ direction:rtl; }
 </style>
 </head>
 <body>
@@ -181,28 +213,26 @@ em{ font-style:italic; }
 <div class="grain" aria-hidden="true"></div>
 
 <nav class="nav" aria-label="Primary">
-  <a class="nav__home" href="v4.html" aria-label="Bato Clinic home">
-    <span class="mk" lang="ar">باتو</span><span class="en">Bato Clinic</span>
-  </a>
+  <a class="nav__home" href="v4.html" aria-label="BATO — Health and Beauty"><span class="bato-wordmark" role="img" aria-label="BATO"></span></a>
   <div class="nav__links">
-    <a href="hair-treatment.html">Hair</a>
-    <a href="skin.html">Skin</a>
-    <a href="lab-tests.html">Lab tests</a>
-    <a href="about.html">About</a>
-    <a href="https://wa.me/96560072702" target="_blank" rel="noopener">Book</a>
+    <a href="hair-treatment.html"><span class="en" lang="en">Hair</span><span class="ar" lang="ar">الشعر</span></a>
+    <a href="skin.html"><span class="en" lang="en">Skin</span><span class="ar" lang="ar">البشرة</span></a>
+    <a href="lab-tests.html"><span class="en" lang="en">Lab tests</span><span class="ar" lang="ar">التحاليل</span></a>
+    <a href="about.html"><span class="en" lang="en">About</span><span class="ar" lang="ar">عن باتو</span></a>
+    <a href="https://wa.me/96560072702" target="_blank" rel="noopener"><span class="en" lang="en">Book</span><span class="ar" lang="ar">احجزي</span></a>
+    <button class="langtog" id="langTog" type="button" aria-label="Switch language" data-to="en"><span class="en-opt">EN</span><span class="langtog__sep">/</span><span class="ar-opt">ع</span></button>
   </div>
 </nav>
 
 <header class="hero">
   <div>
-    <div class="eyebrow rv"><span class="ar" lang="ar">الجلدية</span> · Skin</div>
-    <h1 class="hero__h rv" style="margin-top:1.2rem">Skin, cared for<br>with <em>intent.</em></h1>
-    <div class="hero__ar rv" style="--d:120ms" lang="ar">نقرأ البشرة قبل أن نعالجها</div>
-    <p class="measure hero__lede rv" style="--d:220ms">Skin care in Al Safa, Dubai. We look at your skin and your goals, then plan peels, laser and skincare to suit it, medically supervised, at a pace that suits you.</p>
+    <div class="eyebrow rv"><span class="en" lang="en">Skin</span><span class="ar" lang="ar">البشرة</span></div>
+    <h1 class="hero__h rv" style="margin-top:1.2rem"><span class="en" lang="en">Skin, cared for<br>with <em>intent.</em></span><span class="ar" lang="ar">عنايةٌ بالبشرة<br><em>عن إصغاء.</em></span></h1>
+    <p class="measure hero__lede rv" style="--d:220ms"><span class="en" lang="en">Skin care in Al Safa, Dubai. We look at your skin and your goals, then plan peels, laser and skincare to suit it, medically supervised, at a pace that suits you.</span><span class="ar" lang="ar">عناية بالبشرة في الصفا، دبي. نُصغي إلى بشرتكِ وإلى ما تتطلّعين إليه، ثم نضع خطة من التقشير والليزر والعناية تليق بها، تحت إشراف طبي، وعلى إيقاعٍ يناسبكِ.</span></p>
     <div class="cta__actions rv" style="--d:320ms; justify-content:flex-start">
-      <a class="btn btn--solid" href="https://wa.me/96560072702?text=Hello%20BATO%2C%20I%27d%20like%20to%20book%20a%20skin%20service." target="_blank" rel="noopener">Book a service<span class="i" aria-hidden="true">↗</span></a>
+      <a class="btn btn--solid" href="https://wa.me/96560072702?text=Hello%20BATO%2C%20I%27d%20like%20to%20book%20a%20skin%20service." target="_blank" rel="noopener"><span class="en" lang="en">Book a service</span><span class="ar" lang="ar">احجزي خدمتك</span><span class="i" aria-hidden="true">↗</span></a>
     </div>
-    <div class="licencechip rv" style="--d:420ms">DHA Licence · <b>5346564</b> <span lang="ar">هيئة الصحة بدبي</span></div>
+    <div class="licencechip rv" style="--d:420ms"><span class="en" lang="en">DHA Licence · <b>5346564</b></span><span class="ar" lang="ar">ترخيص هيئة الصحة بدبي · <b><span class="num">٥٣٤٦٥٦٤</span></b></span></div>
   </div>
   <figure class="hero__fig rv" style="--d:160ms">
     <picture>
@@ -210,68 +240,68 @@ em{ font-style:italic; }
       <source type="image/webp" srcset="assets/skin-768.webp 768w, assets/skin-1440.webp 1440w" sizes="(max-width:920px) 92vw, 45vw">
       <img src="assets/skin-fallback.jpg" alt="Close-up of clear, luminous skin in warm natural light" loading="eager" decoding="async">
     </picture>
-    <figcaption>Al Safa · skin &amp; laser</figcaption>
+    <figcaption><span class="en" lang="en">Al Safa · skin &amp; laser</span><span class="ar" lang="ar">الصفا · البشرة والليزر</span></figcaption>
   </figure>
 </header>
 
 <section class="sec story" id="approach">
   <div class="wrap">
-    <div class="eyebrow rv"><span class="ar" lang="ar">منهجنا</span> · The approach</div>
+    <div class="eyebrow rv"><span class="en" lang="en">The approach</span><span class="ar" lang="ar">منهجنا</span></div>
     <div class="story__body">
-      <h2 class="story__h rv" style="margin:1rem 0 1.6rem">We look at your skin first, <em>then we treat.</em></h2>
-      <p class="story__p rv" style="--d:80ms">Skin is never one thing. Before a peel or a laser, we look closely at <strong>what is in front of us</strong>: tone, texture, sensitivity, the history your skin carries. The plan follows from that, and it is never forced.</p>
-      <p class="story__p rv" style="--d:160ms">Behind every facial and every device sits a <strong>medically supervised plan</strong>. When the surface and the inside are read together, care becomes specific to you. Where beauty meets health. <span lang="ar" class="ar" style="color:var(--ink)">حيث يلتقي الجمال والصحة.</span></p>
+      <h2 class="story__h rv" style="margin:1rem 0 1.6rem"><span class="en" lang="en">We look at your skin first, <em>then we treat.</em></span><span class="ar" lang="ar">نقرأ بشرتكِ أولاً، <em>ثم نعالج.</em></span></h2>
+      <p class="story__p rv" style="--d:80ms"><span class="en" lang="en">Skin is never one thing. Before a peel or a laser, we look closely at <strong>what is in front of us</strong>: tone, texture, sensitivity, the history your skin carries. The plan follows from that, and it is never forced.</span><span class="ar" lang="ar">البشرة ليست شيئاً واحداً أبداً. قبل أي تقشير أو ليزر، نتأمّل <strong>ما هو أمامنا</strong>: اللون، والملمس، والحساسية، والتاريخ الذي تحمله بشرتكِ. ومن ذلك تنبثق الخطة، دون أن تُفرض.</span></p>
+      <p class="story__p rv" style="--d:160ms"><span class="en" lang="en">Behind every facial and every device sits a <strong>medically supervised plan</strong>. When the surface and the inside are read together, care becomes specific to you. Where beauty meets health.</span><span class="ar" lang="ar">خلف كل جلسة عناية وكل جهاز تقف <strong>خطة تحت إشراف طبي</strong>. وحين تُقرأ البشرة من سطحها ومن داخلها معاً، تصبح العناية خاصةً بكِ وحدكِ. <span style="color:var(--ink)">حيث يلتقي الجمال والصحة.</span></span></p>
     </div>
   </div>
 </section>
 
 <section class="sec" aria-label="What we offer">
   <div class="wrap">
-    <div class="eyebrow rv"><span class="ar" lang="ar">خدماتنا</span> · What we offer</div>
-    <h2 class="story__h rv" style="margin-top:1rem; max-width:18ch">Treatments for the skin, <em>all medically supervised.</em></h2>
+    <div class="eyebrow rv"><span class="en" lang="en">What we offer</span><span class="ar" lang="ar">خدماتنا</span></div>
+    <h2 class="story__h rv" style="margin-top:1rem; max-width:18ch"><span class="en" lang="en">Treatments for the skin, <em>all medically supervised.</em></span><span class="ar" lang="ar">علاجات للبشرة، <em>جميعها تحت إشراف طبي.</em></span></h2>
     <div class="dept__grid rv" style="--d:120ms">
-      <div class="dept__row"><span class="dept__n">HydraFacial</span><span class="dept__ar" lang="ar">تنظيف وترطيب عميق للبشرة</span></div>
-      <div class="dept__row"><span class="dept__n">Medical chemical peels</span><span class="dept__ar" lang="ar">تقشير طبي لتجديد سطح البشرة</span></div>
-      <div class="dept__row"><span class="dept__n">Dermaplaning</span><span class="dept__ar" lang="ar">تنعيم وصقل ملمس البشرة</span></div>
-      <div class="dept__row"><span class="dept__n">Facials</span><span class="dept__ar" lang="ar">جلسات عناية بالوجه</span></div>
-      <div class="dept__row"><span class="dept__n">Laser, radiofrequency and fractional</span><span class="dept__ar" lang="ar">ليزر بالترددات الراديوية والفراكشنال</span></div>
-      <div class="dept__row"><span class="dept__n">Skin consultation</span><span class="dept__ar" lang="ar">استشارة الجلدية</span></div>
+      <div class="dept__row"><span class="dept__n en" lang="en">HydraFacial</span><span class="dept__n ar" lang="ar">هايدرافيشل</span><span class="dept__ar en" lang="en">Deep cleanse and hydration for the skin</span><span class="dept__ar ar" lang="ar">تنظيف وترطيب عميق للبشرة</span></div>
+      <div class="dept__row"><span class="dept__n en" lang="en">Medical chemical peels</span><span class="dept__n ar" lang="ar">تقشير كيميائي طبي</span><span class="dept__ar en" lang="en">A medical peel to renew the skin's surface</span><span class="dept__ar ar" lang="ar">تقشير طبي لتجديد سطح البشرة</span></div>
+      <div class="dept__row"><span class="dept__n en" lang="en">Dermaplaning</span><span class="dept__n ar" lang="ar">صقل البشرة (ديرمابلاننج)</span><span class="dept__ar en" lang="en">Smoothing and refining the skin's texture</span><span class="dept__ar ar" lang="ar">تنعيم وصقل ملمس البشرة</span></div>
+      <div class="dept__row"><span class="dept__n en" lang="en">Facials</span><span class="dept__n ar" lang="ar">جلسات العناية بالوجه</span><span class="dept__ar en" lang="en">Sessions of care for the face</span><span class="dept__ar ar" lang="ar">جلسات عناية بالوجه</span></div>
+      <div class="dept__row"><span class="dept__n en" lang="en">Laser, radiofrequency and fractional</span><span class="dept__n ar" lang="ar">ليزر وترددات راديوية وفراكشنال</span><span class="dept__ar en" lang="en">Laser with radiofrequency and fractional technology</span><span class="dept__ar ar" lang="ar">ليزر بالترددات الراديوية والفراكشنال</span></div>
+      <div class="dept__row"><span class="dept__n en" lang="en">Skin consultation</span><span class="dept__n ar" lang="ar">استشارة البشرة</span><span class="dept__ar en" lang="en">A consultation for your skin</span><span class="dept__ar ar" lang="ar">استشارة للعناية ببشرتكِ</span></div>
     </div>
-    <p class="dept__note rv" style="--d:200ms">Each treatment follows a proper assessment. We don't diagnose or promise results online. Your plan is confirmed in consultation, at a pace that suits you.</p>
+    <p class="dept__note rv" style="--d:200ms"><span class="en" lang="en">Each treatment follows a proper assessment. We don't diagnose or promise results online. Your plan is confirmed in consultation, at a pace that suits you.</span><span class="ar" lang="ar">كل علاج يبدأ بتقييم دقيق. لا نُشخّص ولا نَعِد بنتائج عبر الإنترنت. تُؤكَّد خطتكِ في الاستشارة، وعلى إيقاعٍ يناسبكِ.</span></p>
   </div>
 </section>
 
 <section class="sec dept" aria-label="How it works">
   <div class="wrap">
-    <div class="eyebrow rv"><span class="ar" lang="ar">كيف تسير العناية</span> · How it works</div>
-    <h2 class="story__h rv" style="margin-top:1rem; max-width:20ch">Three steps, <em>unhurried by design.</em></h2>
+    <div class="eyebrow rv"><span class="en" lang="en">How it works</span><span class="ar" lang="ar">كيف تسير العناية</span></div>
+    <h2 class="story__h rv" style="margin-top:1rem; max-width:20ch"><span class="en" lang="en">Three steps, <em>unhurried by design.</em></span><span class="ar" lang="ar">ثلاث خطوات، <em>على مهلٍ مقصود.</em></span></h2>
     <div class="loc__grid">
-      <div class="card rv" style="--d:80ms"><h4>01 · Consult <span lang="ar">الاستشارة</span></h4><p>We look closely at your skin, tone, texture and history, and listen to what brought you in.</p></div>
-      <div class="card rv" style="--d:160ms"><h4>02 · Plan <span lang="ar">الخطة</span></h4><p>Your doctor defines a plan suited to your skin. Nothing forced, nothing rushed, every step explained.</p></div>
-      <div class="card rv" style="--d:240ms"><h4>03 · Treat <span lang="ar">العلاج</span></h4><p>Treatment is carried out by our clinical team and medically supervised, with your comfort kept in view throughout.</p></div>
+      <div class="card rv" style="--d:80ms"><h4><span class="num">01</span> · <span class="en" lang="en">Consult</span><span class="ar" lang="ar">الاستشارة</span></h4><p><span class="en" lang="en">We look closely at your skin, tone, texture and history, and listen to what brought you in.</span><span class="ar" lang="ar">نتأمّل بشرتكِ عن قرب، لونها وملمسها وتاريخها، ونُصغي إلى ما دعاكِ للحضور.</span></p></div>
+      <div class="card rv" style="--d:160ms"><h4><span class="num">02</span> · <span class="en" lang="en">Plan</span><span class="ar" lang="ar">الخطة</span></h4><p><span class="en" lang="en">We define a plan suited to your skin, confirmed under our supervising physician. Nothing forced, nothing rushed, every step explained.</span><span class="ar" lang="ar">نضع خطة تليق ببشرتكِ، يعتمدها الطبيب المشرف. لا شيء يُفرض، ولا شيء يُستعجل، وكل خطوة موضّحة.</span></p></div>
+      <div class="card rv" style="--d:240ms"><h4><span class="num">03</span> · <span class="en" lang="en">Treat</span><span class="ar" lang="ar">العلاج</span></h4><p><span class="en" lang="en">Treatment is carried out by our clinical team and medically supervised, with your comfort kept in view throughout.</span><span class="ar" lang="ar">يتولّى فريقنا السريري العلاج تحت إشراف طبي، وراحتكِ حاضرة في كل لحظة.</span></p></div>
     </div>
   </div>
 </section>
 
 <section class="sec" aria-label="The work">
   <div class="wrap">
-    <div class="eyebrow rv"><span class="ar" lang="ar">من الداخل</span> · The work</div>
+    <div class="eyebrow rv"><span class="en" lang="en">The work</span><span class="ar" lang="ar">من الداخل</span></div>
     <div class="gallery">
-      <figure class="g-item rv"><picture><source type="image/avif" srcset="assets/radiance-768.avif 768w, assets/radiance-1440.avif 1440w" sizes="(max-width:620px) 92vw,(max-width:1000px) 46vw, 31vw"><source type="image/webp" srcset="assets/radiance-768.webp 768w, assets/radiance-1440.webp 1440w" sizes="(max-width:620px) 92vw,(max-width:1000px) 46vw, 31vw"><img src="assets/radiance-fallback.jpg" alt="Soft, luminous skin caught in warm light" loading="lazy" decoding="async"></picture><figcaption>Radiance · النضارة</figcaption></figure>
-      <figure class="g-item rv" style="--d:60ms"><img src="assets/work-facial.webp" alt="A facial treatment in progress at the clinic" loading="lazy" decoding="async"><figcaption>A facial, in care</figcaption></figure>
-      <figure class="g-item rv" style="--d:120ms"><img src="assets/work-laser.webp" alt="A supervised laser treatment in a clinic room" loading="lazy" decoding="async"><figcaption>Laser, supervised</figcaption></figure>
+      <figure class="g-item rv"><picture><source type="image/avif" srcset="assets/radiance-768.avif 768w, assets/radiance-1440.avif 1440w" sizes="(max-width:620px) 92vw,(max-width:1000px) 46vw, 31vw"><source type="image/webp" srcset="assets/radiance-768.webp 768w, assets/radiance-1440.webp 1440w" sizes="(max-width:620px) 92vw,(max-width:1000px) 46vw, 31vw"><img src="assets/radiance-fallback.jpg" alt="Soft, luminous skin caught in warm light" loading="lazy" decoding="async"></picture><figcaption><span class="en" lang="en">Radiance</span><span class="ar" lang="ar">النضارة</span></figcaption></figure>
+      <figure class="g-item rv" style="--d:60ms"><img src="assets/work-facial.webp" alt="A facial treatment in progress at the clinic" loading="lazy" decoding="async"><figcaption><span class="en" lang="en">A facial, in care</span><span class="ar" lang="ar">جلسة عناية بالوجه</span></figcaption></figure>
+      <figure class="g-item rv" style="--d:120ms"><img src="assets/work-laser.webp" alt="A supervised laser treatment in a clinic room" loading="lazy" decoding="async"><figcaption><span class="en" lang="en">Laser, supervised</span><span class="ar" lang="ar">ليزر، تحت إشراف</span></figcaption></figure>
     </div>
   </div>
 </section>
 
 <section class="sec cta" aria-label="Book a skin service">
   <div class="wrap">
-    <div class="eyebrow rv" style="justify-content:center"><span class="ar" lang="ar">للحجز</span> · Begin</div>
-    <h2 class="cta__h rv" style="margin-top:1.2rem">Book a <em>service.</em></h2>
-    <div class="cta__ar rv" style="--d:120ms" lang="ar">العناية بالبشرة تبدأ بقراءة هادئة</div>
+    <div class="eyebrow rv" style="justify-content:center"><span class="en" lang="en">Begin</span><span class="ar" lang="ar">للحجز</span></div>
+    <h2 class="cta__h rv" style="margin-top:1.2rem"><span class="en" lang="en">Book a <em>service.</em></span><span class="ar" lang="ar">احجزي <em>خدمتك.</em></span></h2>
+    <div class="cta__ar rv" style="--d:120ms" lang="ar">العناية بالبشرة تبدأ بإصغاءٍ هادئ</div>
     <div class="cta__actions rv" style="--d:220ms">
-      <a class="btn btn--solid" href="https://wa.me/96560072702?text=Hello%20BATO%2C%20I%27d%20like%20to%20book%20a%20skin%20service." target="_blank" rel="noopener">Book a service<span class="i" aria-hidden="true">↗</span></a>
-      <a class="btn btn--ghost" href="v4.html">Back to home<span class="i" aria-hidden="true">↗</span></a>
+      <a class="btn btn--solid" href="https://wa.me/96560072702?text=Hello%20BATO%2C%20I%27d%20like%20to%20book%20a%20skin%20service." target="_blank" rel="noopener"><span class="en" lang="en">Book a service</span><span class="ar" lang="ar">احجزي خدمتك</span><span class="i" aria-hidden="true">↗</span></a>
+      <a class="btn btn--ghost" href="v4.html"><span class="en" lang="en">Back to home</span><span class="ar" lang="ar">العودة للرئيسية</span><span class="i" aria-hidden="true">↗</span></a>
     </div>
   </div>
 </section>
@@ -280,9 +310,9 @@ em{ font-style:italic; }
   <div class="wrap">
     <div class="foot__mark" lang="ar">باتو<em lang="en">Bato Medical Clinic</em></div>
     <div class="foot__legal">
-      Where beauty and health meet · <span lang="ar">حيث يلتقي الجمال والصحة</span><br>
-      DHA Licence 5346564 · Al Safa First, Dubai<br>
-      © 2026 Bato Medical Clinic · <a href="v4.html">Home</a>
+      <span class="en" lang="en">Where beauty and health meet</span><span class="ar" lang="ar">حيث يلتقي الجمال والصحة</span><br>
+      <span class="en" lang="en">DHA Licence 5346564 · Al Safa First, Dubai</span><span class="ar" lang="ar">ترخيص هيئة الصحة بدبي <span class="num">٥٣٤٦٥٦٤</span> · الصفا الأولى، دبي</span><br>
+      <span class="en" lang="en">© 2026 Bato Medical Clinic</span><span class="ar" lang="ar">© <span class="num">٢٠٢٦</span> عيادة باتو الطبية</span> · <a href="v4.html"><span class="en" lang="en">Home</span><span class="ar" lang="ar">الرئيسية</span></a>
     </div>
   </div>
 </footer>
@@ -300,5 +330,6 @@ em{ font-style:italic; }
   window.addEventListener('load', function(){ setTimeout(function(){ document.querySelectorAll('.rv:not(.in)').forEach(function(e){ e.classList.add('in'); }); }, 2200); });
 })();
 </script>
+<script>(function(){var btn=document.getElementById("langTog");if(!btn)return;var T={"ar": "العناية بالبشرة · عيادة باتو · Bato", "en": "Skin · Bato Clinic · باتو"};function apply(L,persist){var h=document.documentElement;h.setAttribute("lang",L);h.setAttribute("dir",L==="ar"?"rtl":"ltr");h.setAttribute("data-lang",L);btn.setAttribute("data-to",L==="ar"?"en":"ar");btn.setAttribute("aria-label",L==="ar"?"\u0627\u0644\u062a\u0628\u062f\u064a\u0644 \u0625\u0644\u0649 \u0627\u0644\u0625\u0646\u062c\u0644\u064a\u0632\u064a\u0629":"Switch to Arabic");if(T[L])document.title=T[L];var og=document.querySelector('meta[property="og:locale"]');if(og)og.setAttribute("content",L==="ar"?"ar_AE":"en_US");if(persist){try{localStorage.setItem("bato-lang",L);}catch(e){}}document.querySelectorAll("[data-ph-ar]").forEach(function(i){var v=i.getAttribute(L==="ar"?"data-ph-ar":"data-ph-en");if(v!=null)i.setAttribute("placeholder",v);});document.querySelectorAll("option[data-ar]").forEach(function(o){if(o.getAttribute("data-en")===null)o.setAttribute("data-en",o.textContent);o.textContent=L==="ar"?o.getAttribute("data-ar"):o.getAttribute("data-en");});}apply(document.documentElement.getAttribute("data-lang")||"ar",false);btn.addEventListener("click",function(){var n=document.documentElement.getAttribute("data-lang")==="ar"?"en":"ar";apply(n,true);});})();</script>
 </body>
 </html>

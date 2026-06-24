@@ -1,9 +1,10 @@
 <!doctype html>
-<html lang="en">
+<html lang="ar" dir="rtl" data-lang="ar">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Hair treatment · Bato Clinic · باتو</title>
+<script>(function(){try{var L=localStorage.getItem('bato-lang');if(L!=='en'&&L!=='ar')L='ar';var h=document.documentElement;h.setAttribute('lang',L);h.setAttribute('dir',L==='ar'?'rtl':'ltr');h.setAttribute('data-lang',L);}catch(e){}})();</script>
+<title>العناية بالشعر · عيادة باتو · Bato</title>
 <meta name="description" content="Hair care in Al Safa, Dubai. Scalp mesotherapy, plasma (PRP) and targeted care, medically supervised. Book a consultation. DHA Licence 5346564.">
 <meta name="theme-color" content="#2c2318">
 <link rel="canonical" href="https://zaka33333-hash.github.io/bato-clinic/hair-treatment.html">
@@ -15,8 +16,8 @@
 <meta property="og:description" content="Hair care in Al Safa, Dubai. Scalp mesotherapy, plasma (PRP) and targeted care, medically supervised. Book a consultation. DHA Licence 5346564.">
 <meta property="og:url" content="https://zaka33333-hash.github.io/bato-clinic/hair-treatment.html">
 <meta property="og:image" content="https://zaka33333-hash.github.io/bato-clinic/assets/about-2.jpg">
-<meta property="og:locale" content="en_US">
-<meta property="og:locale:alternate" content="ar_AE">
+<meta property="og:locale" content="ar_AE">
+<meta property="og:locale:alternate" content="en_US">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Hair treatment · Bato Clinic">
 <meta name="twitter:image" content="https://zaka33333-hash.github.io/bato-clinic/assets/about-2.jpg">
@@ -191,6 +192,37 @@ em{ font-style:italic; }
   .rv{ opacity:1!important; transform:none!important; transition:none!important; }
   .g-item img{ transition:none; }
 }
+
+/* ═══ BILINGUAL ENGINE (sub-page) ═══ */
+.en,.ar{ display:contents; }
+html[data-lang="ar"] .en{ display:none!important; }
+html[data-lang="en"] .ar{ display:none!important; }
+.num{ direction:ltr; unicode-bidi:isolate; font-variant-numeric:tabular-nums; }
+html[lang="ar"] body{ font-family:var(--kufi); font-weight:400; }
+html[lang="ar"]{ font-synthesis:none; }
+html[lang="ar"] .hero__h, html[lang="ar"] .story__h, html[lang="ar"] .cta__h, html[lang="ar"] .dept__n{ font-family:var(--kufi); font-weight:500; letter-spacing:0; font-style:normal; }
+html[lang="ar"] .story__p, html[lang="ar"] .measure, html[lang="ar"] .card p, html[lang="ar"] .dept__note, html[lang="ar"] .team__p{ font-family:var(--kufi); font-weight:400; line-height:1.7; letter-spacing:0; }
+html[lang="ar"] .eyebrow, html[lang="ar"] .nav__links, html[lang="ar"] .card h4, html[lang="ar"] .foot__legal, html[lang="ar"] .licencechip, html[lang="ar"] .hero__fig figcaption, html[lang="ar"] .g-item figcaption, html[lang="ar"] .btn, html[lang="ar"] .langtog, html[lang="ar"] .bignum .lab{ font-family:var(--kufi); text-transform:none; letter-spacing:.04em; }
+/* official BATO logo (mask + currentColor) */
+.bato-wordmark{ display:block; background:currentColor; -webkit-mask:url(assets/bato-wordmark.png) center/contain no-repeat; mask:url(assets/bato-wordmark.png) center/contain no-repeat; aspect-ratio:1300/545; }
+.nav__home .bato-wordmark{ width:clamp(74px,7vw,96px); color:#fff; }
+.foot__mark--logo{ display:flex; justify-content:center; } .foot__mark--logo .bato-wordmark{ width:min(54vw,280px); color:#e4dbd2; }
+.foot{ text-align:center; } .foot__legal{ text-align:center; }
+/* language toggle (sits in the nav) */
+.langtog{ display:inline-flex; align-items:center; gap:.45em; background:none; border:0; cursor:pointer; color:inherit; font-family:var(--mono); font-size:inherit; letter-spacing:.2em; text-transform:uppercase; padding:0; }
+.langtog .ar-opt{ font-family:var(--kufi); font-size:1.45em; line-height:1; }
+.langtog .langtog__sep{ opacity:.4; }
+html[data-lang="ar"] .langtog .ar-opt{ opacity:.45; } html[data-lang="ar"] .langtog .en-opt{ color:var(--amber); }
+html[data-lang="en"] .langtog .en-opt{ opacity:.45; } html[data-lang="en"] .langtog .ar-opt{ color:var(--amber); }
+.langtog:focus-visible{ outline:2px solid var(--amber); outline-offset:3px; border-radius:4px; }
+/* ═══ RTL overrides ═══ */
+html[dir="rtl"] .skip{ left:auto; right:14px; }
+html[dir="rtl"] .nav__links a::after{ left:auto; right:0; transform-origin:right; }
+html[dir="rtl"] .dept__row{ direction:rtl; }
+html[dir="rtl"] .card h4{ direction:rtl; text-align:right; }
+html[dir="rtl"] .licencechip{ direction:rtl; }
+html[dir="rtl"] .foot__legal{ direction:rtl; }
+html[dir="rtl"] .bignum{ direction:rtl; }
 </style>
 </head>
 <body>
@@ -199,28 +231,26 @@ em{ font-style:italic; }
 <div class="grain" aria-hidden="true"></div>
 
 <nav class="nav" aria-label="Primary">
-  <a class="nav__home" href="v4.html" aria-label="Bato Clinic home">
-    <span class="mk" lang="ar">باتو</span><span class="en">Bato Clinic</span>
-  </a>
+  <a class="nav__home" href="v4.html" aria-label="BATO — Health and Beauty"><span class="bato-wordmark" role="img" aria-label="BATO"></span></a>
   <div class="nav__links">
-    <a href="hair-treatment.html">Hair</a>
-    <a href="skin.html">Skin</a>
-    <a href="lab-tests.html">Lab tests</a>
-    <a href="about.html">About</a>
-    <a href="https://wa.me/96560072702" target="_blank" rel="noopener">Book</a>
+    <a href="hair-treatment.html"><span class="en" lang="en">Hair</span><span class="ar" lang="ar">الشعر</span></a>
+    <a href="skin.html"><span class="en" lang="en">Skin</span><span class="ar" lang="ar">البشرة</span></a>
+    <a href="lab-tests.html"><span class="en" lang="en">Lab tests</span><span class="ar" lang="ar">التحاليل</span></a>
+    <a href="about.html"><span class="en" lang="en">About</span><span class="ar" lang="ar">عن باتو</span></a>
+    <a href="https://wa.me/96560072702" target="_blank" rel="noopener"><span class="en" lang="en">Book</span><span class="ar" lang="ar">احجزي</span></a>
+    <button class="langtog" id="langTog" type="button" aria-label="Switch language" data-to="en"><span class="en-opt">EN</span><span class="langtog__sep">/</span><span class="ar-opt">ع</span></button>
   </div>
 </nav>
 
 <header class="hero">
   <div>
-    <div class="eyebrow rv"><span class="ar" lang="ar">العناية بالشعر</span> · Hair</div>
-    <h1 class="hero__h rv">Hair, cared for from <em>the root.</em></h1>
-    <div class="hero__ar rv" style="--d:120ms" lang="ar">نقرأ الشعر من جذوره</div>
-    <p class="measure hero__lede rv" style="--d:160ms">Hair care in Al Safa, Dubai. For thinning or tired hair, we look at what's underneath, including your bloodwork, then treat the scalp with mesotherapy, plasma and targeted care. Medically supervised.</p>
+    <div class="eyebrow rv"><span class="en" lang="en">Hair</span><span class="ar" lang="ar">العناية بالشعر</span></div>
+    <h1 class="hero__h rv"><span class="en" lang="en">Hair, cared for from <em>the root.</em></span><span class="ar" lang="ar">عنايةٌ بالشعر <em>من جذوره.</em></span></h1>
+    <p class="measure hero__lede rv" style="--d:160ms"><span class="en" lang="en">Hair care in Al Safa, Dubai. For thinning or tired hair, we look at what's underneath, including your bloodwork, then treat the scalp with mesotherapy, plasma and targeted care. Medically supervised.</span><span class="ar" lang="ar">العناية بالشعر في الصفا، دبي. حين يخفّ الشعر أو يتعب، نُصغي إلى ما تحته، بما في ذلك تحاليل الدم، ثم نعتني بفروة الرأس بالميزوثيرابي والبلازما وعناية موجّهة. كل ذلك بإشراف طبي.</span></p>
     <div class="cta__actions rv" style="--d:240ms;justify-content:flex-start">
-      <a class="btn btn--solid" href="https://wa.me/96560072702?text=Hello%20BATO%2C%20I%27d%20like%20to%20book%20a%20hair%20diagnosis.">Book a hair diagnosis<span class="i" aria-hidden="true">↗</span></a>
+      <a class="btn btn--solid" href="https://wa.me/96560072702?text=Hello%20BATO%2C%20I%27d%20like%20to%20book%20a%20hair%20diagnosis."><span class="en" lang="en">Book a hair diagnosis</span><span class="ar" lang="ar">احجزي قراءة للشعر</span><span class="i" aria-hidden="true">↗</span></a>
     </div>
-    <div class="licencechip rv" style="--d:320ms">DHA Licence · <b>5346564</b> <span lang="ar">هيئة الصحة بدبي</span></div>
+    <div class="licencechip rv" style="--d:320ms"><span class="en" lang="en">DHA Licence · <b><span class="num">5346564</span></b></span><span class="ar" lang="ar">ترخيص هيئة الصحة بدبي · <b><span class="num">٥٣٤٦٥٦٤</span></b></span></div>
   </div>
   <figure class="hero__fig rv" style="--d:200ms">
     <picture>
@@ -228,18 +258,18 @@ em{ font-style:italic; }
       <source type="image/webp" srcset="assets/hair-768.webp 768w, assets/hair-1440.webp 1440w" sizes="(max-width:920px) 92vw, 45vw">
       <img src="assets/hair-fallback.jpg" alt="Long, healthy hair in warm morning light at the BATO hair studio in Al Safa, Dubai" loading="eager" decoding="async">
     </picture>
-    <figcaption>Al Safa · the hair studio</figcaption>
+    <figcaption><span class="en" lang="en">Al Safa · the hair studio</span><span class="ar" lang="ar">الصفا · استوديو الشعر</span></figcaption>
   </figure>
 </header>
 
 <section class="sec story">
   <div class="wrap">
     <div class="story__body">
-      <div class="eyebrow rv"><span class="ar" lang="ar">القراءة</span> · The reading</div>
-      <h2 class="story__h rv" style="--d:80ms">It starts with the <em>cause</em>, not a sale.</h2>
-      <p class="story__p rv" style="--d:160ms">Thinning has many causes, and they do not all answer to the same care: iron, ferritin, vitamin D, thyroid, hormones. So we look closely at the scalp and, where it helps, at your bloodwork.</p>
-      <p class="story__p rv" style="--d:240ms">We hold to one rule: we will not push a treatment that will not help. What we find shapes the plan, and the plan is honest about what care can and cannot do.</p>
-      <p class="story__p rv" style="--d:320ms">Hair also begins within. Iron, ferritin, vitamin D, thyroid and hormones leave their mark on the scalp, so a reading on the surface often pairs with <a href="lab-tests.html" style="color:var(--amber)">a look within</a>. We read the root causes, on the skin and under it.</p>
+      <div class="eyebrow rv"><span class="en" lang="en">The reading</span><span class="ar" lang="ar">القراءة</span></div>
+      <h2 class="story__h rv" style="--d:80ms"><span class="en" lang="en">It starts with the <em>cause</em>, not a sale.</span><span class="ar" lang="ar">نبدأ من <em>السبب</em>، لا من البيع.</span></h2>
+      <p class="story__p rv" style="--d:160ms"><span class="en" lang="en">Thinning has many causes, and they do not all answer to the same care: iron, ferritin, vitamin D, thyroid, hormones. So we look closely at the scalp and, where it helps, at your bloodwork.</span><span class="ar" lang="ar">لتساقط الشعر أسبابٌ كثيرة، ولا تستجيب كلّها للعناية نفسها: الحديد، الفيريتين، فيتامين د، الغدة الدرقية، الهرمونات. لذلك نفحص فروة الرأس عن قرب، ونطّلع على تحاليلك حين يفيد ذلك.</span></p>
+      <p class="story__p rv" style="--d:240ms"><span class="en" lang="en">We hold to one rule: we will not push a treatment that will not help. What we find shapes the plan, and the plan is honest about what care can and cannot do.</span><span class="ar" lang="ar">نلتزم بقاعدةٍ واحدة: لن نقترح عناية لا تنفعك. ما نجده هو ما يرسم الخطة، وتبقى الخطة صادقة في ما تستطيع العناية بلوغه وما لا تستطيع.</span></p>
+      <p class="story__p rv" style="--d:320ms"><span class="en" lang="en">Hair also begins within. Iron, ferritin, vitamin D, thyroid and hormones leave their mark on the scalp, so a reading on the surface often pairs with <a href="lab-tests.html" style="color:var(--amber)">a look within</a>. We read the root causes, on the skin and under it.</span><span class="ar" lang="ar">الشعر يبدأ من الداخل أيضاً. فالحديد والفيريتين وفيتامين د والغدة الدرقية والهرمونات تترك أثرها على فروة الرأس، لذا تقترن قراءة السطح غالباً بـ<a href="lab-tests.html" style="color:var(--amber)">نظرةٍ إلى الداخل</a>. نقرأ الأسباب من جذورها، على البشرة وتحتها.</span></p>
     </div>
   </div>
 </section>
@@ -250,12 +280,12 @@ em{ font-style:italic; }
     <source type="image/webp" srcset="assets/macro-768.webp 768w, assets/macro-1080.webp 1080w, assets/macro-1440.webp 1440w" sizes="100vw">
     <img src="assets/macro-fallback.jpg" alt="Macro detail of healthy hair at the root, lit by warm light" loading="lazy" decoding="async">
   </picture>
-  <figcaption>We read the hair at the root.<span class="ar" lang="ar">من الجذر</span></figcaption>
+  <figcaption><span class="en" lang="en">We read the hair at the root.</span><span class="ar" lang="ar">نقرأ الشعر من جذوره.</span></figcaption>
 </section>
 
 <section class="sec">
   <div class="wrap">
-    <div class="eyebrow rv"><span class="ar" lang="ar">برامجنا</span> · Our programs</div>
+    <div class="eyebrow rv"><span class="en" lang="en">Our programs</span><span class="ar" lang="ar">برامجنا</span></div>
     <div class="progduo rv" style="--d:80ms">
       <figure class="scalp">
         <picture>
@@ -273,35 +303,35 @@ em{ font-style:italic; }
       </figure>
     </div>
     <div class="dept__grid rv" style="--d:120ms">
-      <div class="dept__row"><span class="dept__n">Multi-session scalp programme · stimulation and nourishment</span><span class="dept__ar" lang="ar">تحفيز وتغذية متعددة المراحل</span></div>
-      <div class="dept__row"><span class="dept__n">Scalp renewal · long-term hair health</span><span class="dept__ar" lang="ar">تجديد فروة الرأس وصحة الشعر</span></div>
-      <div class="dept__row"><span class="dept__n">Hair mesotherapy · targeted nutrients into the scalp</span><span class="dept__ar" lang="ar">الميزوثيرابي للشعر</span></div>
-      <div class="dept__row"><span class="dept__n">Plasma · PRP, drawn from your own blood</span><span class="dept__ar" lang="ar">البلازما</span></div>
-      <div class="dept__row"><span class="dept__n">Dermapen · microneedling to wake the follicle</span><span class="dept__ar" lang="ar">ديرمابن، الوخز الدقيق</span></div>
+      <div class="dept__row"><span class="dept__n en" lang="en">Multi-session scalp programme · stimulation and nourishment</span><span class="dept__n ar" lang="ar">برنامج فروة الرأس متعدّد الجلسات · تحفيزٌ وتغذية</span></div>
+      <div class="dept__row"><span class="dept__n en" lang="en">Scalp renewal · long-term hair health</span><span class="dept__n ar" lang="ar">تجديد فروة الرأس · صحةٌ للشعر على المدى الطويل</span></div>
+      <div class="dept__row"><span class="dept__n en" lang="en">Hair mesotherapy · targeted nutrients into the scalp</span><span class="dept__n ar" lang="ar">ميزوثيرابي الشعر · مغذّياتٌ موجّهة إلى فروة الرأس</span></div>
+      <div class="dept__row"><span class="dept__n en" lang="en">Plasma · PRP, drawn from your own blood</span><span class="dept__n ar" lang="ar">البلازما · <span class="num">PRP</span> من دمكِ أنتِ</span></div>
+      <div class="dept__row"><span class="dept__n en" lang="en">Dermapen · microneedling to wake the follicle</span><span class="dept__n ar" lang="ar">ديرمابن · الوخز الدقيق لإيقاظ البُصيلة</span></div>
     </div>
-    <p class="dept__note rv" style="--d:200ms">Every plan is medically supervised. Non-surgical. Honest about what care can and cannot do, with no guarantees.</p>
+    <p class="dept__note rv" style="--d:200ms"><span class="en" lang="en">Every plan is medically supervised. Non-surgical. Honest about what care can and cannot do, with no guarantees.</span><span class="ar" lang="ar">كل خطةٍ تجري بإشراف طبي، دون جراحة، وبصدقٍ في ما تستطيع العناية بلوغه وما لا تستطيع، بلا وعود.</span></p>
   </div>
 </section>
 
 <section class="sec dept">
   <div class="wrap">
-    <div class="eyebrow rv"><span class="ar" lang="ar">كيف نعمل</span> · How it works</div>
+    <div class="eyebrow rv"><span class="en" lang="en">How it works</span><span class="ar" lang="ar">كيف نعمل</span></div>
     <div class="loc__grid">
       <div class="card rv" style="--d:0ms">
-        <h4>01 · DIAGNOSE</h4>
-        <p>We look closely at the scalp and listen to your history. <span class="ar" lang="ar">نقرأ فروة الرأس.</span></p>
+        <h4><span class="en" lang="en"><span class="num">01</span> · DIAGNOSE</span><span class="ar" lang="ar"><span class="num">٠١</span> · نفحص</span></h4>
+        <p><span class="en" lang="en">We look closely at the scalp and listen to your history.</span><span class="ar" lang="ar">نفحص فروة الرأس عن قرب ونُصغي إلى حكايتكِ.</span></p>
       </div>
       <div class="card rv" style="--d:80ms">
-        <h4>02 · PLAN</h4>
-        <p>A plan built around what we found, paced to your scalp. <span class="ar" lang="ar">خطة مبنية عليك.</span></p>
+        <h4><span class="en" lang="en"><span class="num">02</span> · PLAN</span><span class="ar" lang="ar"><span class="num">٠٢</span> · نخطّط</span></h4>
+        <p><span class="en" lang="en">A plan built around what we found, paced to your scalp.</span><span class="ar" lang="ar">خطةٌ مبنيّة على ما وجدناه، بإيقاعٍ يناسب فروة رأسكِ.</span></p>
       </div>
       <div class="card rv" style="--d:160ms">
-        <h4>03 · TREAT</h4>
-        <p>Mesotherapy, PRP and targeted scalp care, medically supervised throughout. <span class="ar" lang="ar">العلاج بإشراف الطبيب.</span></p>
+        <h4><span class="en" lang="en"><span class="num">03</span> · TREAT</span><span class="ar" lang="ar"><span class="num">٠٣</span> · نعتني</span></h4>
+        <p><span class="en" lang="en">Mesotherapy, PRP and targeted scalp care, medically supervised throughout.</span><span class="ar" lang="ar">ميزوثيرابي وبلازما <span class="num">PRP</span> وعناية موجّهة لفروة الرأس، بإشراف طبي في كل خطوة.</span></p>
       </div>
       <div class="card rv" style="--d:240ms">
-        <h4>04 · FOLLOW UP</h4>
-        <p>We track the scalp over time and adjust the plan as it responds. <span class="ar" lang="ar">نتابع ونعدّل.</span></p>
+        <h4><span class="en" lang="en"><span class="num">04</span> · FOLLOW UP</span><span class="ar" lang="ar"><span class="num">٠٤</span> · نتابع</span></h4>
+        <p><span class="en" lang="en">We track the scalp over time and adjust the plan as it responds.</span><span class="ar" lang="ar">نتابع فروة الرأس مع الوقت ونعدّل الخطة حسب استجابتها.</span></p>
       </div>
     </div>
   </div>
@@ -309,35 +339,34 @@ em{ font-style:italic; }
 
 <section class="sec">
   <div class="wrap">
-    <div class="eyebrow rv"><span class="ar" lang="ar">مسيرتنا</span> · Track record</div>
+    <div class="eyebrow rv"><span class="en" lang="en">Track record</span><span class="ar" lang="ar">مسيرتنا</span></div>
     <div class="bignum rv" style="--d:120ms">
-      <b>2022</b>
-      <span class="lab"><span class="ar" lang="ar">انطلقنا في الكويت، والآن في الصفا بدبي</span>Born in Kuwait, now in Al Safa, Dubai</span>
+      <b><span class="num">2022</span></b>
+      <span class="lab"><span class="en" lang="en">Born in Kuwait, now in Al Safa, Dubai</span><span class="ar" lang="ar">انطلقنا في الكويت، والآن في الصفا بدبي</span></span>
     </div>
-    <p class="story__p rv" style="--d:200ms">Bato began in Kuwait in 2022. Al Safa is the Gulf chapter of that same practice, carried by the same people who built it.</p>
-    <p class="dept__note rv" style="--d:280ms">Medically supervised and delivered by our clinical team of licensed nurses and specialists. DHA-licensed, non-surgical.</p>
+    <p class="story__p rv" style="--d:200ms"><span class="en" lang="en">Bato began in Kuwait in 2022. Al Safa is the Gulf chapter of that same practice, carried by the same people who built it.</span><span class="ar" lang="ar">بدأت باتو في الكويت عام <span class="num">٢٠٢٢</span>. والصفا هي فصلٌ خليجيٌّ من المسيرة نفسها، يحملها الأشخاص أنفسهم الذين بنوها.</span></p>
+    <p class="dept__note rv" style="--d:280ms"><span class="en" lang="en">Medically supervised and delivered by our clinical team of licensed nurses and specialists. DHA-licensed, non-surgical.</span><span class="ar" lang="ar">بإشراف طبي، ويقدّمها فريقنا الطبي من ممرضاتٍ وأخصائيين مرخّصين. مرخّصة من هيئة الصحة بدبي، ودون جراحة.</span></p>
   </div>
 </section>
 
 <section class="sec cta">
   <div class="wrap">
-    <div class="eyebrow rv" style="justify-content:center"><span class="ar" lang="ar">العناية تبدأ بالقراءة</span> · Begin</div>
-    <h2 class="cta__h rv">Begin with a <em>reading.</em></h2>
-    <div class="cta__ar rv" style="--d:120ms" lang="ar">العناية بالشعر تبدأ من قراءة فروة الرأس</div>
+    <div class="eyebrow rv" style="justify-content:center"><span class="en" lang="en">Begin</span><span class="ar" lang="ar">العناية تبدأ بالقراءة</span></div>
+    <h2 class="cta__h rv"><span class="en" lang="en">Begin with a <em>reading.</em></span><span class="ar" lang="ar">ابدئي <em>بقراءة.</em></span></h2>
     <div class="cta__actions rv" style="--d:200ms">
-      <a class="btn btn--solid" href="https://wa.me/96560072702?text=Hello%20BATO%2C%20I%27d%20like%20to%20book%20a%20hair%20diagnosis.">Book a hair diagnosis<span class="i" aria-hidden="true">↗</span></a>
-      <a class="btn btn--ghost" href="v4.html">Back to home<span class="i" aria-hidden="true">↗</span></a>
+      <a class="btn btn--solid" href="https://wa.me/96560072702?text=Hello%20BATO%2C%20I%27d%20like%20to%20book%20a%20hair%20diagnosis."><span class="en" lang="en">Book a hair diagnosis</span><span class="ar" lang="ar">احجزي قراءة للشعر</span><span class="i" aria-hidden="true">↗</span></a>
+      <a class="btn btn--ghost" href="v4.html"><span class="en" lang="en">Back to home</span><span class="ar" lang="ar">العودة إلى الرئيسية</span><span class="i" aria-hidden="true">↗</span></a>
     </div>
   </div>
 </section>
 
   <footer class="foot">
   <div class="wrap">
-    <div class="foot__mark" lang="ar">باتو<em lang="en">Bato Medical Clinic</em></div>
+    <div class="foot__mark foot__mark--logo"><span class="bato-wordmark" role="img" aria-label="BATO"></span></div>
     <div class="foot__legal">
-      Where beauty and health meet · <span lang="ar">حيث يلتقي الجمال والصحة</span><br>
-      DHA Licence 5346564 · Al Safa First, Dubai<br>
-      © 2026 Bato Medical Clinic · <a href="v4.html">Home</a>
+      <span class="en" lang="en">Where beauty and health meet</span><span class="ar" lang="ar">حيث يلتقي الجمال والصحة</span><br>
+      <span class="en" lang="en">DHA Licence <span class="num">5346564</span> · Al Safa First, Dubai</span><span class="ar" lang="ar">ترخيص هيئة الصحة بدبي <span class="num">٥٣٤٦٥٦٤</span> · الصفا الأولى، دبي</span><br>
+      <span class="en" lang="en">© <span class="num">2026</span> Bato Medical Clinic · <a href="v4.html">Home</a></span><span class="ar" lang="ar">© <span class="num">٢٠٢٦</span> عيادة باتو الطبية · <a href="v4.html">الرئيسية</a></span>
     </div>
   </div>
 </footer>
@@ -355,5 +384,6 @@ em{ font-style:italic; }
   window.addEventListener('load', function(){ setTimeout(function(){ document.querySelectorAll('.rv:not(.in)').forEach(function(e){ e.classList.add('in'); }); }, 2200); });
 })();
 </script>
+<script>(function(){var btn=document.getElementById("langTog");if(!btn)return;var T={"ar": "العناية بالشعر · عيادة باتو · Bato", "en": "Hair treatment · Bato Clinic · باتو"};function apply(L,persist){var h=document.documentElement;h.setAttribute("lang",L);h.setAttribute("dir",L==="ar"?"rtl":"ltr");h.setAttribute("data-lang",L);btn.setAttribute("data-to",L==="ar"?"en":"ar");btn.setAttribute("aria-label",L==="ar"?"\u0627\u0644\u062a\u0628\u062f\u064a\u0644 \u0625\u0644\u0649 \u0627\u0644\u0625\u0646\u062c\u0644\u064a\u0632\u064a\u0629":"Switch to Arabic");if(T[L])document.title=T[L];var og=document.querySelector('meta[property="og:locale"]');if(og)og.setAttribute("content",L==="ar"?"ar_AE":"en_US");if(persist){try{localStorage.setItem("bato-lang",L);}catch(e){}}document.querySelectorAll("[data-ph-ar]").forEach(function(i){var v=i.getAttribute(L==="ar"?"data-ph-ar":"data-ph-en");if(v!=null)i.setAttribute("placeholder",v);});document.querySelectorAll("option[data-ar]").forEach(function(o){if(o.getAttribute("data-en")===null)o.setAttribute("data-en",o.textContent);o.textContent=L==="ar"?o.getAttribute("data-ar"):o.getAttribute("data-en");});}apply(document.documentElement.getAttribute("data-lang")||"ar",false);btn.addEventListener("click",function(){var n=document.documentElement.getAttribute("data-lang")==="ar"?"en":"ar";apply(n,true);});})();</script>
 </body>
 </html>

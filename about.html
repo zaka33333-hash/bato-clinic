@@ -1,9 +1,10 @@
 <!doctype html>
-<html lang="en">
+<html lang="ar" dir="rtl" data-lang="ar">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>About · Bato Medical Clinic · مستوصف باتو</title>
+<script>(function(){try{var L=localStorage.getItem('bato-lang');if(L!=='en'&&L!=='ar')L='ar';var h=document.documentElement;h.setAttribute('lang',L);h.setAttribute('dir',L==='ar'?'rtl':'ltr');h.setAttribute('data-lang',L);}catch(e){}})();</script>
+<title>عن باتو · مستوصف باتو الطبي · Bato Medical Clinic</title>
 <meta name="description" content="Inside Bato Medical Clinic, Al Safa Dubai. A DHA-licensed aesthetic and wellness clinic. Lab-led, medically supervised care for skin, hair and face. Where beauty meets health. DHA Licence 5346564.">
 <meta name="theme-color" content="#2c2318">
 <link rel="canonical" href="https://zaka33333-hash.github.io/bato-clinic/about.html">
@@ -15,8 +16,8 @@
 <meta property="og:description" content="Inside a DHA-licensed clinic in Al Safa, Dubai. A considered space, an unhurried standard of care. DHA Licence 5346564.">
 <meta property="og:url" content="https://zaka33333-hash.github.io/bato-clinic/about.html">
 <meta property="og:image" content="https://zaka33333-hash.github.io/bato-clinic/assets/about-2.jpg">
-<meta property="og:locale" content="en_US">
-<meta property="og:locale:alternate" content="ar_AE">
+<meta property="og:locale" content="ar_AE">
+<meta property="og:locale:alternate" content="en_US">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="About · Bato Medical Clinic">
 <meta name="twitter:image" content="https://zaka33333-hash.github.io/bato-clinic/assets/about-2.jpg">
@@ -173,6 +174,37 @@ em{ font-style:italic; }
   .rv{ opacity:1!important; transform:none!important; transition:none!important; }
   .g-item img{ transition:none; }
 }
+
+/* ═══ BILINGUAL ENGINE (sub-page) ═══ */
+.en,.ar{ display:contents; }
+html[data-lang="ar"] .en{ display:none!important; }
+html[data-lang="en"] .ar{ display:none!important; }
+.num{ direction:ltr; unicode-bidi:isolate; font-variant-numeric:tabular-nums; }
+html[lang="ar"] body{ font-family:var(--kufi); font-weight:400; }
+html[lang="ar"]{ font-synthesis:none; }
+html[lang="ar"] .hero__h, html[lang="ar"] .story__h, html[lang="ar"] .cta__h, html[lang="ar"] .dept__n{ font-family:var(--kufi); font-weight:500; letter-spacing:0; font-style:normal; }
+html[lang="ar"] .story__p, html[lang="ar"] .measure, html[lang="ar"] .card p, html[lang="ar"] .dept__note, html[lang="ar"] .team__p{ font-family:var(--kufi); font-weight:400; line-height:1.7; letter-spacing:0; }
+html[lang="ar"] .eyebrow, html[lang="ar"] .nav__links, html[lang="ar"] .card h4, html[lang="ar"] .foot__legal, html[lang="ar"] .licencechip, html[lang="ar"] .hero__fig figcaption, html[lang="ar"] .g-item figcaption, html[lang="ar"] .btn, html[lang="ar"] .langtog, html[lang="ar"] .bignum .lab{ font-family:var(--kufi); text-transform:none; letter-spacing:.04em; }
+/* official BATO logo (mask + currentColor) */
+.bato-wordmark{ display:block; background:currentColor; -webkit-mask:url(assets/bato-wordmark.png) center/contain no-repeat; mask:url(assets/bato-wordmark.png) center/contain no-repeat; aspect-ratio:1300/545; }
+.nav__home .bato-wordmark{ width:clamp(74px,7vw,96px); color:#fff; }
+.foot__mark--logo{ display:flex; justify-content:center; } .foot__mark--logo .bato-wordmark{ width:min(54vw,280px); color:#e4dbd2; }
+.foot{ text-align:center; } .foot__legal{ text-align:center; }
+/* language toggle (sits in the nav) */
+.langtog{ display:inline-flex; align-items:center; gap:.45em; background:none; border:0; cursor:pointer; color:inherit; font-family:var(--mono); font-size:inherit; letter-spacing:.2em; text-transform:uppercase; padding:0; }
+.langtog .ar-opt{ font-family:var(--kufi); font-size:1.45em; line-height:1; }
+.langtog .langtog__sep{ opacity:.4; }
+html[data-lang="ar"] .langtog .ar-opt{ opacity:.45; } html[data-lang="ar"] .langtog .en-opt{ color:var(--amber); }
+html[data-lang="en"] .langtog .en-opt{ opacity:.45; } html[data-lang="en"] .langtog .ar-opt{ color:var(--amber); }
+.langtog:focus-visible{ outline:2px solid var(--amber); outline-offset:3px; border-radius:4px; }
+/* ═══ RTL overrides ═══ */
+html[dir="rtl"] .skip{ left:auto; right:14px; }
+html[dir="rtl"] .nav__links a::after{ left:auto; right:0; transform-origin:right; }
+html[dir="rtl"] .dept__row{ direction:rtl; }
+html[dir="rtl"] .card h4{ direction:rtl; text-align:right; }
+html[dir="rtl"] .licencechip{ direction:rtl; }
+html[dir="rtl"] .foot__legal{ direction:rtl; }
+html[dir="rtl"] .bignum{ direction:rtl; }
 </style>
 </head>
 <body>
@@ -181,26 +213,24 @@ em{ font-style:italic; }
 <div class="grain" aria-hidden="true"></div>
 
 <nav class="nav" aria-label="Primary">
-  <a class="nav__home" href="v4.html" aria-label="Bato Clinic home">
-    <span class="mk" lang="ar">باتو</span><span class="en">Bato Clinic</span>
-  </a>
+  <a class="nav__home" href="v4.html" aria-label="BATO — Health and Beauty"><span class="bato-wordmark" role="img" aria-label="BATO"></span></a>
   <div class="nav__links">
-    <a href="hair-treatment.html">Hair</a>
-    <a href="skin.html">Skin</a>
-    <a href="lab-tests.html">Lab tests</a>
-    <a href="about.html">About</a>
-    <a href="https://wa.me/96560072702" target="_blank" rel="noopener">Book</a>
+    <a href="hair-treatment.html"><span class="en" lang="en">Hair</span><span class="ar" lang="ar">الشعر</span></a>
+    <a href="skin.html"><span class="en" lang="en">Skin</span><span class="ar" lang="ar">البشرة</span></a>
+    <a href="lab-tests.html"><span class="en" lang="en">Lab tests</span><span class="ar" lang="ar">التحاليل</span></a>
+    <a href="about.html"><span class="en" lang="en">About</span><span class="ar" lang="ar">عن باتو</span></a>
+    <a href="https://wa.me/96560072702" target="_blank" rel="noopener"><span class="en" lang="en">Book</span><span class="ar" lang="ar">احجزي</span></a>
+    <button class="langtog" id="langTog" type="button" aria-label="Switch language" data-to="en"><span class="en-opt">EN</span><span class="langtog__sep">/</span><span class="ar-opt">ع</span></button>
   </div>
 </nav>
 
 <!-- HERO -->
 <header class="hero">
   <div>
-    <div class="eyebrow rv">About · <span class="ar" lang="ar">عن باتو</span></div>
-    <h1 class="hero__h rv" style="margin-top:1.2rem">We test first,<br>then we<br><em>treat.</em></h1>
-    <div class="hero__ar rv" style="--d:120ms" lang="ar">قراءة الطبيب، قبل أي شيء</div>
-    <p class="measure hero__lede rv" style="--d:220ms">Bato is a DHA-licensed aesthetic and wellness clinic in Al Safa, Dubai, part of a Gulf brand born in Kuwait in 2022. We care for skin, hair and face, medically supervised, and we start with your bloodwork. Where beauty meets health, never rushed.</p>
-    <div class="licencechip rv" style="--d:320ms">DHA Licence · <b>5346564</b> <span lang="ar">هيئة الصحة بدبي</span></div>
+    <div class="eyebrow rv"><span class="en" lang="en">About</span><span class="ar" lang="ar">عن باتو</span></div>
+    <h1 class="hero__h rv" style="margin-top:1.2rem"><span class="en" lang="en">We test first,<br>then we<br><em>treat.</em></span><span class="ar" lang="ar">نفحص أولاً،<br>ثم<br><em>نعالج.</em></span></h1>
+    <p class="measure hero__lede rv" style="--d:220ms"><span class="en" lang="en">Bato is a DHA-licensed aesthetic and wellness clinic in Al Safa, Dubai, part of a Gulf brand born in Kuwait in 2022. We care for skin, hair and face, medically supervised, and we start with your bloodwork. Where beauty meets health, never rushed.</span><span class="ar" lang="ar">باتو مستوصف للتجميل والعناية مرخّص من هيئة الصحة بدبي في الصفا، علامة خليجية وُلدت في الكويت عام ٢٠٢٢. نعتني بالبشرة والشعر والوجه بإشراف طبي، ونبدأ من تحاليل دمكِ. حيث يلتقي الجمال والصحة، دون استعجال.</span></p>
+    <div class="licencechip rv" style="--d:320ms"><span class="en" lang="en">DHA Licence · <b>5346564</b></span><span class="ar" lang="ar">ترخيص هيئة الصحة بدبي · <b><span class="num">٥٣٤٦٥٦٤</span></b></span></div>
   </div>
   <figure class="hero__fig rv" style="--d:160ms">
     <picture>
@@ -208,18 +238,18 @@ em{ font-style:italic; }
       <source type="image/webp" srcset="assets/about-1-760.webp 760w, assets/about-1-1200.webp 1200w" sizes="(max-width:920px) 92vw, 45vw">
       <img src="assets/about-1.jpg" alt="Bato's double-height lounge, a sculptural staircase and floor-to-ceiling light above a curved sofa and sea view" loading="eager" decoding="async">
     </picture>
-    <figcaption>Al Safa · the atrium</figcaption>
+    <figcaption><span class="en" lang="en">Al Safa · the atrium</span><span class="ar" lang="ar">الصفا · البهو</span></figcaption>
   </figure>
 </header>
 
 <!-- STORY -->
 <section class="sec story" id="story">
   <div class="wrap">
-    <div class="eyebrow rv"><span class="ar" lang="ar">الفلسفة</span> · Our reading</div>
+    <div class="eyebrow rv"><span class="en" lang="en">Our reading</span><span class="ar" lang="ar">قراءتنا</span></div>
     <div class="story__body">
-      <h2 class="story__h rv" style="margin:1rem 0 1.6rem">We test, we listen, <em>then we treat.</em></h2>
-      <p class="story__p rv" style="--d:80ms">Bato was built around a simple conviction: <strong>understand your health first, then care for how you look</strong>. No rush. No promises we can't keep. Every plan begins with your results.</p>
-      <p class="story__p rv" style="--d:160ms">Behind the hair and the aesthetics sits a full <strong>diagnostic workup</strong>. We read bloodwork, hormones and vitamins, the quiet things that shape your hair and skin. Where beauty meets health, and care begins with understanding you. <span lang="ar" class="ar" style="color:var(--ink)">حيث يلتقي الجمال والصحة.</span></p>
+      <h2 class="story__h rv" style="margin:1rem 0 1.6rem"><span class="en" lang="en">We test, we listen, <em>then we treat.</em></span><span class="ar" lang="ar">نفحص، ونُصغي، <em>ثم نعالج.</em></span></h2>
+      <p class="story__p rv" style="--d:80ms"><span class="en" lang="en">Bato was built around a simple conviction: <strong>understand your health first, then care for how you look</strong>. No rush. No promises we can't keep. Every plan begins with your results.</span><span class="ar" lang="ar">بُني باتو على قناعة بسيطة: <strong>افهمي صحتكِ أولاً، ثم اعتني بإطلالتكِ</strong>. دون استعجال، ودون وعودٍ لا نلتزم بها. كل خطة تبدأ من نتائجكِ.</span></p>
+      <p class="story__p rv" style="--d:160ms"><span class="en" lang="en">Behind the hair and the aesthetics sits a full <strong>diagnostic workup</strong>. We read bloodwork, hormones and vitamins, the quiet things that shape your hair and skin. Where beauty meets health, and care begins with understanding you.</span><span class="ar" lang="ar">خلف الشعر والتجميل يقف <strong>فحص تشخيصي متكامل</strong>. نقرأ تحاليل الدم والهرمونات والفيتامينات، تلك التفاصيل الهادئة التي تُشكّل شعركِ وبشرتكِ. حيث يلتقي الجمال والصحة، وتبدأ العناية بفهمكِ.</span></p>
     </div>
   </div>
 </section>
@@ -229,21 +259,21 @@ em{ font-style:italic; }
   <div class="wrap">
     <div class="gal__head">
       <div>
-        <div class="eyebrow rv"><span class="ar" lang="ar">المكان</span> · The space</div>
-        <h2 class="gal__h rv" style="margin-top:1rem">A considered <em>environment.</em></h2>
+        <div class="eyebrow rv"><span class="en" lang="en">The space</span><span class="ar" lang="ar">المكان</span></div>
+        <h2 class="gal__h rv" style="margin-top:1rem"><span class="en" lang="en">A considered <em>environment.</em></span><span class="ar" lang="ar">مكانٌ <em>مدروس.</em></span></h2>
       </div>
-      <p class="measure rv" style="--d:120ms; max-width:34ch">Floor-to-ceiling light, warm wood and fresh flowers, with rooms numbered with intent. A calm setting for unhurried care.</p>
+      <p class="measure rv" style="--d:120ms; max-width:34ch"><span class="en" lang="en">Floor-to-ceiling light, warm wood and fresh flowers, with rooms numbered with intent. A calm setting for unhurried care.</span><span class="ar" lang="ar">ضوءٌ يمتد من الأرض إلى السقف، خشبٌ دافئ وأزهارٌ طازجة، وغرفٌ مرقّمة بعناية. أجواء هادئة لعنايةٍ غير مستعجلة.</span></p>
     </div>
     <div class="gallery">
-      <figure class="g-item rv"><picture><source type="image/avif" srcset="assets/about-2-760.avif 760w, assets/about-2-1200.avif 1200w" sizes="(max-width:620px) 92vw,(max-width:1000px) 46vw, 31vw"><source type="image/webp" srcset="assets/about-2-760.webp 760w, assets/about-2-1200.webp 1200w" sizes="(max-width:620px) 92vw,(max-width:1000px) 46vw, 31vw"><img src="assets/about-2.jpg" alt="The Bato Clinic signage, باتو كلينيك, framed by bougainvillea against a clear sky" loading="lazy" decoding="async"></picture><figcaption>The threshold · باتو كلينيك</figcaption></figure>
-      <figure class="g-item rv" style="--d:60ms"><picture><source type="image/avif" srcset="assets/about-1-760.avif 760w, assets/about-1-1200.avif 1200w" sizes="(max-width:620px) 92vw,(max-width:1000px) 46vw, 31vw"><source type="image/webp" srcset="assets/about-1-760.webp 760w, assets/about-1-1200.webp 1200w" sizes="(max-width:620px) 92vw,(max-width:1000px) 46vw, 31vw"><img src="assets/about-1.jpg" alt="A sculptural staircase and floor-to-ceiling windows above a curved sofa and sea view" loading="lazy" decoding="async"></picture><figcaption>The atrium</figcaption></figure>
-      <figure class="g-item rv" style="--d:120ms"><picture><source type="image/avif" srcset="assets/about-5-760.avif 760w, assets/about-5-1200.avif 1200w" sizes="(max-width:620px) 92vw,(max-width:1000px) 46vw, 31vw"><source type="image/webp" srcset="assets/about-5-760.webp 760w, assets/about-5-1200.webp 1200w" sizes="(max-width:620px) 92vw,(max-width:1000px) 46vw, 31vw"><img src="assets/about-5.jpg" alt="A warmly lit room marker reading 22, Skin Procedures Room, beside a black sconce on warm wood" loading="lazy" decoding="async"></picture><figcaption>Room 22 · Skin Procedures</figcaption></figure>
-      <figure class="g-item rv"><picture><source type="image/avif" srcset="assets/about-4-760.avif 760w, assets/about-4-1200.avif 1200w" sizes="(max-width:620px) 92vw,(max-width:1000px) 46vw, 31vw"><source type="image/webp" srcset="assets/about-4-760.webp 760w, assets/about-4-1200.webp 1200w" sizes="(max-width:620px) 92vw,(max-width:1000px) 46vw, 31vw"><img src="assets/about-4.jpg" alt="A designer chair and a glass table with fresh roses on marble flooring in window light" loading="lazy" decoding="async"></picture><figcaption>The waiting room</figcaption></figure>
-      <figure class="g-item rv" style="--d:60ms"><picture><source type="image/avif" srcset="assets/about-6-760.avif 760w, assets/about-6-1200.avif 1200w" sizes="(max-width:620px) 92vw,(max-width:1000px) 46vw, 31vw"><source type="image/webp" srcset="assets/about-6-760.webp 760w, assets/about-6-1200.webp 1200w" sizes="(max-width:620px) 92vw,(max-width:1000px) 46vw, 31vw"><img src="assets/about-6.jpg" alt="Fresh yellow roses being arranged in a stone vase at reception" loading="lazy" decoding="async"></picture><figcaption>Fresh every morning</figcaption></figure>
-      <figure class="g-item rv" style="--d:120ms"><picture><source type="image/avif" srcset="assets/about-7-760.avif 760w, assets/about-7-1200.avif 1200w" sizes="(max-width:620px) 92vw,(max-width:1000px) 46vw, 31vw"><source type="image/webp" srcset="assets/about-7-760.webp 760w, assets/about-7-1200.webp 1200w" sizes="(max-width:620px) 92vw,(max-width:1000px) 46vw, 31vw"><img src="assets/about-7.jpg" alt="A consultation on a tablet beside a branded Bato cup at the water station" loading="lazy" decoding="async"></picture><figcaption>Considered, on every detail</figcaption></figure>
-      <figure class="g-item rv"><picture><source type="image/avif" srcset="assets/about-3-760.avif 760w, assets/about-3-1200.avif 1200w" sizes="(max-width:620px) 92vw,(max-width:1000px) 46vw, 31vw"><source type="image/webp" srcset="assets/about-3-760.webp 760w, assets/about-3-1200.webp 1200w" sizes="(max-width:620px) 92vw,(max-width:1000px) 46vw, 31vw"><img src="assets/about-3.jpg" alt="The lounge seen from the staircase, curved seating and fresh flowers in morning light" loading="lazy" decoding="async"></picture><figcaption>Morning light</figcaption></figure>
-      <figure class="g-item rv" style="--d:60ms"><picture><source type="image/avif" srcset="assets/about-9-760.avif 760w, assets/about-9-1200.avif 1200w" sizes="(max-width:620px) 92vw,(max-width:1000px) 46vw, 31vw"><source type="image/webp" srcset="assets/about-9-760.webp 760w, assets/about-9-1200.webp 1200w" sizes="(max-width:620px) 92vw,(max-width:1000px) 46vw, 31vw"><img src="assets/about-9.jpg" alt="A warmly lit treatment-room marker reading 16, Treatment Room, on warm wood" loading="lazy" decoding="async"></picture><figcaption>Room 16 · Treatment</figcaption></figure>
-      <figure class="g-item rv" style="--d:120ms"><picture><source type="image/avif" srcset="assets/about-8-760.avif 760w, assets/about-8-1200.avif 1200w" sizes="(max-width:620px) 92vw,(max-width:1000px) 46vw, 31vw"><source type="image/webp" srcset="assets/about-8-760.webp 760w, assets/about-8-1200.webp 1200w" sizes="(max-width:620px) 92vw,(max-width:1000px) 46vw, 31vw"><img src="assets/about-8.jpg" alt="A round mirror and a soft lamp above fresh white blooms on a vanity" loading="lazy" decoding="async"></picture><figcaption>Quiet corners</figcaption></figure>
+      <figure class="g-item rv"><picture><source type="image/avif" srcset="assets/about-2-760.avif 760w, assets/about-2-1200.avif 1200w" sizes="(max-width:620px) 92vw,(max-width:1000px) 46vw, 31vw"><source type="image/webp" srcset="assets/about-2-760.webp 760w, assets/about-2-1200.webp 1200w" sizes="(max-width:620px) 92vw,(max-width:1000px) 46vw, 31vw"><img src="assets/about-2.jpg" alt="The Bato Clinic signage, باتو كلينيك, framed by bougainvillea against a clear sky" loading="lazy" decoding="async"></picture><figcaption><span class="en" lang="en">The threshold · باتو كلينيك</span><span class="ar" lang="ar">العتبة · باتو كلينيك</span></figcaption></figure>
+      <figure class="g-item rv" style="--d:60ms"><picture><source type="image/avif" srcset="assets/about-1-760.avif 760w, assets/about-1-1200.avif 1200w" sizes="(max-width:620px) 92vw,(max-width:1000px) 46vw, 31vw"><source type="image/webp" srcset="assets/about-1-760.webp 760w, assets/about-1-1200.webp 1200w" sizes="(max-width:620px) 92vw,(max-width:1000px) 46vw, 31vw"><img src="assets/about-1.jpg" alt="A sculptural staircase and floor-to-ceiling windows above a curved sofa and sea view" loading="lazy" decoding="async"></picture><figcaption><span class="en" lang="en">The atrium</span><span class="ar" lang="ar">البهو</span></figcaption></figure>
+      <figure class="g-item rv" style="--d:120ms"><picture><source type="image/avif" srcset="assets/about-5-760.avif 760w, assets/about-5-1200.avif 1200w" sizes="(max-width:620px) 92vw,(max-width:1000px) 46vw, 31vw"><source type="image/webp" srcset="assets/about-5-760.webp 760w, assets/about-5-1200.webp 1200w" sizes="(max-width:620px) 92vw,(max-width:1000px) 46vw, 31vw"><img src="assets/about-5.jpg" alt="A warmly lit room marker reading 22, Skin Procedures Room, beside a black sconce on warm wood" loading="lazy" decoding="async"></picture><figcaption><span class="en" lang="en">Room 22 · Skin Procedures</span><span class="ar" lang="ar">غرفة <span class="num">٢٢</span> · إجراءات البشرة</span></figcaption></figure>
+      <figure class="g-item rv"><picture><source type="image/avif" srcset="assets/about-4-760.avif 760w, assets/about-4-1200.avif 1200w" sizes="(max-width:620px) 92vw,(max-width:1000px) 46vw, 31vw"><source type="image/webp" srcset="assets/about-4-760.webp 760w, assets/about-4-1200.webp 1200w" sizes="(max-width:620px) 92vw,(max-width:1000px) 46vw, 31vw"><img src="assets/about-4.jpg" alt="A designer chair and a glass table with fresh roses on marble flooring in window light" loading="lazy" decoding="async"></picture><figcaption><span class="en" lang="en">The waiting room</span><span class="ar" lang="ar">غرفة الانتظار</span></figcaption></figure>
+      <figure class="g-item rv" style="--d:60ms"><picture><source type="image/avif" srcset="assets/about-6-760.avif 760w, assets/about-6-1200.avif 1200w" sizes="(max-width:620px) 92vw,(max-width:1000px) 46vw, 31vw"><source type="image/webp" srcset="assets/about-6-760.webp 760w, assets/about-6-1200.webp 1200w" sizes="(max-width:620px) 92vw,(max-width:1000px) 46vw, 31vw"><img src="assets/about-6.jpg" alt="Fresh yellow roses being arranged in a stone vase at reception" loading="lazy" decoding="async"></picture><figcaption><span class="en" lang="en">Fresh every morning</span><span class="ar" lang="ar">طازجة كل صباح</span></figcaption></figure>
+      <figure class="g-item rv" style="--d:120ms"><picture><source type="image/avif" srcset="assets/about-7-760.avif 760w, assets/about-7-1200.avif 1200w" sizes="(max-width:620px) 92vw,(max-width:1000px) 46vw, 31vw"><source type="image/webp" srcset="assets/about-7-760.webp 760w, assets/about-7-1200.webp 1200w" sizes="(max-width:620px) 92vw,(max-width:1000px) 46vw, 31vw"><img src="assets/about-7.jpg" alt="A consultation on a tablet beside a branded Bato cup at the water station" loading="lazy" decoding="async"></picture><figcaption><span class="en" lang="en">Considered, on every detail</span><span class="ar" lang="ar">عنايةٌ بكل تفصيل</span></figcaption></figure>
+      <figure class="g-item rv"><picture><source type="image/avif" srcset="assets/about-3-760.avif 760w, assets/about-3-1200.avif 1200w" sizes="(max-width:620px) 92vw,(max-width:1000px) 46vw, 31vw"><source type="image/webp" srcset="assets/about-3-760.webp 760w, assets/about-3-1200.webp 1200w" sizes="(max-width:620px) 92vw,(max-width:1000px) 46vw, 31vw"><img src="assets/about-3.jpg" alt="The lounge seen from the staircase, curved seating and fresh flowers in morning light" loading="lazy" decoding="async"></picture><figcaption><span class="en" lang="en">Morning light</span><span class="ar" lang="ar">ضوء الصباح</span></figcaption></figure>
+      <figure class="g-item rv" style="--d:60ms"><picture><source type="image/avif" srcset="assets/about-9-760.avif 760w, assets/about-9-1200.avif 1200w" sizes="(max-width:620px) 92vw,(max-width:1000px) 46vw, 31vw"><source type="image/webp" srcset="assets/about-9-760.webp 760w, assets/about-9-1200.webp 1200w" sizes="(max-width:620px) 92vw,(max-width:1000px) 46vw, 31vw"><img src="assets/about-9.jpg" alt="A warmly lit treatment-room marker reading 16, Treatment Room, on warm wood" loading="lazy" decoding="async"></picture><figcaption><span class="en" lang="en">Room 16 · Treatment</span><span class="ar" lang="ar">غرفة <span class="num">١٦</span> · العلاج</span></figcaption></figure>
+      <figure class="g-item rv" style="--d:120ms"><picture><source type="image/avif" srcset="assets/about-8-760.avif 760w, assets/about-8-1200.avif 1200w" sizes="(max-width:620px) 92vw,(max-width:1000px) 46vw, 31vw"><source type="image/webp" srcset="assets/about-8-760.webp 760w, assets/about-8-1200.webp 1200w" sizes="(max-width:620px) 92vw,(max-width:1000px) 46vw, 31vw"><img src="assets/about-8.jpg" alt="A round mirror and a soft lamp above fresh white blooms on a vanity" loading="lazy" decoding="async"></picture><figcaption><span class="en" lang="en">Quiet corners</span><span class="ar" lang="ar">زوايا هادئة</span></figcaption></figure>
     </div>
   </div>
 </section>
@@ -251,33 +281,33 @@ em{ font-style:italic; }
 <!-- DEPARTMENTS -->
 <section class="sec dept" aria-label="What we do">
   <div class="wrap">
-    <div class="eyebrow rv"><span class="ar" lang="ar">أقسامنا</span> · What we do</div>
-    <h2 class="story__h rv" style="margin-top:1rem; max-width:18ch">One clinic, <em>many disciplines,</em> all medically supervised.</h2>
+    <div class="eyebrow rv"><span class="en" lang="en">What we do</span><span class="ar" lang="ar">أقسامنا</span></div>
+    <h2 class="story__h rv" style="margin-top:1rem; max-width:18ch"><span class="en" lang="en">One clinic, <em>many disciplines,</em> all medically supervised.</span><span class="ar" lang="ar">مستوصفٌ واحد، <em>تخصصاتٌ كثيرة،</em> كلها بإشراف طبي.</span></h2>
     <div class="dept__grid rv" style="--d:120ms">
-      <div class="dept__row"><span class="dept__n">Hair Restoration &amp; Care</span><span class="dept__ar" lang="ar">علاج الشعر</span></div>
-      <div class="dept__row"><span class="dept__n">Dermatology &amp; Cosmetology</span><span class="dept__ar" lang="ar">الجلدية والتجميل</span></div>
-      <div class="dept__row"><span class="dept__n">Aesthetic Medicine</span><span class="dept__ar" lang="ar">الطب التجميلي</span></div>
-      <div class="dept__row"><span class="dept__n">Laser</span><span class="dept__ar" lang="ar">الليزر</span></div>
-      <div class="dept__row"><span class="dept__n">General Medicine</span><span class="dept__ar" lang="ar">الطب العام</span></div>
-      <div class="dept__row"><span class="dept__n">Infusion &amp; IV Therapy</span><span class="dept__ar" lang="ar">التغذية الوريدية</span></div>
-      <div class="dept__row"><span class="dept__n">Laboratory</span><span class="dept__ar" lang="ar">المختبر</span></div>
+      <div class="dept__row"><span class="dept__n en" lang="en">Hair Restoration &amp; Care</span><span class="dept__n ar" lang="ar">استعادة الشعر والعناية به</span></div>
+      <div class="dept__row"><span class="dept__n en" lang="en">Dermatology &amp; Cosmetology</span><span class="dept__n ar" lang="ar">الجلدية والتجميل</span></div>
+      <div class="dept__row"><span class="dept__n en" lang="en">Aesthetic Medicine</span><span class="dept__n ar" lang="ar">الطب التجميلي</span></div>
+      <div class="dept__row"><span class="dept__n en" lang="en">Laser</span><span class="dept__n ar" lang="ar">الليزر</span></div>
+      <div class="dept__row"><span class="dept__n en" lang="en">General Medicine</span><span class="dept__n ar" lang="ar">الطب العام</span></div>
+      <div class="dept__row"><span class="dept__n en" lang="en">Infusion &amp; IV Therapy</span><span class="dept__n ar" lang="ar">التغذية الوريدية</span></div>
+      <div class="dept__row"><span class="dept__n en" lang="en">Laboratory</span><span class="dept__n ar" lang="ar">المختبر</span></div>
     </div>
-    <p class="dept__note rv" style="--d:200ms">Every treatment follows a proper assessment. We don't diagnose or promise results online. Your plan is confirmed in consultation, at a pace that suits you.</p>
+    <p class="dept__note rv" style="--d:200ms"><span class="en" lang="en">Every treatment follows a proper assessment. We don't diagnose or promise results online. Your plan is confirmed in consultation, at a pace that suits you.</span><span class="ar" lang="ar">كل علاج يأتي بعد تقييمٍ سليم. لا نُشخّص ولا نَعِد بنتائج عبر الإنترنت. تُعتمد خطتكِ في الاستشارة، وعلى إيقاعٍ يناسبكِ.</span></p>
   </div>
 </section>
 
 <!-- TEAM / COMMUNITY -->
 <section class="sec" aria-label="The team">
   <div class="wrap">
-    <div class="eyebrow rv"><span class="ar" lang="ar">الفريق</span> · The team</div>
+    <div class="eyebrow rv"><span class="en" lang="en">The team</span><span class="ar" lang="ar">الفريق</span></div>
     <div class="team__grid">
       <div>
-        <h2 class="story__h rv" style="margin:1rem 0 1.4rem; max-width:20ch">Nurses, specialists and a supervising physician. <em>Unhurried, by design.</em></h2>
-        <p class="team__p rv" style="--d:80ms">Since 2022 in Kuwait, Bato has grown a community that now spans the Gulf. We bring hair, skin and diagnostics under one roof, so your care is never fragmented. Everyone works to the same standard: listen first, test carefully, never rush.</p>
+        <h2 class="story__h rv" style="margin:1rem 0 1.4rem; max-width:20ch"><span class="en" lang="en">Nurses, specialists and a supervising physician. <em>Unhurried, by design.</em></span><span class="ar" lang="ar">ممرضات وأخصائيون وطبيبٌ مشرف. <em>دون استعجال، بتصميمٍ مقصود.</em></span></h2>
+        <p class="team__p rv" style="--d:80ms"><span class="en" lang="en">Since 2022 in Kuwait, Bato has grown a community that now spans the Gulf. We bring hair, skin and diagnostics under one roof, so your care is never fragmented. Everyone works to the same standard: listen first, test carefully, never rush.</span><span class="ar" lang="ar">منذ عام ٢٠٢٢ في الكويت، نمت حول باتو جالية تمتد اليوم عبر الخليج. نجمع الشعر والبشرة والتحاليل تحت سقفٍ واحد، حتى لا تتجزّأ عنايتكِ. والجميع يعمل بالمعيار ذاته: نُصغي أولاً، نفحص بعناية، ولا نستعجل.</span></p>
       </div>
       <a class="bignum rv" style="--d:140ms" href="https://www.instagram.com/batoclinic/" target="_blank" rel="noopener" aria-label="A community of 68,000 on Instagram">
         <b>68k</b>
-        <span class="lab"><span class="ar" lang="ar">مجتمع على إنستغرام</span>A community on Instagram · @batoclinic</span>
+        <span class="lab"><span class="en" lang="en">A community on Instagram · @batoclinic</span><span class="ar" lang="ar">جالية على إنستغرام · <span class="num">@batoclinic</span></span></span>
       </a>
     </div>
   </div>
@@ -286,12 +316,12 @@ em{ font-style:italic; }
 <!-- LOCATIONS -->
 <section class="sec loc" aria-label="Visit us">
   <div class="wrap">
-    <div class="eyebrow rv"><span class="ar" lang="ar">زورونا</span> · Visit us</div>
-    <h2 class="gal__h rv" style="margin-top:1rem">Find us in <em>Al Safa.</em></h2>
+    <div class="eyebrow rv"><span class="en" lang="en">Visit us</span><span class="ar" lang="ar">زورونا</span></div>
+    <h2 class="gal__h rv" style="margin-top:1rem"><span class="en" lang="en">Find us in <em>Al Safa.</em></span><span class="ar" lang="ar">تجدوننا في <em>الصفا.</em></span></h2>
     <div class="loc__grid">
-      <div class="card rv" style="--d:80ms"><h4>Al Safa · Dubai</h4><p>Al Safa First · Al Wasl Road</p></div>
-      <div class="card rv" style="--d:160ms"><h4>Hours · <span lang="ar">ساعات العمل</span></h4><p>Sat–Wed · 11:00 – 19:00<br>Thu–Fri · 11:00 – 18:00</p></div>
-      <div class="card rv" style="--d:240ms"><h4>Direct</h4><p><a href="https://wa.me/96560072702" target="_blank" rel="noopener">Book on WhatsApp</a><br><a href="https://www.instagram.com/batoclinic/" target="_blank" rel="noopener">Instagram @batoclinic</a></p></div>
+      <div class="card rv" style="--d:80ms"><h4><span class="en" lang="en">Al Safa · Dubai</span><span class="ar" lang="ar">الصفا · دبي</span></h4><p><span class="en" lang="en">Al Safa First · Al Wasl Road</span><span class="ar" lang="ar">الصفا الأولى · شارع الوصل</span></p></div>
+      <div class="card rv" style="--d:160ms"><h4><span class="en" lang="en">Hours</span><span class="ar" lang="ar">ساعات العمل</span></h4><p><span class="en" lang="en">Sat–Wed · 11:00 – 19:00<br>Thu–Fri · 11:00 – 18:00</span><span class="ar" lang="ar">السبت–الأربعاء · <span class="num">١١:٠٠ – ١٩:٠٠</span><br>الخميس–الجمعة · <span class="num">١١:٠٠ – ١٨:٠٠</span></span></p></div>
+      <div class="card rv" style="--d:240ms"><h4><span class="en" lang="en">Direct</span><span class="ar" lang="ar">تواصل مباشر</span></h4><p><a href="https://wa.me/96560072702" target="_blank" rel="noopener"><span class="en" lang="en">Book on WhatsApp</span><span class="ar" lang="ar">احجزي عبر واتساب</span></a><br><a href="https://www.instagram.com/batoclinic/" target="_blank" rel="noopener"><span class="en" lang="en">Instagram @batoclinic</span><span class="ar" lang="ar">إنستغرام · <span class="num">@batoclinic</span></span></a></p></div>
     </div>
   </div>
 </section>
@@ -299,23 +329,24 @@ em{ font-style:italic; }
 <!-- CTA -->
 <section class="sec cta" aria-label="Book a consultation">
   <div class="wrap">
-    <div class="eyebrow rv" style="justify-content:center"><span class="ar" lang="ar">ابدئي</span> · Begin</div>
-    <h2 class="cta__h rv" style="margin-top:1.2rem">Begin with a quiet <em>reading.</em></h2>
-    <div class="cta__ar rv" style="--d:120ms" lang="ar">ابدئي بقراءة هادئة</div>
+    <div class="eyebrow rv" style="justify-content:center"><span class="en" lang="en">Begin</span><span class="ar" lang="ar">ابدئي</span></div>
+    <h2 class="cta__h rv" style="margin-top:1.2rem"><span class="en" lang="en">Begin with a quiet <em>reading.</em></span><span class="ar" lang="ar">ابدئي بقراءةٍ <em>هادئة.</em></span></h2>
     <div class="cta__actions rv" style="--d:220ms">
-      <a class="btn btn--solid" href="https://wa.me/96560072702" target="_blank" rel="noopener">Book on WhatsApp<span class="i" aria-hidden="true">↗</span></a>
-      <a class="btn btn--ghost" href="v4.html">Back to home<span class="i" aria-hidden="true">↗</span></a>
+      <a class="btn btn--solid" href="https://wa.me/96560072702" target="_blank" rel="noopener"><span class="en" lang="en">Book on WhatsApp</span><span class="ar" lang="ar">احجزي عبر واتساب</span><span class="i" aria-hidden="true">↗</span></a>
+      <a class="btn btn--ghost" href="v4.html"><span class="en" lang="en">Back to home</span><span class="ar" lang="ar">العودة للرئيسية</span><span class="i" aria-hidden="true">↗</span></a>
     </div>
   </div>
 </section>
 
 <footer class="foot">
   <div class="wrap">
-    <div class="foot__mark" lang="ar">باتو<em lang="en">Bato Medical Clinic</em></div>
+<div class="foot__mark foot__mark--logo"><span class="bato-wordmark" role="img" aria-label="BATO"></span></div>
     <div class="foot__legal">
-      Where beauty and health meet · <span lang="ar">حيث يلتقي الجمال والصحة</span><br>
+      <span class="en" lang="en">Where beauty and health meet<br>
       DHA Licence 5346564 · Al Safa First, Dubai<br>
-      © 2026 Bato Medical Clinic · <a href="v4.html">Home</a>
+      © 2026 Bato Medical Clinic · <a href="v4.html">Home</a></span><span class="ar" lang="ar">حيث يلتقي الجمال والصحة<br>
+      ترخيص هيئة الصحة بدبي <span class="num">٥٣٤٦٥٦٤</span> · الصفا الأولى، دبي<br>
+      © <span class="num">٢٠٢٦</span> مستوصف باتو الطبي · <a href="v4.html">الرئيسية</a></span>
     </div>
   </div>
 </footer>
@@ -333,5 +364,6 @@ em{ font-style:italic; }
   window.addEventListener('load', function(){ setTimeout(function(){ document.querySelectorAll('.rv:not(.in)').forEach(function(e){ e.classList.add('in'); }); }, 2200); });
 })();
 </script>
+<script>(function(){var btn=document.getElementById("langTog");if(!btn)return;var T={"ar": "عن باتو · مستوصف باتو الطبي · Bato Medical Clinic", "en": "About · Bato Medical Clinic · مستوصف باتو"};function apply(L,persist){var h=document.documentElement;h.setAttribute("lang",L);h.setAttribute("dir",L==="ar"?"rtl":"ltr");h.setAttribute("data-lang",L);btn.setAttribute("data-to",L==="ar"?"en":"ar");btn.setAttribute("aria-label",L==="ar"?"\u0627\u0644\u062a\u0628\u062f\u064a\u0644 \u0625\u0644\u0649 \u0627\u0644\u0625\u0646\u062c\u0644\u064a\u0632\u064a\u0629":"Switch to Arabic");if(T[L])document.title=T[L];var og=document.querySelector('meta[property="og:locale"]');if(og)og.setAttribute("content",L==="ar"?"ar_AE":"en_US");if(persist){try{localStorage.setItem("bato-lang",L);}catch(e){}}document.querySelectorAll("[data-ph-ar]").forEach(function(i){var v=i.getAttribute(L==="ar"?"data-ph-ar":"data-ph-en");if(v!=null)i.setAttribute("placeholder",v);});document.querySelectorAll("option[data-ar]").forEach(function(o){if(o.getAttribute("data-en")===null)o.setAttribute("data-en",o.textContent);o.textContent=L==="ar"?o.getAttribute("data-ar"):o.getAttribute("data-en");});}apply(document.documentElement.getAttribute("data-lang")||"ar",false);btn.addEventListener("click",function(){var n=document.documentElement.getAttribute("data-lang")==="ar"?"en":"ar";apply(n,true);});})();</script>
 </body>
 </html>

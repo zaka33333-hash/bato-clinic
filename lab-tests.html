@@ -1,9 +1,10 @@
 <!doctype html>
-<html lang="en">
+<html lang="ar" dir="rtl" data-lang="ar">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Lab tests · Bato Clinic · باتو</title>
+<script>(function(){try{var L=localStorage.getItem('bato-lang');if(L!=='en'&&L!=='ar')L='ar';var h=document.documentElement;h.setAttribute('lang',L);h.setAttribute('dir',L==='ar'?'rtl':'ltr');h.setAttribute('data-lang',L);}catch(e){}})();</script>
+<title>التحاليل · باتو · Lab tests · Bato Clinic</title>
 <meta name="description" content="Beauty starts within. Bloodwork, hormone and vitamin panels collected at the clinic and reviewed with you in Al Safa, Dubai. Book a consultation. DHA Licence 5346564.">
 <meta name="theme-color" content="#2c2318">
 <link rel="canonical" href="https://zaka33333-hash.github.io/bato-clinic/lab-tests.html">
@@ -15,8 +16,8 @@
 <meta property="og:description" content="Beauty starts within. Bloodwork, hormone and vitamin panels collected at the clinic and reviewed with you in Al Safa, Dubai. Book a consultation. DHA Licence 5346564.">
 <meta property="og:url" content="https://zaka33333-hash.github.io/bato-clinic/lab-tests.html">
 <meta property="og:image" content="https://zaka33333-hash.github.io/bato-clinic/assets/about-2.jpg">
-<meta property="og:locale" content="en_US">
-<meta property="og:locale:alternate" content="ar_AE">
+<meta property="og:locale" content="ar_AE">
+<meta property="og:locale:alternate" content="en_US">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Lab tests · Bato Clinic">
 <meta name="twitter:image" content="https://zaka33333-hash.github.io/bato-clinic/assets/about-2.jpg">
@@ -173,6 +174,37 @@ em{ font-style:italic; }
   .rv{ opacity:1!important; transform:none!important; transition:none!important; }
   .g-item img{ transition:none; }
 }
+
+/* ═══ BILINGUAL ENGINE (sub-page) ═══ */
+.en,.ar{ display:contents; }
+html[data-lang="ar"] .en{ display:none!important; }
+html[data-lang="en"] .ar{ display:none!important; }
+.num{ direction:ltr; unicode-bidi:isolate; font-variant-numeric:tabular-nums; }
+html[lang="ar"] body{ font-family:var(--kufi); font-weight:400; }
+html[lang="ar"]{ font-synthesis:none; }
+html[lang="ar"] .hero__h, html[lang="ar"] .story__h, html[lang="ar"] .cta__h, html[lang="ar"] .dept__n{ font-family:var(--kufi); font-weight:500; letter-spacing:0; font-style:normal; }
+html[lang="ar"] .story__p, html[lang="ar"] .measure, html[lang="ar"] .card p, html[lang="ar"] .dept__note, html[lang="ar"] .team__p{ font-family:var(--kufi); font-weight:400; line-height:1.7; letter-spacing:0; }
+html[lang="ar"] .eyebrow, html[lang="ar"] .nav__links, html[lang="ar"] .card h4, html[lang="ar"] .foot__legal, html[lang="ar"] .licencechip, html[lang="ar"] .hero__fig figcaption, html[lang="ar"] .g-item figcaption, html[lang="ar"] .btn, html[lang="ar"] .langtog, html[lang="ar"] .bignum .lab{ font-family:var(--kufi); text-transform:none; letter-spacing:.04em; }
+/* official BATO logo (mask + currentColor) */
+.bato-wordmark{ display:block; background:currentColor; -webkit-mask:url(assets/bato-wordmark.png) center/contain no-repeat; mask:url(assets/bato-wordmark.png) center/contain no-repeat; aspect-ratio:1300/545; }
+.nav__home .bato-wordmark{ width:clamp(74px,7vw,96px); color:#fff; }
+.foot__mark--logo{ display:flex; justify-content:center; } .foot__mark--logo .bato-wordmark{ width:min(54vw,280px); color:#e4dbd2; }
+.foot{ text-align:center; } .foot__legal{ text-align:center; }
+/* language toggle (sits in the nav) */
+.langtog{ display:inline-flex; align-items:center; gap:.45em; background:none; border:0; cursor:pointer; color:inherit; font-family:var(--mono); font-size:inherit; letter-spacing:.2em; text-transform:uppercase; padding:0; }
+.langtog .ar-opt{ font-family:var(--kufi); font-size:1.45em; line-height:1; }
+.langtog .langtog__sep{ opacity:.4; }
+html[data-lang="ar"] .langtog .ar-opt{ opacity:.45; } html[data-lang="ar"] .langtog .en-opt{ color:var(--amber); }
+html[data-lang="en"] .langtog .en-opt{ opacity:.45; } html[data-lang="en"] .langtog .ar-opt{ color:var(--amber); }
+.langtog:focus-visible{ outline:2px solid var(--amber); outline-offset:3px; border-radius:4px; }
+/* ═══ RTL overrides ═══ */
+html[dir="rtl"] .skip{ left:auto; right:14px; }
+html[dir="rtl"] .nav__links a::after{ left:auto; right:0; transform-origin:right; }
+html[dir="rtl"] .dept__row{ direction:rtl; }
+html[dir="rtl"] .card h4{ direction:rtl; text-align:right; }
+html[dir="rtl"] .licencechip{ direction:rtl; }
+html[dir="rtl"] .foot__legal{ direction:rtl; }
+html[dir="rtl"] .bignum{ direction:rtl; }
 </style>
 </head>
 <body>
@@ -181,35 +213,34 @@ em{ font-style:italic; }
 <div class="grain" aria-hidden="true"></div>
 
 <nav class="nav" aria-label="Primary">
-  <a class="nav__home" href="v4.html" aria-label="Bato Clinic home">
-    <span class="mk" lang="ar">باتو</span><span class="en">Bato Clinic</span>
-  </a>
+  <a class="nav__home" href="v4.html" aria-label="BATO — Health and Beauty"><span class="bato-wordmark" role="img" aria-label="BATO"></span></a>
   <div class="nav__links">
-    <a href="hair-treatment.html">Hair</a>
-    <a href="skin.html">Skin</a>
-    <a href="lab-tests.html">Lab tests</a>
-    <a href="about.html">About</a>
-    <a href="https://wa.me/96560072702" target="_blank" rel="noopener">Book</a>
+    <a href="hair-treatment.html"><span class="en" lang="en">Hair</span><span class="ar" lang="ar">الشعر</span></a>
+    <a href="skin.html"><span class="en" lang="en">Skin</span><span class="ar" lang="ar">البشرة</span></a>
+    <a href="lab-tests.html"><span class="en" lang="en">Lab tests</span><span class="ar" lang="ar">التحاليل</span></a>
+    <a href="about.html"><span class="en" lang="en">About</span><span class="ar" lang="ar">عن باتو</span></a>
+    <a href="https://wa.me/96560072702" target="_blank" rel="noopener"><span class="en" lang="en">Book</span><span class="ar" lang="ar">احجزي</span></a>
+    <button class="langtog" id="langTog" type="button" aria-label="Switch language" data-to="en"><span class="en-opt">EN</span><span class="langtog__sep">/</span><span class="ar-opt">ع</span></button>
   </div>
 </nav>
 
-<header class="hero"><div><div class="eyebrow rv"><span class="ar" lang="ar">من الداخل</span> · From within</div><h1 class="hero__h rv" style="--d:80ms">Beauty starts <em>within.</em></h1><div class="hero__ar rv" lang="ar" style="--d:160ms">الجمال يبدأ من الداخل</div><p class="measure hero__lede rv" style="--d:240ms">Bloodwork, hormones and vitamins shape your hair and your skin. We read the root causes within before we treat the outside, so every plan rests on what your body is actually telling us.</p><div class="cta__actions" style="justify-content:flex-start"><a class="btn btn--solid" href="https://wa.me/96560072702?text=Hello%20BATO%2C%20I%27d%20like%20to%20book%20a%20consultation%20for%20lab%20tests.">Book a consultation<span class="i" aria-hidden="true">↗</span></a></div><div class="licencechip rv" style="--d:320ms">DHA Licence · <b>5346564</b> <span lang="ar">هيئة الصحة بدبي</span></div></div><figure class="hero__fig rv"><picture><source type="image/avif" srcset="assets/about-7-760.avif 760w, assets/about-7-1200.avif 1200w" sizes="(max-width:920px) 92vw, 45vw"><source type="image/webp" srcset="assets/about-7-760.webp 760w, assets/about-7-1200.webp 1200w" sizes="(max-width:920px) 92vw, 45vw"><img src="assets/about-7.jpg" alt="Quiet consultation room at BATO Clinic in Al Safa, Dubai" loading="eager" decoding="async"></picture><figcaption>Al Safa · the consultation</figcaption></figure></header>
+<header class="hero"><div><div class="eyebrow rv"><span class="en" lang="en">From within</span><span class="ar" lang="ar">من الداخل</span></div><h1 class="hero__h rv" style="--d:80ms"><span class="en" lang="en">Beauty starts <em>within.</em></span><span class="ar" lang="ar">الجمال يبدأ <em>من الداخل.</em></span></h1><p class="measure hero__lede rv" style="--d:240ms"><span class="en" lang="en">Bloodwork, hormones and vitamins shape your hair and your skin. We read the root causes within before we treat the outside, so every plan rests on what your body is actually telling us.</span><span class="ar" lang="ar">تحاليل الدم والهرمونات والفيتامينات تُشكّل شعركِ وبشرتكِ. نفحص الأسباب من الداخل قبل أن نعالج الظاهر، حتى تقوم كل خطة على ما يخبرنا به جسمكِ فعلاً.</span></p><div class="cta__actions" style="justify-content:flex-start"><a class="btn btn--solid" href="https://wa.me/96560072702?text=Hello%20BATO%2C%20I%27d%20like%20to%20book%20a%20consultation%20for%20lab%20tests."><span class="en" lang="en">Book a consultation</span><span class="ar" lang="ar">احجزي استشارتك</span><span class="i" aria-hidden="true">↗</span></a></div><div class="licencechip rv" style="--d:320ms"><span class="en" lang="en">DHA Licence · <b><span class="num">5346564</span></b></span><span class="ar" lang="ar">ترخيص هيئة الصحة بدبي · <b><span class="num">٥٣٤٦٥٦٤</span></b></span></div></div><figure class="hero__fig rv"><picture><source type="image/avif" srcset="assets/about-7-760.avif 760w, assets/about-7-1200.avif 1200w" sizes="(max-width:920px) 92vw, 45vw"><source type="image/webp" srcset="assets/about-7-760.webp 760w, assets/about-7-1200.webp 1200w" sizes="(max-width:920px) 92vw, 45vw"><img src="assets/about-7.jpg" alt="Quiet consultation room at BATO Clinic in Al Safa, Dubai" loading="eager" decoding="async"></picture><figcaption><span class="en" lang="en">Al Safa · the consultation</span><span class="ar" lang="ar">الصفا · الاستشارة</span></figcaption></figure></header>
 
-<section class="sec story"><div class="wrap"><div class="story__body"><div class="eyebrow rv"><span class="ar" lang="ar">المنهج</span> · The rationale</div><h2 class="story__h rv" style="--d:80ms">We read the <em>root</em>, not only the surface.</h2><p class="story__p rv" style="--d:160ms">At BATO, true beauty starts from within and shows on the outside. Hair that thins and skin that loses its calm often trace back to something internal: a vitamin running low, a hormone out of balance, an iron level that quietly dropped. Treating the surface alone leaves that cause untouched.</p><p class="story__p rv" style="--d:240ms">That is why diagnostics sit beside our hair and skin care. Your results are read and explained, and a plan follows from there. We make no promises about results. We make a careful, honest start.</p></div></div></section>
+<section class="sec story"><div class="wrap"><div class="story__body"><div class="eyebrow rv"><span class="en" lang="en">The rationale</span><span class="ar" lang="ar">المنهج</span></div><h2 class="story__h rv" style="--d:80ms"><span class="en" lang="en">We read the <em>root</em>, not only the surface.</span><span class="ar" lang="ar">نقرأ <em>الجذر</em>، لا السطح وحده.</span></h2><p class="story__p rv" style="--d:160ms"><span class="en" lang="en">At BATO, true beauty starts from within and shows on the outside. Hair that thins and skin that loses its calm often trace back to something internal: a vitamin running low, a hormone out of balance, an iron level that quietly dropped. Treating the surface alone leaves that cause untouched.</span><span class="ar" lang="ar">في باتو، يبدأ الجمال الحقيقي من الداخل ثم يظهر على الخارج. تساقط الشعر وفقدان البشرة هدوءها كثيراً ما يعودان إلى سبب داخلي: فيتامين منخفض، أو هرمون فقد توازنه، أو مستوى حديد تراجع بهدوء. ومعالجة السطح وحده تترك ذلك السبب دون أن نمسّه.</span></p><p class="story__p rv" style="--d:240ms"><span class="en" lang="en">That is why diagnostics sit beside our hair and skin care. Your results are read and explained, and a plan follows from there. We make no promises about results. We make a careful, honest start.</span><span class="ar" lang="ar">لذلك تقف التحاليل إلى جانب عنايتنا بالشعر والبشرة. يُقرأ فريقنا الطبي نتائجكِ ويشرحها لكِ، ومنها تنطلق الخطة. لا نقطع وعوداً بالنتائج، بل نبدأ بداية صادقة ومتأنّية.</span></p></div></div></section>
 
-<section class="sec"><div class="wrap"><div class="eyebrow rv"><span class="ar" lang="ar">التحاليل</span> · What we read</div><div class="dept__grid rv" style="--d:80ms"><div class="dept__row"><span class="dept__n">Vitamin D</span><span class="dept__ar" lang="ar">فيتامين د · أساس للشعر والطاقة</span></div><div class="dept__row"><span class="dept__n">Iron & Ferritin</span><span class="dept__ar" lang="ar">الحديد والفيريتين · مخزون الجسم</span></div><div class="dept__row"><span class="dept__n">Vitamin B12</span><span class="dept__ar" lang="ar">فيتامين ب12 · للحيوية والنمو</span></div><div class="dept__row"><span class="dept__n">Zinc</span><span class="dept__ar" lang="ar">الزنك · لصحة الشعر والبشرة</span></div><div class="dept__row"><span class="dept__n">Complete blood count</span><span class="dept__ar" lang="ar">صورة الدم الكاملة · لمحة عامة</span></div><div class="dept__row"><span class="dept__n">Thyroid (TSH)</span><span class="dept__ar" lang="ar">الغدة الدرقية · توازن الهرمونات</span></div><div class="dept__row"><span class="dept__n">Testosterone</span><span class="dept__ar" lang="ar">التستوستيرون · مؤشر هرموني</span></div><div class="dept__row"><span class="dept__n">Vitamin panel</span><span class="dept__ar" lang="ar">باقة الفيتامينات · قراءة موسّعة</span></div><div class="dept__row"><span class="dept__n">Hormone panel</span><span class="dept__ar" lang="ar">باقة الهرمونات · صورة أعمق</span></div></div><p class="dept__note rv" style="--d:160ms">Samples are collected at the clinic, sent to an accredited laboratory, and reviewed with you.</p></div></section>
+<section class="sec"><div class="wrap"><div class="eyebrow rv"><span class="en" lang="en">What we read</span><span class="ar" lang="ar">التحاليل</span></div><div class="dept__grid rv" style="--d:80ms"><div class="dept__row"><span class="dept__n"><span class="en" lang="en">Vitamin D</span><span class="ar" lang="ar">فيتامين د</span></span><span class="dept__ar"><span class="en" lang="en">A base for hair and energy</span><span class="ar" lang="ar">أساس للشعر والطاقة</span></span></div><div class="dept__row"><span class="dept__n"><span class="en" lang="en">Iron & Ferritin</span><span class="ar" lang="ar">الحديد والفيريتين</span></span><span class="dept__ar"><span class="en" lang="en">The body's reserve</span><span class="ar" lang="ar">مخزون الجسم</span></span></div><div class="dept__row"><span class="dept__n"><span class="en" lang="en">Vitamin B12</span><span class="ar" lang="ar">فيتامين ب١٢</span></span><span class="dept__ar"><span class="en" lang="en">For vitality and growth</span><span class="ar" lang="ar">للحيوية والنمو</span></span></div><div class="dept__row"><span class="dept__n"><span class="en" lang="en">Zinc</span><span class="ar" lang="ar">الزنك</span></span><span class="dept__ar"><span class="en" lang="en">For hair and skin health</span><span class="ar" lang="ar">لصحة الشعر والبشرة</span></span></div><div class="dept__row"><span class="dept__n"><span class="en" lang="en">Complete blood count</span><span class="ar" lang="ar">صورة الدم الكاملة</span></span><span class="dept__ar"><span class="en" lang="en">An overall view</span><span class="ar" lang="ar">لمحة عامة</span></span></div><div class="dept__row"><span class="dept__n"><span class="en" lang="en">Thyroid (TSH)</span><span class="ar" lang="ar">الغدة الدرقية</span></span><span class="dept__ar"><span class="en" lang="en">Hormone balance</span><span class="ar" lang="ar">توازن الهرمونات</span></span></div><div class="dept__row"><span class="dept__n"><span class="en" lang="en">Testosterone</span><span class="ar" lang="ar">التستوستيرون</span></span><span class="dept__ar"><span class="en" lang="en">A hormonal marker</span><span class="ar" lang="ar">مؤشر هرموني</span></span></div><div class="dept__row"><span class="dept__n"><span class="en" lang="en">Vitamin panel</span><span class="ar" lang="ar">باقة الفيتامينات</span></span><span class="dept__ar"><span class="en" lang="en">A wider reading</span><span class="ar" lang="ar">قراءة موسّعة</span></span></div><div class="dept__row"><span class="dept__n"><span class="en" lang="en">Hormone panel</span><span class="ar" lang="ar">باقة الهرمونات</span></span><span class="dept__ar"><span class="en" lang="en">A deeper picture</span><span class="ar" lang="ar">صورة أعمق</span></span></div></div><p class="dept__note rv" style="--d:160ms"><span class="en" lang="en">Samples are collected at the clinic, sent to an accredited laboratory, and reviewed with you.</span><span class="ar" lang="ar">تُجمَع العيّنات في العيادة، وتُرسَل إلى مختبر معتمد، ثم تُراجَع معكِ.</span></p></div></section>
 
-<section class="sec loc"><div class="wrap"><div class="eyebrow rv"><span class="ar" lang="ar">كيف تسير الخطوات</span> · How it works</div><div class="loc__grid"><div class="card rv" style="--d:80ms"><h4>01 · Consult</h4><p>You sit with our team. We talk through your concerns, your history and what your hair or skin has been doing.</p></div><div class="card rv" style="--d:160ms"><h4>02 · Sample</h4><p>A simple sample is collected at the clinic and sent to a licensed laboratory for the panel we agreed on.</p></div><div class="card rv" style="--d:240ms"><h4>03 · Read</h4><p>Your results are reviewed with you, what each one means is explained, and a plan follows from there.</p></div></div></div></section>
+<section class="sec loc"><div class="wrap"><div class="eyebrow rv"><span class="en" lang="en">How it works</span><span class="ar" lang="ar">كيف تسير الخطوات</span></div><div class="loc__grid"><div class="card rv" style="--d:80ms"><h4><span class="en" lang="en">01 · Consult</span><span class="ar" lang="ar"><span class="num">٠١</span> · الاستشارة</span></h4><p><span class="en" lang="en">You sit with our team. We talk through your concerns, your history and what your hair or skin has been doing.</span><span class="ar" lang="ar">تجلسين مع فريقنا الطبي. نتحدّث معكِ عمّا يشغلكِ، وعن تاريخكِ، وما طرأ على شعركِ أو بشرتكِ.</span></p></div><div class="card rv" style="--d:160ms"><h4><span class="en" lang="en">02 · Sample</span><span class="ar" lang="ar"><span class="num">٠٢</span> · العيّنة</span></h4><p><span class="en" lang="en">A simple sample is collected at the clinic and sent to a licensed laboratory for the panel we agreed on.</span><span class="ar" lang="ar">تُؤخَذ عيّنة بسيطة في العيادة وتُرسَل إلى مختبر مرخّص لإجراء الباقة التي اتفقنا عليها.</span></p></div><div class="card rv" style="--d:240ms"><h4><span class="en" lang="en">03 · Read</span><span class="ar" lang="ar"><span class="num">٠٣</span> · القراءة</span></h4><p><span class="en" lang="en">Your results are reviewed with you, what each one means is explained, and a plan follows from there.</span><span class="ar" lang="ar">نراجع نتائجكِ معكِ، ونشرح ما يعنيه كل مؤشّر، ومنها تنطلق الخطة، تحت إشراف طبي.</span></p></div></div></div></section>
 
-<section class="sec cta"><div class="wrap"><div class="eyebrow rv" style="justify-content:center"><span class="ar" lang="ar">العناية تبدأ من الداخل</span> · Care starts within</div><h2 class="cta__h rv">Read first, <em>then treat.</em></h2><div class="cta__ar rv" lang="ar">نقرأ أولاً، ثم نعالج</div><div class="cta__actions rv"><a class="btn btn--solid" href="https://wa.me/96560072702?text=Hello%20BATO%2C%20I%27d%20like%20to%20book%20a%20consultation%20for%20lab%20tests.">Book a consultation<span class="i" aria-hidden="true">↗</span></a><a class="btn btn--ghost" href="v4.html">Back to home<span class="i" aria-hidden="true">↗</span></a></div></div></section>
+<section class="sec cta"><div class="wrap"><div class="eyebrow rv" style="justify-content:center"><span class="en" lang="en">Care starts within</span><span class="ar" lang="ar">العناية تبدأ من الداخل</span></div><h2 class="cta__h rv"><span class="en" lang="en">Read first, <em>then treat.</em></span><span class="ar" lang="ar">نفحص أولاً، <em>ثم نعالج.</em></span></h2><div class="cta__actions rv"><a class="btn btn--solid" href="https://wa.me/96560072702?text=Hello%20BATO%2C%20I%27d%20like%20to%20book%20a%20consultation%20for%20lab%20tests."><span class="en" lang="en">Book a consultation</span><span class="ar" lang="ar">احجزي استشارتك</span><span class="i" aria-hidden="true">↗</span></a><a class="btn btn--ghost" href="v4.html"><span class="en" lang="en">Back to home</span><span class="ar" lang="ar">العودة للرئيسية</span><span class="i" aria-hidden="true">↗</span></a></div></div></section>
 
   <footer class="foot">
   <div class="wrap">
     <div class="foot__mark" lang="ar">باتو<em lang="en">Bato Medical Clinic</em></div>
     <div class="foot__legal">
-      Where beauty and health meet · <span lang="ar">حيث يلتقي الجمال والصحة</span><br>
-      DHA Licence 5346564 · Al Safa First, Dubai<br>
-      © 2026 Bato Medical Clinic · <a href="v4.html">Home</a>
+      <span class="en" lang="en">Where beauty and health meet</span><span class="ar" lang="ar">حيث يلتقي الجمال والصحة</span><br>
+      <span class="en" lang="en">DHA Licence 5346564 · Al Safa First, Dubai</span><span class="ar" lang="ar">ترخيص هيئة الصحة بدبي <span class="num">٥٣٤٦٥٦٤</span> · الصفا الأولى، دبي</span><br>
+      <span class="en" lang="en">© 2026 Bato Medical Clinic</span><span class="ar" lang="ar">© <span class="num">٢٠٢٦</span> عيادة باتو الطبية</span> · <a href="v4.html"><span class="en" lang="en">Home</span><span class="ar" lang="ar">الرئيسية</span></a>
     </div>
   </div>
 </footer>
@@ -227,5 +258,6 @@ em{ font-style:italic; }
   window.addEventListener('load', function(){ setTimeout(function(){ document.querySelectorAll('.rv:not(.in)').forEach(function(e){ e.classList.add('in'); }); }, 2200); });
 })();
 </script>
+<script>(function(){var btn=document.getElementById("langTog");if(!btn)return;var T={"ar": "التحاليل · باتو · Lab tests · Bato Clinic", "en": "Lab tests · Bato Clinic · باتو"};function apply(L,persist){var h=document.documentElement;h.setAttribute("lang",L);h.setAttribute("dir",L==="ar"?"rtl":"ltr");h.setAttribute("data-lang",L);btn.setAttribute("data-to",L==="ar"?"en":"ar");btn.setAttribute("aria-label",L==="ar"?"\u0627\u0644\u062a\u0628\u062f\u064a\u0644 \u0625\u0644\u0649 \u0627\u0644\u0625\u0646\u062c\u0644\u064a\u0632\u064a\u0629":"Switch to Arabic");if(T[L])document.title=T[L];var og=document.querySelector('meta[property="og:locale"]');if(og)og.setAttribute("content",L==="ar"?"ar_AE":"en_US");if(persist){try{localStorage.setItem("bato-lang",L);}catch(e){}}document.querySelectorAll("[data-ph-ar]").forEach(function(i){var v=i.getAttribute(L==="ar"?"data-ph-ar":"data-ph-en");if(v!=null)i.setAttribute("placeholder",v);});document.querySelectorAll("option[data-ar]").forEach(function(o){if(o.getAttribute("data-en")===null)o.setAttribute("data-en",o.textContent);o.textContent=L==="ar"?o.getAttribute("data-ar"):o.getAttribute("data-en");});}apply(document.documentElement.getAttribute("data-lang")||"ar",false);btn.addEventListener("click",function(){var n=document.documentElement.getAttribute("data-lang")==="ar"?"en":"ar";apply(n,true);});})();</script>
 </body>
 </html>
