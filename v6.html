@@ -257,7 +257,7 @@ html[data-lang="ar"] .foot__col h4{ font-family:var(--ar-sans); letter-spacing:.
 <body class="no-js">
 
 <!-- ============================================================ NAV -->
-<nav class="nav" id="nav">
+<nav class="nav is-hidden" id="nav">
   <a class="nav__brand" href="#top" aria-label="BATO"></a>
   <div class="nav__links">
     <a class="nav__hideable" href="hair-treatment.html"><span class="en-i">Hair</span><span class="ar-i">الشعر</span></a>
@@ -274,10 +274,6 @@ html[data-lang="ar"] .foot__col h4{ font-family:var(--ar-sans); letter-spacing:.
 
 <!-- ============================================================ 1 · INTRO -->
 <section class="intro" id="intro" data-theme="light">
-  <div class="intro__top">
-    <span class="frame-label"><span class="en-i">BATO — Medical Aesthetics</span><span class="ar-i">باتو — طب وتجميل</span></span>
-    <span class="frame-label"><span class="en-i">Al Safa · Dubai</span><span class="ar-i">الصفا · دبي</span></span>
-  </div>
   <canvas class="intro__dna" id="dna" aria-hidden="true"></canvas>
   <div class="intro__stage">
     <div class="intro__word" role="img" aria-label="BATO">
@@ -542,12 +538,15 @@ window.addEventListener('load', function(){
   setTimeout(function(){ document.querySelectorAll('[data-reveal], .lines').forEach(function(e){ e.classList.add('in'); }); }, 2600);
 
   /* nav hide + parallax */
-  var nav=document.getElementById('nav'), last=0;
+  var nav=document.getElementById('nav'), last=0, introEl=document.querySelector('.intro');
   var heroImg=document.querySelector('.hero__media img');
   var atmos=document.querySelector('.atmos'), atmosImg=document.querySelector('.atmos__media img');
   var hero=document.querySelector('.hero');
   function frame(y){
-    if(y>last && y>240) nav.classList.add('is-hidden'); else nav.classList.remove('is-hidden');
+    var ih=introEl?introEl.offsetHeight:window.innerHeight;
+    if(y<ih*0.55) nav.classList.add('is-hidden');            // hidden during the splash intro
+    else if(y>last && y>ih) nav.classList.add('is-hidden');  // hide when scrolling down past it
+    else nav.classList.remove('is-hidden');
     last=y;
     var vh=window.innerHeight;
     if(heroImg&&hero){ var p=hero.getBoundingClientRect().top/vh; heroImg.style.transform='scale(1.12) translateY('+(p*-6).toFixed(2)+'%)'; }
