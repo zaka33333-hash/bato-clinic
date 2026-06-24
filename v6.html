@@ -173,6 +173,7 @@ section{ position:relative; }
 .intro__word.themed .ltr{ filter:invert(1); }       /* white letters → reads black on light, white on dark */
 .ltr{ height:clamp(140px,40vh,360px); width:auto; max-width:none; flex:0 0 auto; will-change:transform; }   /* never let flex shrink or max-width clamp squeeze the letter images (was stretching the morphed logo on narrow viewports) */
 .intro__dna{ position:absolute; top:0; left:0; width:100vw; height:100svh; z-index:3; pointer-events:none; }
+.intro__dna img,.intro__dna video{ position:absolute; top:50%; left:50%; height:132vh; width:auto; max-width:none; transform:translate(-50%,-50%) rotate(-20deg); mix-blend-mode:multiply; -webkit-mask:linear-gradient(transparent 0%, #000 14%, #000 86%, transparent 100%); mask:linear-gradient(transparent 0%, #000 14%, #000 86%, transparent 100%); }
 .intro__top{ position:absolute; top:clamp(86px,11vh,140px); left:var(--pad); right:var(--pad); display:flex; justify-content:space-between; z-index:4; }
 .intro__eyebrow{ position:absolute; bottom:clamp(86px,13vh,140px); left:0; right:0; z-index:4; }
 .intro__cue{
@@ -184,43 +185,37 @@ html[data-lang="ar"] .intro__cue{ font-family:var(--ar-sans); letter-spacing:.02
 .intro__cue .bar{ width:1px; height:46px; background:var(--gold); transform-origin:top; animation:cue 2.4s var(--ease-in-out) infinite; }
 @keyframes cue{ 0%,100%{ transform:scaleY(.3); opacity:.4 } 50%{ transform:scaleY(1); opacity:1 } }
 
-/* ============================================================ 2 · HERO (light editorial split — text · villa) */
-.hero{ min-height:100svh; background:var(--paper); position:relative; overflow:hidden;
-  display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1.04fr); }
-.hero__inner{ grid-column:1; grid-row:1; position:relative; z-index:2; min-width:0;
-  display:flex; flex-direction:column; justify-content:center;
-  padding:clamp(92px,12vh,150px) clamp(26px,4.4vw,80px) clamp(40px,7vh,90px); color:var(--ink); }
-.hero__media{ grid-column:2; grid-row:1; position:relative; overflow:hidden; }
-/* grid line numbers already mirror in RTL (col 1 = start = right in Arabic), so text↔image swap is automatic */
-.hero__media picture{ position:absolute; inset:0; display:block; }
-.hero__media img{ width:100%; height:100%; object-fit:cover; object-position:50% 50%; transform:scale(1.04); }
-.hero__media::after{ content:""; position:absolute; inset:0; pointer-events:none; box-shadow:inset 0 0 140px rgba(20,13,7,.16); }
-/* eyebrow · headline · cta — dark ink on paper */
+/* ============================================================ 2 · HERO (light · text above, villa cut-out floating on white) */
+.hero{ min-height:100svh; background:var(--paper); position:relative; overflow:hidden; display:flex; flex-direction:column; }
+.hero__inner{ position:relative; z-index:2; flex:0 0 auto; width:100%; max-width:var(--maxw); margin:0 auto;
+  padding:clamp(104px,14vh,168px) var(--pad) clamp(12px,2vh,26px); color:var(--ink); }
 .hero__eyebrow{ color:var(--gold-deep); }
 .hero__eyebrow::before{ background:var(--gold); }
-.hero__h{ font-size:clamp(2.5rem,4.4vw,5.6rem); margin:.42em 0 0; max-width:13ch; color:var(--ink); line-height:1.0; }
+.hero__h{ font-size:clamp(2.4rem,4.6vw,5rem); margin:.4em 0 0; max-width:16ch; color:var(--ink); line-height:1.0; }
 .hero__h em{ color:var(--gold-deep); font-style:italic; }
-html[data-lang="ar"] .hero__h{ max-width:15ch; line-height:1.18; }
+html[data-lang="ar"] .hero__h{ max-width:18ch; line-height:1.16; }
 html[data-lang="ar"] .hero__h em{ font-style:normal; color:var(--gold-deep); }
-.hero__cta{ display:flex; gap:14px 22px; flex-wrap:wrap; align-items:center; margin-top:clamp(28px,4.2vh,50px); }
-/* kept for compatibility; the secondary action is a bordered button here */
+.hero__cta{ display:flex; gap:14px 22px; flex-wrap:wrap; align-items:center; margin-top:clamp(26px,3.6vh,44px); }
 .hero__textlink{ display:inline-flex; align-items:center; gap:.7em; font-family:var(--sans); font-size:13px; letter-spacing:.08em; text-transform:uppercase; color:var(--ink); }
 html[data-lang="ar"] .hero__textlink{ font-family:var(--ar-sans); letter-spacing:0; text-transform:none; font-size:15px; }
 .hero__bare-i{ width:30px; height:1px; background:var(--gold-deep); opacity:.8; transition:width .45s var(--ease); }
 .hero__textlink:hover .hero__bare-i{ width:50px; opacity:1; }
-/* place + compliance, small, under the content */
-.hero__meta{ margin-top:clamp(30px,5vh,58px); display:flex; align-items:center; gap:.7em;
+.hero__meta{ margin-top:clamp(24px,4vh,46px); display:flex; align-items:center; gap:.7em;
   font-family:var(--sans); font-weight:500; font-size:11px; letter-spacing:.18em; text-transform:uppercase; color:var(--faint); }
 html[data-lang="ar"] .hero__meta{ font-family:var(--ar-sans); letter-spacing:.02em; text-transform:none; font-size:12.5px; }
 .hero__meta::before{ content:""; width:26px; height:1px; background:var(--line); flex:0 0 auto; }
 .hero__meta .num{ letter-spacing:.1em; }
-/* mobile: stack — villa band on top, content on paper below */
+/* the villa, cut out, floating across the bottom on white — in-flow so it never overlaps the text */
+.hero__media{ position:relative; z-index:1; flex:1 1 auto; min-height:0; pointer-events:none; }
+.hero__media picture{ display:block; width:100%; height:100%; }
+.hero__media img{ width:100%; height:100%; object-fit:contain; object-position:bottom center; filter:drop-shadow(0 26px 56px rgba(20,13,7,.10)); }
+/* clean white floor so the soft cut-out base melts away */
+.hero::after{ content:""; position:absolute; left:0; right:0; bottom:0; height:84px; z-index:1; pointer-events:none;
+  background:linear-gradient(to top, var(--paper) 14%, rgba(255,255,255,0)); }
 @media(max-width:860px){
-  .hero{ grid-template-columns:1fr; grid-template-rows:44svh 1fr; }
-  .hero__media{ grid-column:1; grid-row:1; }
-  .hero__inner{ grid-column:1; grid-row:2; justify-content:center; padding:clamp(30px,5vh,54px) var(--pad) clamp(48px,8vh,76px); }
-  .hero__media img{ object-position:50% 44%; }
-  .hero__h{ font-size:clamp(2.3rem,8.2vw,3.6rem); max-width:18ch; }
+  .hero__inner{ padding-top:clamp(98px,15vh,140px); }
+  .hero__media{ height:42vh; }
+  .hero__h{ font-size:clamp(2.2rem,8vw,3.5rem); max-width:18ch; }
 }
 
 /* ============================================================ 3 · MANIFESTO */
@@ -404,7 +399,7 @@ html[data-lang="ar"] .menu__contact{ font-family:var(--ar-sans); }
 
 <!-- ============================================================ 1 · INTRO -->
 <section class="intro" id="intro" data-theme="light">
-  <canvas class="intro__dna" id="dna" aria-hidden="true"></canvas>
+  <div class="intro__dna" id="dna" aria-hidden="true"><video src="assets/dna-helix.mp4" autoplay loop muted playsinline poster="assets/dna-helix.png"></video></div>
   <div class="intro__stage">
     <div class="intro__word" role="img" aria-label="BATO">
       <img class="ltr" data-x="-26vw" src="assets/bato-B.png" alt="">
@@ -424,13 +419,6 @@ html[data-lang="ar"] .menu__contact{ font-family:var(--ar-sans); }
 
 <!-- ============================================================ 2 · HERO -->
 <section class="hero" id="hero" data-theme="light">
-  <div class="hero__media" data-parallax>
-    <picture>
-      <source type="image/webp" srcset="assets/clinic-tall-768.webp 768w, assets/clinic-tall-1242.webp 1242w, assets/clinic-tall-1600.webp 1600w">
-      <img src="assets/clinic-tall-1080.jpg" alt="BATO — the clinic villa in Al Safa, Dubai" loading="eager" fetchpriority="high" width="607" height="1080">
-    </picture>
-  </div>
-
   <div class="hero__inner">
     <div class="eyebrow hero__eyebrow" data-reveal style="--d:120ms"><span class="en-i">Where beauty starts with health</span><span class="ar-i">حيث يبدأ الجمال بالصحة</span></div>
     <h2 class="hero__h serif lines">
@@ -445,6 +433,13 @@ html[data-lang="ar"] .menu__contact{ font-family:var(--ar-sans); }
       <span class="en-i">Al&nbsp;Safa, Dubai&nbsp;&nbsp;·&nbsp;&nbsp;DHA Licence&nbsp;<span class="num">5346564</span></span>
       <span class="ar-i">الصفا، دبي&nbsp;&nbsp;·&nbsp;&nbsp;ترخيص هيئة الصحة بدبي&nbsp;<span class="num">5346564</span></span>
     </div>
+  </div>
+
+  <div class="hero__media" data-reveal style="--d:200ms" aria-hidden="true">
+    <picture>
+      <source type="image/webp" srcset="assets/villa-cutout.webp">
+      <img src="assets/villa-cutout.png" alt="BATO — the clinic villa in Al Safa, Dubai" loading="eager" fetchpriority="high" width="2000" height="857">
+    </picture>
   </div>
 </section>
 
@@ -620,7 +615,7 @@ html[data-lang="ar"] .menu__contact{ font-family:var(--ar-sans); }
   if(canvas && canvas.tagName==='CANVAS' && window.THREE){
     var renderer=new THREE.WebGLRenderer({canvas:canvas,alpha:true,antialias:true});
     renderer.setPixelRatio(Math.min(window.devicePixelRatio||1,1.75));
-    renderer.toneMapping=THREE.ACESFilmicToneMapping; renderer.toneMappingExposure=0.88;
+    renderer.toneMapping=THREE.NoToneMapping;
     renderer.outputEncoding=THREE.sRGBEncoding;
     var scene=new THREE.Scene();
     var camera=new THREE.PerspectiveCamera(30,1,0.1,100); camera.position.set(0,0,25);
@@ -642,26 +637,33 @@ html[data-lang="ar"] .menu__contact{ font-family:var(--ar-sans); }
     var glint=new THREE.PointLight(0xfff4d6,0.6); glint.position.set(2,3,8); scene.add(glint);
     var tilt=new THREE.Group(); tilt.rotation.z=0.52; tilt.rotation.x=-0.05; scene.add(tilt);
     var grp=new THREE.Group(); tilt.add(grp);
-    /* ---------- 3D metallic-gold ball-and-stick double-helix ---------- */
-    var matA=new THREE.MeshStandardMaterial({color:0xB07811,metalness:1.0,roughness:0.20,envMapIntensity:1.35});
-    var matB=new THREE.MeshStandardMaterial({color:0xDBA82E,metalness:1.0,roughness:0.10,envMapIntensity:1.5});
-    var matR=new THREE.MeshStandardMaterial({color:0xA1740F,metalness:1.0,roughness:0.30,envMapIntensity:1.2});
-    var sphere=new THREE.SphereGeometry(0.40,30,30);
-    var N=44,turns=3.2,H=17,rad=1.65;
-    var rungGeo=new THREE.CylinderGeometry(0.072,0.072,rad*2,12); /* paired beads are 2*rad apart → one shared geometry */
-    var up=new THREE.Vector3(0,1,0);
-    for(var i=0;i<N;i++){ var f=i/(N-1),y=(f-0.5)*H,ang=f*Math.PI*2*turns;
-      var p1=new THREE.Vector3(Math.cos(ang)*rad,y,Math.sin(ang)*rad);
-      var p2=new THREE.Vector3(Math.cos(ang+Math.PI)*rad,y,Math.sin(ang+Math.PI)*rad);
-      var s1=new THREE.Mesh(sphere,matA); s1.position.copy(p1); grp.add(s1);
-      var s2=new THREE.Mesh(sphere,matB); s2.position.copy(p2); grp.add(s2);
-      var r=new THREE.Mesh(rungGeo,matR); r.position.copy(p1).add(p2).multiplyScalar(0.5);
-      r.quaternion.setFromUnitVectors(up,new THREE.Vector3().subVectors(p2,p1).normalize()); grp.add(r); }
+    /* ---------- flowing gold particle DNA (MYDNA-inspired) ---------- */
+    var COUNT=15000, turns=3.2, H=18, rad=1.7;
+    var pos=new Float32Array(COUNT*3), seed=new Float32Array(COUNT*3), rnd=new Float32Array(COUNT*2);
+    for(var i=0;i<COUNT;i++){
+      var f=Math.random(), strand=Math.random()<0.5?0:Math.PI, rg=Math.random()<0.16;
+      var y=(f-0.5)*H, ang=f*Math.PI*2*turns+strand, r=rad;
+      if(rg){ ang=f*Math.PI*2*turns; r=rad*(Math.random()*2-1); }
+      var bx=Math.cos(ang)*r, bz=Math.sin(ang)*r, sc=0.06+Math.pow(Math.random(),3.0)*0.7;
+      seed[i*3]=bx; seed[i*3+1]=y; seed[i*3+2]=bz;
+      pos[i*3]=bx+(Math.random()-0.5)*sc; pos[i*3+1]=y+(Math.random()-0.5)*sc; pos[i*3+2]=bz+(Math.random()-0.5)*sc;
+      rnd[i*2]=Math.random()*6.2832; rnd[i*2+1]=Math.random();
+    }
+    var pgeo=new THREE.BufferGeometry();
+    pgeo.setAttribute('position',new THREE.BufferAttribute(pos,3));
+    pgeo.setAttribute('aSeed',new THREE.BufferAttribute(seed,3));
+    pgeo.setAttribute('aRnd',new THREE.BufferAttribute(rnd,2));
+    var pmat=new THREE.ShaderMaterial({ transparent:true, depthWrite:false, depthTest:false, blending:THREE.NormalBlending,
+      uniforms:{ uTime:{value:0}, uSize:{value:650.0}, uColor:{value:new THREE.Color(0xa9781b)}, uColor2:{value:new THREE.Color(0xe9c56b)} },
+      vertexShader:'uniform float uTime; uniform float uSize; attribute vec3 aSeed; attribute vec2 aRnd; varying float vMix; varying float vTw; void main(){ float t=uTime+aRnd.x; vec3 d=vec3(sin(t*0.7+aSeed.y*0.6),cos(t*0.85+aSeed.x*0.5),sin(t*0.6+aSeed.z*0.7)); vec3 p=aSeed+d*(0.06+aRnd.y*0.5); vec4 mv=modelViewMatrix*vec4(p,1.0); gl_Position=projectionMatrix*mv; gl_PointSize=uSize*(0.5+aRnd.y*1.1)/max(0.1,-mv.z); vMix=aRnd.y; vTw=0.5+0.5*sin(t*1.6); }',
+      fragmentShader:'precision mediump float; uniform vec3 uColor; uniform vec3 uColor2; varying float vMix; varying float vTw; void main(){ vec2 c=gl_PointCoord-0.5; float rr=length(c); if(rr>0.5) discard; float a=smoothstep(0.5,0.0,rr); vec3 col=mix(uColor,uColor2,vMix*vTw); gl_FragColor=vec4(col, a*(0.34+vTw*0.5)); }'
+    });
+    var points=new THREE.Points(pgeo,pmat); grp.add(points);
     /* diagonal tilt is applied by the parent group; grp only spins on its own axis */
     var rot=0,lw=0,lh=0;
     function fit(){ var b=canvas.getBoundingClientRect(); if(b.width&&(Math.abs(b.width-lw)>1||Math.abs(b.height-lh)>1)){ lw=b.width; lh=b.height; renderer.setSize(b.width,b.height,false); camera.aspect=b.width/b.height; camera.updateProjectionMatrix(); } }
     window.addEventListener('resize',fit);
-    function frame(){ fit(); rot+=0.0035; grp.rotation.y=rot; tilt.position.y=Math.sin(rot*3.0)*0.22; renderer.render(scene,camera); if(!reduce) requestAnimationFrame(frame); }
+    function frame(){ fit(); rot+=0.0035; pmat.uniforms.uTime.value+=0.016; grp.rotation.y=rot; tilt.position.y=Math.sin(rot*2.4)*0.18; renderer.render(scene,camera); if(!reduce) requestAnimationFrame(frame); }
     fit();
     if(reduce){ grp.rotation.y=0.6; renderer.render(scene,camera); } else frame();
   }
@@ -741,7 +743,7 @@ window.addEventListener('load', function(){
 
   /* parallax — scrubbed */
   var heroImg=document.querySelector('.hero__media img');
-  if(heroImg) gsap.fromTo(heroImg,{yPercent:-4,scale:1.14},{yPercent:6,scale:1.14,ease:'none',scrollTrigger:{trigger:'.hero',start:'top bottom',end:'bottom top',scrub:true}});
+  if(heroImg) gsap.fromTo(heroImg,{yPercent:0},{yPercent:7,ease:'none',scrollTrigger:{trigger:'.hero',start:'top top',end:'bottom top',scrub:true}});  /* gentle drift only — no scale-zoom on the floating cut-out */
   gsap.utils.toArray('.atmos').forEach(function(sec){
     var im=sec.querySelector('.atmos__media img, .atmos__media video');
     if(im) gsap.fromTo(im,{yPercent:-6,scale:1.18},{yPercent:8,scale:1.18,ease:'none',scrollTrigger:{trigger:sec,start:'top bottom',end:'bottom top',scrub:true}});
