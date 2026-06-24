@@ -1,9 +1,11 @@
 <!doctype html>
-<html lang="en">
+<html lang="ar" dir="rtl" data-lang="ar">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Bato Medical Clinic · Aesthetic &amp; Wellness · Al Safa, Dubai</title>
+<!-- language restore (Arabic-first), synchronous, before paint, zero flash -->
+<script>(function(){try{var L=localStorage.getItem('bato-lang');if(L!=='en'&&L!=='ar')L='ar';var h=document.documentElement;h.setAttribute('lang',L);h.setAttribute('dir',L==='ar'?'rtl':'ltr');h.setAttribute('data-lang',L);}catch(e){}})();</script>
+<title>مستوصف باتو الطبي · للجمال والعافية · الصفا، دبي</title>
 <meta name="description" content="Bato Medical Clinic, Al Safa Dubai. A DHA-licensed aesthetic and wellness clinic. Lab-led, medically supervised care for skin, hair and face. DHA Licence 5346564.">
 <meta name="theme-color" content="#3a2e1e">
 <link rel="canonical" href="https://zaka33333-hash.github.io/bato-clinic/v4.html">
@@ -20,8 +22,8 @@
 <meta property="og:image:width" content="2200">
 <meta property="og:image:height" content="1228">
 <meta property="og:image:alt" content="Bato Medical Clinic. A serene portrait in warm light.">
-<meta property="og:locale" content="en_US">
-<meta property="og:locale:alternate" content="ar_AE">
+<meta property="og:locale" content="ar_AE">
+<meta property="og:locale:alternate" content="en_US">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Bato Medical Clinic · Aesthetic and Wellness">
 <meta name="twitter:description" content="An aesthetic and wellness clinic in Al Safa, Dubai. Medically supervised. We test before we treat.">
@@ -29,7 +31,12 @@
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,200..600;1,9..144,200..600&family=Reem+Kufi:wght@400..700&family=Aref+Ruqaa:wght@400;700&family=Inter+Tight:wght@300;400;500&family=JetBrains+Mono:wght@300;400&display=swap" rel="stylesheet">
+<!-- critical: the two above-the-fold display faces (Arabic-first → Reem Kufi first), render-blocking -->
+<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Reem+Kufi:wght@500;600&family=Fraunces:ital,opsz,wght@0,9..144,200..600;1,9..144,200..600&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Reem+Kufi:wght@500;600&family=Fraunces:ital,opsz,wght@0,9..144,200..600;1,9..144,200..600&display=swap">
+<!-- secondary: calligraphic + body + mono, non-blocking -->
+<link rel="stylesheet" media="print" onload="this.media='all'" href="https://fonts.googleapis.com/css2?family=Reem+Kufi:wght@400;700&family=Aref+Ruqaa:wght@400;700&family=Inter+Tight:wght@300;400;500&family=JetBrains+Mono:wght@300;400&display=swap">
+<noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Reem+Kufi:wght@400;700&family=Aref+Ruqaa:wght@400;700&family=Inter+Tight:wght@300;400;500&family=JetBrains+Mono:wght@300;400&display=swap"></noscript>
 
 <!-- structured data: discoverability + AI answer engines -->
 <script type="application/ld+json">
@@ -583,6 +590,76 @@ body.dock-on .dock{ opacity:1; transform:none; pointer-events:auto; }
   .overture::before{ animation:none; opacity:.7; transform:translate(-50%,-50%) scale(1); }
   .horizon{ animation:none; opacity:.5; transform:none; }
 }
+
+/* ═══════════════ BILINGUAL ENGINE — Arabic-first · EN⇄ع toggle · dual-span, CSS-driven ═══════════════ */
+/* one rule drives the whole site; the inactive language leaves the box + the a11y tree */
+.en,.ar{ display:contents; }
+html[data-lang="ar"] .en{ display:none; }
+html[data-lang="en"] .ar{ display:none; }
+/* shared numerals/codes (68,000 · 5346564 · 11:00 · @batoclinic · wa.me) never flip language — stay LTR */
+.num{ direction:ltr; unicode-bidi:isolate; font-variant-numeric:tabular-nums; }
+
+/* ── Arabic as the PRIMARY display type (only fires under lang=ar; EN is provably untouched) ── */
+html[lang="ar"] body{ font-family:var(--kufi); font-weight:400; line-height:1.5; }
+html[lang="ar"]{ font-synthesis:none; }
+html[lang="ar"] .hero__h, html[lang="ar"] .reading-lede, html[lang="ar"] .diag__head, html[lang="ar"] .book__h,
+html[lang="ar"] .shot__name, html[lang="ar"] .inside__h, html[lang="ar"] .work__lede, html[lang="ar"] .tc-head h2,
+html[lang="ar"] .tc-name, html[lang="ar"] .prac__n, html[lang="ar"] .diag__num, html[lang="ar"] .lede, html[lang="ar"] .menu__link{
+  font-family:var(--kufi); font-weight:500; letter-spacing:0; font-style:normal; }
+html[lang="ar"] .mark, html[lang="ar"] .foot__mark{ font-family:var(--ruqaa); font-weight:700; letter-spacing:0; }
+html[lang="ar"] .whisper{ font-family:var(--ruqaa); }
+html[lang="ar"] .measure, html[lang="ar"] .shot__d, html[lang="ar"] .book__invite, html[lang="ar"] .ledger__v,
+html[lang="ar"] .tc-desc, html[lang="ar"] .q blockquote, html[lang="ar"] .coord p{
+  font-family:var(--kufi); font-weight:400; line-height:1.65; letter-spacing:0; }
+html[lang="ar"] .eyebrow, html[lang="ar"] .shot__tag, html[lang="ar"] .hud, html[lang="ar"] .menu__num,
+html[lang="ar"] .ledger__k, html[lang="ar"] .diag__numcap, html[lang="ar"] .prac__m, html[lang="ar"] .bignum .lab,
+html[lang="ar"] .field label, html[lang="ar"] .btn, html[lang="ar"] .dock, html[lang="ar"] .langtog{
+  font-family:var(--kufi); text-transform:none; letter-spacing:.04em; }
+
+/* ── language toggle button (instrument aesthetic, twin of the burger, opposite corner) ── */
+.langtog{ position:fixed; z-index:95; top:0; inset-inline-start:0; pointer-events:auto; display:inline-flex; align-items:center; gap:.55em;
+  background:none; border:0; cursor:pointer; color:var(--ink); font-family:var(--mono); font-size:10.5px; letter-spacing:.22em; text-transform:uppercase;
+  padding:clamp(16px,2.4vw,30px) clamp(18px,3vw,40px); transition:color .6s var(--ease-lift); }
+.langtog:hover{ color:var(--amber); }
+.langtog__opt{ transition:color .35s var(--ease), opacity .35s; line-height:1; }
+.langtog__opt.ar-opt{ font-family:var(--kufi); font-size:1.35em; }
+.langtog__sep{ opacity:.4; }
+html[data-lang="ar"] .langtog__opt.ar-opt{ opacity:.4; } html[data-lang="ar"] .langtog__opt.en-opt{ color:var(--amber); }
+html[data-lang="en"] .langtog__opt.en-opt{ opacity:.4; } html[data-lang="en"] .langtog__opt.ar-opt{ color:var(--amber); }
+.langtog:focus-visible{ outline:2px solid var(--hud-accent); outline-offset:3px; border-radius:6px; }
+body.menu-open .langtog{ color:#efe7d9; }
+@media(max-width:720px){ .langtog{ padding:14px 16px; font-size:9px; } }
+@media (prefers-reduced-motion:reduce){ .langtog,.langtog__opt{ transition:none; } }
+
+/* ═══════════════ RTL OVERRIDES — only the hardcoded-direction cinematic spots ═══════════════ */
+html[dir="rtl"] .shot__bg{ clip-path:inset(0 100% 0 0); }
+html[dir="rtl"] .shot[data-dir="left"] .shot__bg{ clip-path:inset(0 0 0 100%); }
+html[dir="rtl"] .shot.in .shot__bg{ clip-path:inset(0); }
+html[dir="rtl"] .shot__veil{ background:linear-gradient(260deg, rgba(28,22,14,.46) 0 30%, rgba(28,22,14,.05) 60%, transparent); }
+html[dir="rtl"] .shot[data-dir="left"] .shot__veil{ background:linear-gradient(100deg, rgba(28,22,14,.42) 0 32%, transparent 62%); }
+html[dir="rtl"] #s5 .shot__veil{ background:linear-gradient(270deg,rgba(28,22,14,.7) 0 38%,rgba(28,22,14,.1) 70%,transparent)!important; }
+html[dir="rtl"] #s6 .shot__veil{ background:linear-gradient(260deg,rgba(28,22,14,.40) 0 28%,rgba(28,22,14,.06) 60%,transparent)!important; }
+html[dir="rtl"] .shimmer{ background:linear-gradient(255deg, transparent 40%, rgba(255,232,190,.55) 50%, transparent 60%); transform:translateX(30%); }
+@keyframes sweep-rtl{ 0%{opacity:0; transform:translateX(30%)} 18%{opacity:1} 100%{opacity:0; transform:translateX(-40%)} }
+html[dir="rtl"] .shot.in .shimmer{ animation:sweep-rtl 2.6s var(--ease) .9s 1 forwards; }
+html[dir="rtl"] .shot--radiance .glow{ background:radial-gradient(60% 70% at 28% 38%, rgba(255,228,178,.42), rgba(255,210,140,.16) 45%, transparent 70%); }
+.spark{ inset-inline-end:7%; right:auto; }
+.hud__index{ unicode-bidi:isolate; }
+html[dir="rtl"] .hud__bar{ transform-origin:right; }
+html[dir="rtl"] .skip{ left:auto; right:14px; }
+html[dir="rtl"] .lattice{ -webkit-mask-image:linear-gradient(255deg,#000 0 26%,transparent 52%); mask-image:linear-gradient(255deg,#000 0 26%,transparent 52%); }
+html[dir="rtl"] .menu{ clip-path:circle(0px at 42px 42px); }
+html[dir="rtl"] body.menu-open .menu{ clip-path:circle(150% at 42px 42px); }
+html[dir="rtl"] .menu__bg::after{ background:linear-gradient(260deg, rgba(28,22,14,.95) 0 40%, rgba(28,22,14,.66) 74%, rgba(28,22,14,.52)); }
+html[dir="rtl"] .menu__en::after{ transform-origin:right; }
+html[dir="rtl"] .menu__ar{ transform:translateX(10px); }
+html[dir="rtl"] .menu__link:hover .menu__ar{ transform:none; }
+.field select{ padding-right:0; padding-inline-end:1.4em; background-position:right .15em center; }
+html[dir="rtl"] .field select{ background-position:left .15em center; }
+html[dir="rtl"] .field input, html[dir="rtl"] .field select{ text-align:right; }
+.field input{ unicode-bidi:plaintext; }
+html[dir="rtl"] [data-reveal="draw"]{ transform-origin:right; }
+html[dir="rtl"] .bignum b{ text-align:right; }
 </style>
 </head>
 <body data-theme="dark">
@@ -607,6 +684,9 @@ body.dock-on .dock{ opacity:1; transform:none; pointer-events:auto; }
 <button class="menu-btn" id="menuBtn" type="button" aria-label="Menu" aria-expanded="false" aria-controls="menuOverlay">
   <span class="menu-btn__label">Menu</span>
   <span class="menu-btn__ico" aria-hidden="true"><i></i><i></i></span>
+</button>
+<button class="langtog" id="langTog" type="button" aria-label="Switch language" data-to="en">
+  <span class="langtog__sw" aria-hidden="true"><span class="langtog__opt en-opt">EN</span><span class="langtog__sep">/</span><span class="langtog__opt ar-opt">ع</span></span>
 </button>
 <div class="menu" id="menuOverlay">
   <div class="menu__bg" aria-hidden="true"></div>
@@ -1159,7 +1239,6 @@ body.dock-on .dock{ opacity:1; transform:none; pointer-events:auto; }
 <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.14/dist/lenis.min.js" integrity="sha384-O55L/6rhHr9CFvrxqv5luxOCcmVaBmETbZbJDP+Do8T0pztTACsFBD/IXCNkj7DV" crossorigin="anonymous" onerror="window.__lenisFailed=true"></script>
 <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/gsap.min.js" integrity="sha384-HOvlOYPIs/zjoIkWUGXkVmXsjr8GuZLV+Q+rcPwmJOVZVpvTSXQChiN4t9Euv9Vc" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/ScrollTrigger.min.js" integrity="sha384-P8VzCVnT9NBUkMrpcIZrJbA7EBjJvh/fJS6PmP+4nLIM284DtsImIv8D0fFjIkeh" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/SplitText.min.js" integrity="sha384-xb96EMJeax+NLXMC88ZBa1xAeAW+kn+horHh/zFlbMLG2UPWhMJJSlv7fi57hS+Q" crossorigin="anonymous"></script>
 <script>
 (function(){
   var reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -1201,7 +1280,7 @@ body.dock-on .dock{ opacity:1; transform:none; pointer-events:auto; }
       var t=+el.getAttribute('data-count');
       /* lock the box to the final tabular width so the counter fills in without reflowing
          itself or shoving the label (the old jitter = proportional figures + per-frame reflow) */
-      el.style.display='inline-block'; el.style.textAlign='left';
+      el.style.display='inline-block'; el.style.textAlign='start';
       el.textContent=t.toLocaleString('en-US');
       el.style.minWidth=Math.ceil(el.getBoundingClientRect().width)+'px';
       el.textContent=(0).toLocaleString('en-US');
@@ -1257,6 +1336,7 @@ body.dock-on .dock{ opacity:1; transform:none; pointer-events:auto; }
   }
   /* progress from real scroll position, keeps the light engine in sync on load + resize */
   function progressNow(){ var limit=document.documentElement.scrollHeight-window.innerHeight; var st=window.scrollY||document.documentElement.scrollTop||0; return limit? st/limit : 0; }
+  window.__batoPaintNow=function(){ paint(progressNow()); };   /* the toggle resyncs the light engine after a dir/font reflow */
 
   /* ── continuous scroll-scrubbed motion (progressive enhancement via GSAP) ── */
   var mm = (typeof gsap!=='undefined' && gsap.matchMedia) ? gsap.matchMedia() : null;
@@ -1284,23 +1364,8 @@ body.dock-on .dock{ opacity:1; transform:none; pointer-events:auto; }
       gsap.fromTo(el, { x:28 }, { x:-28, ease:'none',
         scrollTrigger:{ trigger:el, start:'top bottom', end:'bottom top', scrub:2 } });
     });
-    /* signature line reveals via SplitText (free in 3.13). The hand-wrapped .ln markup stays as
-       the no-JS / reduced-motion fallback (neutralised by .split-on while SplitText drives). */
-    if(typeof SplitText!=='undefined'){
-      gsap.registerPlugin(SplitText);
-      gsap.utils.toArray('[data-reveal="lines"]').forEach(function(head){
-        head.classList.add('in','split-on');
-        SplitText.create(head, {
-          type:'lines', mask:'lines', linesClass:'sln', aria:'auto', autoSplit:true,
-          onSplit:function(self){
-            if(head._revealed) return;   /* re-break silently on resize once it has played */
-            return gsap.from(self.lines, { yPercent:110, duration:1.1, ease:'expo.out', stagger:0.12,
-              scrollTrigger:{ trigger:head, start:'top 86%', once:true },
-              onComplete:function(){ head._revealed=true; } });
-          }
-        });
-      });
-    }
+    /* headlines reveal via the CSS .ln line-mask (the section IntersectionObserver adds .in) —
+       identical for the EN and AR branches and in both directions; no per-language re-split needed. */
     /* refresh once fonts settle (serif headlines reflow on font-swap, moving every trigger) */
     if(document.fonts && document.fonts.ready){ document.fonts.ready.then(function(){ ScrollTrigger.refresh(); }); }
     window.addEventListener('load', function(){ ScrollTrigger.refresh(); }, { once:true });
@@ -1470,6 +1535,40 @@ body.dock-on .dock{ opacity:1; transform:none; pointer-events:auto; }
       a.addEventListener('mouseleave', function(){ bg.style.opacity='0'; });
     });
   }
+})();
+</script>
+<!-- ═══════════ LANGUAGE TOGGLE controller (EN ⇄ ع, Arabic-first, persisted) ═══════════ -->
+<script>
+(function(){
+  var btn=document.getElementById('langTog'); if(!btn) return;
+  var TITLES={ ar:'مستوصف باتو الطبي · للجمال والعافية · الصفا، دبي',
+               en:'Bato Medical Clinic · Aesthetic & Wellness · Al Safa, Dubai' };
+  function apply(L, persist){
+    var h=document.documentElement;
+    h.setAttribute('lang', L);
+    h.setAttribute('dir', L==='ar'?'rtl':'ltr');
+    h.setAttribute('data-lang', L);
+    btn.setAttribute('data-to', L==='ar'?'en':'ar');
+    btn.setAttribute('aria-label', L==='ar' ? 'Switch to English — التبديل إلى الإنجليزية' : 'التبديل إلى العربية — switch to Arabic');
+    if(TITLES[L]) document.title=TITLES[L];
+    var og=document.querySelector('meta[property="og:locale"]'); if(og) og.setAttribute('content', L==='ar'?'ar_AE':'en_US');
+    if(persist){ try{ localStorage.setItem('bato-lang', L); }catch(e){} }
+    /* bilingual form/concierge placeholders */
+    document.querySelectorAll('[data-ph-ar]').forEach(function(i){ var v=i.getAttribute(L==='ar'?'data-ph-ar':'data-ph-en'); if(v!=null) i.setAttribute('placeholder', v); });
+    /* bilingual <select> option labels */
+    document.querySelectorAll('option[data-ar]').forEach(function(o){ if(o.getAttribute('data-en')===null) o.setAttribute('data-en', o.textContent); o.textContent = L==='ar' ? o.getAttribute('data-ar') : o.getAttribute('data-en'); });
+    /* let the count-up box re-lock to the active language width */
+    var bn=document.querySelector('[data-count]'); if(bn) bn.style.minWidth='';
+    /* re-measure the cinematic engine after the dir/font reflow settles */
+    if(window.ScrollTrigger){ requestAnimationFrame(function(){ try{ ScrollTrigger.refresh(); }catch(e){} if(window.__batoPaintNow) window.__batoPaintNow(); }); }
+    else if(window.__batoPaintNow){ window.__batoPaintNow(); }
+  }
+  apply(document.documentElement.getAttribute('data-lang')||'ar', false);
+  btn.addEventListener('click', function(){
+    var next = document.documentElement.getAttribute('data-lang')==='ar' ? 'en' : 'ar';
+    apply(next, true);
+    try{ btn.focus({preventScroll:true}); }catch(e){ btn.focus(); }
+  });
 })();
 </script>
 </body>
