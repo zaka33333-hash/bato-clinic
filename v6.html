@@ -462,17 +462,18 @@ html[data-lang="ar"] .foot__col h4{ font-family:var(--ar-sans); letter-spacing:.
       x.fillStyle=g; x.fillRect(0,0,512,256);
       x.globalCompositeOperation='lighter';
       function spot(cx,cy,r,a){ var rg=x.createRadialGradient(cx,cy,0,cx,cy,r); rg.addColorStop(0,'rgba(255,242,210,'+a+')'); rg.addColorStop(1,'rgba(255,242,210,0)'); x.fillStyle=rg; x.fillRect(cx-r,cy-r,r*2,r*2); }
-      spot(150,56,72,0.7); spot(384,92,96,0.4); spot(70,176,58,0.28);
+      spot(150,50,74,0.9); spot(384,90,96,0.55); spot(70,176,58,0.3); spot(300,150,52,0.4); spot(456,38,44,0.6);
       var t=new THREE.CanvasTexture(c); t.mapping=THREE.EquirectangularReflectionMapping; return t;
     }
     scene.environment=pmrem.fromEquirectangular(envTex()).texture;
-    var key=new THREE.DirectionalLight(0xffffff,0.65); key.position.set(5,9,8); scene.add(key);
-    var rim=new THREE.DirectionalLight(0xffe3aa,0.45); rim.position.set(-7,-3,-5); scene.add(rim);
+    var key=new THREE.DirectionalLight(0xffffff,0.95); key.position.set(5,9,8); scene.add(key);
+    var rim=new THREE.DirectionalLight(0xffe3aa,0.5); rim.position.set(-7,-3,-5); scene.add(rim);
+    var glint=new THREE.PointLight(0xfff4d6,0.6); glint.position.set(2,3,8); scene.add(glint);
     var tilt=new THREE.Group(); tilt.rotation.z=0.52; tilt.rotation.x=-0.05; scene.add(tilt);
     var grp=new THREE.Group(); tilt.add(grp);
-    var matA=new THREE.MeshStandardMaterial({color:0xB47A12,metalness:1.0,roughness:0.18,envMapIntensity:1.15});
-    var matB=new THREE.MeshStandardMaterial({color:0xD7A52C,metalness:1.0,roughness:0.12,envMapIntensity:1.28});
-    var matR=new THREE.MeshStandardMaterial({color:0xA67915,metalness:1.0,roughness:0.28,envMapIntensity:1.0});
+    var matA=new THREE.MeshStandardMaterial({color:0xB07811,metalness:1.0,roughness:0.20,envMapIntensity:1.35});
+    var matB=new THREE.MeshStandardMaterial({color:0xDBA82E,metalness:1.0,roughness:0.10,envMapIntensity:1.5});
+    var matR=new THREE.MeshStandardMaterial({color:0xA1740F,metalness:1.0,roughness:0.30,envMapIntensity:1.2});
     var sphere=new THREE.SphereGeometry(0.40,30,30);
     var N=44,turns=3.2,H=17,rad=1.65;
     var rungGeo=new THREE.CylinderGeometry(0.072,0.072,rad*2,12); /* paired beads are 2*rad apart → one shared geometry */
@@ -485,13 +486,12 @@ html[data-lang="ar"] .foot__col h4{ font-family:var(--ar-sans); letter-spacing:.
       var r=new THREE.Mesh(rungGeo,matR); r.position.copy(p1).add(p2).multiplyScalar(0.5);
       r.quaternion.setFromUnitVectors(up,new THREE.Vector3().subVectors(p2,p1).normalize()); grp.add(r); }
     /* diagonal tilt is applied by the parent group; grp only spins on its own axis */
-    function rsz(){ var r=canvas.getBoundingClientRect(); if(!r.width) return;
-      renderer.setSize(r.width,r.height,false); camera.aspect=r.width/r.height; camera.updateProjectionMatrix(); }
-    rsz(); window.addEventListener('resize',rsz);
     var rot=0,lw=0,lh=0;
     function fit(){ var b=canvas.getBoundingClientRect(); if(b.width&&(Math.abs(b.width-lw)>1||Math.abs(b.height-lh)>1)){ lw=b.width; lh=b.height; renderer.setSize(b.width,b.height,false); camera.aspect=b.width/b.height; camera.updateProjectionMatrix(); } }
-    function frame(){ fit(); rot+=0.0045; grp.rotation.y=rot; renderer.render(scene,camera); if(!reduce) requestAnimationFrame(frame); }
-    if(reduce){ fit(); grp.rotation.y=0.6; renderer.render(scene,camera); } else frame();
+    window.addEventListener('resize',fit);
+    function frame(){ fit(); rot+=0.0035; grp.rotation.y=rot; tilt.position.y=Math.sin(rot*3.0)*0.22; renderer.render(scene,camera); if(!reduce) requestAnimationFrame(frame); }
+    fit();
+    if(reduce){ grp.rotation.y=0.6; renderer.render(scene,camera); } else frame();
   }
 
   /* ---------- loading → expand → DNA choreography ---------- */
