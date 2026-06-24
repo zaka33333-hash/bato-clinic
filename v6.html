@@ -15,7 +15,7 @@
 <style>
 /* ============================================================ DESIGN SYSTEM */
 :root{
-  --paper:#f4efe6;        /* warm paper white */
+  --paper:#ffffff;        /* pure white */
   --paper-2:#ece4d6;      /* slightly deeper band */
   --ink:#1b1510;          /* espresso near-black */
   --ink-2:#2c241b;
@@ -53,7 +53,7 @@ img,canvas,picture,source{ display:block; max-width:100%; }
 
 /* grain overlay */
 body::after{
-  content:""; position:fixed; inset:0; z-index:9000; pointer-events:none; opacity:.04;
+  content:""; position:fixed; inset:0; z-index:9000; pointer-events:none; opacity:.02;
   background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
   mix-blend-mode:multiply;
 }
@@ -449,7 +449,7 @@ html[data-lang="ar"] .foot__col h4{ font-family:var(--ar-sans); letter-spacing:.
   /* ---------- 3D gold DNA double-helix ---------- */
   if(canvas && window.THREE){
     var renderer=new THREE.WebGLRenderer({canvas:canvas,alpha:true,antialias:true});
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio||1,2));
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio||1,1.75));
     renderer.toneMapping=THREE.ACESFilmicToneMapping; renderer.toneMappingExposure=0.88;
     renderer.outputEncoding=THREE.sRGBEncoding;
     var scene=new THREE.Scene();
@@ -474,18 +474,17 @@ html[data-lang="ar"] .foot__col h4{ font-family:var(--ar-sans); letter-spacing:.
     var matA=new THREE.MeshStandardMaterial({color:0xB47A12,metalness:1.0,roughness:0.18,envMapIntensity:1.15});
     var matB=new THREE.MeshStandardMaterial({color:0xD7A52C,metalness:1.0,roughness:0.12,envMapIntensity:1.28});
     var matR=new THREE.MeshStandardMaterial({color:0xA67915,metalness:1.0,roughness:0.28,envMapIntensity:1.0});
-    var sphere=new THREE.SphereGeometry(0.40,44,44);
-    var N=48,turns=3.3,H=17,rad=1.65;
-    function cyl(a,b){ var d=new THREE.Vector3().subVectors(b,a),len=d.length();
-      var m=new THREE.Mesh(new THREE.CylinderGeometry(0.075,0.075,len,18),matR);
-      m.position.copy(a).add(b).multiplyScalar(0.5);
-      m.quaternion.setFromUnitVectors(new THREE.Vector3(0,1,0),d.clone().normalize()); return m; }
+    var sphere=new THREE.SphereGeometry(0.40,30,30);
+    var N=44,turns=3.2,H=17,rad=1.65;
+    var rungGeo=new THREE.CylinderGeometry(0.072,0.072,rad*2,12); /* paired beads are 2*rad apart → one shared geometry */
+    var up=new THREE.Vector3(0,1,0);
     for(var i=0;i<N;i++){ var f=i/(N-1),y=(f-0.5)*H,ang=f*Math.PI*2*turns;
       var p1=new THREE.Vector3(Math.cos(ang)*rad,y,Math.sin(ang)*rad);
       var p2=new THREE.Vector3(Math.cos(ang+Math.PI)*rad,y,Math.sin(ang+Math.PI)*rad);
       var s1=new THREE.Mesh(sphere,matA); s1.position.copy(p1); grp.add(s1);
       var s2=new THREE.Mesh(sphere,matB); s2.position.copy(p2); grp.add(s2);
-      grp.add(cyl(p1,p2)); }
+      var r=new THREE.Mesh(rungGeo,matR); r.position.copy(p1).add(p2).multiplyScalar(0.5);
+      r.quaternion.setFromUnitVectors(up,new THREE.Vector3().subVectors(p2,p1).normalize()); grp.add(r); }
     /* diagonal tilt is applied by the parent group; grp only spins on its own axis */
     function rsz(){ var r=canvas.getBoundingClientRect(); if(!r.width) return;
       renderer.setSize(r.width,r.height,false); camera.aspect=r.width/r.height; camera.updateProjectionMatrix(); }
@@ -507,12 +506,12 @@ html[data-lang="ar"] .foot__col h4{ font-family:var(--ar-sans); letter-spacing:.
   }
   if(window.gsap && !reduce){
     /* letters stay visible & tight = the loading logo (never a blank hero) */
-    gsap.set('.intro__dna',{opacity:0,scale:0.55});
+    gsap.set('.intro__dna',{opacity:0,scale:0.72});
     gsap.set(['.intro__eyebrow','.intro__cue'],{opacity:0,y:14});
-    gsap.timeline({delay:1.1})                                                          // hold on the logo (loading)
-      .to(letters,{x:function(i,el){return px(el);},duration:1.7,ease:'power4.inOut'})  // the logo expands
-      .to('.intro__dna',{opacity:1,scale:1,duration:1.7,ease:'power2.out'},'<0.15')     // DNA helix arrives
-      .to(['.intro__eyebrow','.intro__cue'],{opacity:1,y:0,duration:0.8,stagger:0.12,ease:'power2.out'},'<0.8');
+    gsap.timeline({delay:1.0})                                                          // hold on the logo (loading)
+      .to(letters,{x:function(i,el){return px(el);},duration:2.1,ease:'power3.inOut'})  // the logo expands
+      .to('.intro__dna',{opacity:1,scale:1,duration:2.2,ease:'power2.out'},'<0.05')     // DNA helix arrives
+      .to(['.intro__eyebrow','.intro__cue'],{opacity:1,y:0,duration:1.0,stagger:0.14,ease:'power2.out'},'<0.95');
     setTimeout(finalState,6000);                                                        // failsafe: never stuck mid-state
   } else {
     finalState();
