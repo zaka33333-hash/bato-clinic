@@ -193,6 +193,60 @@ body.motes-on .motes{ opacity:1; }
 .hud__deg .lux{ color:var(--hud-accent); }
 .hud__r{ text-align:end; line-height:1.9; }
 .hud__r [dir="rtl"]{ font-family:var(--kufi); }
+/* ── burger menu + cinematic overlay ── */
+body.menu-open{ overflow:hidden; }
+.menu-btn{ position:fixed; z-index:95; top:0; inset-inline-end:0; pointer-events:auto; display:inline-flex; align-items:center; gap:.8em;
+  background:none; border:0; cursor:pointer; color:var(--ink); font-family:var(--mono); font-size:10.5px; letter-spacing:.24em; text-transform:uppercase;
+  padding:clamp(16px,2.4vw,30px) clamp(18px,3vw,40px); transition:color .6s var(--ease-lift); }
+.menu-btn__label{ transition:opacity .3s; }
+@media(max-width:720px){ .menu-btn{ padding:14px 16px; font-size:9px; } .menu-btn__label{ display:none; } }
+.menu-btn__ico{ position:relative; width:26px; height:13px; flex:none; }
+.menu-btn__ico i{ position:absolute; left:0; top:50%; height:1.5px; background:currentColor; border-radius:2px;
+  transition:transform .55s var(--ease-lift), width .4s var(--ease), background-color .35s, inset-inline-end .4s var(--ease); }
+.menu-btn__ico i:nth-child(1){ width:100%; transform:translateY(-4px); }
+.menu-btn__ico i:nth-child(2){ width:60%; left:auto; inset-inline-end:0; transform:translateY(4px); }
+.menu-btn:hover .menu-btn__ico i:nth-child(1){ width:60%; left:auto; inset-inline-end:0; }
+.menu-btn:hover .menu-btn__ico i:nth-child(2){ width:100%; left:0; inset-inline-end:auto; }
+.menu-btn:hover .menu-btn__ico i{ background:var(--amber); }
+body.menu-open .menu-btn{ color:#efe7d9; }
+body.menu-open .menu-btn__ico i{ width:100%; left:0; inset-inline-end:auto; background:var(--amber); }
+body.menu-open .menu-btn__ico i:nth-child(1){ transform:translateY(0) rotate(45deg); }
+body.menu-open .menu-btn__ico i:nth-child(2){ transform:translateY(0) rotate(-45deg); }
+.menu{ position:fixed; inset:0; z-index:90; display:flex; flex-direction:column; justify-content:center;
+  padding:clamp(84px,15vh,150px) clamp(28px,9vw,150px) clamp(40px,7vh,72px); background:var(--umbra); color:#efe7d9;
+  visibility:hidden; clip-path:circle(0px at calc(100% - 42px) 42px); transition:clip-path .75s var(--ease-lift), visibility 0s .75s; }
+body.menu-open .menu{ visibility:visible; clip-path:circle(150% at calc(100% - 42px) 42px); transition:clip-path .85s var(--ease-lift); }
+.menu__bg{ position:absolute; inset:0; z-index:0; pointer-events:none; opacity:0; background-size:cover; background-position:center;
+  transform:scale(1.07); transition:opacity .9s var(--ease), transform 7s var(--ease); }
+body.menu-open .menu__bg{ transform:scale(1); }
+.menu__bg::after{ content:''; position:absolute; inset:0; background:linear-gradient(100deg, rgba(28,22,14,.95) 0 40%, rgba(28,22,14,.66) 74%, rgba(28,22,14,.52)); }
+.menu__nav{ position:relative; z-index:1; display:flex; flex-direction:column; gap:clamp(.1rem,1vh,.6rem); }
+.menu__link{ position:relative; display:inline-flex; align-items:baseline; gap:1rem; width:max-content; max-width:100%; padding:.1em 0;
+  font-family:var(--serif); font-weight:200; font-size:clamp(2.4rem,7vw,5.2rem); line-height:1.06; letter-spacing:-.02em; color:#efe7d9;
+  opacity:0; transform:translateY(34px);
+  transition:opacity .6s var(--ease) calc(var(--i,0)*.06s + .16s), transform .7s var(--ease-lift) calc(var(--i,0)*.06s + .16s), color .4s var(--ease); }
+body.menu-open .menu__link{ opacity:1; transform:none; }
+.menu__num{ font-family:var(--mono); font-size:.7rem; letter-spacing:.18em; color:var(--cyan); align-self:flex-start; margin-top:.7em; transition:color .4s; }
+.menu__en{ position:relative; }
+.menu__en::after{ content:''; position:absolute; left:0; bottom:.1em; width:100%; height:1px; background:var(--amber); transform:scaleX(0); transform-origin:left; transition:transform .5s var(--ease); }
+.menu__ar{ font-family:var(--kufi); font-weight:500; font-size:.3em; color:var(--amber); align-self:center; opacity:0; transform:translateX(-10px); transition:opacity .45s var(--ease), transform .45s var(--ease); }
+.menu__link:hover{ color:#fff; }
+.menu__link:hover .menu__en::after{ transform:scaleX(1); }
+.menu__link:hover .menu__ar{ opacity:1; transform:none; }
+.menu__link:hover .menu__num{ color:var(--amber); }
+.menu__link--cta .menu__en{ font-style:italic; }
+.menu__foot{ position:relative; z-index:1; margin-top:clamp(2rem,5vh,3.4rem); display:flex; flex-wrap:wrap; gap:.7rem 2rem; justify-content:space-between;
+  font-family:var(--mono); font-size:10px; letter-spacing:.16em; text-transform:uppercase; color:rgba(239,231,217,.6); opacity:0; transition:opacity .6s var(--ease) .5s; }
+body.menu-open .menu__foot{ opacity:1; }
+.menu__foot .ar{ font-family:var(--kufi); letter-spacing:0; }
+.menu__foot a{ color:rgba(239,231,217,.85); }
+.menu__foot a:hover{ color:var(--amber); }
+@media (prefers-reduced-motion:reduce){
+  .menu{ clip-path:none; transition:visibility 0s; }
+  body.menu-open .menu{ transition:none; }
+  .menu__link,.menu__foot,.menu__bg,.menu-btn__ico i{ transition:none; }
+  body.menu-open .menu__link,body.menu-open .menu__foot{ opacity:1; transform:none; }
+}
 @media(max-width:720px){ .hud{ font-size:9px; padding:14px 16px; } .hud__mid{ display:none; } }
 
 /* ─── custom cursor ─── */
@@ -547,12 +601,27 @@ body.dock-on .dock{ opacity:1; transform:none; pointer-events:auto; }
 <header class="hud" aria-hidden="true">
   <div class="hud__index" style="direction:ltr"><bdi class="now">٠١</bdi> / <bdi class="tot">١٠</bdi></div>
   <div class="hud__mid"><span id="hudName">السكون · STILLNESS</span></div>
-  <div class="hud__r">
-    <div class="hud__deg">LIGHT · <span class="lux" id="hudDeg">12°</span></div>
-    <div dir="rtl" lang="ar">دبي <bdi dir="ltr">25°N</bdi></div>
-  </div>
+  <div class="hud__r" aria-hidden="true"></div>
 </header>
 
+<button class="menu-btn" id="menuBtn" type="button" aria-label="Menu" aria-expanded="false" aria-controls="menuOverlay">
+  <span class="menu-btn__label">Menu</span>
+  <span class="menu-btn__ico" aria-hidden="true"><i></i><i></i></span>
+</button>
+<div class="menu" id="menuOverlay">
+  <div class="menu__bg" aria-hidden="true"></div>
+  <nav class="menu__nav" aria-label="Main menu">
+    <a class="menu__link" href="hair-treatment.html" style="--i:0" data-img="assets/hair-1080.webp"><span class="menu__num">01</span><span class="menu__en">Hair</span><span class="menu__ar" lang="ar">الشعر</span></a>
+    <a class="menu__link" href="skin.html" style="--i:1" data-img="assets/skin-1080.webp"><span class="menu__num">02</span><span class="menu__en">Skin</span><span class="menu__ar" lang="ar">البشرة</span></a>
+    <a class="menu__link" href="lab-tests.html" style="--i:2" data-img="assets/about-7-1200.webp"><span class="menu__num">03</span><span class="menu__en">Lab tests</span><span class="menu__ar" lang="ar">التحاليل</span></a>
+    <a class="menu__link" href="about.html" style="--i:3" data-img="assets/about-1-1200.webp"><span class="menu__num">04</span><span class="menu__en">About</span><span class="menu__ar" lang="ar">عن باتو</span></a>
+    <a class="menu__link menu__link--cta" href="https://wa.me/96560072702" target="_blank" rel="noopener" style="--i:4"><span class="menu__num">05</span><span class="menu__en">Book</span><span class="menu__ar" lang="ar">احجز</span></a>
+  </nav>
+  <div class="menu__foot">
+    <span><span class="ar" lang="ar">باتو كلينيك</span> · Al Safa, Dubai</span>
+    <a href="https://www.instagram.com/batoclinic/" target="_blank" rel="noopener">Instagram @batoclinic</a>
+  </div>
+</div>
 <div class="cur" aria-hidden="true"><span class="cur__ring"></span><span class="cur__dot"></span><span class="cur__lbl" id="curLbl"></span></div>
 
 <!-- persistent conversion path -->
@@ -1385,6 +1454,22 @@ body.dock-on .dock{ opacity:1; transform:none; pointer-events:auto; }
       ctx.globalAlpha=1; requestAnimationFrame(frame);
     })();
   })();
+})();
+</script>
+<script>
+(function(){
+  var btn=document.getElementById('menuBtn'), menu=document.getElementById('menuOverlay');
+  if(!btn||!menu) return;
+  var bg=menu.querySelector('.menu__bg'), label=btn.querySelector('.menu-btn__label');
+  function setOpen(o){ document.body.classList.toggle('menu-open', o); btn.setAttribute('aria-expanded', o?'true':'false'); if(label) label.textContent = o?'Close':'Menu'; }
+  btn.addEventListener('click', function(){ setOpen(!document.body.classList.contains('menu-open')); });
+  document.addEventListener('keydown', function(e){ if(e.key==='Escape' && document.body.classList.contains('menu-open')) setOpen(false); });
+  if(matchMedia('(hover:hover) and (pointer:fine)').matches){
+    menu.querySelectorAll('.menu__link[data-img]').forEach(function(a){
+      a.addEventListener('mouseenter', function(){ bg.style.backgroundImage = "url('"+a.getAttribute('data-img')+"')"; bg.style.opacity='.42'; });
+      a.addEventListener('mouseleave', function(){ bg.style.opacity='0'; });
+    });
+  }
 })();
 </script>
 </body>
