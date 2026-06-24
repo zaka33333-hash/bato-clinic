@@ -168,10 +168,10 @@ section{ position:relative; }
   padding:0 var(--pad); position:relative; overflow:hidden;
 }
 .intro__stage{ position:relative; width:100%; display:flex; align-items:center; justify-content:center; }
-.intro__word{ position:fixed; top:50%; left:50%; transform:translate(-50%,-50%); transform-origin:center center; display:flex; align-items:center; justify-content:center; gap:clamp(4px,.7vw,12px); z-index:1100; direction:ltr; pointer-events:none; will-change:transform; }
+.intro__word{ position:fixed; top:50%; left:50%; width:max-content; transform:translate(-50%,-50%); transform-origin:center center; display:flex; align-items:center; justify-content:center; gap:clamp(4px,.7vw,12px); z-index:1100; direction:ltr; pointer-events:none; will-change:transform; }
 .intro__word.themed{ mix-blend-mode:difference; }   /* smart mini logo: blends per-pixel with whatever's behind */
 .intro__word.themed .ltr{ filter:invert(1); }       /* white letters → reads black on light, white on dark */
-.ltr{ height:clamp(140px,40vh,360px); width:auto; will-change:transform; }
+.ltr{ height:clamp(140px,40vh,360px); width:auto; max-width:none; flex:0 0 auto; will-change:transform; }   /* never let flex shrink or max-width clamp squeeze the letter images (was stretching the morphed logo on narrow viewports) */
 .intro__dna{ position:absolute; top:0; left:0; width:100vw; height:100svh; z-index:3; pointer-events:none; }
 .intro__dna img,.intro__dna video{ position:absolute; top:50%; left:50%; height:132vh; width:auto; max-width:none; transform:translate(-50%,-50%) rotate(-20deg); mix-blend-mode:multiply; -webkit-mask:linear-gradient(transparent 0%, #000 14%, #000 86%, transparent 100%); mask:linear-gradient(transparent 0%, #000 14%, #000 86%, transparent 100%); }
 .intro__top{ position:absolute; top:clamp(86px,11vh,140px); left:var(--pad); right:var(--pad); display:flex; justify-content:space-between; z-index:4; }
