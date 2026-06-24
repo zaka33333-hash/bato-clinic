@@ -133,6 +133,11 @@ em{ font-style:italic; }
 /* ── in-section program figure ── */
 .progfig{ margin-bottom:clamp(2rem,4vw,3.2rem); border-radius:4px; overflow:hidden; background:#1b150d; }
 .progfig img{ width:100%; height:clamp(300px,42vw,520px); object-fit:cover; object-position:center 38%; filter:contrast(1.03) saturate(1.03); }
+.progduo{ display:grid; gap:clamp(12px,1.6vw,18px); grid-template-columns:1fr; margin-bottom:clamp(2rem,4vw,3.2rem); }
+@media(min-width:760px){ .progduo{ grid-template-columns:1.12fr .88fr; } }
+.progduo figure{ margin:0; border-radius:4px; overflow:hidden; background:#1b150d; }
+.progduo img{ width:100%; height:clamp(280px,40vw,460px); object-fit:cover; filter:contrast(1.03) saturate(1.03); }
+.progduo .scalp img{ object-position:center 38%; }
 
 /* ── departments ── */
 .dept{ background:var(--oud); }
@@ -251,13 +256,22 @@ em{ font-style:italic; }
 <section class="sec">
   <div class="wrap">
     <div class="eyebrow rv"><span class="ar" lang="ar">برامجنا</span> · Our programs</div>
-    <figure class="progfig rv" style="--d:80ms">
-      <picture>
-        <source type="image/avif" srcset="assets/scalp-768.avif 768w, assets/scalp-1080.avif 1080w, assets/scalp-1440.avif 1440w" sizes="(max-width:1280px) 92vw, 1180px">
-        <source type="image/webp" srcset="assets/scalp-768.webp 768w, assets/scalp-1080.webp 1080w, assets/scalp-1440.webp 1440w" sizes="(max-width:1280px) 92vw, 1180px">
-        <img src="assets/scalp-fallback.jpg" alt="A specialist parting the hair to apply care along the scalp during a hair program at BATO" loading="lazy" decoding="async">
-      </picture>
-    </figure>
+    <div class="progduo rv" style="--d:80ms">
+      <figure class="scalp">
+        <picture>
+          <source type="image/avif" srcset="assets/scalp-768.avif 768w, assets/scalp-1080.avif 1080w, assets/scalp-1440.avif 1440w" sizes="(max-width:760px) 92vw, 640px">
+          <source type="image/webp" srcset="assets/scalp-768.webp 768w, assets/scalp-1080.webp 1080w, assets/scalp-1440.webp 1440w" sizes="(max-width:760px) 92vw, 640px">
+          <img src="assets/scalp-fallback.jpg" alt="A specialist parting the hair to apply care along the scalp during a hair program at BATO" loading="lazy" decoding="async">
+        </picture>
+      </figure>
+      <figure class="product">
+        <picture>
+          <source type="image/avif" srcset="assets/product-480.avif 480w, assets/product-768.avif 768w, assets/product-1080.avif 1080w" sizes="(max-width:760px) 92vw, 480px">
+          <source type="image/webp" srcset="assets/product-480.webp 480w, assets/product-768.webp 768w, assets/product-1080.webp 1080w" sizes="(max-width:760px) 92vw, 480px">
+          <img src="assets/product-fallback.jpg" alt="Unbranded hair-care serum and dropper on warm marble in soft morning light" loading="lazy" decoding="async">
+        </picture>
+      </figure>
+    </div>
     <div class="dept__grid rv" style="--d:120ms">
       <div class="dept__row"><span class="dept__n">OPAUK · multi-phase scalp stimulation and nourishment</span><span class="dept__ar" lang="ar">تحفيز وتغذية متعددة المراحل</span></div>
       <div class="dept__row"><span class="dept__n">PADUAK · scalp renewal and long-term hair health</span><span class="dept__ar" lang="ar">تجديد فروة الرأس وصحة الشعر</span></div>
