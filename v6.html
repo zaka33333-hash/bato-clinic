@@ -153,6 +153,7 @@ section{ position:relative; }
 .intro__word.themed .ltr{ filter:invert(1); }       /* white letters → reads black on light, white on dark */
 .ltr{ height:clamp(140px,40vh,360px); width:auto; will-change:transform; }
 .intro__dna{ position:absolute; top:0; left:0; width:100vw; height:100svh; z-index:3; pointer-events:none; }
+.intro__dna img{ position:absolute; top:50%; left:50%; height:132vh; width:auto; max-width:none; transform:translate(-50%,-50%) rotate(-20deg); -webkit-mask:linear-gradient(transparent 0%, #000 14%, #000 86%, transparent 100%); mask:linear-gradient(transparent 0%, #000 14%, #000 86%, transparent 100%); }
 .intro__top{ position:absolute; top:clamp(86px,11vh,140px); left:var(--pad); right:var(--pad); display:flex; justify-content:space-between; z-index:4; }
 .intro__eyebrow{ position:absolute; bottom:clamp(86px,13vh,140px); left:0; right:0; z-index:4; }
 .intro__cue{
@@ -277,7 +278,7 @@ html[data-lang="ar"] .foot__col h4{ font-family:var(--ar-sans); letter-spacing:.
 
 <!-- ============================================================ 1 · INTRO -->
 <section class="intro" id="intro" data-theme="light">
-  <canvas class="intro__dna" id="dna" aria-hidden="true"></canvas>
+  <div class="intro__dna" id="dna" aria-hidden="true"><img src="assets/dna-helix.png" alt=""></div>
   <div class="intro__stage">
     <div class="intro__word" role="img" aria-label="BATO">
       <img class="ltr" data-x="-26vw" src="assets/bato-B.png" alt="">
@@ -444,7 +445,7 @@ html[data-lang="ar"] .foot__col h4{ font-family:var(--ar-sans); letter-spacing:.
   var canvas=document.getElementById('dna');
 
   /* ---------- 3D gold DNA double-helix ---------- */
-  if(canvas && window.THREE){
+  if(canvas && canvas.tagName==='CANVAS' && window.THREE){
     var renderer=new THREE.WebGLRenderer({canvas:canvas,alpha:true,antialias:true});
     renderer.setPixelRatio(Math.min(window.devicePixelRatio||1,1.75));
     renderer.toneMapping=THREE.NoToneMapping;
