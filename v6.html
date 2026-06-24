@@ -698,7 +698,10 @@ html[data-lang="ar"] .menu__contact{ font-family:var(--ar-sans); }
       .to(letters,{x:function(i,el){return px(el);},duration:2.1,ease:'power3.inOut'})  // the logo expands
       .to('.intro__dna',{opacity:1,scale:1,duration:2.2,ease:'power2.out'},'<0.05')     // DNA helix arrives
       .to(['.intro__eyebrow','.intro__cue'],{opacity:1,y:0,duration:1.0,stagger:0.14,ease:'power2.out'},'<0.95');
-    setTimeout(finalState,6000);                                                        // failsafe: never stuck mid-state
+    /* failsafe: settle the splash if a tween stalled — but ONLY while still at the top.
+       once the user has scrolled, the scroll-morph owns the letters; re-applying the
+       spread here is what was clobbering the morphed mini-logo back to a stretched state. */
+    setTimeout(function(){ if((window.pageYOffset||document.documentElement.scrollTop||0) < 8) finalState(); },6000);
   } else {
     finalState();
   }
