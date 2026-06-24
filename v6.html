@@ -214,7 +214,9 @@ html[data-lang="ar"] .hero__meta{ font-family:var(--ar-sans); letter-spacing:.02
   background:linear-gradient(to top, var(--paper) 14%, rgba(255,255,255,0)); }
 @media(max-width:860px){
   .hero__inner{ padding-top:clamp(98px,15vh,140px); }
-  .hero__media{ height:42vh; }
+  /* narrow screens can't show the whole wide villa — fill the lower area with a building close-up instead of letterboxing */
+  .hero__media{ flex:1 1 auto; min-height:38svh; }
+  .hero__media img{ object-fit:cover; object-position:50% 30%; }
   .hero__h{ font-size:clamp(2.2rem,8vw,3.5rem); max-width:18ch; }
 }
 
@@ -540,6 +542,7 @@ html[data-lang="ar"] .menu__contact{ font-family:var(--ar-sans); }
         <h4><span class="en-i">Visit</span><span class="ar-i">العنوان</span></h4>
         <p><span class="en-i">Al Safa First · Al Wasl Road</span><span class="ar-i">الصفا الأولى · شارع الوصل</span></p>
         <p><span class="en-i">Dubai, UAE</span><span class="ar-i">دبي، الإمارات</span></p>
+        <a href="location.html"><span class="en-i">View the map ↗</span><span class="ar-i">شاهدي الخريطة ↗</span></a>
       </div>
       <div class="foot__col">
         <h4><span class="en-i">Hours</span><span class="ar-i">المواعيد</span></h4>

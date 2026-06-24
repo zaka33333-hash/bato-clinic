@@ -1,0 +1,465 @@
+<!doctype html>
+<html lang="ar" dir="rtl" data-lang="ar">
+<head>
+<meta charset="utf-8">
+<title>الموقع · عيادة باتو · BATO</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="BATO Clinic — Al Wasl Road, Al Safa, Dubai. An engraved neighbourhood map. عيادة باتو على شارع الوصل، الصفا، دبي.">
+<script>(function(){try{var L=localStorage.getItem('bato-lang');if(L!=='en'&&L!=='ar')L='ar';var h=document.documentElement;h.setAttribute('lang',L);h.setAttribute('dir',L==='ar'?'rtl':'ltr');h.setAttribute('data-lang',L);}catch(e){}})();</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Onest:wght@300;400;500;600;700&family=Aref+Ruqaa:wght@400;700&family=IBM+Plex+Sans+Arabic:wght@300;400;500;600;700&display=swap">
+<style>
+  :root{
+    --paper:#ffffff;
+    --paper-2:#faf6ef;       /* faintest plate tint */
+    --ink:#1b1510;           /* espresso near-black */
+    --ink-2:#2c241b;
+    --ink-soft:rgba(27,21,16,.62);
+    --ink-faint:rgba(27,21,16,.30);
+    --gold:#c9a24b;
+    --gold-hi:#e6c46a;
+    --gold-deep:#6f5616;     /* passes contrast as text on paper */
+    --night:#171009;         /* dark interstitial */
+    --water:#3b4a52;         /* desaturated slate for the Gulf */
+    --park:#5a6b3a;          /* engraved olive */
+    --serif:'Cormorant', Georgia, 'Times New Roman', serif;
+    --sans:'Onest', system-ui, -apple-system, 'Helvetica Neue', Arial, sans-serif;
+    --ar-serif:'Aref Ruqaa', serif;
+    --ar-sans:'IBM Plex Sans Arabic', system-ui, sans-serif;
+    --ease:cubic-bezier(.22,1,.36,1);
+    --ease-io:cubic-bezier(.65,.05,.36,1);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{height:100%}
+  body{
+    background:var(--paper); color:var(--ink);
+    font-family:var(--sans); font-weight:400; line-height:1.5;
+    -webkit-font-smoothing:antialiased; text-rendering:optimizeLegibility;
+    overflow:hidden;
+    background-image:
+      radial-gradient(120% 120% at 78% 8%, rgba(201,162,75,.045), transparent 46%),
+      radial-gradient(120% 120% at 12% 96%, rgba(27,21,16,.035), transparent 50%);
+  }
+  html[data-lang="ar"] body{ font-family:var(--ar-sans); }
+  ::selection{ background:var(--gold); color:var(--ink); }
+
+  /* lang visibility */
+  html[data-lang="ar"] .en{ display:none!important; }
+  html[data-lang="en"] .ar{ display:none!important; }
+  html[data-lang="ar"] .en-i{ display:none!important; }
+  html[data-lang="en"] .ar-i{ display:none!important; }
+
+  .stage{ position:fixed; inset:0; display:flex; align-items:center; justify-content:center; padding:clamp(14px,3vw,40px); }
+
+  /* ===== the engraved plate ===== */
+  .plate{
+    position:relative; width:min(94vw, calc((100vh - 80px) * 0.94)); max-width:1180px;
+    aspect-ratio:1000 / 1100;
+    border:1px solid rgba(27,21,16,.14);
+    background:linear-gradient(180deg,#fff, var(--paper-2));
+    box-shadow:0 1px 0 rgba(255,255,255,.9) inset, 0 26px 70px -42px rgba(27,21,16,.32);
+  }
+  .plate::before{ content:""; position:absolute; inset:9px; border:1px solid rgba(27,21,16,.10); pointer-events:none; z-index:2; }
+  .plate::after{ content:""; position:absolute; inset:16px; border:1px solid rgba(201,162,75,.30); pointer-events:none; z-index:2; }
+
+  .map-wrap{ position:absolute; inset:16px; overflow:hidden; }
+  svg.map{ display:block; width:100%; height:100%; }
+
+  /* parallax depth groups translate slightly with pointer */
+  .par{ will-change:transform; transition:transform .5s var(--ease); }
+
+  /* hairlines */
+  .road{ fill:none; stroke:var(--ink); stroke-opacity:.34; stroke-width:1.1; stroke-linecap:round; stroke-linejoin:round; }
+  .road--minor{ stroke-opacity:.22; stroke-width:.9; }
+  .hwy{ fill:none; stroke:var(--ink); stroke-opacity:.5; stroke-linecap:round; stroke-linejoin:round; }
+  .hwy-core{ fill:none; stroke:#fff; stroke-opacity:.9; stroke-linecap:round; }
+  .grid{ stroke:var(--ink); stroke-opacity:.05; stroke-width:.6; }
+
+  .water-edge{ fill:none; stroke:var(--water); stroke-opacity:.5; stroke-width:1; }
+  .canal{ fill:none; stroke:var(--water); stroke-opacity:.6; stroke-width:2.2; stroke-linecap:round; }
+  .park-edge{ fill:none; stroke:var(--park); stroke-opacity:.5; stroke-width:1; stroke-dasharray:3 4; }
+
+  /* type on the map */
+  .lbl{ font-family:var(--sans); font-weight:500; font-size:11px; letter-spacing:.22em; text-transform:uppercase; fill:var(--ink); fill-opacity:.62; }
+  html[data-lang="ar"] .lbl{ font-family:var(--ar-sans); letter-spacing:0; text-transform:none; font-size:13.5px; }
+  .lbl--water{ fill:var(--water); fill-opacity:.72; }
+  .lbl--park{ fill:var(--park); fill-opacity:.88; }
+  .road-lbl{ font-family:var(--sans); font-weight:500; font-size:9.5px; letter-spacing:.26em; text-transform:uppercase; fill:var(--ink); fill-opacity:.42; }
+  html[data-lang="ar"] .road-lbl{ font-family:var(--ar-sans); letter-spacing:0; text-transform:none; font-size:12px; }
+  .area-lbl{ font-family:var(--serif); font-style:italic; font-weight:400; font-size:21px; letter-spacing:.01em; fill:var(--ink); fill-opacity:.34; }
+  html[data-lang="ar"] .area-lbl{ font-family:var(--ar-serif); font-style:normal; font-size:23px; }
+
+  /* landmark markers */
+  .mark{ cursor:default; }
+  .mark__dot{ fill:#fff; stroke:var(--ink); stroke-opacity:.55; stroke-width:1.1; transition:stroke-opacity .35s var(--ease), r .35s var(--ease); r:3.4px; }
+  .mark__halo{ fill:none; stroke:var(--gold); stroke-opacity:0; stroke-width:1; transition:stroke-opacity .4s var(--ease), r .5s var(--ease); r:3.4px; }
+  .mark__tag{ opacity:0; transition:opacity .35s var(--ease), transform .35s var(--ease); transform:translateY(3px); pointer-events:none; }
+  .mark__tag rect{ fill:#fff; stroke:var(--ink); stroke-opacity:.16; }
+  .mark__tag text{ font-family:var(--sans); font-weight:500; font-size:10.5px; letter-spacing:.16em; text-transform:uppercase; fill:var(--ink); fill-opacity:.82; }
+  html[data-lang="ar"] .mark__tag text{ font-family:var(--ar-sans); letter-spacing:0; text-transform:none; font-size:13px; }
+  .mark:hover .mark__dot, .mark:focus-visible .mark__dot{ stroke:var(--gold-deep); stroke-opacity:1; r:4px; }
+  .mark:hover .mark__halo, .mark:focus-visible .mark__halo{ stroke-opacity:.7; r:9px; }
+  .mark:hover .mark__tag, .mark:focus-visible .mark__tag{ opacity:1; transform:translateY(0); }
+  .mark:focus{ outline:none; }
+
+  /* BATO pin */
+  .pin{ cursor:pointer; }
+  .pin__pulse{ fill:var(--gold); opacity:.4; transform-origin:center; transform-box:fill-box; animation:pulse 3.4s var(--ease-io) infinite; }
+  @keyframes pulse{ 0%{ transform:scale(.5); opacity:.45 } 70%{ transform:scale(3.4); opacity:0 } 100%{ transform:scale(3.4); opacity:0 } }
+  .pin__stem{ stroke:var(--gold-deep); stroke-width:1.4; }
+  .pin__head{ fill:var(--gold); stroke:var(--gold-deep); stroke-width:1.2; transition:fill .4s var(--ease); }
+  .pin:hover .pin__head, .pin:focus-visible .pin__head{ fill:var(--gold-hi); }
+  .pin__dot{ fill:#fff; }
+  .pin:focus{ outline:none; }
+
+  .callout{ pointer-events:none; }
+  .callout__box{ fill:#fff; stroke:var(--gold-deep); stroke-opacity:.55; stroke-width:1; }
+  .callout__rule{ stroke:var(--gold); stroke-opacity:.65; stroke-width:1; }
+  .callout__name{ font-family:var(--serif); font-weight:500; font-size:25px; letter-spacing:.16em; fill:var(--ink); }
+  html[data-lang="ar"] .callout__name{ font-family:var(--ar-serif); letter-spacing:0; font-size:30px; }
+  .callout__sub{ font-family:var(--sans); font-weight:500; font-size:9px; letter-spacing:.28em; text-transform:uppercase; fill:var(--gold-deep); }
+  html[data-lang="ar"] .callout__sub{ font-family:var(--ar-sans); letter-spacing:.02em; text-transform:none; font-size:11px; }
+
+  /* compass */
+  .compass{ opacity:.55; }
+  .compass text{ font-family:var(--sans); font-weight:600; font-size:11px; letter-spacing:.1em; fill:var(--ink); }
+
+  /* ===== corner HUD ===== */
+  .hud{ position:absolute; z-index:5; font-family:var(--sans); pointer-events:none; }
+  html[data-lang="ar"] .hud{ font-family:var(--ar-sans); }
+  .hud--tl{ top:clamp(22px,3.2vw,40px); inset-inline-start:clamp(24px,3.4vw,46px); }
+  .hud--br{ bottom:clamp(22px,3.2vw,40px); inset-inline-end:clamp(24px,3.4vw,46px); text-align:end; }
+
+  .kicker{ display:flex; align-items:center; gap:.6em; font-size:11px; font-weight:600; letter-spacing:.26em; text-transform:uppercase; color:var(--gold-deep); }
+  html[data-lang="ar"] .kicker{ letter-spacing:.02em; text-transform:none; font-size:13px; }
+  .kicker::before{ content:""; width:30px; height:1px; background:var(--gold); display:inline-block; flex:none; }
+  .hud--br .kicker{ justify-content:flex-end; }
+
+  .hud__title{ margin-top:.55rem; font-family:var(--serif); font-weight:400; font-size:clamp(1.9rem,3.6vw,2.9rem); line-height:1; letter-spacing:-.01em; color:var(--ink); }
+  html[data-lang="ar"] .hud__title{ font-family:var(--ar-serif); }
+  .hud__title em{ font-style:italic; color:var(--gold-deep); }
+  html[data-lang="ar"] .hud__title em{ font-style:normal; }
+  .hud__meta{ margin-top:.7rem; font-size:11px; font-weight:500; letter-spacing:.16em; text-transform:uppercase; color:var(--ink-soft); line-height:1.9; }
+  html[data-lang="ar"] .hud__meta{ letter-spacing:0; text-transform:none; font-size:13.5px; line-height:1.95; }
+
+  .hud--br .hud__line{ font-size:11px; font-weight:500; letter-spacing:.2em; text-transform:uppercase; color:var(--ink-soft); }
+  html[data-lang="ar"] .hud--br .hud__line{ letter-spacing:0; text-transform:none; font-size:13.5px; }
+  .hud--br .hud__coords{ margin-top:.35rem; font-family:var(--sans); font-size:10px; letter-spacing:.14em; color:var(--ink-faint); font-variant-numeric:tabular-nums; direction:ltr; unicode-bidi:isolate; }
+  html[data-lang="ar"] .hud--br .hud__coords{ text-align:end; }
+
+  /* interactive controls */
+  .ctrl{ pointer-events:auto; }
+  .langtog{ display:inline-flex; gap:7px; align-items:center; font-size:13px; letter-spacing:.1em; cursor:pointer; background:none; border:0; color:var(--ink); font-family:var(--sans); margin-top:1rem; }
+  html[data-lang="ar"] .langtog{ font-family:var(--ar-sans); }
+  .langtog__opt{ transition:opacity .3s, color .3s; }
+  html[data-lang="ar"] .langtog__opt.ar-opt{ opacity:1; color:var(--gold-deep); } html[data-lang="ar"] .langtog__opt.en-opt{ opacity:.4; }
+  html[data-lang="en"] .langtog__opt.en-opt{ opacity:1; color:var(--gold-deep); } html[data-lang="en"] .langtog__opt.ar-opt{ opacity:.4; }
+  .langtog__sep{ opacity:.35; }
+
+  .btn{ display:inline-flex; align-items:center; gap:.7em; margin-top:1.1rem; pointer-events:auto;
+    font-family:var(--sans); font-size:12px; font-weight:600; letter-spacing:.16em; text-transform:uppercase;
+    padding:.95em 1.5em; border-radius:100px; border:1px solid var(--ink); color:var(--ink); text-decoration:none; background:transparent;
+    transition:background .4s var(--ease), color .4s var(--ease), border-color .4s var(--ease), transform .4s var(--ease); }
+  html[data-lang="ar"] .btn{ font-family:var(--ar-sans); letter-spacing:.02em; text-transform:none; font-size:14px; }
+  .btn:hover{ background:var(--ink); color:var(--paper); transform:translateY(-2px); }
+  .btn__arrow{ transition:transform .4s var(--ease); }
+  html[data-lang="ar"] .btn__arrow{ transform:scaleX(-1); }
+  .btn:hover .btn__arrow{ transform:translateX(4px); }
+  html[data-lang="ar"] .btn:hover .btn__arrow{ transform:scaleX(-1) translateX(4px); }
+
+  .credit{ position:absolute; bottom:clamp(14px,2.4vw,26px); left:50%; transform:translateX(-50%); z-index:5;
+    font-family:var(--sans); font-size:9.5px; letter-spacing:.34em; text-transform:uppercase; color:var(--ink-faint); white-space:nowrap; }
+  html[data-lang="ar"] .credit{ font-family:var(--ar-sans); letter-spacing:.04em; text-transform:none; font-size:11px; }
+
+  @media (max-width:880px){
+    body{ overflow:auto; }
+    .stage{ position:relative; min-height:100%; flex-direction:column; padding:18px 16px 80px; }
+    .plate{ width:100%; max-width:560px; }
+    .hud{ position:static; text-align:start; max-width:560px; width:100%; margin:0 auto; }
+    .hud--tl{ order:-1; margin-bottom:18px; }
+    .hud--br{ order:2; margin-top:20px; text-align:start; }
+    .hud--br .kicker{ justify-content:flex-start; }
+    .hud--br .hud__coords{ text-align:start; }
+    .credit{ position:static; transform:none; margin:22px auto 0; white-space:normal; text-align:center; letter-spacing:.18em; }
+  }
+  @media (prefers-reduced-motion:reduce){
+    .pin__pulse{ animation:none; opacity:0; }
+    .par{ transition:none !important; }
+  }
+</style>
+</head>
+<body>
+<div class="stage">
+
+  <!-- top-left HUD -->
+  <div class="hud hud--tl">
+    <div class="kicker"><span class="en-i">Visit</span><span class="ar-i">زورونا</span></div>
+    <h1 class="hud__title">
+      <span class="en-i">Al&nbsp;Safa, <em>Dubai</em></span>
+      <span class="ar-i">الصفا، <em>دبي</em></span>
+    </h1>
+    <div class="hud__meta">
+      <span class="en-i">Al Wasl Road · D92<br>Floors 1 &amp; 2 · DHA Licence 5346564</span>
+      <span class="ar-i">شارع الوصل · D92<br>الطابقان الأول والثاني · ترخيص هيئة الصحة بدبي 5346564</span>
+    </div>
+    <button class="langtog ctrl" id="langtog" type="button" aria-label="Switch language / تبديل اللغة">
+      <span class="langtog__opt ar-opt">ع</span><span class="langtog__sep">/</span><span class="langtog__opt en-opt">EN</span>
+    </button>
+  </div>
+
+  <!-- the plate -->
+  <div class="plate" id="plate">
+    <div class="map-wrap">
+      <svg class="map" id="map" viewBox="0 0 1000 1100" preserveAspectRatio="xMidYMid meet" role="img"
+           aria-label="Stylized engraved map of Al Safa, Dubai, marking the BATO clinic on Al Wasl Road. / خريطة منقوشة لمنطقة الصفا في دبي تحدّد عيادة باتو على شارع الوصل.">
+        <defs>
+          <linearGradient id="gWater" x1="0" y1="0" x2="1" y2="0">
+            <stop offset="0" stop-color="#3b4a52" stop-opacity=".16"/>
+            <stop offset=".7" stop-color="#3b4a52" stop-opacity=".05"/>
+            <stop offset="1" stop-color="#3b4a52" stop-opacity="0"/>
+          </linearGradient>
+          <linearGradient id="gPark" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0" stop-color="#5a6b3a" stop-opacity=".18"/>
+            <stop offset="1" stop-color="#5a6b3a" stop-opacity=".07"/>
+          </linearGradient>
+          <radialGradient id="gPin" cx="50%" cy="38%" r="70%">
+            <stop offset="0" stop-color="#e6c46a"/>
+            <stop offset="1" stop-color="#c9a24b"/>
+          </radialGradient>
+        </defs>
+
+        <!-- faint engraver grid -->
+        <g class="par" data-depth="2" id="layerGrid"></g>
+
+        <!-- WATER: the Gulf (left) + Dubai Water Canal (NE) -->
+        <g class="par" data-depth="6">
+          <path class="water-fill" fill="url(#gWater)" d="M 60 60 L 165.6 60 Q 178 150 150 232 Q 118 320 145 403 Q 168 500 120 575 Q 96 660 130 746 Q 150 870 88 1040 L 60 1040 Z"/>
+          <path class="water-edge" d="M 165.6 60 Q 178 150 150 232 Q 118 320 145 403 Q 168 500 120 575 Q 96 660 130 746 Q 150 870 88 1040"/>
+          <path class="water-edge" style="stroke-opacity:.22" d="M 188 60 Q 200 150 174 234 Q 144 322 170 404 Q 192 502 146 576 Q 124 660 156 744 Q 176 868 116 1040"/>
+          <path class="canal" d="M 711.2 60 Q 746.4 89.4 781 106 Q 816.8 123.7 849 116 Q 882.8 109 913.6 89.4"/>
+        </g>
+
+        <!-- PARK: Safa Park (north) -->
+        <g class="par" data-depth="5">
+          <path class="park-fill" fill="url(#gPark)" d="M 473.6 99.2 Q 548 90 623.2 109 Q 619 173 614.4 236.4 Q 548 226 482.4 226.6 Q 478 163 473.6 99.2 Z"/>
+          <path class="park-edge" d="M 473.6 99.2 Q 548 90 623.2 109 Q 619 173 614.4 236.4 Q 548 226 482.4 226.6 Q 478 163 473.6 99.2 Z"/>
+        </g>
+
+        <!-- ROADS + HIGHWAYS -->
+        <g class="par" data-depth="3">
+          <g>
+            <path class="hwy" style="stroke-width:3.4" d="M 693.6 60 Q 654 197 616 320 Q 579.2 442 540 560 Q 500 677 456 800 Q 416.4 922 396 981 T 376.8 1040"/>
+            <path class="hwy-core" style="stroke-width:1.1" d="M 693.6 60 Q 654 197 616 320 Q 579.2 442 540 560 Q 500 677 456 800 Q 416.4 922 396 981 T 376.8 1040"/>
+            <path class="hwy" style="stroke-width:3" d="M 878.4 197.2 Q 838.8 354 797 510 Q 755.2 677 718 760 Q 680.4 844 665 942 T 649.6 1040"/>
+            <path class="hwy-core" style="stroke-width:.9" d="M 878.4 197.2 Q 838.8 354 797 510 Q 755.2 677 718 760 Q 680.4 844 665 942 T 649.6 1040"/>
+          </g>
+          <!-- Al Wasl Road (BATO sits on this) -->
+          <path class="road" d="M 429.6 79.6 Q 432 143 434 207 Q 438.4 334 438.4 437 Q 438.4 540 434 601 Q 420.8 723 416 813 Q 412 902 408 971 T 403.2 1020.4"/>
+          <!-- Jumeirah Beach Road -->
+          <path class="road road--minor" d="M 218.4 60 Q 209 143 200.8 226.6 Q 192 393 174 476 Q 165.6 559.8 156 642 Q 148 726 141 805 T 121.6 1040"/>
+          <!-- connective neighbourhood lanes (abstract hairlines) -->
+          <g class="road road--minor">
+            <path d="M 200.8 226.6 Q 320 248 429.6 240"/>
+            <path d="M 165.6 559.8 Q 300 540 438.4 540"/>
+            <path d="M 438.4 437 Q 520 470 616 320"/>
+            <path d="M 434 601 Q 540 620 718 760"/>
+            <path d="M 416 813 Q 540 760 718 760"/>
+            <path d="M 297.6 256 Q 360 360 200.8 226.6" style="stroke-opacity:.12"/>
+            <path d="M 482.4 226.6 Q 470 330 438.4 437" style="stroke-opacity:.16"/>
+          </g>
+        </g>
+
+        <!-- ROAD LABELS -->
+        <g class="par" data-depth="3">
+          <text class="road-lbl" transform="translate(450 360) rotate(89)"><tspan class="en">AL WASL ROAD · D92</tspan><tspan class="ar">شارع الوصل · D92</tspan></text>
+          <text class="road-lbl" transform="translate(602 300) rotate(72)"><tspan class="en">SHEIKH ZAYED ROAD · E11</tspan><tspan class="ar">شارع الشيخ زايد · E11</tspan></text>
+          <text class="road-lbl" transform="translate(840 320) rotate(76)"><tspan class="en">AL KHAIL ROAD · E44</tspan><tspan class="ar">شارع القايل · E44</tspan></text>
+          <text class="road-lbl" transform="translate(185 380) rotate(86)"><tspan class="en">JUMEIRAH BEACH ROAD</tspan><tspan class="ar">شارع جميرا</tspan></text>
+        </g>
+
+        <!-- WATER / PARK word-labels -->
+        <g class="par" data-depth="6">
+          <text class="lbl lbl--water" transform="translate(74 470) rotate(85)"><tspan class="en">THE GULF</tspan><tspan class="ar">الخليج العربي</tspan></text>
+          <text class="lbl lbl--water" x="800" y="78" text-anchor="middle"><tspan class="en">DUBAI WATER CANAL</tspan><tspan class="ar">قناة دبي المائية</tspan></text>
+        </g>
+        <g class="par" data-depth="5">
+          <text class="lbl lbl--park" x="548" y="172" text-anchor="middle"><tspan class="en">SAFA PARK</tspan><tspan class="ar">حديقة الصفا</tspan></text>
+        </g>
+        <g class="par" data-depth="4">
+          <text class="area-lbl" x="297.6" y="256" text-anchor="middle"><tspan class="en">Jumeirah</tspan><tspan class="ar">جميرا</tspan></text>
+          <text class="area-lbl" x="200.8" y="569.6" text-anchor="middle"><tspan class="en">Umm Suqeim</tspan><tspan class="ar">أم سقيم</tspan></text>
+          <text class="area-lbl" x="693.6" y="785.2" text-anchor="middle"><tspan class="en">Al Quoz</tspan><tspan class="ar">القوز</tspan></text>
+        </g>
+
+        <!-- LANDMARK MARKERS (JS-built for hover tags) -->
+        <g class="par" data-depth="3" id="layerMarks"></g>
+
+        <!-- BATO PIN + CALLOUT -->
+        <g class="par" data-depth="1">
+          <a id="pinLink" href="https://www.google.com/maps/search/?api=1&query=BATO+Clinic+Al+Wasl+Road+Al+Safa+Dubai" target="_blank" rel="noopener" class="pin" aria-label="BATO Clinic — open in Google Maps / عيادة باتو على خرائط جوجل">
+            <circle class="pin__pulse" cx="429.6" cy="540.2" r="6"/>
+            <line class="pin__stem" x1="429.6" y1="540.2" x2="429.6" y2="512"/>
+            <circle class="pin__head" cx="429.6" cy="503" r="11" fill="url(#gPin)"/>
+            <circle class="pin__dot" cx="429.6" cy="503" r="3.4"/>
+            <circle cx="429.6" cy="540.2" r="2" fill="var(--gold-deep)"/>
+          </a>
+
+          <!-- callout box, opens to the right (east of pin) -->
+          <g class="callout">
+            <line class="callout__rule" x1="442" y1="503" x2="486" y2="503"/>
+            <rect class="callout__box" x="486" y="468" width="190" height="72" rx="3"/>
+            <line class="callout__rule" x1="500" y1="514" x2="528" y2="514"/>
+            <text class="callout__name" x="500" y="502"><tspan class="en">BATO</tspan><tspan class="ar">باتو</tspan></text>
+            <text class="callout__sub" x="500" y="530"><tspan class="en">Clinic · Al Wasl Road</tspan><tspan class="ar">عيادة · شارع الوصل</tspan></text>
+          </g>
+        </g>
+
+        <!-- compass rose -->
+        <g class="compass" transform="translate(905 985)">
+          <circle r="26" fill="none" stroke="var(--ink)" stroke-opacity=".2"/>
+          <path d="M 0 -22 L 5 0 L 0 22 L -5 0 Z" fill="var(--gold)" fill-opacity=".85"/>
+          <path d="M 0 -22 L 5 0 L -5 0 Z" fill="var(--gold-deep)"/>
+          <text x="0" y="-30" text-anchor="middle">N</text>
+        </g>
+      </svg>
+    </div>
+  </div>
+
+  <!-- bottom-right HUD -->
+  <div class="hud hud--br">
+    <div class="kicker"><span class="en-i">Interactive Map</span><span class="ar-i">خريطة تفاعلية</span></div>
+    <div class="hud__line" style="margin-top:.55rem"><span class="en-i">Hover a landmark · follow the pin</span><span class="ar-i">مرّر على المعالم · اتبع العلامة</span></div>
+    <a class="btn ctrl" id="dir" href="https://www.google.com/maps/search/?api=1&query=BATO+Clinic+Al+Wasl+Road+Al+Safa+Dubai" target="_blank" rel="noopener">
+      <span class="en-i">Get directions</span><span class="ar-i">الاتجاهات</span>
+      <span class="btn__arrow" aria-hidden="true">→</span>
+    </a>
+    <div class="hud__coords">25.1842&deg; N · 55.2526&deg; E</div>
+  </div>
+
+  <div class="credit"><span class="en-i">BATO · An engraving of the neighbourhood · Not to scale</span><span class="ar-i">باتو · نقشٌ للحيّ · ليست بمقياس دقيق</span></div>
+</div>
+
+<script>
+(function(){
+  "use strict";
+  var SVGNS="http://www.w3.org/2000/svg";
+  var reduce = matchMedia('(prefers-reduced-motion:reduce)').matches;
+
+  /* ---------- faint engraver grid ---------- */
+  (function buildGrid(){
+    var g=document.getElementById('layerGrid');
+    var frag=document.createDocumentFragment();
+    for(var x=120;x<=920;x+=80){
+      var l=document.createElementNS(SVGNS,'line');
+      l.setAttribute('class','grid'); l.setAttribute('x1',x); l.setAttribute('y1',40); l.setAttribute('x2',x); l.setAttribute('y2',1060);
+      frag.appendChild(l);
+    }
+    for(var y=120;y<=1040;y+=80){
+      var h=document.createElementNS(SVGNS,'line');
+      h.setAttribute('class','grid'); h.setAttribute('x1',40); h.setAttribute('y1',y); h.setAttribute('x2',960); h.setAttribute('y2',y);
+      frag.appendChild(h);
+    }
+    g.appendChild(frag);
+  })();
+
+  /* ---------- landmark markers ---------- */
+  var LM=[
+    {x:572.0,y:432.0, en:"Al Farooq Mosque", ar:"مسجد الفاروق",   side:"r"},
+    {x:561.6,y:648.0, en:"Oasis Mall",        ar:"أويسس مول",     side:"r"},
+    {x:376.8,y:706.8, en:"Spinneys · Tavola", ar:"سبينيس · تافولا", side:"l"},
+    {x:148.0,y:785.2, en:"Kite Beach",        ar:"كايت بيتش",     side:"r"},
+    {x:764.0,y:187.4, en:"Business Bay",      ar:"الخليج التجاري", side:"l"}
+  ];
+  (function buildMarks(){
+    var layer=document.getElementById('layerMarks');
+    var frag=document.createDocumentFragment();
+    LM.forEach(function(m){
+      var g=document.createElementNS(SVGNS,'g');
+      g.setAttribute('class','mark'); g.setAttribute('tabindex','0'); g.setAttribute('role','img');
+      g.setAttribute('aria-label', m.en+' / '+m.ar);
+
+      var halo=document.createElementNS(SVGNS,'circle');
+      halo.setAttribute('class','mark__halo'); halo.setAttribute('cx',m.x); halo.setAttribute('cy',m.y);
+      var dot=document.createElementNS(SVGNS,'circle');
+      dot.setAttribute('class','mark__dot'); dot.setAttribute('cx',m.x); dot.setAttribute('cy',m.y);
+
+      var tag=document.createElementNS(SVGNS,'g'); tag.setAttribute('class','mark__tag');
+      var rect=document.createElementNS(SVGNS,'rect');
+      var txt=document.createElementNS(SVGNS,'text');
+      var ten=document.createElementNS(SVGNS,'tspan'); ten.setAttribute('class','en'); ten.textContent=m.en;
+      var tar=document.createElementNS(SVGNS,'tspan'); tar.setAttribute('class','ar'); tar.textContent=m.ar;
+      txt.appendChild(ten); txt.appendChild(tar);
+      tag.appendChild(rect); tag.appendChild(txt);
+
+      g.appendChild(halo); g.appendChild(dot); g.appendChild(tag);
+      frag.appendChild(g);
+      m._rect=rect; m._txt=txt;
+    });
+    layer.appendChild(frag);
+
+    function layoutTags(){
+      LM.forEach(function(m){
+        var bb;
+        try{ bb=m._txt.getBBox(); }catch(e){ bb={width:90,height:12}; }
+        var padX=11, w=bb.width+padX*2, h=18, left;
+        left = m.side==='l' ? (m.x-14-w) : (m.x+14);
+        var top = m.y-h/2;
+        m._rect.setAttribute('x',left); m._rect.setAttribute('y',top);
+        m._rect.setAttribute('width',w); m._rect.setAttribute('height',h);
+        m._rect.setAttribute('rx',2.5);
+        m._txt.setAttribute('x', left+padX); m._txt.setAttribute('y', m.y+3.4);
+      });
+    }
+    layoutTags();
+    document.addEventListener('bato:lang', layoutTags);
+    if(document.fonts && document.fonts.ready){ document.fonts.ready.then(layoutTags); }
+  })();
+
+  /* ---------- gentle pointer parallax ---------- */
+  (function parallax(){
+    if(reduce) return;
+    var plate=document.getElementById('plate');
+    var layers=[].slice.call(document.querySelectorAll('.par'));
+    var tx=0,ty=0,cx=0,cy=0, raf=null;
+    function onMove(e){
+      var r=plate.getBoundingClientRect();
+      tx=(e.clientX-r.left)/r.width - .5;
+      ty=(e.clientY-r.top)/r.height - .5;
+      if(!raf) raf=requestAnimationFrame(tick);
+    }
+    function onLeave(){ tx=0; ty=0; if(!raf) raf=requestAnimationFrame(tick); }
+    function tick(){
+      cx+=(tx-cx)*.08; cy+=(ty-cy)*.08;
+      layers.forEach(function(l){
+        var d=parseFloat(l.getAttribute('data-depth'))||3;
+        var amt=(7-d)*2.2;
+        l.style.transform='translate('+(cx*amt).toFixed(2)+'px,'+(cy*amt).toFixed(2)+'px)';
+      });
+      if(Math.abs(tx-cx)>.001||Math.abs(ty-cy)>.001){ raf=requestAnimationFrame(tick); } else { raf=null; }
+    }
+    plate.addEventListener('pointermove', onMove);
+    plate.addEventListener('pointerleave', onLeave);
+  })();
+
+  /* ---------- language toggle (BATO site contract) ---------- */
+  (function lang(){
+    var btn=document.getElementById('langtog'); if(!btn) return;
+    var T={ ar:"الموقع · عيادة باتو · BATO", en:"Location · Bato Clinic · باتو" };
+    function apply(L,persist){
+      var h=document.documentElement;
+      h.setAttribute('lang',L); h.setAttribute('dir', L==='ar'?'rtl':'ltr'); h.setAttribute('data-lang',L);
+      if(T[L]) document.title=T[L];
+      if(persist){ try{ localStorage.setItem('bato-lang',L); }catch(e){} }
+      document.dispatchEvent(new Event('bato:lang'));
+    }
+    apply(document.documentElement.getAttribute('data-lang')||'ar', false);
+    btn.addEventListener('click', function(){
+      var n=document.documentElement.getAttribute('data-lang')==='ar'?'en':'ar';
+      apply(n,true);
+    });
+  })();
+})();
+</script>
+</body>
+</html>
