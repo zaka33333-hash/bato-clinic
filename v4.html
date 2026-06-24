@@ -637,9 +637,9 @@ html[lang="ar"] .field label, html[lang="ar"] .btn, html[lang="ar"] .dock, html[
   font-family:var(--kufi); text-transform:none; letter-spacing:.04em; }
 
 /* ── language toggle button (instrument aesthetic, twin of the burger, opposite corner) ── */
-.langtog{ position:fixed; z-index:95; top:0; inset-inline-start:0; pointer-events:auto; display:inline-flex; align-items:center; gap:.55em;
+.langtog{ position:fixed; z-index:95; top:clamp(44px,5.2vw,58px); inset-inline-start:0; pointer-events:auto; display:inline-flex; align-items:center; gap:.55em;
   background:none; border:0; cursor:pointer; color:var(--ink); font-family:var(--mono); font-size:10.5px; letter-spacing:.22em; text-transform:uppercase;
-  padding:clamp(16px,2.4vw,30px) clamp(18px,3vw,40px); transition:color .6s var(--ease-lift); }
+  padding:5px clamp(18px,3vw,40px); transition:color .6s var(--ease-lift); }
 .langtog:hover{ color:var(--amber); }
 .langtog__opt{ transition:color .35s var(--ease), opacity .35s; line-height:1; }
 .langtog__opt.ar-opt{ font-family:var(--kufi); font-size:1.35em; }
@@ -648,7 +648,7 @@ html[data-lang="ar"] .langtog__opt.ar-opt{ opacity:.4; } html[data-lang="ar"] .l
 html[data-lang="en"] .langtog__opt.en-opt{ opacity:.4; } html[data-lang="en"] .langtog__opt.ar-opt{ color:var(--amber); }
 .langtog:focus-visible{ outline:2px solid var(--hud-accent); outline-offset:3px; border-radius:6px; }
 body.menu-open .langtog{ color:#efe7d9; }
-@media(max-width:720px){ .langtog{ padding:14px 16px; font-size:9px; } }
+@media(max-width:720px){ .langtog{ top:34px; padding:4px 16px; font-size:9px; } }
 @media (prefers-reduced-motion:reduce){ .langtog,.langtog__opt{ transition:none; } }
 
 /* ═══════════════ RTL OVERRIDES — only the hardcoded-direction cinematic spots ═══════════════ */
