@@ -358,6 +358,8 @@ body.dock-on .dock{ opacity:1; transform:none; pointer-events:auto; }
   transition:clip-path 1.3s var(--ease-lift); will-change:clip-path,transform; transform:scale(1.06); }
 .shot[data-dir="left"] .shot__bg{ clip-path:inset(0 100% 0 0); }
 .shot.in .shot__bg{ clip-path:inset(0); }
+.shot__vid{ z-index:0; }
+@media (prefers-reduced-motion:reduce){ .shot__vid{ display:none; } }
 .shot__veil{ position:absolute; inset:0; background:linear-gradient(100deg, rgba(28,22,14,.46) 0 30%, rgba(28,22,14,.05) 60%, transparent); }
 .shot[data-dir="left"] .shot__veil{ background:linear-gradient(260deg, rgba(28,22,14,.42) 0 32%, transparent 62%); }
 .shot__c{ position:relative; z-index:4; padding:clamp(28px,6vw,90px); color:var(--halo); max-width:680px; }
@@ -699,6 +701,10 @@ body.dock-on .dock{ opacity:1; transform:none; pointer-events:auto; }
       <source type="image/webp" sizes="100vw" srcset="assets/hair-480.webp 480w, assets/hair-768.webp 768w, assets/hair-1080.webp 1080w, assets/hair-1440.webp 1440w, assets/hair-1672.webp 1672w">
       <img class="shot__bg" src="assets/hair-fallback.jpg" alt="Healthy, glossy hair catching streaks of daylight" loading="lazy" decoding="async">
     </picture>
+    <video class="shot__bg shot__vid" autoplay muted loop playsinline preload="metadata" poster="assets/hair-fallback.jpg" aria-hidden="true">
+      <source src="assets/hair-motion.webm" type="video/webm">
+      <source src="assets/hair-motion.mp4" type="video/mp4">
+    </video>
     <div class="shot__veil"></div>
     <div class="shimmer"></div>
     <div class="shot__c" style="margin-inline-start:auto; text-align:end">
