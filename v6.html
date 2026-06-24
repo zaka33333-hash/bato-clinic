@@ -253,6 +253,11 @@ html[data-lang="ar"] .manifesto__body{ font-size:clamp(1.1rem,1.6vw,1.5rem); }
 /* landscape (outpainted) interiors — full scene fills desktop, no hard crop */
 .atmos--est .atmos__media img{ object-position:50% 46%; }
 .atmos--cozy .atmos__media img{ object-position:50% 52%; }
+/* phones get the REAL portrait shots (no AI outpaint) — frame the band like the originals */
+@media(max-width:860px){
+  .atmos--est .atmos__media img{ object-position:50% 36%; }
+  .atmos--cozy .atmos__media img{ object-position:50% 30%; }
+}
 .atmos__media::after{ content:""; position:absolute; inset:0; background:radial-gradient(130% 95% at 50% 44%, rgba(20,13,7,.1) 0%, rgba(20,13,7,.5) 60%, rgba(20,13,7,.84) 100%); }
 .atmos__line{ position:relative; z-index:2; width:100%; max-width:var(--maxw); margin:0 auto; padding:0 var(--pad); color:var(--paper); }
 .atmos__line h2{ font-family:var(--serif); font-weight:300; font-size:clamp(2.6rem,9vw,9.5rem); line-height:1; letter-spacing:-.01em; text-shadow:0 2px 40px rgba(8,5,1,.6), 0 1px 8px rgba(8,5,1,.5); }
@@ -429,6 +434,8 @@ html[data-lang="ar"] .menu__contact{ font-family:var(--ar-sans); }
 <section class="hero" id="hero" data-theme="dark">
   <div class="hero__media" data-parallax>
     <picture>
+      <source media="(max-width:860px)" type="image/webp" srcset="assets/clinic-tall-768.webp 768w, assets/clinic-tall-1242.webp 1242w">
+      <source media="(max-width:860px)" srcset="assets/clinic-tall-1080.jpg">
       <source type="image/webp" sizes="100vw" srcset="assets/clinic-wide-1200.webp 1200w, assets/clinic-wide-1800.webp 1800w, assets/clinic-wide-2560.webp 2560w">
       <img src="assets/clinic-wide-1800.jpg" alt="BATO — the clinic villa in Al Safa, Dubai" loading="eager" fetchpriority="high" width="2752" height="1536">
     </picture>
@@ -475,6 +482,8 @@ html[data-lang="ar"] .menu__contact{ font-family:var(--ar-sans); }
 <section class="atmos atmos--est" id="atmos" data-theme="dark">
   <div class="atmos__media" data-mask>
     <picture>
+      <source media="(max-width:860px)" type="image/webp" srcset="assets/home1-tall-768.webp 768w, assets/home1-tall-1242.webp 1242w">
+      <source media="(max-width:860px)" srcset="assets/home1-tall-1080.jpg">
       <source type="image/webp" sizes="100vw" srcset="assets/home1-1080.webp 1080w, assets/home1-1440.webp 1440w, assets/home1-1920.webp 1920w">
       <img src="assets/home1-1440.jpg" alt="Inside BATO — the staircase lounge, daylight" loading="lazy" width="2752" height="1536">
     </picture>
@@ -490,6 +499,8 @@ html[data-lang="ar"] .menu__contact{ font-family:var(--ar-sans); }
 <section class="atmos atmos--cozy" data-theme="dark">
   <div class="atmos__media" data-mask>
     <picture>
+      <source media="(max-width:860px)" type="image/webp" srcset="assets/home2-tall-768.webp 768w, assets/home2-tall-1242.webp 1242w">
+      <source media="(max-width:860px)" srcset="assets/home2-tall-1080.jpg">
       <source type="image/webp" sizes="100vw" srcset="assets/home2-1080.webp 1080w, assets/home2-1440.webp 1440w, assets/home2-1920.webp 1920w">
       <img src="assets/home2-1440.jpg" alt="Inside BATO — the living-room corner, fresh roses" loading="lazy" width="2752" height="1536">
     </picture>
