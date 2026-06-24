@@ -201,7 +201,7 @@ html[data-lang="ar"] .manifesto__body{ font-size:clamp(1.1rem,1.6vw,1.5rem); }
 .atmos{ height:108svh; min-height:680px; position:relative; overflow:hidden; background:var(--night); display:flex; align-items:center; }
 .atmos__media{ position:absolute; inset:0; z-index:0; clip-path:inset(0 0 0 0); }
 .atmos__media picture{ position:absolute; inset:0; display:block; }
-.atmos__media img{ width:100%; height:100%; object-fit:cover; object-position:50% 34%; opacity:.9; transform:scale(1.12); }
+.atmos__media img,.atmos__media video{ width:100%; height:100%; object-fit:cover; object-position:50% 50%; opacity:.92; transform:scale(1.12); }
 .atmos__media::after{ content:""; position:absolute; inset:0; background:radial-gradient(130% 95% at 50% 44%, rgba(20,13,7,.1) 0%, rgba(20,13,7,.5) 60%, rgba(20,13,7,.84) 100%); }
 .atmos__line{ position:relative; z-index:2; width:100%; max-width:var(--maxw); margin:0 auto; padding:0 var(--pad); color:var(--paper); }
 .atmos__line h2{ font-family:var(--serif); font-weight:300; font-size:clamp(2.6rem,9vw,9.5rem); line-height:1; letter-spacing:-.01em; text-shadow:0 2px 40px rgba(8,5,1,.6), 0 1px 8px rgba(8,5,1,.5); }
@@ -252,7 +252,7 @@ html[data-lang="ar"] .foot__col h4{ font-family:var(--ar-sans); letter-spacing:.
 /* ============================================================ MOTION GUARDS */
 @media(prefers-reduced-motion:reduce){
   *{ animation-duration:.001ms!important; transition-duration:.001ms!important; }
-  .hero__media img,.atmos__media img{ transform:none; }
+  .hero__media img,.atmos__media img,.atmos__media video{ transform:none; }
 }
 </style>
 <script type="application/ld+json">
@@ -337,10 +337,11 @@ html[data-lang="ar"] .foot__col h4{ font-family:var(--ar-sans); letter-spacing:.
 <!-- ============================================================ 4 · ATMOSPHERE -->
 <section class="atmos" id="atmos" data-theme="dark">
   <div class="atmos__media" data-mask>
-    <picture>
-      <source type="image/webp" sizes="100vw" srcset="assets/interior-1080.webp 1080w, assets/interior-1440.webp 1440w, assets/interior-1920.webp 1920w">
-      <img src="assets/interior-1440.jpg" alt="Inside BATO — the living-room lounge" loading="lazy" width="2231" height="3966">
-    </picture>
+    <video class="atmos__vid" autoplay muted loop playsinline preload="metadata"
+           poster="assets/atmos-poster.jpg" aria-label="Inside BATO — the lounge">
+      <source src="assets/atmos-loop.webm" type="video/webm">
+      <source src="assets/atmos-loop.mp4" type="video/mp4">
+    </video>
   </div>
   <div class="atmos__line">
     <h2 class="lines" data-reveal>
@@ -578,7 +579,7 @@ window.addEventListener('load', function(){
   /* parallax — scrubbed */
   var heroImg=document.querySelector('.hero__media img');
   if(heroImg) gsap.fromTo(heroImg,{yPercent:-4,scale:1.14},{yPercent:6,scale:1.14,ease:'none',scrollTrigger:{trigger:'.hero',start:'top bottom',end:'bottom top',scrub:true}});
-  var atmosImg=document.querySelector('.atmos__media img');
+  var atmosImg=document.querySelector('.atmos__media video, .atmos__media img');
   if(atmosImg) gsap.fromTo(atmosImg,{yPercent:-6,scale:1.18},{yPercent:8,scale:1.18,ease:'none',scrollTrigger:{trigger:'.atmos',start:'top bottom',end:'bottom top',scrub:true}});
 
   window.addEventListener('resize', function(){ applyMorph(morphST.progress); });
