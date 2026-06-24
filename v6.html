@@ -150,9 +150,15 @@ html[data-lang="ar"] .serif{ font-family:var(--ar-serif); line-height:1.3; lette
 html[data-lang="ar"] .serif em{ font-style:normal; color:var(--gold-deep); }
 
 /* reveal primitives (GSAP enhances; this is the no-JS / fallback baseline) */
-[data-reveal]{ opacity:0; transform:translateY(26px); transition:opacity 1s var(--ease), transform 1s var(--ease); transition-delay:var(--d,0ms); }
+[data-reveal]{ opacity:0; transform:var(--rv, translateY(26px)); transition:opacity 1s var(--ease), transform 1.1s var(--ease); transition-delay:var(--d,0ms); }
 [data-reveal].in{ opacity:1; transform:none; }
 .no-js [data-reveal], .reduce [data-reveal]{ opacity:1; transform:none; }
+/* directional reveals — each element can enter from a different place */
+.rv-left{ --rv:translateX(-58px); }
+.rv-right{ --rv:translateX(58px); }
+.rv-up{ --rv:translateY(48px); }
+.rv-down{ --rv:translateY(-40px); }
+.rv-pop{ --rv:translateY(18px) scale(.9); transform-origin:center; }
 
 /* split-line headline mask reveal — vertical padding gives Arabic descenders/marks & italic tails room inside the overflow mask so no glyph is ever clipped; the negative margin keeps the visual line rhythm tight, and translateY pushes the hidden line far enough that it stays masked despite the padding */
 .lines .ln{ display:block; overflow:hidden; padding-block:.3em; margin-block:-.3em; }
@@ -449,16 +455,16 @@ html[data-lang="ar"] .menu__contact{ font-family:var(--ar-sans); }
 
 <!-- ============================================================ 3 · MANIFESTO -->
 <section class="manifesto" id="manifesto" data-theme="light">
-  <h2 class="manifesto__h lines" data-reveal>
-    <span class="en"><span class="b ln"><i>Beauty starts</i></span><span class="b b--2 ln"><i>with Health.</i></span></span>
-    <span class="ar"><span class="b ln"><i>الجمال يبدأ</i></span><span class="b b--2 ln"><i>بالصحة.</i></span></span>
+  <h2 class="manifesto__h">
+    <span class="en"><span class="b rv-left" data-reveal>Beauty starts</span><span class="b b--2 rv-right" data-reveal style="--d:170ms">with Health.</span></span>
+    <span class="ar"><span class="b rv-left" data-reveal>الجمال يبدأ</span><span class="b b--2 rv-right" data-reveal style="--d:170ms">بالصحة.</span></span>
   </h2>
   <div class="manifesto__foot">
-    <p class="manifesto__body" data-reveal style="--d:150ms">
+    <p class="manifesto__body rv-up" data-reveal style="--d:320ms">
       <span class="en-i">Non-surgical hair, skin and medical-beauty care, built around one principle: understand the body first, then treat what shows on the outside. Delivered by registered nurses, medically supervised throughout.</span>
       <span class="ar-i">عناية غير جراحية بالشعر والبشرة والجمال الطبي، مبنيّة على مبدأ واحد: نفهم الجسد أولاً، ثم نعالج ما يظهر على السطح. يقدّمها ممرّضات مسجّلات، بإشراف طبي في كل خطوة.</span>
     </p>
-    <a class="btn btn--solid manifesto__cta" href="#contact" data-reveal style="--d:300ms"><span class="en-i">Book your consultation</span><span class="ar-i">احجزي استشارتكِ</span><span class="i" aria-hidden="true">↗</span></a>
+    <a class="btn btn--solid manifesto__cta rv-pop" href="#contact" data-reveal style="--d:460ms"><span class="en-i">Book your consultation</span><span class="ar-i">احجزي استشارتكِ</span><span class="i" aria-hidden="true">↗</span></a>
   </div>
 </section>
 
