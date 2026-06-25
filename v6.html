@@ -216,7 +216,18 @@ html[data-lang="ar"] .intro__cue{ font-family:var(--ar-sans); letter-spacing:.02
 @keyframes cue{ 0%,100%{ transform:scaleY(.3); opacity:.4 } 50%{ transform:scaleY(1); opacity:1 } }
 
 /* ============================================================ 2 · HERO (light · text on the reading side, villa cut-out floating on the other) */
-.hero{ min-height:100svh; background:var(--paper); position:relative; overflow:hidden; }
+.hero{ min-height:100svh; position:relative; overflow:hidden;
+  background:
+    radial-gradient(48% 56% at 74% 46%, rgba(230,196,106,.26), rgba(230,196,106,0) 62%),     /* golden-hour bloom haloing the sunlit villa */
+    radial-gradient(125% 92% at 70% -12%, rgba(255,246,230,.92), rgba(255,246,230,0) 50%),    /* warm light pouring from above */
+    radial-gradient(82% 48% at 56% 117%, rgba(201,162,75,.13), rgba(201,162,75,0) 60%),        /* faint warm floor glow grounding the base */
+    var(--paper); }
+html[dir="rtl"] .hero{   /* villa floats LEFT in RTL — mirror the light field so the golden bloom still haloes the building */
+  background:
+    radial-gradient(48% 56% at 26% 46%, rgba(230,196,106,.26), rgba(230,196,106,0) 62%),
+    radial-gradient(125% 92% at 30% -12%, rgba(255,246,230,.92), rgba(255,246,230,0) 50%),
+    radial-gradient(82% 48% at 44% 117%, rgba(201,162,75,.13), rgba(201,162,75,0) 60%),
+    var(--paper); }
 .hero__inner{ position:relative; z-index:2; width:100%; max-width:var(--maxw); margin:0 auto; min-height:100svh;
   display:flex; flex-direction:column; justify-content:center; align-items:flex-start;
   padding:clamp(118px,16vh,190px) var(--pad) clamp(40px,7vh,90px); color:var(--ink); }
@@ -238,7 +249,7 @@ html[data-lang="ar"] .hero__meta{ font-family:var(--ar-sans); letter-spacing:.02
 .hero__meta::before{ content:""; width:26px; height:1px; background:var(--line); flex:0 0 auto; }
 .hero__meta .num{ letter-spacing:.1em; }
 /* the villa, cut out, floating on the END side (right in LTR / left in RTL) on white */
-.hero__media{ position:absolute; z-index:1; top:50%; transform:translateY(-50%); inset-inline-end:-18vw; width:min(86%,1640px); pointer-events:none; }
+.hero__media{ position:absolute; z-index:1; top:50%; transform:translateY(-50%); inset-inline-end:-18vw; width:min(86%,1640px); pointer-events:none; will-change:transform; }
 .hero__media picture{ display:block; width:100%; }
 .hero__media img{ display:block; width:100%; height:auto; }
 @media(max-width:860px){
@@ -722,6 +733,16 @@ window.addEventListener('load', function(){
   /* parallax — scrubbed */
   var heroImg=document.querySelector('.hero__media img');
   if(heroImg) gsap.fromTo(heroImg,{yPercent:0},{yPercent:7,ease:'none',scrollTrigger:{trigger:'.hero',start:'top top',end:'bottom top',scrub:true}});  /* gentle drift only — no scale-zoom on the floating cut-out */
+  /* hero "magic hour" — the villa develops in from a soft focus as the golden light blooms (opacity+blur only, so it never fights the centering/parallax transform) */
+  var heroMedia=document.querySelector('.hero__media');
+  if(heroMedia) gsap.fromTo(heroMedia,{autoAlpha:0,filter:'blur(16px)'},{autoAlpha:1,filter:'blur(0px)',duration:1.6,ease:'power2.out',delay:0.12});
+  /* cursor parallax — living depth; villa drifts a touch against the cursor (desktop pointer + desktop layout only), lerped for a premium glide. Composes with translateY(-50%). */
+  if(heroMedia && window.matchMedia('(pointer:fine) and (min-width:861px)').matches){
+    var heroSec=document.querySelector('.hero'), ptx=0,pty=0,pcx=0,pcy=0,praf=null;
+    function ploop(){ pcx+=(ptx-pcx)*0.08; pcy+=(pty-pcy)*0.08; heroMedia.style.transform='translateY(-50%) translate3d('+pcx.toFixed(2)+'px,'+pcy.toFixed(2)+'px,0)'; if(Math.abs(ptx-pcx)>0.1||Math.abs(pty-pcy)>0.1) praf=requestAnimationFrame(ploop); else praf=null; }
+    heroSec.addEventListener('mousemove',function(e){ var r=heroSec.getBoundingClientRect(); ptx=((e.clientX-r.left)/r.width-0.5)*-30; pty=((e.clientY-r.top)/r.height-0.5)*-18; if(!praf) praf=requestAnimationFrame(ploop); });
+    heroSec.addEventListener('mouseleave',function(){ ptx=0; pty=0; if(!praf) praf=requestAnimationFrame(ploop); });
+  }
   /* atmos pinned scene — crossfade the interior layers across the section scroll; gentle text drift */
   var atmosScene=document.querySelector('.atmos');
   if(atmosScene){
