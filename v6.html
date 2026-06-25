@@ -8,6 +8,23 @@
 <title>BATO — حيث يبدأ الجمال بالصحة · Al Safa, Dubai</title>
 <meta name="description" content="باتو — عيادة للجمال والعافية في الصفا، دبي. نفهم أولاً، ثم نعالج. BATO — an aesthetic & wellness clinic in Al Safa, Dubai. First we understand, then we treat.">
 <meta name="theme-color" content="#f4efe6">
+<link rel="icon" type="image/png" href="assets/bato-logo.png">
+<link rel="apple-touch-icon" href="assets/bato-logo.png">
+<!-- social / link-preview cards (relative URLs resolve against the page URL — portable across preview & production) -->
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="BATO Medical Clinic">
+<meta property="og:locale" content="ar_AE">
+<meta property="og:locale:alternate" content="en_US">
+<meta property="og:title" content="BATO — Where beauty starts with health · Al Safa, Dubai">
+<meta property="og:description" content="An aesthetic & wellness clinic in Al Safa, Dubai. We understand the body first, then treat what shows. Medically supervised · registered nurses.">
+<meta property="og:image" content="assets/villa-hero.jpg">
+<meta property="og:image:width" content="2200">
+<meta property="og:image:height" content="972">
+<meta property="og:image:alt" content="BATO — the clinic villa in Al Safa, Dubai">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="BATO — Where beauty starts with health">
+<meta name="twitter:description" content="An aesthetic & wellness clinic in Al Safa, Dubai. First we understand, then we treat.">
+<meta name="twitter:image" content="assets/villa-hero.jpg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..600;1,9..144,300..600&family=Onest:wght@300;400;500;600;700&family=Aref+Ruqaa:wght@400;700&family=IBM+Plex+Sans+Arabic:wght@300;400;500;600;700&display=swap">
@@ -358,6 +375,14 @@ html[data-lang="ar"] .menu__contact{ font-family:var(--ar-sans); }
 .menu .langtog{ color:var(--ink); }
 @media(max-width:680px){ .menu__foot{ flex-direction:column; align-items:flex-start; gap:20px; } .menu__num{ min-width:1.8em; } }
 
+/* ============================================================ FOCUS (keyboard only) */
+:focus{ outline:none; }                                   /* mouse/touch: no ring */
+:focus-visible{ outline:2px solid var(--gold); outline-offset:3px; border-radius:4px; }
+.btn:focus-visible, .menu-btn:focus-visible, .langtog:focus-visible, .hero__textlink:focus-visible{ outline-offset:4px; }
+.card:focus-visible{ outline-offset:-2px; background:var(--paper-2); }
+.menu__link:focus-visible{ outline-offset:-4px; }
+[data-theme="dark"] :focus-visible, .foot :focus-visible{ outline-color:var(--gold-hi); }   /* brighter ring on dark sections */
+
 /* ============================================================ MOTION GUARDS */
 @media(prefers-reduced-motion:reduce){
   *{ animation-duration:.001ms!important; transition-duration:.001ms!important; }
@@ -365,7 +390,7 @@ html[data-lang="ar"] .menu__contact{ font-family:var(--ar-sans); }
 }
 </style>
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"MedicalClinic","name":"BATO","alternateName":"باتو","medicalSpecialty":["Dermatology","CosmeticProcedure"],"address":{"@type":"PostalAddress","streetAddress":"Al Safa First, Al Wasl Road","addressLocality":"Dubai","addressCountry":"AE"},"areaServed":"Dubai","slogan":"Where beauty starts with health"}
+{"@context":"https://schema.org","@type":"MedicalClinic","name":"BATO","alternateName":"باتو","image":"assets/villa-hero.jpg","medicalSpecialty":["Dermatology","CosmeticProcedure"],"address":{"@type":"PostalAddress","streetAddress":"Al Safa First, Al Wasl Road","addressLocality":"Dubai","addressCountry":"AE"},"areaServed":"Dubai","slogan":"Where beauty starts with health","openingHoursSpecification":[{"@type":"OpeningHoursSpecification","dayOfWeek":["Saturday","Sunday","Monday","Tuesday","Wednesday"],"opens":"11:00","closes":"19:00"},{"@type":"OpeningHoursSpecification","dayOfWeek":["Thursday","Friday"],"opens":"11:00","closes":"18:00"}]}
 </script>
 </head>
 <body class="no-js">
@@ -431,10 +456,10 @@ html[data-lang="ar"] .menu__contact{ font-family:var(--ar-sans); }
 <section class="hero" id="hero" data-theme="light">
   <div class="hero__inner">
     <div class="eyebrow hero__eyebrow" data-reveal style="--d:120ms"><span class="en-i">Where beauty starts with health</span><span class="ar-i">حيث يبدأ الجمال بالصحة</span></div>
-    <h2 class="hero__h serif lines">
+    <h1 class="hero__h serif lines">
       <span class="en"><span class="ln"><i>Bato is now</i></span><span class="ln"><i>in <em>Dubai!</em></i></span></span>
       <span class="ar"><span class="ln"><i>باتو كلينيك</i></span><span class="ln"><i>وصل <em>لدبي!</em></i></span></span>
-    </h2>
+    </h1>
     <div class="hero__cta" data-reveal style="--d:300ms">
       <a class="btn btn--solid" href="#contact"><span class="en-i">Book a consultation</span><span class="ar-i">احجزي استشارة</span><span class="i" aria-hidden="true">↗</span></a>
       <a class="btn" href="#manifesto"><span class="en-i">Discover BATO</span><span class="ar-i">اكتشفي باتو</span></a>
@@ -475,7 +500,7 @@ html[data-lang="ar"] .menu__contact{ font-family:var(--ar-sans); }
   <div class="atmos__pin">
     <div class="atmos__media">
       <div class="atmos__img">
-        <picture><source type="image/webp" sizes="100vw" srcset="assets/home1-1080.webp 1080w, assets/home1-1440.webp 1440w, assets/home1-1920.webp 1920w"><img src="assets/home1-1440.jpg" alt="Inside BATO — the staircase lounge" loading="eager" fetchpriority="high" width="2752" height="1536"></picture>
+        <picture><source type="image/webp" sizes="100vw" srcset="assets/home1-1080.webp 1080w, assets/home1-1440.webp 1440w, assets/home1-1920.webp 1920w"><img src="assets/home1-1440.jpg" alt="Inside BATO — the staircase lounge" loading="lazy" width="2752" height="1536"></picture>
       </div>
       <div class="atmos__img">
         <picture><source type="image/webp" sizes="100vw" srcset="assets/home2-1080.webp 1080w, assets/home2-1440.webp 1440w, assets/home2-1920.webp 1920w"><img src="assets/home2-1440.jpg" alt="Inside BATO — the living-room corner" loading="lazy" width="2752" height="1536"></picture>
@@ -589,6 +614,7 @@ html[data-lang="ar"] .menu__contact{ font-family:var(--ar-sans); }
     burger.setAttribute('aria-expanded',v?'true':'false');
     burger.setAttribute('aria-label',v?'Close menu':'Open menu');
     menu.setAttribute('aria-hidden',v?'false':'true');
+    var mainEl=document.getElementById('top'); if(mainEl) mainEl.inert=v;   /* focus trap: page behind the overlay can't be tabbed into */
     if(window.__lenis){ v?window.__lenis.stop():window.__lenis.start(); }
     if(v){ var first=menu.querySelector('.menu__link'); if(first) setTimeout(function(){ try{first.focus();}catch(e){} },280); }
     else { try{ burger.focus(); }catch(e){} }
@@ -602,71 +628,13 @@ html[data-lang="ar"] .menu__contact{ font-family:var(--ar-sans); }
   document.addEventListener('keydown',function(e){ if((e.key==='Escape'||e.key==='Esc')&&open) setOpen(false); });
 })();
 </script>
-<!-- intro: 3D gold DNA helix (Three.js) + loading→expand choreography (GSAP) -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<!-- intro: loading→expand logo choreography (GSAP); the gold DNA helix is the <video> in .intro__dna -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
 <script>
 (function(){
   var stage=document.querySelector('.intro__stage'); if(!stage) return;
   var reduce=matchMedia('(prefers-reduced-motion:reduce)').matches;
   var canvas=document.getElementById('dna');
-
-  /* ---------- 3D gold DNA double-helix ---------- */
-  if(canvas && canvas.tagName==='CANVAS' && window.THREE){
-    var renderer=new THREE.WebGLRenderer({canvas:canvas,alpha:true,antialias:true});
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio||1,1.75));
-    renderer.toneMapping=THREE.NoToneMapping;
-    renderer.outputEncoding=THREE.sRGBEncoding;
-    var scene=new THREE.Scene();
-    var camera=new THREE.PerspectiveCamera(30,1,0.1,100); camera.position.set(0,0,25);
-    /* procedural studio environment → real metallic gold reflections */
-    var pmrem=new THREE.PMREMGenerator(renderer);
-    function envTex(){
-      var c=document.createElement('canvas'); c.width=512; c.height=256; var x=c.getContext('2d');
-      var g=x.createLinearGradient(0,0,0,256);
-      g.addColorStop(0,'#ffedbe'); g.addColorStop(0.34,'#daa84e'); g.addColorStop(0.60,'#6b4d1e'); g.addColorStop(1,'#090602');
-      x.fillStyle=g; x.fillRect(0,0,512,256);
-      x.globalCompositeOperation='lighter';
-      function spot(cx,cy,r,a){ var rg=x.createRadialGradient(cx,cy,0,cx,cy,r); rg.addColorStop(0,'rgba(255,242,210,'+a+')'); rg.addColorStop(1,'rgba(255,242,210,0)'); x.fillStyle=rg; x.fillRect(cx-r,cy-r,r*2,r*2); }
-      spot(150,50,74,0.9); spot(384,90,96,0.55); spot(70,176,58,0.3); spot(300,150,52,0.4); spot(456,38,44,0.6);
-      var t=new THREE.CanvasTexture(c); t.mapping=THREE.EquirectangularReflectionMapping; return t;
-    }
-    scene.environment=pmrem.fromEquirectangular(envTex()).texture;
-    var key=new THREE.DirectionalLight(0xffffff,0.95); key.position.set(5,9,8); scene.add(key);
-    var rim=new THREE.DirectionalLight(0xffe3aa,0.5); rim.position.set(-7,-3,-5); scene.add(rim);
-    var glint=new THREE.PointLight(0xfff4d6,0.6); glint.position.set(2,3,8); scene.add(glint);
-    var tilt=new THREE.Group(); tilt.rotation.z=0.52; tilt.rotation.x=-0.05; scene.add(tilt);
-    var grp=new THREE.Group(); tilt.add(grp);
-    /* ---------- flowing gold particle DNA (MYDNA-inspired) ---------- */
-    var COUNT=15000, turns=3.2, H=18, rad=1.7;
-    var pos=new Float32Array(COUNT*3), seed=new Float32Array(COUNT*3), rnd=new Float32Array(COUNT*2);
-    for(var i=0;i<COUNT;i++){
-      var f=Math.random(), strand=Math.random()<0.5?0:Math.PI, rg=Math.random()<0.16;
-      var y=(f-0.5)*H, ang=f*Math.PI*2*turns+strand, r=rad;
-      if(rg){ ang=f*Math.PI*2*turns; r=rad*(Math.random()*2-1); }
-      var bx=Math.cos(ang)*r, bz=Math.sin(ang)*r, sc=0.06+Math.pow(Math.random(),3.0)*0.7;
-      seed[i*3]=bx; seed[i*3+1]=y; seed[i*3+2]=bz;
-      pos[i*3]=bx+(Math.random()-0.5)*sc; pos[i*3+1]=y+(Math.random()-0.5)*sc; pos[i*3+2]=bz+(Math.random()-0.5)*sc;
-      rnd[i*2]=Math.random()*6.2832; rnd[i*2+1]=Math.random();
-    }
-    var pgeo=new THREE.BufferGeometry();
-    pgeo.setAttribute('position',new THREE.BufferAttribute(pos,3));
-    pgeo.setAttribute('aSeed',new THREE.BufferAttribute(seed,3));
-    pgeo.setAttribute('aRnd',new THREE.BufferAttribute(rnd,2));
-    var pmat=new THREE.ShaderMaterial({ transparent:true, depthWrite:false, depthTest:false, blending:THREE.NormalBlending,
-      uniforms:{ uTime:{value:0}, uSize:{value:650.0}, uColor:{value:new THREE.Color(0xa9781b)}, uColor2:{value:new THREE.Color(0xe9c56b)} },
-      vertexShader:'uniform float uTime; uniform float uSize; attribute vec3 aSeed; attribute vec2 aRnd; varying float vMix; varying float vTw; void main(){ float t=uTime+aRnd.x; vec3 d=vec3(sin(t*0.7+aSeed.y*0.6),cos(t*0.85+aSeed.x*0.5),sin(t*0.6+aSeed.z*0.7)); vec3 p=aSeed+d*(0.06+aRnd.y*0.5); vec4 mv=modelViewMatrix*vec4(p,1.0); gl_Position=projectionMatrix*mv; gl_PointSize=uSize*(0.5+aRnd.y*1.1)/max(0.1,-mv.z); vMix=aRnd.y; vTw=0.5+0.5*sin(t*1.6); }',
-      fragmentShader:'precision mediump float; uniform vec3 uColor; uniform vec3 uColor2; varying float vMix; varying float vTw; void main(){ vec2 c=gl_PointCoord-0.5; float rr=length(c); if(rr>0.5) discard; float a=smoothstep(0.5,0.0,rr); vec3 col=mix(uColor,uColor2,vMix*vTw); gl_FragColor=vec4(col, a*(0.34+vTw*0.5)); }'
-    });
-    var points=new THREE.Points(pgeo,pmat); grp.add(points);
-    /* diagonal tilt is applied by the parent group; grp only spins on its own axis */
-    var rot=0,lw=0,lh=0;
-    function fit(){ var b=canvas.getBoundingClientRect(); if(b.width&&(Math.abs(b.width-lw)>1||Math.abs(b.height-lh)>1)){ lw=b.width; lh=b.height; renderer.setSize(b.width,b.height,false); camera.aspect=b.width/b.height; camera.updateProjectionMatrix(); } }
-    window.addEventListener('resize',fit);
-    function frame(){ fit(); rot+=0.0035; pmat.uniforms.uTime.value+=0.016; grp.rotation.y=rot; tilt.position.y=Math.sin(rot*2.4)*0.18; renderer.render(scene,camera); if(!reduce) requestAnimationFrame(frame); }
-    fit();
-    if(reduce){ grp.rotation.y=0.6; renderer.render(scene,camera); } else frame();
-  }
 
   /* ---------- loading → expand → DNA choreography ---------- */
   var letters=[].slice.call(document.querySelectorAll('.ltr'));
@@ -700,6 +668,7 @@ html[data-lang="ar"] .menu__contact{ font-family:var(--ar-sans); }
 <script>
 window.addEventListener('load', function(){
   var reduce = matchMedia('(prefers-reduced-motion:reduce)').matches;
+  if(reduce){ var _dv=document.querySelector('.intro__dna video'); if(_dv){ try{ _dv.pause(); }catch(e){} } }   /* honour reduced-motion: freeze the DNA loop */
   var nav=document.getElementById('nav'), introEl=document.querySelector('.intro');
   var wordEl=document.querySelector('.intro__word'), ltrs=[].slice.call(document.querySelectorAll('.ltr')), dnaC=document.getElementById('dna');
   function lpx(el){ return parseFloat(el.getAttribute('data-x'))*window.innerWidth/100; }
