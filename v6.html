@@ -256,28 +256,6 @@ html[data-lang="ar"] .hero__meta{ font-family:var(--ar-sans); letter-spacing:.02
   .hero__h{ font-size:clamp(2.2rem,8vw,3.5rem); max-width:18ch; }
 }
 
-/* ============================================================ HERO · UAE FLAG (scroll-cinema payoff — unfurls as the headline lifts away; desktop+motion only) */
-.hero__flag{ position:absolute; z-index:3; top:50%; left:0; right:0; margin:0 auto; max-width:var(--maxw); padding:0 var(--pad); transform:translateY(-50%); display:flex; justify-content:flex-start; pointer-events:none; }
-@media(max-width:860px){ .hero__flag{ display:none; } }
-@media(prefers-reduced-motion:reduce){ .hero__flag{ display:none; } }
-/* component (synthesized via design panel): exact UAE geometry, silk-displacement wave, gold pole; reveal scrubbed by --p (0..1), continuous wave gated by .is-live */
-.uae-flag{ --p:0; --reveal:var(--p); --w:clamp(300px,34vw,440px); position:relative; width:var(--w); display:flex; align-items:stretch; gap:0; -webkit-user-select:none; user-select:none;
-  filter:drop-shadow(0 18px 30px rgba(27,21,16,.16)) drop-shadow(0 3px 6px rgba(27,21,16,.10)); }
-.uae-flag__pole{ position:relative; flex:0 0 auto; width:4px; margin-top:-7px; border-radius:4px; background:linear-gradient(180deg,#E6C46A,#C9A24B 45%,#9c7a32); box-shadow:0 0 0 .5px rgba(27,21,16,.12), 1px 0 2px rgba(27,21,16,.18); transform:translateY(calc((1 - var(--reveal)) * -8px)); opacity:clamp(0, calc(var(--reveal) * 6), 1); }
-.uae-flag__finial{ position:absolute; top:-9px; left:50%; width:9px; height:9px; border-radius:50%; transform:translateX(-50%) scale(var(--reveal)); background:radial-gradient(circle at 35% 30%, #F4DE9C, #C9A24B 60%, #8f6f2c); box-shadow:0 1px 3px rgba(27,21,16,.3); transition:transform .5s cubic-bezier(.2,.9,.2,1); }
-.uae-flag__cloth{ position:relative; flex:1 1 auto; aspect-ratio:2 / 1; transform-origin:left center;
-  transform:translateX(calc((1 - var(--reveal)) * -10px)) scaleX(calc(.18 + .82 * clamp(0, var(--reveal), 1))) scaleY(calc(.94 + .06 * var(--reveal)));
-  opacity:clamp(0, calc(var(--reveal) * 3), 1); will-change:transform, opacity; }
-.uae-flag__svg{ display:block; width:100%; height:100%; overflow:visible; }
-.uae-flag__warp{ transform-origin:0px 50px; animation:uf-sway 8s ease-in-out infinite; }
-@keyframes uf-sway{ 0%,100%{ transform:rotate(-.35deg) } 50%{ transform:rotate(.45deg) } }
-.uae-flag__foldband{ mix-blend-mode:screen; animation:uf-fold 9.5s ease-in-out infinite; }
-@keyframes uf-fold{ 0%{ transform:translateX(-48%) } 50%{ transform:translateX(48%) } 100%{ transform:translateX(-48%) } }
-.uae-flag:not(.is-live) .uae-flag__warp, .uae-flag:not(.is-live) .uae-flag__foldband{ animation-play-state:paused; }
-html[dir="rtl"] .uae-flag{ flex-direction:row-reverse; }
-html[dir="rtl"] .uae-flag__cloth{ transform-origin:right center; transform:translateX(calc((1 - var(--reveal)) * 10px)) scaleX(calc(.18 + .82 * clamp(0, var(--reveal), 1))) scaleY(calc(.94 + .06 * var(--reveal))); }
-@media(prefers-reduced-motion:reduce){ .uae-flag{ --reveal:1; } .uae-flag__cloth{ transform:none !important; opacity:1 !important; } .uae-flag__warp{ animation:none !important; filter:none !important; } .uae-flag__foldband{ animation:none !important; opacity:.34; } .uae-flag__pole,.uae-flag__finial{ transform:none !important; opacity:1 !important; } }
-
 /* ============================================================ 3 · MANIFESTO */
 .manifesto{ padding:clamp(110px,18vh,230px) var(--pad); max-width:var(--maxw); margin:0 auto; overflow-x:clip; }
 .manifesto__h{ font-family:var(--serif); font-optical-sizing:auto; font-weight:300; font-size:clamp(2.8rem,8.5vw,9rem); line-height:1.0; letter-spacing:-.015em; }
@@ -509,60 +487,6 @@ html[data-lang="ar"] .menu__contact{ font-family:var(--ar-sans); }
       <source type="image/webp" srcset="assets/villa-hero.webp">
       <img src="assets/villa-hero.jpg" alt="BATO — the clinic villa in Al Safa, Dubai" loading="eager" fetchpriority="high" width="2400" height="1370">
     </picture>
-  </div>
-
-  <div class="hero__flag" aria-hidden="true">
-    <div class="uae-flag" role="img" aria-label="Flag of the United Arab Emirates">
-      <div class="uae-flag__pole"><span class="uae-flag__finial"></span></div>
-      <div class="uae-flag__cloth">
-        <svg class="uae-flag__svg" viewBox="0 0 200 100" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" focusable="false">
-          <defs>
-            <filter id="uf-silk" x="-12%" y="-18%" width="124%" height="136%" color-interpolation-filters="sRGB">
-              <feImage xlink:href="data:image/svg+xml;utf8,&lt;svg xmlns='http://www.w3.org/2000/svg' width='200' height='100'&gt;&lt;defs&gt;&lt;linearGradient id='r' x1='0' y1='0' x2='1' y2='0'&gt;&lt;stop offset='0' stop-color='%23000'/&gt;&lt;stop offset='0.28' stop-color='%23222'/&gt;&lt;stop offset='1' stop-color='%23fff'/&gt;&lt;/linearGradient&gt;&lt;/defs&gt;&lt;rect width='200' height='100' fill='url(%23r)'/&gt;&lt;/svg&gt;" x="0" y="0" width="200" height="100" preserveAspectRatio="none" result="ramp"/>
-              <feTurbulence type="fractalNoise" baseFrequency="0.012 0.024" numOctaves="2" seed="7" stitchTiles="stitch" result="noise">
-                <animate attributeName="baseFrequency" dur="13s" values="0.012 0.024;0.016 0.03;0.013 0.022;0.012 0.024" calcMode="spline" keyTimes="0;0.34;0.7;1" keySplines="0.4 0 0.6 1;0.4 0 0.6 1;0.4 0 0.6 1" repeatCount="indefinite"/>
-              </feTurbulence>
-              <feComposite in="noise" in2="ramp" operator="arithmetic" k1="1" k2="0" k3="0" k4="0" result="anchored"/>
-              <feDisplacementMap in="SourceGraphic" in2="anchored" scale="9" xChannelSelector="R" yChannelSelector="G"/>
-            </filter>
-            <linearGradient id="uf-fold" x1="0" y1="0" x2="1" y2="0">
-              <stop offset="0%" stop-color="#fff" stop-opacity="0"/>
-              <stop offset="42%" stop-color="#fff" stop-opacity="0"/>
-              <stop offset="50%" stop-color="#fff" stop-opacity="0.42"/>
-              <stop offset="58%" stop-color="#fff" stop-opacity="0"/>
-              <stop offset="100%" stop-color="#fff" stop-opacity="0"/>
-            </linearGradient>
-            <linearGradient id="uf-sheen" x1="0" y1="0" x2="1" y2="0.16">
-              <stop offset="0%" stop-color="#000" stop-opacity="0.16"/>
-              <stop offset="14%" stop-color="#000" stop-opacity="0"/>
-              <stop offset="34%" stop-color="#fff" stop-opacity="0.18"/>
-              <stop offset="50%" stop-color="#000" stop-opacity="0.07"/>
-              <stop offset="66%" stop-color="#fff" stop-opacity="0.16"/>
-              <stop offset="86%" stop-color="#000" stop-opacity="0.10"/>
-              <stop offset="100%" stop-color="#000" stop-opacity="0.16"/>
-            </linearGradient>
-            <linearGradient id="uf-toplight" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="0%" stop-color="#fff" stop-opacity="0.10"/>
-              <stop offset="50%" stop-color="#fff" stop-opacity="0"/>
-              <stop offset="100%" stop-color="#000" stop-opacity="0.08"/>
-            </linearGradient>
-            <clipPath id="uf-clip"><rect x="0" y="0" width="200" height="100" rx="1.5"/></clipPath>
-          </defs>
-          <g class="uae-flag__warp" filter="url(#uf-silk)">
-            <g clip-path="url(#uf-clip)">
-              <rect x="0"  y="0"     width="50"  height="100"   fill="#C8102E"/>
-              <rect x="50" y="0"     width="150" height="33.34" fill="#00732F"/>
-              <rect x="50" y="33.33" width="150" height="33.34" fill="#FFFFFF"/>
-              <rect x="50" y="66.66" width="150" height="33.34" fill="#0A0A0A"/>
-              <rect x="0" y="0" width="200" height="100" fill="url(#uf-toplight)"/>
-              <rect x="0" y="0" width="200" height="100" fill="url(#uf-sheen)"/>
-              <rect class="uae-flag__foldband" x="0" y="0" width="200" height="100" fill="url(#uf-fold)"/>
-              <rect x="0" y="0" width="200" height="100" rx="1.5" fill="none" stroke="#1B1510" stroke-opacity="0.06"/>
-            </g>
-          </g>
-        </svg>
-      </div>
-    </div>
   </div>
   </div>
 </section>
@@ -807,16 +731,11 @@ window.addEventListener('load', function(){
   if(heroSec && window.matchMedia('(min-width:861px)').matches){
     heroSec.classList.add('hero--cinema');
     var hMedia=heroSec.querySelector('.hero__media'), hInner=heroSec.querySelector('.hero__inner');
-    var hFlag=heroSec.querySelector('.uae-flag'), hFlagSvg=hFlag?hFlag.querySelector('svg'):null;
     var hDir=function(){ return document.documentElement.getAttribute('dir')==='rtl'?-1:1; };
-    /* keep the silk filter free when the hero is scrolled away */
-    if(hFlagSvg && 'IntersectionObserver' in window){ new IntersectionObserver(function(es){ es.forEach(function(e){ try{ e.isIntersecting?hFlagSvg.unpauseAnimations():hFlagSvg.pauseAnimations(); }catch(_){} }); }).observe(heroSec); }
     ScrollTrigger.create({ trigger:heroSec, start:'top top', end:'bottom bottom', scrub:0.6, onUpdate:function(self){
       var p=self.progress, d=hDir();
       if(hMedia) hMedia.style.transform='translateY(-50%) translate3d('+(p*-3.5*d).toFixed(2)+'vw,'+(p*-3).toFixed(2)+'vh,0) scale('+(1+p*0.20).toFixed(4)+')';   /* dolly-in toward the building */
       if(hInner){ hInner.style.transform='translateY('+(p*-72).toFixed(1)+'px)'; hInner.style.opacity=Math.max(0,1-p*1.3).toFixed(3); }                          /* title card lifts + fades */
-      /* the UAE flag unfurls into the space the title vacates: furled until ~45% scroll, fully raised by ~90% */
-      if(hFlag){ var fp=Math.min(1,Math.max(0,(p-0.45)/0.45)); hFlag.style.setProperty('--p', fp.toFixed(3)); hFlag.classList.toggle('is-live', fp>0.5); }
     }});
   }
   /* atmos pinned scene — crossfade the interior layers across the section scroll; gentle text drift */
