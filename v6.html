@@ -198,6 +198,7 @@ section{ position:relative; }
 .intro__word.themed{ mix-blend-mode:difference; }   /* smart mini logo: blends per-pixel with whatever's behind */
 .intro__word.themed .ltr{ filter:invert(1); }       /* white letters → reads black on light, white on dark */
 .ltr{ height:clamp(140px,40vh,360px); width:auto; max-width:none; flex:0 0 auto; will-change:transform; }   /* never let flex shrink or max-width clamp squeeze the letter images (was stretching the morphed logo on narrow viewports) */
+@media(max-width:860px){ .ltr{ height:clamp(104px,30vw,168px); } }   /* phones: letters are aspect ~0.35; at 40vh they're too wide and B/O get clipped off-screen — size to width so all four BATO letters fit (JS bumps the morphed mini-logo scale to compensate) */
 .intro__dna{ position:absolute; top:0; left:0; width:100vw; height:100svh; z-index:3; pointer-events:none; }
 .intro__dna img,.intro__dna video{ position:absolute; top:50%; left:50%; height:132vh; width:auto; max-width:none; transform:translate(-50%,-50%) rotate(-20deg); mix-blend-mode:multiply; -webkit-mask:linear-gradient(transparent 0%, #000 14%, #000 86%, transparent 100%); mask:linear-gradient(transparent 0%, #000 14%, #000 86%, transparent 100%); }
 .intro__top{ position:absolute; top:clamp(86px,11vh,140px); left:var(--pad); right:var(--pad); display:flex; justify-content:space-between; z-index:4; }
@@ -268,6 +269,7 @@ html[data-lang="ar"] .manifesto__body{ font-size:clamp(1.1rem,1.6vw,1.5rem); }
 .atmos__media{ position:absolute; inset:0; z-index:0; }
 .atmos__img{ position:absolute; inset:0; opacity:0; will-change:opacity; }
 .atmos__img:first-child{ opacity:1; }            /* first interior shown; JS scrubs the crossfade */
+.atmos__img picture{ position:absolute; inset:0; display:block; width:100%; height:100%; }   /* the <picture> must fill the pin, otherwise it collapses to the image's intrinsic height and object-fit:cover has nothing to cover (showed as a thin strip on portrait/mobile) */
 .atmos__img img{ width:100%; height:100%; object-fit:cover; object-position:50% 50%; transform:scale(1.06); }
 .atmos__media::after{ content:""; position:absolute; inset:0; z-index:1; background:radial-gradient(130% 100% at 50% 46%, rgba(20,13,7,.16) 0%, rgba(20,13,7,.55) 55%, rgba(20,13,7,.82) 100%); }
 .atmos__line{ position:relative; z-index:2; width:100%; max-width:var(--maxw); margin:0 auto; padding:0 var(--pad); color:var(--paper); will-change:transform; }
@@ -678,7 +680,8 @@ window.addEventListener('load', function(){
   function applyMorph(p){
     if(!wordEl) return;
     var vh=window.innerHeight, ww=wordEl.offsetWidth||520, wh=wordEl.offsetHeight||320;
-    var s=1+(0.16-1)*p, cy=vh/2+(42-vh/2)*p;
+    var mini=window.innerWidth<=860?0.34:0.16;   /* letters are smaller on phones, so shrink the mini-mark less to keep the top logo legible */
+    var s=1+(mini-1)*p, cy=vh/2+(42-vh/2)*p;
     wordEl.style.transform='translate('+(-ww/2).toFixed(1)+'px,'+(cy-vh/2-wh/2).toFixed(1)+'px) scale('+s.toFixed(4)+')';
     wordEl.classList.toggle('themed', p>0.8);  // turn on the smart blend once it's the mini mark (DNA gone)
     if(p>0){ ltrs.forEach(function(el){ el.style.transform='translateX('+(lpx(el)*(1-p)).toFixed(1)+'px)'; }); if(dnaC) dnaC.style.opacity=Math.max(0,1-p*1.25).toFixed(3); }
