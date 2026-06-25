@@ -216,22 +216,7 @@ html[data-lang="ar"] .intro__cue{ font-family:var(--ar-sans); letter-spacing:.02
 @keyframes cue{ 0%,100%{ transform:scaleY(.3); opacity:.4 } 50%{ transform:scaleY(1); opacity:1 } }
 
 /* ============================================================ 2 · HERO (light · text on the reading side, villa cut-out floating on the other) */
-.hero{ min-height:100svh; position:relative; overflow:hidden; background:var(--paper); }
-/* GOLDEN-HOUR ATMOSPHERE — a graded sunset glow behind the villa that slowly breathes; below the villa (z1) + text (z2) */
-.hero::before{ content:""; position:absolute; inset:0; z-index:0; pointer-events:none; transform-origin:74% 48%;
-  background:
-    radial-gradient(56% 64% at 75% 60%, rgba(233,166,70,.44), rgba(233,166,70,0) 58%),      /* warm gold core hugging the sunlit base */
-    radial-gradient(64% 76% at 85% 24%, rgba(255,205,128,.48), rgba(255,205,128,0) 60%),     /* amber bloom rising up the façade */
-    radial-gradient(130% 100% at 72% -8%, rgba(255,241,221,.96), rgba(255,241,221,0) 52%),   /* warm light pouring from above */
-    linear-gradient(180deg, rgba(255,246,233,.5), rgba(255,255,255,0) 44%); }                  /* cream sky wash */
-.hero::before{ animation:heroGlow 11s var(--ease-in-out) infinite; }
-html[dir="rtl"] .hero::before{ transform-origin:26% 48%;
-  background:
-    radial-gradient(56% 64% at 25% 60%, rgba(233,166,70,.44), rgba(233,166,70,0) 58%),
-    radial-gradient(64% 76% at 15% 24%, rgba(255,205,128,.48), rgba(255,205,128,0) 60%),
-    radial-gradient(130% 100% at 28% -8%, rgba(255,241,221,.96), rgba(255,241,221,0) 52%),
-    linear-gradient(180deg, rgba(255,246,233,.5), rgba(255,255,255,0) 44%); }
-@keyframes heroGlow{ 0%,100%{ opacity:.82; transform:scale(1); } 50%{ opacity:1; transform:scale(1.055); } }
+.hero{ min-height:100svh; background:var(--paper); position:relative; overflow:hidden; }
 .hero__inner{ position:relative; z-index:2; width:100%; max-width:var(--maxw); margin:0 auto; min-height:100svh;
   display:flex; flex-direction:column; justify-content:center; align-items:flex-start;
   padding:clamp(118px,16vh,190px) var(--pad) clamp(40px,7vh,90px); color:var(--ink); }
@@ -253,7 +238,7 @@ html[data-lang="ar"] .hero__meta{ font-family:var(--ar-sans); letter-spacing:.02
 .hero__meta::before{ content:""; width:26px; height:1px; background:var(--line); flex:0 0 auto; }
 .hero__meta .num{ letter-spacing:.1em; }
 /* the villa, cut out, floating on the END side (right in LTR / left in RTL) on white */
-.hero__media{ position:absolute; z-index:1; top:50%; transform:translateY(-50%); inset-inline-end:-18vw; width:min(86%,1640px); pointer-events:none; will-change:transform; }
+.hero__media{ position:absolute; z-index:1; top:50%; transform:translateY(-50%); inset-inline-end:-18vw; width:min(86%,1640px); pointer-events:none; }
 .hero__media picture{ display:block; width:100%; }
 .hero__media img{ display:block; width:100%; height:auto; }
 @media(max-width:860px){
@@ -737,19 +722,6 @@ window.addEventListener('load', function(){
   /* parallax — scrubbed */
   var heroImg=document.querySelector('.hero__media img');
   if(heroImg) gsap.fromTo(heroImg,{yPercent:0},{yPercent:7,ease:'none',scrollTrigger:{trigger:'.hero',start:'top top',end:'bottom top',scrub:true}});  /* gentle drift only — no scale-zoom on the floating cut-out */
-  /* hero "magic hour" — villa develops from soft focus, then perpetually breathes (slow float) and drifts with the cursor for living depth */
-  var heroMedia=document.querySelector('.hero__media'), heroSec=document.querySelector('.hero');
-  if(heroMedia) gsap.fromTo(heroMedia,{autoAlpha:0,filter:'blur(18px)'},{autoAlpha:1,filter:'blur(0px)',duration:1.7,ease:'power2.out',delay:0.1});
-  if(heroMedia && heroSec && window.matchMedia('(min-width:861px)').matches){   /* desktop layout only — mobile villa is position:relative, would break under translateY(-50%) */
-    var ptx=0,pty=0,pcx=0,pcy=0,hrun=false,ht0=0;
-    function hloop(now){ var t=(now-ht0)/1000, fy=Math.sin(t*0.5)*8, fx=Math.cos(t*0.38)*4; pcx+=(ptx-pcx)*0.07; pcy+=(pty-pcy)*0.07; heroMedia.style.transform='translateY(-50%) translate3d('+(pcx+fx).toFixed(2)+'px,'+(pcy+fy).toFixed(2)+'px,0)'; if(hrun) requestAnimationFrame(hloop); }
-    function hstart(){ if(!hrun){ hrun=true; ht0=performance.now(); requestAnimationFrame(hloop); } }
-    if('IntersectionObserver' in window){ new IntersectionObserver(function(es){ es.forEach(function(e){ e.isIntersecting?hstart():(hrun=false); }); },{threshold:0}).observe(heroSec); } else hstart();
-    if(window.matchMedia('(pointer:fine)').matches){
-      heroSec.addEventListener('mousemove',function(e){ var r=heroSec.getBoundingClientRect(); ptx=((e.clientX-r.left)/r.width-0.5)*-34; pty=((e.clientY-r.top)/r.height-0.5)*-20; });
-      heroSec.addEventListener('mouseleave',function(){ ptx=0; pty=0; });
-    }
-  }
   /* atmos pinned scene — crossfade the interior layers across the section scroll; gentle text drift */
   var atmosScene=document.querySelector('.atmos');
   if(atmosScene){
