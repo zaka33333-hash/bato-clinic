@@ -216,7 +216,11 @@ html[data-lang="ar"] .intro__cue{ font-family:var(--ar-sans); letter-spacing:.02
 @keyframes cue{ 0%,100%{ transform:scaleY(.3); opacity:.4 } 50%{ transform:scaleY(1); opacity:1 } }
 
 /* ============================================================ 2 · HERO (light · text on the reading side, villa cut-out floating on the other) */
-.hero{ min-height:100svh; background:var(--paper); position:relative; overflow:hidden; }
+.hero{ min-height:100svh; background:var(--paper); position:relative; }
+/* SCROLL-CINEMA — a pinned establishing shot you scroll *through*: the camera dollies into the villa while the title card lifts away. Only armed (.hero--cinema) on desktop + motion; otherwise a clean 100svh still. */
+.hero__stage{ position:relative; min-height:100svh; overflow:hidden; }
+.hero--cinema{ height:175svh; min-height:0; }
+.hero--cinema .hero__stage{ position:sticky; top:0; height:100svh; min-height:0; }
 .hero__inner{ position:relative; z-index:2; width:100%; max-width:var(--maxw); margin:0 auto; min-height:100svh;
   display:flex; flex-direction:column; justify-content:center; align-items:flex-start;
   padding:clamp(118px,16vh,190px) var(--pad) clamp(40px,7vh,90px); color:var(--ink); }
@@ -238,11 +242,12 @@ html[data-lang="ar"] .hero__meta{ font-family:var(--ar-sans); letter-spacing:.02
 .hero__meta::before{ content:""; width:26px; height:1px; background:var(--line); flex:0 0 auto; }
 .hero__meta .num{ letter-spacing:.1em; }
 /* the villa, cut out, floating on the END side (right in LTR / left in RTL) on white */
-.hero__media{ position:absolute; z-index:1; top:50%; transform:translateY(-50%); inset-inline-end:-18vw; width:min(86%,1640px); pointer-events:none; }
+.hero__media{ position:absolute; z-index:1; top:50%; transform:translateY(-50%); inset-inline-end:-18vw; width:min(86%,1640px); pointer-events:none; will-change:transform; transform-origin:62% 50%; }
 .hero__media picture{ display:block; width:100%; }
 .hero__media img{ display:block; width:100%; height:auto; }
 @media(max-width:860px){
-  .hero{ display:flex; flex-direction:column; }
+  .hero{ display:block; }
+  .hero__stage{ display:flex; flex-direction:column; min-height:100svh; overflow:visible; }   /* mobile: no pin — stage is the stacking flex container */
   .hero__inner{ min-height:auto; display:block; padding:clamp(98px,15vh,140px) var(--pad) clamp(16px,2vh,28px); }
   .hero__inner > *{ max-width:none; }
   /* narrow screens stack — villa fills the lower band as a building close-up */
@@ -459,6 +464,7 @@ html[data-lang="ar"] .menu__contact{ font-family:var(--ar-sans); }
 
 <!-- ============================================================ 2 · HERO -->
 <section class="hero" id="hero" data-theme="light">
+  <div class="hero__stage">
   <div class="hero__inner">
     <div class="eyebrow hero__eyebrow" data-reveal style="--d:120ms"><span class="en-i">Where beauty starts with health</span><span class="ar-i">حيث يبدأ الجمال بالصحة</span></div>
     <h1 class="hero__h serif lines">
@@ -481,6 +487,7 @@ html[data-lang="ar"] .menu__contact{ font-family:var(--ar-sans); }
       <source type="image/webp" srcset="assets/villa-hero.webp">
       <img src="assets/villa-hero.jpg" alt="BATO — the clinic villa in Al Safa, Dubai" loading="eager" fetchpriority="high" width="2400" height="1370">
     </picture>
+  </div>
   </div>
 </section>
 
@@ -719,9 +726,18 @@ window.addEventListener('load', function(){
     else nav.classList.remove('is-hidden');
   }});
 
-  /* parallax — scrubbed */
-  var heroImg=document.querySelector('.hero__media img');
-  if(heroImg) gsap.fromTo(heroImg,{yPercent:0},{yPercent:7,ease:'none',scrollTrigger:{trigger:'.hero',start:'top top',end:'bottom top',scrub:true}});  /* gentle drift only — no scale-zoom on the floating cut-out */
+  /* hero SCROLL-CINEMA — a pinned establishing shot: the camera dollies into the villa (scale + drift) while the title card lifts away and fades. Desktop + motion only; arm by adding .hero--cinema so the base hero stays a clean still otherwise. */
+  var heroSec=document.querySelector('.hero');
+  if(heroSec && window.matchMedia('(min-width:861px)').matches){
+    heroSec.classList.add('hero--cinema');
+    var hMedia=heroSec.querySelector('.hero__media'), hInner=heroSec.querySelector('.hero__inner');
+    var hDir=function(){ return document.documentElement.getAttribute('dir')==='rtl'?-1:1; };
+    ScrollTrigger.create({ trigger:heroSec, start:'top top', end:'bottom bottom', scrub:0.6, onUpdate:function(self){
+      var p=self.progress, d=hDir();
+      if(hMedia) hMedia.style.transform='translateY(-50%) translate3d('+(p*-3.5*d).toFixed(2)+'vw,'+(p*-3).toFixed(2)+'vh,0) scale('+(1+p*0.20).toFixed(4)+')';   /* dolly-in toward the building */
+      if(hInner){ hInner.style.transform='translateY('+(p*-72).toFixed(1)+'px)'; hInner.style.opacity=Math.max(0,1-p*1.3).toFixed(3); }                          /* title card lifts + fades */
+    }});
+  }
   /* atmos pinned scene — crossfade the interior layers across the section scroll; gentle text drift */
   var atmosScene=document.querySelector('.atmos');
   if(atmosScene){
