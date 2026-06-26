@@ -258,7 +258,10 @@ html[data-lang="ar"] .hero__meta{ font-family:var(--ar-sans); letter-spacing:.02
 
 /* ============================================================ HERO · UAE SILK BACKDROP (the white hero dissolves into flowing national colours as the title lifts; villa floats over it) */
 .hero__silk{ position:absolute; inset:0; z-index:0; opacity:var(--p, 0); pointer-events:none; will-change:opacity, transform;
-  transform:scale(calc(1.08 - .08 * var(--p))); transform-origin:center; }   /* settles from a slight zoom as it reveals — cinematic depth */
+  transform:scale(calc(1.08 - .08 * var(--p))); transform-origin:center;
+  /* dissolve the silk into the white floor so there's no hard bottom seam — colours flow across the top, villa stays grounded on white */
+  -webkit-mask:linear-gradient(to bottom, #000 0%, #000 40%, rgba(0,0,0,0) 86%);
+          mask:linear-gradient(to bottom, #000 0%, #000 40%, rgba(0,0,0,0) 86%); }
 .hero__silk img{ width:100%; height:100%; object-fit:cover; object-position:50% 50%; display:block; }
 /* keep the villa luminous + readable as the colours rise behind it */
 .hero__silk::after{ content:""; position:absolute; inset:0; background:radial-gradient(125% 120% at 72% 52%, rgba(255,255,255,.30), rgba(255,255,255,0) 60%); }
@@ -404,6 +407,118 @@ html[data-lang="ar"] .menu__contact{ font-family:var(--ar-sans); }
 .menu__link:focus-visible{ outline-offset:-4px; }
 [data-theme="dark"] :focus-visible, .foot :focus-visible{ outline-color:var(--gold-hi); }   /* brighter ring on dark sections */
 
+/* ============================================================ PLACEHOLDERS (structure phase — images generated next) */
+.ph{ position:relative; width:100%; height:100%; min-height:140px; display:grid; place-items:center; overflow:hidden;
+  background:repeating-linear-gradient(135deg, rgba(27,21,16,.028) 0 11px, transparent 11px 22px), linear-gradient(135deg, var(--paper-2), #e3dacb);
+  border:1px solid var(--line); border-radius:var(--radius); color:var(--faint); }
+.ph__l{ font-family:var(--sans); font-size:11px; letter-spacing:.14em; text-transform:uppercase; padding:.7em 1.1em; text-align:center; line-height:1.5; }
+.ph--cool{ background:repeating-linear-gradient(135deg, rgba(27,21,16,.03) 0 11px, transparent 11px 22px), linear-gradient(135deg,#d6d9dd,#bfc4ca); }
+.ph--fill{ border:0; border-radius:0; min-height:0; }
+[data-theme="dark"] .ph{ color:rgba(244,239,230,.6); background:repeating-linear-gradient(135deg, rgba(255,255,255,.03) 0 11px, transparent 11px 22px), linear-gradient(135deg,#2a2118,#3a2f22); border-color:rgba(244,239,230,.12); }
+
+/* ============================================================ 3 · HAIR — WITHOUT SURGERY */
+.hair{ max-width:var(--maxw); margin:0 auto; padding:clamp(90px,15vh,200px) var(--pad) clamp(70px,10vh,130px); }
+.hair__head{ text-align:center; }
+.hair__h{ font-size:clamp(2.6rem,7vw,7rem); }
+.hair__h em{ color:var(--gold-deep); font-style:italic; }
+html[data-lang="ar"] .hair__h em{ font-style:normal; }
+.hair__sub{ margin-top:1em; font-family:var(--sans); font-weight:500; color:var(--soft); font-size:clamp(1rem,1.5vw,1.3rem); }
+html[data-lang="ar"] .hair__sub{ font-family:var(--ar-sans); }
+.hair__foot{ margin-top:clamp(40px,6vh,80px); display:grid; gap:28px; align-items:end; }
+@media(min-width:860px){ .hair__foot{ grid-template-columns:1.3fr .7fr; } }
+.hair__body{ font-size:clamp(1.05rem,1.5vw,1.4rem); line-height:1.6; color:var(--soft); max-width:48ch; text-wrap:pretty; }
+@media(min-width:860px){ .hair__foot .btn{ justify-self:end; } }
+
+/* before/after comparison */
+.compare{ position:relative; width:100%; max-width:1080px; margin:clamp(36px,5vh,70px) auto 0; aspect-ratio:16/10; border-radius:var(--radius); overflow:hidden; --pos:50%; touch-action:pan-y; box-shadow:0 30px 60px -28px rgba(27,21,16,.4); }
+.compare__media{ position:absolute; inset:0; }
+.compare__media .ph{ height:100%; border:0; border-radius:0; }
+.compare__before{ clip-path:inset(0 calc(100% - var(--pos)) 0 0); }
+.compare__handle{ position:absolute; top:0; bottom:0; left:var(--pos); transform:translateX(-50%); width:48px; background:none; border:0; padding:0; cursor:ew-resize; display:grid; place-items:center; z-index:3; -webkit-tap-highlight-color:transparent; }
+.compare__handle::before{ content:""; position:absolute; top:0; bottom:0; width:2px; background:rgba(255,255,255,.92); box-shadow:0 0 0 1px rgba(27,21,16,.18); }
+.compare__arrows{ position:relative; width:46px; height:46px; border-radius:50%; background:rgba(255,255,255,.94); color:var(--ink); display:grid; place-items:center; box-shadow:0 8px 22px rgba(27,21,16,.28); font-size:17px; }
+.compare__tag{ position:absolute; bottom:14px; z-index:2; font-family:var(--sans); font-weight:500; font-size:10.5px; letter-spacing:.16em; text-transform:uppercase; color:#fff; background:rgba(27,21,16,.42); padding:.45em .85em; border-radius:7px; -webkit-backdrop-filter:blur(6px); backdrop-filter:blur(6px); }
+html[data-lang="ar"] .compare__tag{ font-family:var(--ar-sans); letter-spacing:.02em; }
+.compare__tag--b{ inset-inline-start:14px; } .compare__tag--a{ inset-inline-end:14px; }
+
+/* ============================================================ 4 · BUILT ITS NAME */
+.built{ background:var(--paper); padding:clamp(80px,12vh,170px) 0; overflow:hidden; }
+.built__inner{ max-width:var(--maxw); margin:0 auto; padding:0 var(--pad); text-align:center; }
+.built__h{ font-size:clamp(2.2rem,5.2vw,5rem); margin-top:1em; }
+.built__h em{ color:var(--gold-deep); font-style:italic; } html[data-lang="ar"] .built__h em{ font-style:normal; }
+.built__row{ display:flex; gap:clamp(12px,1.4vw,24px); margin-top:clamp(50px,8vh,100px); padding:0 var(--pad); justify-content:center; will-change:transform; }
+.built__row .ph{ flex:0 0 auto; width:clamp(150px,15vw,250px); aspect-ratio:3/4; }
+
+/* ============================================================ 5 · STATS */
+.stats{ max-width:var(--maxw); margin:0 auto; padding:clamp(70px,11vh,150px) var(--pad); display:grid; gap:clamp(44px,6vw,90px); grid-template-columns:1fr; }
+@media(min-width:900px){ .stats{ grid-template-columns:.78fr 1fr; align-items:center; } }
+.stats__media .ph{ aspect-ratio:4/5; }
+.stats__grid{ display:grid; grid-template-columns:1fr 1fr; gap:clamp(34px,4.5vw,68px); }
+.stat__n{ display:block; font-family:var(--serif); font-optical-sizing:auto; font-weight:300; font-size:clamp(2.6rem,5.4vw,4.8rem); color:var(--gold-deep); line-height:1; letter-spacing:-.02em; }
+.stat__l{ display:block; margin-top:.55em; font-size:.95rem; line-height:1.55; color:var(--soft); max-width:26ch; text-wrap:pretty; }
+html[data-lang="ar"] .stat__l{ font-size:1rem; }
+
+/* ============================================================ 6 · BRIDGE */
+.bridge{ max-width:var(--maxw); margin:0 auto; padding:clamp(80px,14vh,200px) var(--pad); text-align:center; }
+.bridge__h{ font-size:clamp(2.6rem,7vw,7rem); }
+.bridge__h em{ color:var(--gold-deep); font-style:italic; } html[data-lang="ar"] .bridge__h em{ font-style:normal; }
+.bridge__body{ margin:1.2em auto 0; max-width:46ch; font-size:clamp(1.05rem,1.5vw,1.4rem); line-height:1.6; color:var(--soft); text-wrap:pretty; }
+
+/* ============================================================ 7 · SKIN + 8 · SERVICES (full-bleed cards) */
+.skin, .svc{ position:relative; min-height:100svh; display:grid; align-items:end; overflow:hidden; color:var(--paper); background:var(--night); }
+.skin__media, .svc__media{ position:absolute; inset:0; z-index:0; }
+.skin__media .ph, .svc__media .ph{ height:100%; }
+.skin__media::after, .svc__media::after{ content:""; position:absolute; inset:0; z-index:1; background:linear-gradient(180deg, rgba(10,7,3,.12) 0%, rgba(10,7,3,.2) 45%, rgba(10,7,3,.74) 100%); }
+.skin__copy, .svc__copy{ position:relative; z-index:2; width:100%; max-width:var(--maxw); margin:0 auto; padding:0 var(--pad) clamp(54px,9vh,120px); }
+.skin__h{ font-size:clamp(4rem,13vw,12rem); line-height:.86; }
+.skin__body{ margin-top:.4em; max-width:42ch; color:var(--night-soft); font-size:clamp(1.05rem,1.5vw,1.45rem); line-height:1.55; text-wrap:pretty; }
+.svc__idx{ display:block; font-family:var(--sans); font-weight:500; font-size:12px; letter-spacing:.22em; color:var(--gold-hi); margin-bottom:1.1em; }
+.svc__h{ font-size:clamp(2.6rem,6.5vw,6rem); line-height:.98; }
+.svc__d{ margin-top:.5em; max-width:42ch; color:var(--night-soft); font-size:clamp(1.02rem,1.4vw,1.3rem); line-height:1.55; text-wrap:pretty; }
+
+/* ============================================================ 9 · DESIGNED TO FEEL CALM (moving gallery) */
+.calm{ position:relative; background:var(--paper); }
+.calm__head{ max-width:var(--maxw); margin:0 auto; padding:clamp(90px,14vh,180px) var(--pad) clamp(34px,5vh,64px); display:grid; gap:22px; }
+@media(min-width:900px){ .calm__head{ grid-template-columns:1.5fr .85fr; align-items:end; } }
+.calm__h{ font-size:clamp(2.4rem,5.5vw,5.4rem); }
+.calm__h em{ color:var(--gold-deep); font-style:italic; } html[data-lang="ar"] .calm__h em{ font-style:normal; }
+.calm__sub{ color:var(--soft); max-width:34ch; font-size:clamp(1rem,1.3vw,1.2rem); text-wrap:pretty; align-self:end; }
+.calm__viewport{ overflow-x:auto; overflow-y:hidden; scrollbar-width:none; padding-bottom:clamp(60px,9vh,110px); }
+.calm__viewport::-webkit-scrollbar{ display:none; }
+.calm__track{ display:flex; gap:clamp(18px,2.2vw,42px); padding:0 var(--pad); width:max-content; will-change:transform; }
+.gItem{ position:relative; flex:0 0 auto; width:min(78vw,640px); aspect-ratio:4/3; border-radius:var(--radius); overflow:hidden; }
+.gItem--lg{ width:min(88vw,820px); } .gItem--tall{ width:min(60vw,460px); aspect-ratio:3/4; }
+.gItem .ph{ height:100%; }
+.gItem__cap{ position:absolute; inset-inline-start:16px; bottom:14px; z-index:2; color:#fff; font-family:var(--sans); font-weight:500; font-size:11.5px; letter-spacing:.14em; text-transform:uppercase; text-shadow:0 1px 14px rgba(0,0,0,.55); }
+html[data-lang="ar"] .gItem__cap{ font-family:var(--ar-sans); letter-spacing:.02em; }
+/* desktop + motion: pin and scrub the track horizontally (JS adds .calm--pin) */
+.calm--pin{ height:320svh; }
+.calm--pin .calm__viewport{ position:sticky; top:0; height:100svh; overflow:visible; display:flex; align-items:center; padding-bottom:0; }
+.calm--pin .calm__track{ width:max-content; }
+
+/* ============================================================ 10 · EDITORIAL CLOSER (moving labelled row) */
+.editorial{ max-width:var(--maxw); margin:0 auto; padding:clamp(80px,12vh,170px) var(--pad); overflow:hidden; }
+.ed__row{ display:flex; gap:clamp(40px,6vw,110px); justify-content:center; align-items:center; will-change:transform; }
+.ed__item{ position:relative; flex:0 0 auto; width:min(40vw,360px); aspect-ratio:3/4; }
+.ed__item--mid{ width:min(44vw,420px); aspect-ratio:2/3; }
+.ed__lbl{ position:absolute; top:-1.8em; inset-inline-start:0; font-family:var(--sans); font-weight:500; font-size:12px; letter-spacing:.18em; text-transform:uppercase; color:var(--gold-deep); }
+html[data-lang="ar"] .ed__lbl{ font-family:var(--ar-sans); letter-spacing:.02em; }
+.ed__line{ text-align:center; margin-top:clamp(46px,7vh,90px); font-family:var(--serif); font-optical-sizing:auto; font-weight:300; font-size:clamp(1.4rem,3.1vw,2.6rem); line-height:1.2; color:var(--ink); }
+html[data-lang="ar"] .ed__line{ font-family:var(--ar-serif); }
+
+/* ============================================================ NEW-BODY MOBILE + MOTION */
+@media(max-width:860px){
+  .compare{ aspect-ratio:4/5; }
+  .stats__grid{ grid-template-columns:1fr 1fr; gap:30px; }
+  .built__row{ flex-wrap:nowrap; overflow-x:auto; justify-content:flex-start; scrollbar-width:none; }
+  .ed__row{ flex-direction:column; gap:48px; align-items:center; }
+  .ed__item, .ed__item--mid{ width:min(72vw,340px); }
+}
+@media(prefers-reduced-motion:reduce){
+  .calm--pin{ height:auto; }
+  .calm--pin .calm__viewport{ position:static; height:auto; overflow-x:auto; display:block; padding-bottom:40px; }
+}
+
 /* ============================================================ MOTION GUARDS */
 @media(prefers-reduced-motion:reduce){
   *{ animation-duration:.001ms!important; transition-duration:.001ms!important; }
@@ -503,74 +618,153 @@ html[data-lang="ar"] .menu__contact{ font-family:var(--ar-sans); }
   </div>
 </section>
 
-<!-- ============================================================ 3 · MANIFESTO -->
-<section class="manifesto" id="manifesto" data-theme="light">
-  <h2 class="manifesto__h">
-    <span class="en"><span class="b rv-left" data-reveal>Beauty starts</span><span class="b b--2 rv-right" data-reveal style="--d:300ms">with Health.</span></span>
-    <span class="ar"><span class="b rv-left" data-reveal>الجمال يبدأ</span><span class="b b--2 rv-right" data-reveal style="--d:300ms">بالصحة.</span></span>
-  </h2>
-  <div class="manifesto__foot">
-    <p class="manifesto__body rv-up" data-reveal style="--d:620ms">
-      <span class="en-i">Non-surgical hair, skin and medical-beauty care, built around one principle: understand the body first, then treat what shows on the outside. Delivered by registered nurses, medically supervised throughout.</span>
-      <span class="ar-i">عناية غير جراحية بالشعر والبشرة والجمال الطبي، مبنيّة على مبدأ واحد: نفهم الجسد أولاً، ثم نعالج ما يظهر على السطح. يقدّمها ممرّضات مسجّلات، بإشراف طبي في كل خطوة.</span>
-    </p>
-    <a class="btn btn--solid manifesto__cta rv-pop" href="#contact" data-reveal style="--d:940ms"><span class="en-i">Book your consultation</span><span class="ar-i">احجزي استشارتكِ</span><span class="i" aria-hidden="true">↗</span></a>
-  </div>
-</section>
-
-<!-- ============================================================ 4 · ATMOSPHERE -->
-<!-- PINNED SCENE — headline holds, interior crossfades -->
-<section class="atmos" id="atmos" data-theme="dark">
-  <div class="atmos__pin">
-    <div class="atmos__media">
-      <div class="atmos__img">
-        <picture><source type="image/webp" sizes="100vw" srcset="assets/home1-1080.webp 1080w, assets/home1-1440.webp 1440w, assets/home1-1920.webp 1920w"><img src="assets/home1-1440.jpg" alt="Inside BATO — the staircase lounge" loading="lazy" width="2752" height="1536"></picture>
-      </div>
-      <div class="atmos__img">
-        <picture><source type="image/webp" sizes="100vw" srcset="assets/home2-1080.webp 1080w, assets/home2-1440.webp 1440w, assets/home2-1920.webp 1920w"><img src="assets/home2-1440.jpg" alt="Inside BATO — the living-room corner" loading="lazy" width="2752" height="1536"></picture>
-      </div>
-      <div class="atmos__img">
-        <picture><source type="image/webp" sizes="100vw" srcset="assets/home3-1080.webp 1080w, assets/home3-1440.webp 1440w, assets/home3-1920.webp 1920w"><img src="assets/home3-1440.jpg" alt="Inside BATO — the bright atrium" loading="lazy" width="2752" height="1536"></picture>
-      </div>
-    </div>
-    <div class="atmos__line">
-      <h2 class="atmos__h lines" data-reveal>
-        <span class="en"><span class="ln"><i>A clinic where</i></span><span class="ln b--2"><i>you feel <em>at home.</em></i></span></span>
-        <span class="ar"><span class="ln"><i>عيادةٌ تشعرين فيها</i></span><span class="ln b--2"><i>أنكِ في <em>بيتك.</em></i></span></span>
-      </h2>
-    </div>
-  </div>
-</section>
-
-<!-- ============================================================ 5 · PROCESS + SERVICES -->
-<section class="process" id="process" data-theme="light">
-  <div class="process__head">
-    <h2 class="process__h serif lines" data-reveal>
-      <span class="en"><span class="ln"><i>First, we understand.</i></span><span class="ln"><i>Then, <em>we treat.</em></i></span></span>
-      <span class="ar"><span class="ln"><i>أولاً نفهم،</i></span><span class="ln"><i>ثم <em>نعالج.</em></i></span></span>
+<!-- ============================================================ 3 · HAIR — WITHOUT SURGERY -->
+<section class="hair" id="hair" data-theme="light">
+  <div class="hair__head">
+    <h2 class="hair__h serif lines" data-reveal>
+      <span class="en"><span class="ln"><i>Hair Treatment,</i></span><span class="ln"><i><em>Without Surgery.</em></i></span></span>
+      <span class="ar"><span class="ln"><i>علاج الشعر،</i></span><span class="ln"><i><em>دون جراحة.</em></i></span></span>
     </h2>
-    <p class="process__body" data-reveal style="--d:150ms">
-      <span class="en-i">At BATO, no treatment is chosen at random. Before we recommend anything for your hair, skin or face, we start by understanding what your body, scalp and skin actually need — often beginning with your bloodwork.</span>
-      <span class="ar-i">في باتو، لا يُختار أي علاج عشوائياً. قبل أن نوصي بأي شيء لشعركِ أو بشرتكِ أو وجهكِ، نبدأ بفهم ما يحتاجه جسدكِ وفروة رأسكِ وبشرتكِ حقاً — وغالباً نبدأ بتحاليلكِ.</span>
-    </p>
+    <p class="hair__sub" data-reveal style="--d:140ms"><span class="en-i">For thinning, shedding, and weak density.</span><span class="ar-i">للشعر الخفيف، المتساقط، وضعيف الكثافة.</span></p>
   </div>
-  <div class="cards">
-    <a class="card" href="hair-treatment.html" data-reveal>
-      <div class="card__top"><span class="card__num num">01</span><span class="card__arrow" aria-hidden="true">↗</span></div>
-      <h3 class="card__title"><span class="en-i">Hair</span><span class="ar-i">الشعر</span></h3>
-      <p class="card__desc"><span class="en-i">Scalp mesotherapy, plasma (PRP) and targeted care for thinning or tired hair. Honest about what helps.</span><span class="ar-i">ميزوثيرابي لفروة الرأس، وبلازما (PRP)، وعناية موجَّهة للشعر الخفيف أو المُتعَب. نصارحكِ بما يُجدي حقاً.</span></p>
-    </a>
-    <a class="card" href="skin.html" data-reveal style="--d:100ms">
-      <div class="card__top"><span class="card__num num">02</span><span class="card__arrow" aria-hidden="true">↗</span></div>
-      <h3 class="card__title"><span class="en-i">Skin</span><span class="ar-i">البشرة</span></h3>
-      <p class="card__desc"><span class="en-i">HydraFacial, medical peels and laser. Clarity, gently restored — planned around your skin, not a template.</span><span class="ar-i">هيدرافيشل، وتقشير طبي، وليزر. نقاءٌ يعود برِفق، مرسومٌ على بشرتكِ لا على قالب.</span></p>
-    </a>
-    <a class="card" href="lab-tests.html" data-reveal style="--d:200ms">
-      <div class="card__top"><span class="card__num num">03</span><span class="card__arrow" aria-hidden="true">↗</span></div>
-      <h3 class="card__title"><span class="en-i">Lab tests</span><span class="ar-i">التحاليل</span></h3>
-      <p class="card__desc"><span class="en-i">Blood, hormone and vitamin panels behind the aesthetics. Because beautiful hair and skin begin within.</span><span class="ar-i">تحاليل الدم والهرمونات والفيتامينات خلف كل تجميل. فجمال الشعر والبشرة يبدأ من الداخل.</span></p>
-    </a>
+  <!-- before/after comparison (drag the handle) -->
+  <figure class="compare" data-reveal style="--d:240ms" aria-label="Before and after hair treatment comparison">
+    <div class="compare__media compare__after"><div class="ph ph--photo"><span class="ph__l">AFTER — full, healthy density</span></div></div>
+    <div class="compare__media compare__before" id="cmpBefore"><div class="ph ph--photo ph--cool"><span class="ph__l">BEFORE — thinning / shedding</span></div></div>
+    <button class="compare__handle" id="cmpHandle" type="button" aria-label="Drag to compare before and after"><span class="compare__arrows" aria-hidden="true">⟺</span></button>
+    <span class="compare__tag compare__tag--b" aria-hidden="true"><span class="en-i">Before</span><span class="ar-i">قبل</span></span>
+    <span class="compare__tag compare__tag--a" aria-hidden="true"><span class="en-i">After</span><span class="ar-i">بعد</span></span>
+  </figure>
+  <div class="hair__foot">
+    <p class="hair__body" data-reveal><span class="en-i">BATO creates non-surgical hair treatment plans guided by consultation, evaluation, and real understanding — never guesswork.</span><span class="ar-i">تضع باتو خطط علاج شعر غير جراحية، مبنيّة على الاستشارة والتقييم والفهم الحقيقي — لا على التخمين.</span></p>
+    <a class="btn" href="hair-treatment.html" data-reveal style="--d:120ms"><span class="en-i">Explore hair treatment</span><span class="ar-i">اكتشفي علاج الشعر</span><span class="i" aria-hidden="true">↗</span></a>
   </div>
+</section>
+
+<!-- ============================================================ 4 · HAIR — WHERE THE NAME WAS BUILT -->
+<section class="built" id="built" data-theme="light">
+  <div class="built__inner">
+    <div class="eyebrow eyebrow--center" data-reveal><span class="en-i">Results-driven · Drug-free · Scientifically proven</span><span class="ar-i">نتائج مثبتة · دون أدوية · مثبتة علمياً</span></div>
+    <h2 class="built__h serif lines" data-reveal style="--d:120ms">
+      <span class="en"><span class="ln"><i>Hair is not one of the</i></span><span class="ln"><i>things we do. It is where</i></span><span class="ln"><i>BATO <em>built its name.</em></i></span></span>
+      <span class="ar"><span class="ln"><i>الشعر ليس أحد ما نقدّمه،</i></span><span class="ln"><i>بل هو ما <em>بنت عليه باتو اسمها.</em></i></span></span>
+    </h2>
+  </div>
+  <div class="built__row" data-reveal style="--d:200ms" aria-hidden="true">
+    <div class="ph ph--portrait"><span class="ph__l">result 01</span></div>
+    <div class="ph ph--portrait"><span class="ph__l">result 02</span></div>
+    <div class="ph ph--portrait"><span class="ph__l">result 03</span></div>
+    <div class="ph ph--portrait"><span class="ph__l">result 04</span></div>
+    <div class="ph ph--portrait"><span class="ph__l">result 05</span></div>
+  </div>
+</section>
+
+<!-- ============================================================ 5 · STATS -->
+<section class="stats" id="stats" data-theme="light">
+  <div class="stats__media" data-reveal aria-hidden="true"><div class="ph ph--photo ph--tall"><span class="ph__l">treatment — scalp mesotherapy close-up</span></div></div>
+  <div class="stats__grid">
+    <div class="stat" data-reveal>
+      <span class="stat__n num" data-count="11000" data-suffix="+">0</span>
+      <span class="stat__l"><span class="en-i">Patients treated for hair &amp; scalp concerns</span><span class="ar-i">مريضة عُولِجت لمشكلات الشعر والفروة</span></span>
+    </div>
+    <div class="stat" data-reveal style="--d:120ms">
+      <span class="stat__n num" data-count="100" data-suffix="%">0</span>
+      <span class="stat__l"><span class="en-i">Non-surgical hair treatment</span><span class="ar-i">علاج شعر غير جراحي</span></span>
+    </div>
+    <div class="stat" data-reveal style="--d:240ms">
+      <span class="stat__n num" data-count="47000" data-suffix="+">0</span>
+      <span class="stat__l"><span class="en-i">Treatment sessions delivered</span><span class="ar-i">جلسة علاجية مُقدَّمة</span></span>
+    </div>
+    <div class="stat" data-reveal style="--d:360ms">
+      <span class="stat__n num" data-count="92" data-suffix="%">0</span>
+      <span class="stat__l"><span class="en-i">Reported improvement from the first sessions</span><span class="ar-i">أبلغن عن تحسّن منذ الجلسات الأولى</span></span>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================ 6 · BRIDGE TO SKIN -->
+<section class="bridge" id="bridge" data-theme="light">
+  <h2 class="bridge__h serif lines" data-reveal>
+    <span class="en"><span class="ln"><i>Healthy hair is</i></span><span class="ln"><i>only <em>the beginning.</em></i></span></span>
+    <span class="ar"><span class="ln"><i>الشعر الصحي</i></span><span class="ln"><i>مجرّد <em>البداية.</em></i></span></span>
+  </h2>
+  <p class="bridge__body" data-reveal style="--d:160ms"><span class="en-i">BATO Dubai brings the same medical-first philosophy to skin. Every treatment starts with understanding, not guessing.</span><span class="ar-i">تجلب باتو دبي الفلسفة الطبية ذاتها إلى البشرة. كل علاج يبدأ بالفهم، لا بالتخمين.</span></p>
+</section>
+
+<!-- ============================================================ 7 · SKIN -->
+<section class="skin" id="skin" data-theme="dark">
+  <div class="skin__media" aria-hidden="true"><div class="ph ph--photo ph--fill"><span class="ph__l">Skin — luminous, healthy complexion</span></div></div>
+  <div class="skin__copy">
+    <h2 class="skin__h serif" data-reveal><span class="en-i">Skin</span><span class="ar-i">البشرة</span></h2>
+    <p class="skin__body" data-reveal style="--d:140ms"><span class="en-i">Facials, peels, hydration, and plasma treatments — designed to refresh, renew, and improve skin quality.</span><span class="ar-i">تنظيف، تقشير، ترطيب، وعلاجات بلازما — لتجديد البشرة وتحسين نضارتها.</span></p>
+  </div>
+</section>
+
+<!-- ============================================================ 8 · SERVICES (full-bleed parallax cards) -->
+<section class="svcs" id="services" data-theme="dark">
+  <article class="svc" data-theme="dark">
+    <div class="svc__media" aria-hidden="true"><div class="ph ph--photo ph--fill"><span class="ph__l">Skin Boosters — glowing facial treatment</span></div></div>
+    <div class="svc__copy">
+      <span class="svc__idx num">01</span>
+      <h3 class="svc__h serif" data-reveal><span class="en-i">Skin Boosters</span><span class="ar-i">معزّزات البشرة</span></h3>
+      <p class="svc__d" data-reveal style="--d:120ms"><span class="en-i">Injectable skin rejuvenation for hydration, glow, elasticity, and healthier-looking skin.</span><span class="ar-i">تجديد بالحقن للترطيب والإشراق والمرونة وبشرة أكثر صحة.</span></p>
+    </div>
+  </article>
+  <article class="svc" data-theme="dark">
+    <div class="svc__media" aria-hidden="true"><div class="ph ph--photo ph--fill"><span class="ph__l">Refined Aesthetics — botox / filler, facial balance</span></div></div>
+    <div class="svc__copy">
+      <span class="svc__idx num">02</span>
+      <h3 class="svc__h serif" data-reveal><span class="en-i">Refined Aesthetics</span><span class="ar-i">جماليات راقية</span></h3>
+      <p class="svc__d" data-reveal style="--d:120ms"><span class="en-i">Botox and filler designed for subtle enhancement, facial balance, and natural-looking results.</span><span class="ar-i">بوتوكس وفيلر لتحسين هادئ وتوازن للملامح ونتائج طبيعية.</span></p>
+    </div>
+  </article>
+  <article class="svc" data-theme="dark">
+    <div class="svc__media" aria-hidden="true"><div class="ph ph--photo ph--fill"><span class="ph__l">Laser Smooth — laser hair removal</span></div></div>
+    <div class="svc__copy">
+      <span class="svc__idx num">03</span>
+      <h3 class="svc__h serif" data-reveal><span class="en-i">Laser Smooth</span><span class="ar-i">ليزر ناعم</span></h3>
+      <p class="svc__d" data-reveal style="--d:120ms"><span class="en-i">Advanced laser hair removal for men &amp; women, using Candela and Cynosure technology.</span><span class="ar-i">إزالة شعر بالليزر المتقدّم للرجال والنساء، بتقنية Candela وCynosure.</span></p>
+    </div>
+  </article>
+  <article class="svc" data-theme="dark">
+    <div class="svc__media" aria-hidden="true"><div class="ph ph--photo ph--fill"><span class="ph__l">Beauty from within — lab / hormone &amp; vitamin testing</span></div></div>
+    <div class="svc__copy">
+      <span class="svc__idx num">04</span>
+      <h3 class="svc__h serif" data-reveal><span class="en-i">Beauty from within</span><span class="ar-i">الجمال من الداخل</span></h3>
+      <p class="svc__d" data-reveal style="--d:120ms"><span class="en-i">Hormone and vitamin testing to find what may be affecting your skin and overall beauty.</span><span class="ar-i">تحاليل الهرمونات والفيتامينات لكشف ما قد يؤثّر في بشرتك وجمالك.</span></p>
+    </div>
+  </article>
+</section>
+
+<!-- ============================================================ 9 · DESIGNED TO FEEL CALM (moving interior gallery) -->
+<section class="calm" id="calm" data-theme="light">
+  <div class="calm__head">
+    <h2 class="calm__h serif lines" data-reveal>
+      <span class="en"><span class="ln"><i>Designed to Feel Calm,</i></span><span class="ln"><i>Built to <em>Treat Seriously.</em></i></span></span>
+      <span class="ar"><span class="ln"><i>مصمَّمة لتشعري بالطمأنينة،</i></span><span class="ln"><i>مبنيّة <em>لتعالج بجدية.</em></i></span></span>
+    </h2>
+    <p class="calm__sub" data-reveal style="--d:160ms"><span class="en-i">Private, refined, and medically guided from the moment you walk in.</span><span class="ar-i">خصوصية ورقيّ وإشراف طبي منذ لحظة دخولك.</span></p>
+  </div>
+  <!-- horizontal moving gallery — track is scrubbed left as the section scrolls -->
+  <div class="calm__viewport">
+    <div class="calm__track" id="calmTrack">
+      <figure class="gItem gItem--lg"><div class="ph ph--photo ph--fill"><span class="ph__l">interior — arched lounge, warm light</span></div><figcaption class="gItem__cap"><span class="en-i">The Arrival</span><span class="ar-i">الاستقبال</span></figcaption></figure>
+      <figure class="gItem"><div class="ph ph--photo ph--fill"><span class="ph__l">interior — treatment room</span></div><figcaption class="gItem__cap"><span class="en-i">Treatment Suite</span><span class="ar-i">غرفة العلاج</span></figcaption></figure>
+      <figure class="gItem gItem--tall"><div class="ph ph--photo ph--fill"><span class="ph__l">interior — quiet corridor / details</span></div><figcaption class="gItem__cap"><span class="en-i">The Detail</span><span class="ar-i">التفاصيل</span></figcaption></figure>
+      <figure class="gItem"><div class="ph ph--photo ph--fill"><span class="ph__l">interior — consultation lounge</span></div><figcaption class="gItem__cap"><span class="en-i">Consultation</span><span class="ar-i">الاستشارة</span></figcaption></figure>
+      <figure class="gItem gItem--lg"><div class="ph ph--photo ph--fill"><span class="ph__l">interior — reception / wordmark</span></div><figcaption class="gItem__cap"><span class="en-i">BATO, Al Safa</span><span class="ar-i">باتو، الصفا</span></figcaption></figure>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================ 10 · EDITORIAL CLOSER (moving labelled row) -->
+<section class="editorial" id="editorial" data-theme="light">
+  <div class="ed__row" id="edRow">
+    <figure class="ed__item"><span class="ed__lbl"><span class="en-i">Understand</span><span class="ar-i">نفهم</span></span><div class="ph ph--portrait ph--fill"><span class="ph__l">editorial — consultation / bloodwork</span></div></figure>
+    <figure class="ed__item ed__item--mid"><span class="ed__lbl"><span class="en-i">Treat</span><span class="ar-i">نعالج</span></span><div class="ph ph--portrait ph--fill"><span class="ph__l">editorial — treatment in motion</span></div></figure>
+    <figure class="ed__item"><span class="ed__lbl"><span class="en-i">Renew</span><span class="ar-i">نجدّد</span></span><div class="ph ph--portrait ph--fill"><span class="ph__l">editorial — radiant result</span></div></figure>
+  </div>
+  <p class="ed__line" data-reveal><span class="en-i">Understand the body first. Then treat what shows on the outside.</span><span class="ar-i">نفهم الجسد أولاً، ثم نعالج ما يظهر على السطح.</span></p>
 </section>
 
 <!-- ============================================================ 6 · CONTACT / FOOTER -->
@@ -617,6 +811,36 @@ html[data-lang="ar"] .menu__contact{ font-family:var(--ar-sans); }
 
 <!-- ============================================================ ENGINE -->
 <script>document.body.classList.remove('no-js');</script>
+<script>
+/* before/after comparison slider + stat count-up (run independent of scroll engine, reduced-motion aware) */
+(function(){
+  var c=document.querySelector('.compare');
+  if(c){
+    var handle=c.querySelector('.compare__handle'), dragging=false;
+    function setX(x){ var r=c.getBoundingClientRect(); var p=Math.max(0,Math.min(1,(x-r.left)/r.width)); c.style.setProperty('--pos',(p*100).toFixed(2)+'%'); }
+    function down(e){ dragging=true; setX((e.touches?e.touches[0]:e).clientX); if(!e.touches) e.preventDefault(); }
+    function move(e){ if(dragging) setX((e.touches?e.touches[0]:e).clientX); }
+    function up(){ dragging=false; }
+    c.addEventListener('mousedown',down); window.addEventListener('mousemove',move); window.addEventListener('mouseup',up);
+    c.addEventListener('touchstart',down,{passive:false}); window.addEventListener('touchmove',move,{passive:true}); window.addEventListener('touchend',up);
+    if(handle) handle.addEventListener('keydown',function(e){ var cur=parseFloat(c.style.getPropertyValue('--pos'))||50; if(e.key==='ArrowLeft'){ c.style.setProperty('--pos',Math.max(0,cur-4)+'%'); e.preventDefault(); } if(e.key==='ArrowRight'){ c.style.setProperty('--pos',Math.min(100,cur+4)+'%'); e.preventDefault(); } });
+  }
+  var reduce=matchMedia('(prefers-reduced-motion:reduce)').matches;
+  function fmt(n){ return n.toLocaleString('en-US'); }
+  function countUp(el){
+    var target=parseFloat(el.getAttribute('data-count'))||0, suf=el.getAttribute('data-suffix')||'';
+    if(reduce){ el.textContent=fmt(target)+suf; return; }
+    var dur=1700, t0=null;
+    function step(ts){ if(!t0)t0=ts; var p=Math.min(1,(ts-t0)/dur), e=1-Math.pow(1-p,3); el.textContent=fmt(Math.round(target*e))+suf; if(p<1) requestAnimationFrame(step); }
+    requestAnimationFrame(step);
+  }
+  var nums=[].slice.call(document.querySelectorAll('.stat__n[data-count]'));
+  if(nums.length){
+    if(reduce || !('IntersectionObserver' in window)){ nums.forEach(countUp); }
+    else { var io=new IntersectionObserver(function(es){ es.forEach(function(e){ if(e.isIntersecting){ countUp(e.target); io.unobserve(e.target); } }); },{threshold:.5}); nums.forEach(function(n){ io.observe(n); }); }
+  }
+})();
+</script>
 <script>
 /* language toggle */
 (function(){
@@ -753,27 +977,20 @@ window.addEventListener('load', function(){
       if(hSilk){ var fp=Math.min(1,Math.max(0,(p-0.38)/0.5)); hSilk.style.setProperty('--p', fp.toFixed(3)); }
     }});
   }
-  /* atmos pinned scene — crossfade the interior layers across the section scroll; gentle text drift */
-  var atmosScene=document.querySelector('.atmos');
-  if(atmosScene){
-    var aImgs=[].slice.call(atmosScene.querySelectorAll('.atmos__img'));
-    var aH=atmosScene.querySelector('.atmos__h');
-    /* group lines per language span so EN and AR both animate (each span holds line-1 + line-2) */
-    var aLnGroups=aH?[].slice.call(aH.querySelectorAll(':scope > span')).map(function(s){ return s.querySelectorAll('.ln'); }):[];
-    var aEms=aH?[].slice.call(aH.querySelectorAll('em')):[];
-    var rtl=function(){ return document.documentElement.getAttribute('dir')==='rtl'?-1:1; };
-    ScrollTrigger.create({ trigger:atmosScene, start:'top top', end:'bottom bottom', scrub:0.5, onUpdate:function(self){
-      var p=self.progress, t=p*Math.max(1,aImgs.length-1);
-      aImgs.forEach(function(im,i){ im.style.opacity=Math.max(0,1-Math.abs(t-i)).toFixed(3); });
-      /* dramatic, scrubbed headline motion — the two lines pull apart in EXACTLY opposite directions (mirror) while the whole title pushes toward the viewer */
-      var d=rtl();
-      var t1='translate3d('+(p*-5*d).toFixed(2)+'vw,'+(p*-22).toFixed(2)+'vh,0)';
-      var t2='translate3d('+(p*5*d).toFixed(2)+'vw,'+(p*22).toFixed(2)+'vh,0)';
-      aLnGroups.forEach(function(g){ if(g[0]) g[0].style.transform=t1; if(g[1]) g[1].style.transform=t2; });
-      if(aH) aH.style.transform='scale('+(1+p*0.07).toFixed(4)+')';
-      if(aEms.length){ var gg=Math.sin(Math.min(1,p)*Math.PI), sc='scale('+(1+gg*0.06).toFixed(3)+')', sh=gg>0.02?('0 0 '+(gg*46).toFixed(0)+'px rgba(212,175,110,'+(gg*0.65).toFixed(2)+')'):'none'; aEms.forEach(function(e){ e.style.transform=sc; e.style.textShadow=sh; }); }
+  /* calm — pinned horizontal moving gallery scrubbed across the section scroll (desktop + motion) */
+  var calmSec=document.querySelector('.calm'), calmTrack=document.getElementById('calmTrack');
+  if(calmSec && calmTrack && window.matchMedia('(min-width:861px)').matches){
+    calmSec.classList.add('calm--pin');
+    ScrollTrigger.create({ trigger:calmSec, start:'top top', end:'bottom bottom', scrub:0.6, onUpdate:function(self){
+      var max=calmTrack.scrollWidth - window.innerWidth + window.innerWidth*0.05; if(max<0) max=0;
+      calmTrack.style.transform='translate3d('+(-self.progress*max).toFixed(1)+'px,0,0)';
     }});
   }
+  /* results row + editorial row — gentle opposite drift as they pass (the 'moving images' feel) */
+  var builtRow=document.querySelector('.built__row');
+  if(builtRow) gsap.fromTo(builtRow,{xPercent:5},{xPercent:-5,ease:'none',scrollTrigger:{trigger:'.built',start:'top bottom',end:'bottom top',scrub:true}});
+  var edRow=document.getElementById('edRow');
+  if(edRow && window.matchMedia('(min-width:861px)').matches) gsap.fromTo(edRow,{xPercent:3},{xPercent:-3,ease:'none',scrollTrigger:{trigger:'.editorial',start:'top bottom',end:'bottom top',scrub:true}});
 
   window.addEventListener('resize', function(){ applyMorph(morphST.progress); });
   ScrollTrigger.refresh();
