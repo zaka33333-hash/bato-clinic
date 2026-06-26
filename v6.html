@@ -260,8 +260,8 @@ html[data-lang="ar"] .hero__meta{ font-family:var(--ar-sans); letter-spacing:.02
 .hero__silk{ position:absolute; inset:0; z-index:0; opacity:var(--p, 0); pointer-events:none; will-change:opacity, transform;
   transform:scale(calc(1.08 - .08 * var(--p))); transform-origin:center;
   /* dissolve the silk into the white floor so there's no hard bottom seam — colours flow across the top, villa stays grounded on white */
-  -webkit-mask:linear-gradient(to bottom, #000 0%, #000 40%, rgba(0,0,0,0) 86%);
-          mask:linear-gradient(to bottom, #000 0%, #000 40%, rgba(0,0,0,0) 86%); }
+  -webkit-mask:linear-gradient(to bottom, #000 0%, #000 24%, rgba(0,0,0,.6) 55%, rgba(0,0,0,.22) 70%, rgba(0,0,0,0) 82%);
+          mask:linear-gradient(to bottom, #000 0%, #000 24%, rgba(0,0,0,.6) 55%, rgba(0,0,0,.22) 70%, rgba(0,0,0,0) 82%); }
 .hero__silk img{ width:100%; height:100%; object-fit:cover; object-position:50% 50%; display:block; }
 /* keep the villa luminous + readable as the colours rise behind it */
 .hero__silk::after{ content:""; position:absolute; inset:0; background:radial-gradient(125% 120% at 72% 52%, rgba(255,255,255,.30), rgba(255,255,255,0) 60%); }
