@@ -504,6 +504,7 @@ html[data-lang="ar"] .gItem__cap{ font-family:var(--ar-sans); letter-spacing:.02
 .ed__row{ display:flex; gap:clamp(40px,6vw,110px); justify-content:center; align-items:center; will-change:transform; }
 .ed__item{ position:relative; flex:0 0 auto; width:min(40vw,360px); aspect-ratio:3/4; }
 .ed__item--mid{ width:min(44vw,420px); aspect-ratio:2/3; }
+.ed__item picture, .ed__item img{ display:block; width:100%; height:100%; object-fit:cover; border-radius:var(--radius); }
 .ed__lbl{ position:absolute; top:-1.8em; inset-inline-start:0; font-family:var(--sans); font-weight:500; font-size:12px; letter-spacing:.18em; text-transform:uppercase; color:var(--gold-deep); }
 html[data-lang="ar"] .ed__lbl{ font-family:var(--ar-sans); letter-spacing:.02em; }
 .ed__line{ text-align:center; margin-top:clamp(46px,7vh,90px); font-family:var(--serif); font-optical-sizing:auto; font-weight:300; font-size:clamp(1.4rem,3.1vw,2.6rem); line-height:1.2; color:var(--ink); }
@@ -721,7 +722,7 @@ html[data-lang="ar"] .ed__line{ font-family:var(--ar-serif); }
     </div>
   </article>
   <article class="svc" data-theme="dark">
-    <div class="svc__media" aria-hidden="true"><div class="ph ph--photo ph--fill"><span class="ph__l">Laser Smooth — laser hair removal</span></div></div>
+    <div class="svc__media" aria-hidden="true"><picture><source type="image/webp" srcset="assets/svc-laser.webp"><img src="assets/svc-laser.jpg" alt="" loading="lazy"></picture></div>
     <div class="svc__copy">
       <span class="svc__idx num">03</span>
       <h3 class="svc__h serif" data-reveal><span class="en-i">Laser Smooth</span><span class="ar-i">ليزر ناعم</span></h3>
@@ -761,9 +762,9 @@ html[data-lang="ar"] .ed__line{ font-family:var(--ar-serif); }
 <!-- ============================================================ 10 · EDITORIAL CLOSER (moving labelled row) -->
 <section class="editorial" id="editorial" data-theme="light">
   <div class="ed__row" id="edRow">
-    <figure class="ed__item"><span class="ed__lbl"><span class="en-i">Understand</span><span class="ar-i">نفهم</span></span><div class="ph ph--portrait ph--fill"><span class="ph__l">editorial — consultation / bloodwork</span></div></figure>
-    <figure class="ed__item ed__item--mid"><span class="ed__lbl"><span class="en-i">Treat</span><span class="ar-i">نعالج</span></span><div class="ph ph--portrait ph--fill"><span class="ph__l">editorial — treatment in motion</span></div></figure>
-    <figure class="ed__item"><span class="ed__lbl"><span class="en-i">Renew</span><span class="ar-i">نجدّد</span></span><div class="ph ph--portrait ph--fill"><span class="ph__l">editorial — radiant result</span></div></figure>
+    <figure class="ed__item"><span class="ed__lbl"><span class="en-i">Understand</span><span class="ar-i">نفهم</span></span><picture><source type="image/webp" srcset="assets/ed-understand.webp"><img src="assets/ed-understand.jpg" alt="" loading="lazy"></picture></figure>
+    <figure class="ed__item ed__item--mid"><span class="ed__lbl"><span class="en-i">Treat</span><span class="ar-i">نعالج</span></span><picture><source type="image/webp" srcset="assets/ed-treat.webp"><img src="assets/ed-treat.jpg" alt="" loading="lazy"></picture></figure>
+    <figure class="ed__item"><span class="ed__lbl"><span class="en-i">Renew</span><span class="ar-i">نجدّد</span></span><picture><source type="image/webp" srcset="assets/ed-renew.webp"><img src="assets/ed-renew.jpg" alt="" loading="lazy"></picture></figure>
   </div>
   <p class="ed__line" data-reveal><span class="en-i">Understand the body first. Then treat what shows on the outside.</span><span class="ar-i">نفهم الجسد أولاً، ثم نعالج ما يظهر على السطح.</span></p>
 </section>
