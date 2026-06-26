@@ -489,7 +489,7 @@ html[data-lang="ar"] .stat__l{ font-size:1rem; }
 .calm__track{ display:flex; gap:clamp(18px,2.2vw,42px); padding:0 var(--pad); width:max-content; will-change:transform; }
 .gItem{ position:relative; flex:0 0 auto; width:min(78vw,640px); aspect-ratio:4/3; border-radius:var(--radius); overflow:hidden; }
 .gItem--lg{ width:min(88vw,820px); } .gItem--tall{ width:min(60vw,460px); aspect-ratio:3/4; }
-.gItem .ph{ height:100%; }
+.gItem .ph, .gItem picture, .gItem img{ height:100%; width:100%; object-fit:cover; display:block; }
 .gItem__cap{ position:absolute; inset-inline-start:16px; bottom:14px; z-index:2; color:#fff; font-family:var(--sans); font-weight:500; font-size:11.5px; letter-spacing:.14em; text-transform:uppercase; text-shadow:0 1px 14px rgba(0,0,0,.55); }
 html[data-lang="ar"] .gItem__cap{ font-family:var(--ar-sans); letter-spacing:.02em; }
 /* desktop + motion: pin and scrub the track horizontally (JS adds .calm--pin) */
@@ -749,11 +749,10 @@ html[data-lang="ar"] .ed__line{ font-family:var(--ar-serif); }
   <!-- horizontal moving gallery — track is scrubbed left as the section scrolls -->
   <div class="calm__viewport">
     <div class="calm__track" id="calmTrack">
-      <figure class="gItem gItem--lg"><div class="ph ph--photo ph--fill"><span class="ph__l">interior — arched lounge, warm light</span></div><figcaption class="gItem__cap"><span class="en-i">The Arrival</span><span class="ar-i">الاستقبال</span></figcaption></figure>
-      <figure class="gItem"><div class="ph ph--photo ph--fill"><span class="ph__l">interior — treatment room</span></div><figcaption class="gItem__cap"><span class="en-i">Treatment Suite</span><span class="ar-i">غرفة العلاج</span></figcaption></figure>
-      <figure class="gItem gItem--tall"><div class="ph ph--photo ph--fill"><span class="ph__l">interior — quiet corridor / details</span></div><figcaption class="gItem__cap"><span class="en-i">The Detail</span><span class="ar-i">التفاصيل</span></figcaption></figure>
-      <figure class="gItem"><div class="ph ph--photo ph--fill"><span class="ph__l">interior — consultation lounge</span></div><figcaption class="gItem__cap"><span class="en-i">Consultation</span><span class="ar-i">الاستشارة</span></figcaption></figure>
-      <figure class="gItem gItem--lg"><div class="ph ph--photo ph--fill"><span class="ph__l">interior — reception / wordmark</span></div><figcaption class="gItem__cap"><span class="en-i">BATO, Al Safa</span><span class="ar-i">باتو، الصفا</span></figcaption></figure>
+      <figure class="gItem gItem--lg"><picture><source type="image/webp" srcset="assets/clinic-1.webp"><img src="assets/clinic-1.jpg" alt="" loading="lazy"></picture><figcaption class="gItem__cap"><span class="en-i">The Arrival</span><span class="ar-i">الاستقبال</span></figcaption></figure>
+      <figure class="gItem"><picture><source type="image/webp" srcset="assets/clinic-2.webp"><img src="assets/clinic-2.jpg" alt="" loading="lazy"></picture><figcaption class="gItem__cap"><span class="en-i">Treatment Suite</span><span class="ar-i">غرفة العلاج</span></figcaption></figure>
+      <figure class="gItem gItem--tall"><picture><source type="image/webp" srcset="assets/clinic-3.webp"><img src="assets/clinic-3.jpg" alt="" loading="lazy"></picture><figcaption class="gItem__cap"><span class="en-i">The Detail</span><span class="ar-i">التفاصيل</span></figcaption></figure>
+      <figure class="gItem"><picture><source type="image/webp" srcset="assets/clinic-4.webp"><img src="assets/clinic-4.jpg" alt="" loading="lazy"></picture><figcaption class="gItem__cap"><span class="en-i">Consultation</span><span class="ar-i">الاستشارة</span></figcaption></figure>
     </div>
   </div>
 </section>
