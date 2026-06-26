@@ -468,7 +468,7 @@ html[data-lang="ar"] .stat__l{ font-size:1rem; }
 /* ============================================================ 7 · SKIN + 8 · SERVICES (full-bleed cards) */
 .skin, .svc{ position:relative; min-height:100svh; display:grid; align-items:end; overflow:hidden; color:var(--paper); background:var(--night); }
 .skin__media, .svc__media{ position:absolute; inset:0; z-index:0; }
-.skin__media .ph, .svc__media .ph{ height:100%; }
+.skin__media .ph, .svc__media .ph, .skin__media picture, .skin__media img, .svc__media picture, .svc__media img{ height:100%; width:100%; object-fit:cover; display:block; }
 .skin__media::after, .svc__media::after{ content:""; position:absolute; inset:0; z-index:1; background:linear-gradient(180deg, rgba(10,7,3,.12) 0%, rgba(10,7,3,.2) 45%, rgba(10,7,3,.74) 100%); }
 .skin__copy, .svc__copy{ position:relative; z-index:2; width:100%; max-width:var(--maxw); margin:0 auto; padding:0 var(--pad) clamp(54px,9vh,120px); }
 .skin__h{ font-size:clamp(4rem,13vw,12rem); line-height:.86; }
@@ -694,7 +694,7 @@ html[data-lang="ar"] .ed__line{ font-family:var(--ar-serif); }
 
 <!-- ============================================================ 7 · SKIN -->
 <section class="skin" id="skin" data-theme="dark">
-  <div class="skin__media" aria-hidden="true"><div class="ph ph--photo ph--fill"><span class="ph__l">Skin — luminous, healthy complexion</span></div></div>
+  <div class="skin__media" aria-hidden="true"><picture><source type="image/webp" srcset="assets/skin.webp"><img src="assets/skin.jpg" alt="" loading="lazy"></picture></div>
   <div class="skin__copy">
     <h2 class="skin__h serif" data-reveal><span class="en-i">Skin</span><span class="ar-i">البشرة</span></h2>
     <p class="skin__body" data-reveal style="--d:140ms"><span class="en-i">Facials, peels, hydration, and plasma treatments — designed to refresh, renew, and improve skin quality.</span><span class="ar-i">تنظيف، تقشير، ترطيب، وعلاجات بلازما — لتجديد البشرة وتحسين نضارتها.</span></p>
