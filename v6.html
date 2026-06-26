@@ -475,6 +475,12 @@ html[data-lang="ar"] .stat__l{ font-size:1rem; }
 .skin__copy, .svc__copy{ position:relative; z-index:2; width:100%; max-width:var(--maxw); margin:0 auto; padding:0 var(--pad) clamp(54px,9vh,120px); }
 .skin__h{ font-size:clamp(4rem,13vw,12rem); line-height:.86; }
 .skin__body{ margin-top:.4em; max-width:42ch; color:var(--night-soft); font-size:clamp(1.05rem,1.5vw,1.45rem); line-height:1.55; text-wrap:pretty; }
+/* skin — pinned frame; image + copy animate inside (JS adds .skin--pin on desktop+motion) */
+.skin__stage{ position:relative; min-height:100svh; display:grid; align-items:end; overflow:hidden; }
+.skin--pin{ overflow:visible; height:200svh; display:block; }
+.skin--pin .skin__stage{ position:sticky; top:0; height:100svh; min-height:0; }
+.skin--pin .skin__media img{ will-change:transform; }
+.skin--pin .skin__h, .skin--pin .skin__body{ will-change:transform, opacity; }
 .svc__idx{ display:block; font-family:var(--sans); font-weight:500; font-size:12px; letter-spacing:.22em; color:var(--gold-hi); margin-bottom:1.1em; }
 .svc__h{ font-size:clamp(2.6rem,6.5vw,6rem); line-height:.98; }
 .svc__d{ margin-top:.5em; max-width:42ch; color:var(--night-soft); font-size:clamp(1.02rem,1.4vw,1.3rem); line-height:1.55; text-wrap:pretty; }
@@ -696,10 +702,12 @@ html[data-lang="ar"] .ed__line{ font-family:var(--ar-serif); }
 
 <!-- ============================================================ 7 · SKIN -->
 <section class="skin" id="skin" data-theme="dark">
-  <div class="skin__media" aria-hidden="true"><picture><source type="image/webp" srcset="assets/skin.webp"><img src="assets/skin.jpg" alt="" loading="lazy"></picture></div>
-  <div class="skin__copy">
-    <h2 class="skin__h serif" data-reveal><span class="en-i">Skin</span><span class="ar-i">البشرة</span></h2>
-    <p class="skin__body" data-reveal style="--d:140ms"><span class="en-i">Facials, peels, hydration, and plasma treatments — designed to refresh, renew, and improve skin quality.</span><span class="ar-i">تنظيف، تقشير، ترطيب، وعلاجات بلازما — لتجديد البشرة وتحسين نضارتها.</span></p>
+  <div class="skin__stage">
+    <div class="skin__media" aria-hidden="true"><picture><source type="image/webp" srcset="assets/skin.webp"><img src="assets/skin.jpg" alt="" loading="lazy"></picture></div>
+    <div class="skin__copy">
+      <h2 class="skin__h serif"><span class="en-i">Skin</span><span class="ar-i">البشرة</span></h2>
+      <p class="skin__body"><span class="en-i">Facials, peels, hydration, and plasma treatments — designed to refresh, renew, and improve skin quality.</span><span class="ar-i">تنظيف، تقشير، ترطيب، وعلاجات بلازما — لتجديد البشرة وتحسين نضارتها.</span></p>
+    </div>
   </div>
 </section>
 
@@ -987,6 +995,20 @@ window.addEventListener('load', function(){
       var max=calmTrack.scrollWidth - window.innerWidth + window.innerWidth*0.05; if(max<0) max=0;
       calmTrack.style.transform='translate3d('+(-self.progress*max).toFixed(1)+'px,0,0)';
     }});
+  }
+  /* skin — frame pins (static); the image slowly scales/parallaxes and the copy rises + drifts inside it */
+  var skinSec=document.querySelector('.skin');
+  if(skinSec && window.matchMedia('(min-width:861px)').matches){
+    skinSec.classList.add('skin--pin');
+    var skinImg=skinSec.querySelector('.skin__media img');
+    var skinH=skinSec.querySelector('.skin__h');
+    var skinB=skinSec.querySelector('.skin__body');
+    var stl=gsap.timeline({ scrollTrigger:{ trigger:skinSec, start:'top top', end:'bottom bottom', scrub:0.6 } });
+    if(skinImg) stl.fromTo(skinImg,{scale:1.28,yPercent:-6},{scale:1.10,yPercent:6,ease:'none',duration:1},0);
+    if(skinH)   stl.fromTo(skinH,{yPercent:70,opacity:0},{yPercent:0,opacity:1,ease:'power2.out',duration:0.35},0)
+                   .to(skinH,{yPercent:-38,ease:'none',duration:0.65},0.35);
+    if(skinB)   stl.fromTo(skinB,{yPercent:95,opacity:0},{yPercent:0,opacity:1,ease:'power2.out',duration:0.4},0.06)
+                   .to(skinB,{yPercent:-22,ease:'none',duration:0.54},0.46);
   }
   /* results row + editorial row — gentle opposite drift as they pass (the 'moving images' feel) */
   var builtRow=document.querySelector('.built__row');
