@@ -245,6 +245,7 @@ html[data-lang="ar"] .hero__meta{ font-family:var(--ar-sans); letter-spacing:.02
 .hero__media{ position:absolute; z-index:1; top:50%; transform:translateY(-50%); inset-inline-end:-18vw; width:min(86%,1640px); pointer-events:none; will-change:transform; transform-origin:62% 50%; }
 .hero__media picture{ display:block; width:100%; }
 .hero__media img{ display:block; width:100%; height:auto; }
+html[dir="rtl"] .hero__media img{ transform:scaleX(-1); }   /* mirror the villa so it opens toward the RTL text (the silk is already mirrored to match) */
 @media(max-width:860px){
   .hero{ display:block; }
   .hero__stage{ display:flex; flex-direction:column; min-height:100svh; overflow:visible; }   /* mobile: no pin — stage is the stacking flex container */
@@ -513,6 +514,10 @@ html[data-lang="ar"] .gItem__cap{ font-family:var(--ar-sans); letter-spacing:.02
 .ed__item{ position:relative; flex:0 0 auto; width:min(40vw,360px); aspect-ratio:3/4; }
 .ed__item--mid{ width:min(44vw,420px); aspect-ratio:2/3; }
 .ed__item picture, .ed__item img{ display:block; width:100%; height:100%; object-fit:cover; border-radius:var(--radius); }
+.ed__item picture{ overflow:hidden; }   /* clip the hover zoom; the label sits above the frame, so it isn't affected */
+.ed__item img{ transition:transform .55s cubic-bezier(.22,1,.36,1); will-change:transform; }
+.ed__item:hover img{ transform:scale(1.08); }
+@media (prefers-reduced-motion:reduce){ .ed__item img{ transition:none; } .ed__item:hover img{ transform:none; } }
 .ed__lbl{ position:absolute; top:-1.8em; inset-inline-start:0; font-family:var(--sans); font-weight:500; font-size:12px; letter-spacing:.18em; text-transform:uppercase; color:var(--gold-deep); }
 html[data-lang="ar"] .ed__lbl{ font-family:var(--ar-sans); letter-spacing:.02em; }
 .ed__line{ text-align:center; margin-top:clamp(46px,7vh,90px); font-family:var(--serif); font-optical-sizing:auto; font-weight:300; font-size:clamp(1.4rem,3.1vw,2.6rem); line-height:1.2; color:var(--ink); }
