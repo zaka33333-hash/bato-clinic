@@ -437,6 +437,8 @@ html[data-lang="ar"] .hair__sub{ font-family:var(--ar-sans); }
 .compare__handle{ position:absolute; top:0; bottom:0; left:var(--pos); transform:translateX(-50%); width:48px; background:none; border:0; padding:0; cursor:ew-resize; display:grid; place-items:center; z-index:3; -webkit-tap-highlight-color:transparent; }
 .compare__handle::before{ content:""; position:absolute; top:0; bottom:0; width:2px; background:rgba(255,255,255,.92); box-shadow:0 0 0 1px rgba(27,21,16,.18); }
 .compare__arrows{ position:relative; width:46px; height:46px; border-radius:50%; background:rgba(255,255,255,.94); color:var(--ink); display:grid; place-items:center; box-shadow:0 8px 22px rgba(27,21,16,.28); font-size:17px; }
+.compare--hint .compare__arrows{ animation:cmpHintPulse 1.95s ease-in-out; }
+@keyframes cmpHintPulse{ 0%,100%{ transform:scale(1); box-shadow:0 8px 22px rgba(27,21,16,.28); } 22%,78%{ transform:scale(1.16); box-shadow:0 10px 30px rgba(27,21,16,.4), 0 0 0 7px rgba(255,255,255,.16); } }
 .compare__tag{ position:absolute; bottom:14px; z-index:2; font-family:var(--sans); font-weight:500; font-size:10.5px; letter-spacing:.16em; text-transform:uppercase; color:#fff; background:rgba(27,21,16,.42); padding:.45em .85em; border-radius:7px; -webkit-backdrop-filter:blur(6px); backdrop-filter:blur(6px); }
 html[data-lang="ar"] .compare__tag{ font-family:var(--ar-sans); letter-spacing:.02em; }
 .compare__tag--b{ inset-inline-start:14px; } .compare__tag--a{ inset-inline-end:14px; }
@@ -826,14 +828,38 @@ html[data-lang="ar"] .ed__line{ font-family:var(--ar-serif); }
 (function(){
   var c=document.querySelector('.compare');
   if(c){
-    var handle=c.querySelector('.compare__handle'), dragging=false;
+    var handle=c.querySelector('.compare__handle'), dragging=false, demoed=false, demoing=false;
     function setX(x){ var r=c.getBoundingClientRect(); var p=Math.max(0,Math.min(1,(x-r.left)/r.width)); c.style.setProperty('--pos',(p*100).toFixed(2)+'%'); }
-    function down(e){ dragging=true; setX((e.touches?e.touches[0]:e).clientX); if(!e.touches) e.preventDefault(); }
+    function stopDemo(){ demoing=false; c.classList.remove('compare--hint'); }
+    function down(e){ dragging=true; stopDemo(); setX((e.touches?e.touches[0]:e).clientX); if(!e.touches) e.preventDefault(); }
     function move(e){ if(dragging) setX((e.touches?e.touches[0]:e).clientX); }
     function up(){ dragging=false; }
     c.addEventListener('mousedown',down); window.addEventListener('mousemove',move); window.addEventListener('mouseup',up);
     c.addEventListener('touchstart',down,{passive:false}); window.addEventListener('touchmove',move,{passive:true}); window.addEventListener('touchend',up);
-    if(handle) handle.addEventListener('keydown',function(e){ var cur=parseFloat(c.style.getPropertyValue('--pos'))||50; if(e.key==='ArrowLeft'){ c.style.setProperty('--pos',Math.max(0,cur-4)+'%'); e.preventDefault(); } if(e.key==='ArrowRight'){ c.style.setProperty('--pos',Math.min(100,cur+4)+'%'); e.preventDefault(); } });
+    c.addEventListener('mouseenter',stopDemo);
+    if(handle) handle.addEventListener('keydown',function(e){ stopDemo(); var cur=parseFloat(c.style.getPropertyValue('--pos'))||50; if(e.key==='ArrowLeft'){ c.style.setProperty('--pos',Math.max(0,cur-4)+'%'); e.preventDefault(); } if(e.key==='ArrowRight'){ c.style.setProperty('--pos',Math.min(100,cur+4)+'%'); e.preventDefault(); } });
+    /* one-time hint that the divider is draggable: sweep it across, then settle at centre, when it first enters view */
+    function runHint(){
+      if(demoed || dragging || matchMedia('(prefers-reduced-motion:reduce)').matches) return;
+      demoed=true; demoing=true; c.classList.add('compare--hint');
+      var pts=[50,26,74,50], i=0, segDur=640, t0=null;
+      function ease(t){ return t<0.5 ? 4*t*t*t : 1-Math.pow(-2*t+2,3)/2; }
+      function step(ts){
+        if(!demoing) return;
+        if(t0===null) t0=ts;
+        var k=(ts-t0)/segDur;
+        if(k>=1){ i++; t0=ts; k=0; if(i>=pts.length-1){ c.style.setProperty('--pos','50%'); stopDemo(); return; } }
+        var v=pts[i]+(pts[i+1]-pts[i])*ease(k<0?0:(k>1?1:k));
+        c.style.setProperty('--pos',v.toFixed(2)+'%');
+        requestAnimationFrame(step);
+      }
+      requestAnimationFrame(step);
+    }
+    window.__compareRunHint=runHint;   /* ScrollTrigger (Lenis-synced) calls this; IO is the no-GSAP fallback */
+    if('IntersectionObserver' in window){
+      var io=new IntersectionObserver(function(es){ es.forEach(function(en){ if(en.isIntersecting){ setTimeout(runHint,500); io.disconnect(); } }); },{threshold:0.5});
+      io.observe(c);
+    } else { setTimeout(runHint,1400); }
   }
   var reduce=matchMedia('(prefers-reduced-motion:reduce)').matches;
   function fmt(n){ return n.toLocaleString('en-US'); }
@@ -1004,12 +1030,14 @@ window.addEventListener('load', function(){
     var skinH=skinSec.querySelector('.skin__h');
     var skinB=skinSec.querySelector('.skin__body');
     var stl=gsap.timeline({ scrollTrigger:{ trigger:skinSec, start:'top top', end:'bottom bottom', scrub:0.6 } });
-    if(skinImg) stl.fromTo(skinImg,{scale:1.28,yPercent:-6},{scale:1.10,yPercent:6,ease:'none',duration:1},0);
-    if(skinH)   stl.fromTo(skinH,{yPercent:70,opacity:0},{yPercent:0,opacity:1,ease:'power2.out',duration:0.35},0)
-                   .to(skinH,{yPercent:-38,ease:'none',duration:0.65},0.35);
-    if(skinB)   stl.fromTo(skinB,{yPercent:95,opacity:0},{yPercent:0,opacity:1,ease:'power2.out',duration:0.4},0.06)
-                   .to(skinB,{yPercent:-22,ease:'none',duration:0.54},0.46);
+    if(skinImg) stl.fromTo(skinImg,{scale:1.34,yPercent:-6},{scale:1.14,yPercent:6,ease:'none',duration:1},0);
+    if(skinH)   stl.fromTo(skinH,{yPercent:95,opacity:0},{yPercent:0,opacity:1,ease:'power2.out',duration:0.32},0)
+                   .to(skinH,{yPercent:-55,ease:'none',duration:0.68},0.32);
+    if(skinB)   stl.fromTo(skinB,{yPercent:130,opacity:0},{yPercent:0,opacity:1,ease:'power2.out',duration:0.4},0.06)
+                   .to(skinB,{yPercent:-34,ease:'none',duration:0.54},0.46);
   }
+  /* nudge the before/after divider once when it scrolls into view — signals it's draggable */
+  if(window.__compareRunHint){ ScrollTrigger.create({ trigger:'.compare', start:'top 72%', once:true, onEnter:window.__compareRunHint }); }
   /* results row + editorial row — gentle opposite drift as they pass (the 'moving images' feel) */
   var builtRow=document.querySelector('.built__row');
   if(builtRow) gsap.fromTo(builtRow,{xPercent:5},{xPercent:-5,ease:'none',scrollTrigger:{trigger:'.built',start:'top bottom',end:'bottom top',scrub:true}});
