@@ -432,7 +432,7 @@ html[data-lang="ar"] .hair__sub{ font-family:var(--ar-sans); }
 /* before/after comparison */
 .compare{ position:relative; width:100%; max-width:1080px; margin:clamp(36px,5vh,70px) auto 0; aspect-ratio:16/10; border-radius:var(--radius); overflow:hidden; --pos:50%; touch-action:pan-y; box-shadow:0 30px 60px -28px rgba(27,21,16,.4); }
 .compare__media{ position:absolute; inset:0; }
-.compare__media .ph{ height:100%; border:0; border-radius:0; }
+.compare__media .ph, .compare__media picture, .compare__media img{ height:100%; width:100%; display:block; border:0; border-radius:0; object-fit:cover; }
 .compare__before{ clip-path:inset(0 calc(100% - var(--pos)) 0 0); }
 .compare__handle{ position:absolute; top:0; bottom:0; left:var(--pos); transform:translateX(-50%); width:48px; background:none; border:0; padding:0; cursor:ew-resize; display:grid; place-items:center; z-index:3; -webkit-tap-highlight-color:transparent; }
 .compare__handle::before{ content:""; position:absolute; top:0; bottom:0; width:2px; background:rgba(255,255,255,.92); box-shadow:0 0 0 1px rgba(27,21,16,.18); }
@@ -447,7 +447,8 @@ html[data-lang="ar"] .compare__tag{ font-family:var(--ar-sans); letter-spacing:.
 .built__h{ font-size:clamp(2.2rem,5.2vw,5rem); margin-top:1em; }
 .built__h em{ color:var(--gold-deep); font-style:italic; } html[data-lang="ar"] .built__h em{ font-style:normal; }
 .built__row{ display:flex; gap:clamp(12px,1.4vw,24px); margin-top:clamp(50px,8vh,100px); padding:0 var(--pad); justify-content:center; will-change:transform; }
-.built__row .ph{ flex:0 0 auto; width:clamp(150px,15vw,250px); aspect-ratio:3/4; }
+.built__row > *{ flex:0 0 auto; width:clamp(150px,15vw,250px); aspect-ratio:3/4; border-radius:var(--radius); overflow:hidden; }
+.built__row img{ width:100%; height:100%; object-fit:cover; display:block; }
 
 /* ============================================================ 5 · STATS */
 .stats{ max-width:var(--maxw); margin:0 auto; padding:clamp(70px,11vh,150px) var(--pad); display:grid; gap:clamp(44px,6vw,90px); grid-template-columns:1fr; }
@@ -629,8 +630,8 @@ html[data-lang="ar"] .ed__line{ font-family:var(--ar-serif); }
   </div>
   <!-- before/after comparison (drag the handle) -->
   <figure class="compare" data-reveal style="--d:240ms" aria-label="Before and after hair treatment comparison">
-    <div class="compare__media compare__after"><div class="ph ph--photo"><span class="ph__l">AFTER — full, healthy density</span></div></div>
-    <div class="compare__media compare__before" id="cmpBefore"><div class="ph ph--photo ph--cool"><span class="ph__l">BEFORE — thinning / shedding</span></div></div>
+    <div class="compare__media compare__after"><picture><source type="image/webp" srcset="assets/hair-after.webp"><img src="assets/hair-after.jpg" alt="After BATO hair treatment — full, healthy density" loading="lazy"></picture></div>
+    <div class="compare__media compare__before" id="cmpBefore"><picture><source type="image/webp" srcset="assets/hair-before.webp"><img src="assets/hair-before.jpg" alt="Before treatment — thinning, weak density" loading="lazy"></picture></div>
     <button class="compare__handle" id="cmpHandle" type="button" aria-label="Drag to compare before and after"><span class="compare__arrows" aria-hidden="true">⟺</span></button>
     <span class="compare__tag compare__tag--b" aria-hidden="true"><span class="en-i">Before</span><span class="ar-i">قبل</span></span>
     <span class="compare__tag compare__tag--a" aria-hidden="true"><span class="en-i">After</span><span class="ar-i">بعد</span></span>
@@ -651,8 +652,8 @@ html[data-lang="ar"] .ed__line{ font-family:var(--ar-serif); }
     </h2>
   </div>
   <div class="built__row" data-reveal style="--d:200ms" aria-hidden="true">
-    <div class="ph ph--portrait"><span class="ph__l">result 01</span></div>
-    <div class="ph ph--portrait"><span class="ph__l">result 02</span></div>
+    <picture class="built__pic"><source type="image/webp" srcset="assets/result-1.webp"><img src="assets/result-1.jpg" alt="" loading="lazy"></picture>
+    <picture class="built__pic"><source type="image/webp" srcset="assets/result-2.webp"><img src="assets/result-2.jpg" alt="" loading="lazy"></picture>
     <div class="ph ph--portrait"><span class="ph__l">result 03</span></div>
     <div class="ph ph--portrait"><span class="ph__l">result 04</span></div>
     <div class="ph ph--portrait"><span class="ph__l">result 05</span></div>
