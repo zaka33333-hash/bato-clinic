@@ -1048,7 +1048,7 @@ window.addEventListener('load', function(){
     ScrollTrigger.create({ trigger:svcsSec, start:'top top', end:'bottom bottom', scrub:0.6, invalidateOnRefresh:true,
       onUpdate:function(self){
         var p=self.progress;
-        if(svcStage){ var d=svcsSec.offsetHeight-window.innerHeight; svcStage.style.transform='translate3d(0,'+(p*d).toFixed(1)+'px,0)'; }
+        /* CSS position:sticky pins the stage — JS only drives the crossfade */
         var pos=p*(svN-1);
         for(var i=0;i<svN;i++){
           var t=1-Math.abs(pos-i); if(t<0) t=0;
