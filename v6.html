@@ -513,19 +513,37 @@ html[data-lang="ar"] .gItem__cap{ font-family:var(--ar-sans); letter-spacing:.02
 .calm--pin .calm__viewport{ position:sticky; top:0; height:100svh; overflow:visible; display:flex; align-items:center; padding-bottom:0; }
 .calm--pin .calm__track{ width:max-content; }
 
-/* ============================================================ 10 · EDITORIAL CLOSER (moving labelled row) */
-.editorial{ max-width:var(--maxw); margin:0 auto; padding:clamp(80px,12vh,170px) var(--pad); overflow:hidden; }
-.ed__row{ display:flex; gap:clamp(40px,6vw,110px); justify-content:center; align-items:center; will-change:transform; }
-.ed__item{ position:relative; flex:0 0 auto; width:min(40vw,360px); aspect-ratio:3/4; }
-.ed__item--mid{ width:min(44vw,420px); aspect-ratio:2/3; }
-.ed__item picture, .ed__item img{ display:block; width:100%; height:100%; object-fit:cover; border-radius:var(--radius); }
-.ed__item picture{ overflow:hidden; }   /* clip the hover zoom; the label sits above the frame, so it isn't affected */
-.ed__item img{ transition:transform .55s cubic-bezier(.22,1,.36,1); will-change:transform; }
-.ed__item:hover img{ transform:scale(1.08); }
-@media (prefers-reduced-motion:reduce){ .ed__item img{ transition:none; } .ed__item:hover img{ transform:none; } }
-.ed__lbl{ position:absolute; top:-1.8em; inset-inline-start:0; font-family:var(--sans); font-weight:500; font-size:12px; letter-spacing:.18em; text-transform:uppercase; color:var(--gold-deep); }
+/* ============================================================ 10 · EDITORIAL CLOSER (asymmetric staggered gallery — KO-inspired, Bato-warm) */
+.editorial{ max-width:var(--maxw); margin:0 auto; padding:clamp(80px,12vh,180px) var(--pad); overflow:hidden; }
+.ed__intro{ margin-bottom:clamp(30px,5vh,64px); }
+.ed__kicker{ font-family:var(--sans); font-weight:500; font-size:12px; letter-spacing:.24em; text-transform:uppercase; color:var(--gold-deep); }
+html[data-lang="ar"] .ed__kicker{ font-family:var(--ar-sans); letter-spacing:.04em; }
+
+/* the broken grid: three frames placed across 12 columns, each starting at a different height (margin-top) and a different aspect — the staggered top + bottom edges are what read as 'editorial' */
+.ed__grid{ display:grid; grid-template-columns:repeat(12,1fr); column-gap:clamp(20px,3vw,56px); align-items:start; }
+.ed__item{ position:relative; }
+.ed__item--a{ grid-column:1 / span 4;  margin-top:clamp(64px,13vh,160px); }
+.ed__item--b{ grid-column:5 / span 5;  margin-top:0; }
+.ed__item--c{ grid-column:10 / span 3; margin-top:clamp(40px,8vh,108px); }
+
+.ed__frame{ position:relative; overflow:hidden; border-radius:var(--radius); background:#efe8dc; will-change:transform; }
+.ed__item--a .ed__frame{ aspect-ratio:3/4; }
+.ed__item--b .ed__frame{ aspect-ratio:4/5; }   /* the feature: largest + tallest */
+.ed__item--c .ed__frame{ aspect-ratio:3/4; }
+.ed__frame picture, .ed__frame img{ display:block; width:100%; height:100%; object-fit:cover; }
+.ed__frame img{ transition:transform .65s cubic-bezier(.22,1,.36,1); }
+.ed__item:hover .ed__frame img{ transform:scale(1.05); }
+
+/* caption: index · label ........ gold dot (the dot blooms on hover — KO's accent cue, in Bato gold) */
+.ed__cap{ display:flex; align-items:center; gap:.85em; margin-top:1.1em; }
+.ed__idx{ font-family:var(--sans); font-size:11px; letter-spacing:.16em; color:var(--gold); font-variant-numeric:tabular-nums; opacity:.8; }
+.ed__lbl{ font-family:var(--sans); font-weight:500; font-size:12px; letter-spacing:.18em; text-transform:uppercase; color:var(--gold-deep); }
 html[data-lang="ar"] .ed__lbl{ font-family:var(--ar-sans); letter-spacing:.02em; }
-.ed__line{ text-align:center; margin-top:clamp(46px,7vh,90px); font-family:var(--serif); font-optical-sizing:auto; font-weight:300; font-size:clamp(1.4rem,3.1vw,2.6rem); line-height:1.2; color:var(--ink); }
+.ed__dot{ width:7px; height:7px; border-radius:50%; background:var(--gold); margin-inline-start:auto; opacity:0; transform:scale(.5); transition:opacity .45s var(--ease), transform .45s var(--ease); }
+.ed__item:hover .ed__dot{ opacity:1; transform:scale(1); }
+@media (prefers-reduced-motion:reduce){ .ed__frame img{ transition:none; } .ed__item:hover .ed__frame img{ transform:none; } }
+
+.ed__line{ text-align:center; margin-top:clamp(58px,9vh,124px); font-family:var(--serif); font-optical-sizing:auto; font-weight:300; font-size:clamp(1.4rem,3.1vw,2.6rem); line-height:1.2; color:var(--ink); }
 html[data-lang="ar"] .ed__line{ font-family:var(--ar-serif); }
 
 /* ============================================================ NEW-BODY MOBILE + MOTION */
@@ -533,8 +551,9 @@ html[data-lang="ar"] .ed__line{ font-family:var(--ar-serif); }
   .compare{ aspect-ratio:4/5; }
   .stats__grid{ grid-template-columns:1fr 1fr; gap:30px; }
   .built__row{ flex-wrap:nowrap; overflow-x:auto; justify-content:flex-start; scrollbar-width:none; }
-  .ed__row{ flex-direction:column; gap:48px; align-items:center; }
-  .ed__item, .ed__item--mid{ width:min(72vw,340px); }
+  .ed__grid{ display:flex; flex-direction:column; gap:44px; }
+  .ed__item--a, .ed__item--b, .ed__item--c{ grid-column:auto; margin-top:0; width:min(80vw,360px); margin-inline:auto; }
+  .ed__item--b{ width:min(86vw,400px); }
 }
 @media(prefers-reduced-motion:reduce){
   .calm--pin{ height:auto; }
@@ -779,10 +798,20 @@ html[data-lang="ar"] .ed__line{ font-family:var(--ar-serif); }
 
 <!-- ============================================================ 10 · EDITORIAL CLOSER (moving labelled row) -->
 <section class="editorial" id="editorial" data-theme="light">
-  <div class="ed__row" id="edRow">
-    <figure class="ed__item"><span class="ed__lbl"><span class="en-i">Understand</span><span class="ar-i">نفهم</span></span><picture><source type="image/webp" srcset="assets/ed-understand.webp"><img src="assets/ed-understand.jpg" alt="" loading="lazy"></picture></figure>
-    <figure class="ed__item ed__item--mid"><span class="ed__lbl"><span class="en-i">Treat</span><span class="ar-i">نعالج</span></span><picture><source type="image/webp" srcset="assets/ed-treat.webp"><img src="assets/ed-treat.jpg" alt="" loading="lazy"></picture></figure>
-    <figure class="ed__item"><span class="ed__lbl"><span class="en-i">Renew</span><span class="ar-i">نجدّد</span></span><picture><source type="image/webp" srcset="assets/ed-renew.webp"><img src="assets/ed-renew.jpg" alt="" loading="lazy"></picture></figure>
+  <div class="ed__intro" data-reveal><span class="ed__kicker"><span class="en-i">The approach</span><span class="ar-i">المنهج</span></span></div>
+  <div class="ed__grid" id="edGrid">
+    <figure class="ed__item ed__item--a" data-reveal style="--rv:translateY(34px); --d:0ms">
+      <div class="ed__frame"><picture><source type="image/webp" srcset="assets/ed-understand.webp"><img src="assets/ed-understand.jpg" alt="" loading="lazy"></picture></div>
+      <figcaption class="ed__cap"><span class="ed__idx">01</span><span class="ed__lbl"><span class="en-i">Understand</span><span class="ar-i">نفهم</span></span><span class="ed__dot" aria-hidden="true"></span></figcaption>
+    </figure>
+    <figure class="ed__item ed__item--b" data-reveal style="--rv:translateY(34px); --d:130ms">
+      <div class="ed__frame"><picture><source type="image/webp" srcset="assets/ed-treat.webp"><img src="assets/ed-treat.jpg" alt="" loading="lazy"></picture></div>
+      <figcaption class="ed__cap"><span class="ed__idx">02</span><span class="ed__lbl"><span class="en-i">Treat</span><span class="ar-i">نعالج</span></span><span class="ed__dot" aria-hidden="true"></span></figcaption>
+    </figure>
+    <figure class="ed__item ed__item--c" data-reveal style="--rv:translateY(34px); --d:260ms">
+      <div class="ed__frame"><picture><source type="image/webp" srcset="assets/ed-renew.webp"><img src="assets/ed-renew.jpg" alt="" loading="lazy"></picture></div>
+      <figcaption class="ed__cap"><span class="ed__idx">03</span><span class="ed__lbl"><span class="en-i">Renew</span><span class="ar-i">نجدّد</span></span><span class="ed__dot" aria-hidden="true"></span></figcaption>
+    </figure>
   </div>
   <p class="ed__line" data-reveal><span class="en-i">Understand the body first. Then treat what shows on the outside.</span><span class="ar-i">نفهم الجسد أولاً، ثم نعالج ما يظهر على السطح.</span></p>
 </section>
@@ -1068,8 +1097,12 @@ window.addEventListener('load', function(){
   /* results row + editorial row — gentle opposite drift as they pass (the 'moving images' feel) */
   var builtRow=document.querySelector('.built__row');
   if(builtRow) gsap.fromTo(builtRow,{xPercent:5},{xPercent:-5,ease:'none',scrollTrigger:{trigger:'.built',start:'top bottom',end:'bottom top',scrub:true}});
-  var edRow=document.getElementById('edRow');
-  if(edRow && window.matchMedia('(min-width:861px)').matches) gsap.fromTo(edRow,{xPercent:3},{xPercent:-3,ease:'none',scrollTrigger:{trigger:'.editorial',start:'top bottom',end:'bottom top',scrub:true}});
+  /* editorial frames: gentle parallax at slightly different rates so the staggered gallery feels alive as it passes (frames only — captions stay put) */
+  if(window.matchMedia('(min-width:861px)').matches){
+    var edFrames=[].slice.call(document.querySelectorAll('.ed__item .ed__frame'));
+    var edDrift=[26,-14,34];
+    edFrames.forEach(function(fr,i){ gsap.fromTo(fr,{yPercent:(edDrift[i]||0)*0.18},{yPercent:-(edDrift[i]||0)*0.18,ease:'none',scrollTrigger:{trigger:'.editorial',start:'top bottom',end:'bottom top',scrub:true}}); });
+  }
 
   window.addEventListener('resize', function(){ applyMorph(morphST.progress); });
   ScrollTrigger.refresh();
