@@ -487,6 +487,14 @@ html[data-lang="ar"] .stat__l{ font-size:1rem; }
 .svc__idx{ display:block; font-family:var(--sans); font-weight:500; font-size:12px; letter-spacing:.22em; color:var(--gold-hi); margin-bottom:1.1em; }
 .svc__h{ font-size:clamp(2.6rem,6.5vw,6rem); line-height:.98; }
 .svc__d{ margin-top:.5em; max-width:42ch; color:var(--night-soft); font-size:clamp(1.02rem,1.4vw,1.3rem); line-height:1.55; text-wrap:pretty; }
+/* services — locked slideshow deck (JS adds .svcs--deck on desktop+motion): the section is held still while
+   scrolling crossfades through the cards' images and animates each card's text. Lenis-proof manual transform pin. */
+.svcs--deck{ position:relative; height:400svh; }
+.svcs--deck .svcs__stage{ position:absolute; top:0; left:0; right:0; height:100svh; overflow:hidden; will-change:transform; }
+.svcs--deck .svc{ position:absolute; inset:0; min-height:0; opacity:0; }
+.svcs--deck .svc:first-child{ opacity:1; }
+.svcs--deck .svc__media img{ will-change:transform; }
+.svcs--deck .svc__copy{ will-change:transform; }
 
 /* ============================================================ 9 · DESIGNED TO FEEL CALM (moving gallery) */
 .calm{ position:relative; background:var(--paper); }
@@ -720,6 +728,7 @@ html[data-lang="ar"] .ed__line{ font-family:var(--ar-serif); }
 
 <!-- ============================================================ 8 · SERVICES (full-bleed parallax cards) -->
 <section class="svcs" id="services" data-theme="dark">
+  <div class="svcs__stage">
   <article class="svc" data-theme="dark">
     <div class="svc__media" aria-hidden="true"><picture><source type="image/webp" srcset="assets/svc-boosters.webp"><img src="assets/svc-boosters.jpg" alt="" loading="lazy"></picture></div>
     <div class="svc__copy">
@@ -752,6 +761,7 @@ html[data-lang="ar"] .ed__line{ font-family:var(--ar-serif); }
       <p class="svc__d" data-reveal style="--d:120ms"><span class="en-i">Hormone and vitamin testing to find what may be affecting your skin and overall beauty.</span><span class="ar-i">تحاليل الهرمونات والفيتامينات لكشف ما قد يؤثّر في بشرتك وجمالك.</span></p>
     </div>
   </article>
+  </div>
 </section>
 
 <!-- ============================================================ 9 · DESIGNED TO FEEL CALM (moving interior gallery) -->
@@ -1052,6 +1062,33 @@ window.addEventListener('load', function(){
                    .to(skinH,{yPercent:-60,ease:'none',duration:0.68},0.32);
     if(skinB)   stl.fromTo(skinB,{yPercent:150,opacity:0},{yPercent:0,opacity:1,ease:'power2.out',duration:0.4},0.06)
                    .to(skinB,{yPercent:-38,ease:'none',duration:0.54},0.46);
+  }
+  /* services — LOCKED SLIDESHOW: the whole section holds still (manual transform-pin) while scrolling crossfades
+     through the four cards' images and lifts each card's text in turn, then releases. (Lenis-proof: scrub only.) */
+  var svcsSec=document.querySelector('.svcs');
+  if(svcsSec && window.matchMedia('(min-width:861px)').matches){
+    svcsSec.classList.add('svcs--deck');
+    var svcStage=svcsSec.querySelector('.svcs__stage');
+    var svcCards=[].slice.call(svcsSec.querySelectorAll('.svc'));
+    var svcCopies=svcCards.map(function(c){ return c.querySelector('.svc__copy'); });
+    var svcImgs=svcCards.map(function(c){ return c.querySelector('.svc__media img'); });
+    var svN=svcCards.length;
+    svcCards.forEach(function(c){ c.querySelectorAll('[data-reveal]').forEach(function(e){ e.classList.add('in'); }); });
+    ScrollTrigger.create({ trigger:svcsSec, start:'top top', end:'bottom bottom', scrub:0.6, invalidateOnRefresh:true,
+      onUpdate:function(self){
+        var p=self.progress;
+        if(svcStage){ var d=svcsSec.offsetHeight-window.innerHeight; svcStage.style.transform='translate3d(0,'+(p*d).toFixed(1)+'px,0)'; }
+        var pos=p*(svN-1);
+        for(var i=0;i<svN;i++){
+          var t=1-Math.abs(pos-i); if(t<0) t=0;
+          var op=t*t*(3-2*t);
+          svcCards[i].style.opacity=op.toFixed(3);
+          svcCards[i].style.pointerEvents = op>0.5 ? 'auto' : 'none';
+          if(svcCopies[i]) svcCopies[i].style.transform='translate3d(0,'+((1-op)*48).toFixed(1)+'px,0)';
+          if(svcImgs[i]) svcImgs[i].style.transform='scale('+(1.0+0.06*op).toFixed(3)+')';
+        }
+      }
+    });
   }
   /* nudge the before/after divider once when it scrolls into view — signals it's draggable */
   if(window.__compareRunHint){ ScrollTrigger.create({ trigger:'.compare', start:'top 72%', once:true, onEnter:window.__compareRunHint }); }
