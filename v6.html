@@ -478,18 +478,15 @@ html[data-lang="ar"] .stat__l{ font-size:1rem; }
 .skin__copy, .svc__copy{ position:relative; z-index:2; width:100%; max-width:var(--maxw); margin:0 auto; padding:0 var(--pad) clamp(54px,9vh,120px); }
 .skin__h{ font-size:clamp(4rem,13vw,12rem); line-height:.86; }
 .skin__body{ margin-top:.4em; max-width:42ch; color:var(--night-soft); font-size:clamp(1.05rem,1.5vw,1.45rem); line-height:1.55; text-wrap:pretty; }
-/* skin — manual transform-pin (Lenis-proof): a tall track holds a stage that is translated to cancel the
-   scroll, so the frame stays perfectly still while only the image + copy animate. JS adds .skin--track. */
-.skin__stage{ position:relative; min-height:100svh; display:grid; align-items:end; overflow:hidden; }
-.skin--track{ height:240svh; min-height:0; display:block; }
-.skin--track .skin__stage{ position:absolute; top:0; left:0; right:0; height:100svh; will-change:transform; }
-.skin__media img, .skin__h, .skin__body{ will-change:transform; }
+/* the Skin hero is now the first slide of the services deck — its title stays oversized via .svc--intro */
+.svc--intro .svc__h{ font-size:clamp(4rem,13vw,12rem); line-height:.86; }
+.svc--intro .svc__d{ font-size:clamp(1.05rem,1.5vw,1.45rem); max-width:42ch; }
 .svc__idx{ display:block; font-family:var(--sans); font-weight:500; font-size:12px; letter-spacing:.22em; color:var(--gold-hi); margin-bottom:1.1em; }
 .svc__h{ font-size:clamp(2.6rem,6.5vw,6rem); line-height:.98; }
 .svc__d{ margin-top:.5em; max-width:42ch; color:var(--night-soft); font-size:clamp(1.02rem,1.4vw,1.3rem); line-height:1.55; text-wrap:pretty; }
 /* services — locked slideshow deck (JS adds .svcs--deck on desktop+motion): the section is held still while
    scrolling crossfades through the cards' images and animates each card's text. Lenis-proof manual transform pin. */
-.svcs--deck{ position:relative; height:400svh; }
+.svcs--deck{ position:relative; height:500svh; }
 .svcs--deck .svcs__stage{ position:absolute; top:0; left:0; right:0; height:100svh; overflow:hidden; will-change:transform; }
 .svcs--deck .svc{ position:absolute; inset:0; min-height:0; opacity:0; }
 .svcs--deck .svc:first-child{ opacity:1; }
@@ -715,20 +712,16 @@ html[data-lang="ar"] .ed__line{ font-family:var(--ar-serif); }
   <p class="bridge__body" data-reveal style="--d:160ms"><span class="en-i">BATO Dubai brings the same medical-first philosophy to skin. Every treatment starts with understanding, not guessing.</span><span class="ar-i">تجلب باتو دبي الفلسفة الطبية ذاتها إلى البشرة. كل علاج يبدأ بالفهم، لا بالتخمين.</span></p>
 </section>
 
-<!-- ============================================================ 7 · SKIN -->
-<section class="skin" id="skin" data-theme="dark">
-  <div class="skin__stage">
-    <div class="skin__media" aria-hidden="true"><picture><source type="image/webp" srcset="assets/skin.webp"><img src="assets/skin.jpg" alt="" loading="lazy"></picture></div>
-    <div class="skin__copy">
-      <h2 class="skin__h serif"><span class="en-i">Skin</span><span class="ar-i">البشرة</span></h2>
-      <p class="skin__body"><span class="en-i">Facials, peels, hydration, and plasma treatments — designed to refresh, renew, and improve skin quality.</span><span class="ar-i">تنظيف، تقشير، ترطيب، وعلاجات بلازما — لتجديد البشرة وتحسين نضارتها.</span></p>
-    </div>
-  </div>
-</section>
-
-<!-- ============================================================ 8 · SERVICES (full-bleed parallax cards) -->
+<!-- ============================================================ 7+8 · SKIN + SERVICES (locked slideshow deck — Skin is the first slide) -->
 <section class="svcs" id="services" data-theme="dark">
   <div class="svcs__stage">
+  <article class="svc svc--intro" id="skin" data-theme="dark">
+    <div class="svc__media" aria-hidden="true"><picture><source type="image/webp" srcset="assets/skin.webp"><img src="assets/skin.jpg" alt="" loading="lazy"></picture></div>
+    <div class="svc__copy">
+      <h3 class="svc__h serif" data-reveal><span class="en-i">Skin</span><span class="ar-i">البشرة</span></h3>
+      <p class="svc__d" data-reveal style="--d:120ms"><span class="en-i">Facials, peels, hydration, and plasma treatments — designed to refresh, renew, and improve skin quality.</span><span class="ar-i">تنظيف، تقشير، ترطيب، وعلاجات بلازما — لتجديد البشرة وتحسين نضارتها.</span></p>
+    </div>
+  </article>
   <article class="svc" data-theme="dark">
     <div class="svc__media" aria-hidden="true"><picture><source type="image/webp" srcset="assets/svc-boosters.webp"><img src="assets/svc-boosters.jpg" alt="" loading="lazy"></picture></div>
     <div class="svc__copy">
@@ -1040,28 +1033,6 @@ window.addEventListener('load', function(){
       var max=calmTrack.scrollWidth - window.innerWidth + window.innerWidth*0.05; if(max<0) max=0;
       calmTrack.style.transform='translate3d('+(-self.progress*max).toFixed(1)+'px,0,0)';
     }});
-  }
-  /* skin — manual "transform pin" (Lenis-proof). A tall track (.skin--track, 240svh) holds an absolutely-
-     positioned stage; on a plain ScrollTrigger SCRUB we translate that stage downward by exactly the scrolled
-     distance, so the frame is held perfectly still in the viewport while ONLY the image + copy animate.
-     This uses the same scrub mechanism as every other working effect on the page — unlike ScrollTrigger's
-     native pin, which does not hold under this Lenis smooth-scroll setup. */
-  var skinSec=document.querySelector('.skin');
-  if(skinSec && window.matchMedia('(min-width:861px)').matches){
-    skinSec.classList.add('skin--track');
-    var skinStage=skinSec.querySelector('.skin__stage');
-    var skinImg=skinSec.querySelector('.skin__media img');
-    var skinH=skinSec.querySelector('.skin__h');
-    var skinB=skinSec.querySelector('.skin__body');
-    var stl=gsap.timeline({ scrollTrigger:{
-      trigger:skinSec, start:'top top', end:'bottom bottom', scrub:0.6, invalidateOnRefresh:true,
-      onUpdate:function(self){ if(skinStage){ var d=skinSec.offsetHeight-window.innerHeight; skinStage.style.transform='translate3d(0,'+(self.progress*d).toFixed(1)+'px,0)'; } }
-    }});
-    if(skinImg) stl.fromTo(skinImg,{scale:1.35,yPercent:-7},{scale:1.12,yPercent:7,ease:'none',duration:1},0);
-    if(skinH)   stl.fromTo(skinH,{yPercent:110,opacity:0},{yPercent:0,opacity:1,ease:'power2.out',duration:0.32},0)
-                   .to(skinH,{yPercent:-60,ease:'none',duration:0.68},0.32);
-    if(skinB)   stl.fromTo(skinB,{yPercent:150,opacity:0},{yPercent:0,opacity:1,ease:'power2.out',duration:0.4},0.06)
-                   .to(skinB,{yPercent:-38,ease:'none',duration:0.54},0.46);
   }
   /* services — LOCKED SLIDESHOW: the whole section holds still (manual transform-pin) while scrolling crossfades
      through the four cards' images and lifts each card's text in turn, then releases. (Lenis-proof: scrub only.) */
