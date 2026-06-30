@@ -454,9 +454,16 @@ html[data-lang="ar"] .compare__tag{ font-family:var(--ar-sans); letter-spacing:.
 .built__inner{ max-width:var(--maxw); margin:0 auto; padding:0 var(--pad); text-align:center; }
 .built__h{ font-size:clamp(2.2rem,5.2vw,5rem); margin-top:1em; }
 .built__h em{ color:var(--gold-deep); font-style:italic; } html[data-lang="ar"] .built__h em{ font-style:normal; }
-.built__row{ display:flex; gap:clamp(12px,1.4vw,24px); margin-top:clamp(50px,8vh,100px); padding:0 var(--pad); justify-content:center; will-change:transform; }
-.built__row > *{ flex:0 0 auto; width:clamp(150px,15vw,250px); aspect-ratio:3/4; border-radius:var(--radius); overflow:hidden; }
-.built__row img{ width:100%; height:100%; object-fit:cover; display:block; }
+/* before / after gallery — 2x2 of same-patient hair comparisons */
+.built__ba{ max-width:var(--maxw); margin:clamp(46px,7vh,96px) auto 0; padding:0 var(--pad); display:grid; grid-template-columns:1fr 1fr; gap:clamp(16px,2vw,34px); }
+.ba{ position:relative; aspect-ratio:3/2; border-radius:var(--radius); overflow:hidden; background:#efe8dc; }
+.ba picture, .ba img{ width:100%; height:100%; object-fit:cover; display:block; }
+.ba__seam{ position:absolute; top:0; bottom:0; left:50%; width:1px; background:rgba(255,255,255,.55); transform:translateX(-50%); z-index:2; pointer-events:none; }
+.ba__tag{ position:absolute; bottom:12px; z-index:3; font-family:var(--sans); font-weight:500; font-size:10px; letter-spacing:.16em; text-transform:uppercase; color:#fff; background:rgba(27,21,16,.46); padding:.45em .8em; border-radius:6px; -webkit-backdrop-filter:blur(6px); backdrop-filter:blur(6px); }
+.ba__tag--before{ left:12px; } .ba__tag--after{ right:12px; }   /* physical: the image never mirrors, so before stays left */
+html[data-lang="ar"] .ba__tag{ font-family:var(--ar-sans); letter-spacing:.02em; }
+.built__note{ max-width:var(--maxw); margin:clamp(20px,3vh,34px) auto 0; padding:0 var(--pad); font-family:var(--sans); font-size:12px; letter-spacing:.03em; color:var(--soft); opacity:.85; text-wrap:pretty; }
+html[data-lang="ar"] .built__note{ font-family:var(--ar-sans); letter-spacing:0; }
 
 /* ============================================================ 5 · STATS */
 .stats{ max-width:var(--maxw); margin:0 auto; padding:clamp(70px,11vh,150px) var(--pad); display:grid; gap:clamp(44px,6vw,90px); grid-template-columns:1fr; }
@@ -565,7 +572,7 @@ html[data-lang="ar"] .ed__line{ font-family:var(--ar-serif); }
 @media(max-width:860px){
   .compare{ aspect-ratio:4/5; }
   .stats__grid{ grid-template-columns:1fr 1fr; gap:30px; }
-  .built__row{ flex-wrap:nowrap; overflow-x:auto; justify-content:flex-start; scrollbar-width:none; }
+  .built__ba{ grid-template-columns:1fr; }
   .ed__grid{ display:flex; flex-direction:column; gap:44px; }
   .ed__item--a, .ed__item--b, .ed__item--c{ grid-column:auto; margin-top:0; width:min(80vw,360px); margin-inline:auto; }
   .ed__item--b{ width:min(86vw,400px); }
@@ -705,12 +712,33 @@ html[data-lang="ar"] .ed__line{ font-family:var(--ar-serif); }
       <span class="ar"><span class="ln"><i>الشعر ليس أحد ما نقدّمه،</i></span><span class="ln"><i>بل هو ما <em>بنت عليه باتو اسمها.</em></i></span></span>
     </h2>
   </div>
-  <div class="built__row" data-reveal style="--d:200ms" aria-hidden="true">
-    <picture class="built__pic"><source type="image/webp" srcset="assets/result-1.webp"><img src="assets/result-1.jpg" alt="Portrait of a woman with healthy, full hair and clear skin" loading="lazy"></picture>
-    <picture class="built__pic"><source type="image/webp" srcset="assets/result-2.webp"><img src="assets/result-2.jpg" alt="Portrait of a woman with thick, healthy hair and luminous skin" loading="lazy"></picture>
-    <picture class="built__pic"><source type="image/webp" srcset="assets/result-3.webp"><img src="assets/result-3.jpg" alt="Smiling woman with full, healthy hair and glowing skin" loading="lazy"></picture>
-    <picture class="built__pic"><source type="image/webp" srcset="assets/result-4.webp"><img src="assets/result-4.jpg" alt="Portrait of a woman with strong, healthy hair" loading="lazy"></picture>
+  <div class="built__ba" data-reveal style="--d:200ms">
+    <figure class="ba">
+      <picture><source type="image/webp" srcset="assets/ba-1.webp"><img src="assets/ba-1.jpg" alt="Before and after a BATO hair treatment showing fuller volume" loading="lazy"></picture>
+      <span class="ba__seam" aria-hidden="true"></span>
+      <span class="ba__tag ba__tag--before"><span class="en-i">Before</span><span class="ar-i">قبل</span></span>
+      <span class="ba__tag ba__tag--after"><span class="en-i">After</span><span class="ar-i">بعد</span></span>
+    </figure>
+    <figure class="ba">
+      <picture><source type="image/webp" srcset="assets/ba-2.webp"><img src="assets/ba-2.jpg" alt="Before and after a BATO hair treatment showing denser parting" loading="lazy"></picture>
+      <span class="ba__seam" aria-hidden="true"></span>
+      <span class="ba__tag ba__tag--before"><span class="en-i">Before</span><span class="ar-i">قبل</span></span>
+      <span class="ba__tag ba__tag--after"><span class="en-i">After</span><span class="ar-i">بعد</span></span>
+    </figure>
+    <figure class="ba">
+      <picture><source type="image/webp" srcset="assets/ba-3.webp"><img src="assets/ba-3.jpg" alt="Before and after a BATO hair treatment showing a stronger hairline" loading="lazy"></picture>
+      <span class="ba__seam" aria-hidden="true"></span>
+      <span class="ba__tag ba__tag--before"><span class="en-i">Before</span><span class="ar-i">قبل</span></span>
+      <span class="ba__tag ba__tag--after"><span class="en-i">After</span><span class="ar-i">بعد</span></span>
+    </figure>
+    <figure class="ba">
+      <picture><source type="image/webp" srcset="assets/ba-4.webp"><img src="assets/ba-4.jpg" alt="Before and after a BATO hair treatment showing improved density" loading="lazy"></picture>
+      <span class="ba__seam" aria-hidden="true"></span>
+      <span class="ba__tag ba__tag--before"><span class="en-i">Before</span><span class="ar-i">قبل</span></span>
+      <span class="ba__tag ba__tag--after"><span class="en-i">After</span><span class="ar-i">بعد</span></span>
+    </figure>
   </div>
+  <p class="built__note" data-reveal style="--d:300ms"><span class="en-i">Individual results may vary. Images shared with patient consent.</span><span class="ar-i">النتائج تختلف من شخصٍ لآخر. الصور منشورة بموافقة المريضة.</span></p>
 </section>
 
 <!-- ============================================================ 5 · STATS -->
@@ -1115,9 +1143,7 @@ window.addEventListener('load', function(){
   if(window.__compareRunHint){ ScrollTrigger.create({ trigger:'.compare', start:'top 72%', once:true, onEnter:window.__compareRunHint }); }
   /* stat numbers: trigger the count-up on the (Lenis-synced) scroll engine — reliable; countUp is idempotent */
   if(window.__countUp){ ScrollTrigger.batch('.stat__n[data-count]', { start:'top 88%', once:true, onEnter:function(els){ els.forEach(window.__countUp); } }); }
-  /* results row + editorial row — gentle opposite drift as they pass (the 'moving images' feel) */
-  var builtRow=document.querySelector('.built__row');
-  if(builtRow) gsap.fromTo(builtRow,{xPercent:5},{xPercent:-5,ease:'none',scrollTrigger:{trigger:'.built',start:'top bottom',end:'bottom top',scrub:true}});
+  /* before/after gallery reveals via the data-reveal batch — no horizontal drift (it's a grid, not a row) */
   /* editorial frames: gentle parallax at slightly different rates so the staggered gallery feels alive as it passes (frames only — captions stay put) */
   if(window.matchMedia('(min-width:861px)').matches){
     var edFrames=[].slice.call(document.querySelectorAll('.ed__item .ed__frame'));
