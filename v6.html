@@ -478,23 +478,32 @@ html[data-lang="ar"] .compare__tag{ font-family:var(--ar-sans); letter-spacing:.
 .built__inner{ max-width:var(--maxw); margin:0 auto; padding:0 var(--pad); text-align:center; }
 .built__h{ font-size:clamp(2.2rem,5.2vw,5rem); margin-top:1em; }
 .built__h em{ color:var(--gold-deep); font-style:italic; } html[data-lang="ar"] .built__h em{ font-style:normal; }
-/* before / after — asymmetric editorial broken grid (KO-style) with hover-zoom */
-.built__ba{ max-width:var(--maxw); margin:clamp(46px,7vh,96px) auto 0; padding:0 var(--pad); display:grid; grid-template-columns:repeat(12,1fr); column-gap:clamp(16px,2.4vw,44px); row-gap:clamp(14px,2.6vh,38px); align-items:start; }
-.ba{ position:relative; aspect-ratio:3/2; border-radius:var(--radius); overflow:hidden; background:#efe8dc; }
-.ba--1{ grid-column:1 / span 7;  grid-row:1; }
-.ba--2{ grid-column:8 / span 5;  grid-row:1; margin-top:clamp(34px,7vh,92px); }
-.ba--3{ grid-column:1 / span 5;  grid-row:2; margin-top:clamp(20px,4vh,56px); }
-.ba--4{ grid-column:7 / span 6;  grid-row:2; margin-top:clamp(30px,6vh,82px); }
-.ba picture, .ba img{ width:100%; height:100%; object-fit:cover; display:block; }
-.ba img{ transition:transform .75s cubic-bezier(.22,1,.36,1); will-change:transform; }
-.ba:hover img{ transform:scale(1.05); }
-@media (prefers-reduced-motion:reduce){ .ba img{ transition:none; } .ba:hover img{ transform:none; } }
-.ba__seam{ position:absolute; top:0; bottom:0; left:50%; width:1px; background:rgba(255,255,255,.6); transform:translateX(-50%); z-index:2; pointer-events:none; }
-.ba__tag{ position:absolute; bottom:12px; z-index:3; font-family:var(--sans); font-weight:500; font-size:10px; letter-spacing:.16em; text-transform:uppercase; color:#fff; background:rgba(27,21,16,.46); padding:.45em .8em; border-radius:6px; -webkit-backdrop-filter:blur(6px); backdrop-filter:blur(6px); }
-.ba__tag--before{ left:12px; } .ba__tag--after{ right:12px; }   /* physical: the image never mirrors, so before stays left */
-html[data-lang="ar"] .ba__tag{ font-family:var(--ar-sans); letter-spacing:.02em; }
-.built__note{ max-width:var(--maxw); margin:clamp(20px,3vh,34px) auto 0; padding:0 var(--pad); font-family:var(--sans); font-size:12px; letter-spacing:.03em; color:var(--soft); opacity:.85; text-wrap:pretty; }
+/* before / after — "shine the light" cursor-torch reveal (unique to this section) */
+.reveal{ max-width:var(--maxw); margin:clamp(36px,5vh,72px) auto 0; padding:0 var(--pad); display:flex; flex-direction:column; align-items:center; gap:clamp(20px,3vh,36px); }
+.reveal__stage{ position:relative; aspect-ratio:3/4; height:min(70vh,660px); width:auto; max-width:88vw; border-radius:var(--radius); overflow:hidden; background:#1c150d; cursor:none; isolation:isolate; box-shadow:0 34px 90px -34px rgba(0,0,0,.55); }
+.reveal__img{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover; display:block; }
+.reveal__before{ z-index:2; -webkit-mask-image:radial-gradient(circle var(--r,150px) at var(--mx,50%) var(--my,42%), #000 0%, #000 48%, transparent 76%);
+  mask-image:radial-gradient(circle var(--r,150px) at var(--mx,50%) var(--my,42%), #000 0%, #000 48%, transparent 76%); will-change:mask-image; }
+.reveal__torch{ position:absolute; left:var(--mx,50%); top:var(--my,42%); width:calc(var(--r,150px)*2); height:calc(var(--r,150px)*2); transform:translate(-50%,-50%);
+  border-radius:50%; pointer-events:none; z-index:3; mix-blend-mode:screen;
+  background:radial-gradient(circle, rgba(245,226,170,.20) 0%, rgba(201,162,75,.10) 44%, transparent 68%);
+  box-shadow:0 0 0 1px rgba(245,226,170,.5), 0 0 64px 16px rgba(201,162,75,.24); }
+.reveal__cue{ position:absolute; top:14px; left:50%; transform:translateX(-50%); z-index:4; font-family:var(--sans); font-size:10.5px; letter-spacing:.14em; text-transform:uppercase; color:rgba(255,255,255,.85); background:rgba(20,15,8,.36); padding:.5em 1.05em; border-radius:20px; -webkit-backdrop-filter:blur(6px); backdrop-filter:blur(6px); white-space:nowrap; transition:opacity .5s var(--ease); }
+.reveal__stage:hover .reveal__cue{ opacity:0; }
+html[data-lang="ar"] .reveal__cue{ font-family:var(--ar-sans); letter-spacing:.02em; }
+.reveal__tag{ position:absolute; bottom:14px; right:14px; z-index:4; font-family:var(--sans); font-weight:500; font-size:10.5px; letter-spacing:.16em; text-transform:uppercase; color:#fff; background:rgba(20,15,8,.5); padding:.45em .85em; border-radius:7px; -webkit-backdrop-filter:blur(6px); backdrop-filter:blur(6px); }
+html[data-lang="ar"] .reveal__tag{ font-family:var(--ar-sans); letter-spacing:.02em; }
+.reveal__rail{ display:flex; gap:clamp(10px,1.4vw,18px); flex-wrap:wrap; justify-content:center; }
+.reveal__chip{ width:clamp(66px,7vw,94px); aspect-ratio:3/2; border-radius:8px; overflow:hidden; border:1px solid var(--line); background:none; padding:0; cursor:pointer; opacity:.55; transition:opacity .35s var(--ease), border-color .35s var(--ease), transform .35s var(--ease); }
+.reveal__chip img{ width:100%; height:100%; object-fit:cover; display:block; }
+.reveal__chip:hover{ opacity:.85; transform:translateY(-2px); }
+.reveal__chip.is-active{ opacity:1; border-color:var(--gold); box-shadow:0 0 0 1px var(--gold); }
+.reveal__foot{ display:flex; flex-direction:column; align-items:center; gap:9px; text-align:center; }
+.reveal__label{ font-family:var(--serif); font-style:italic; font-size:clamp(1.3rem,2.2vw,1.9rem); color:var(--gold-deep); }
+html[data-lang="ar"] .reveal__label{ font-family:var(--ar-serif); font-style:normal; color:var(--gold-deep); }
+.built__note{ max-width:46ch; margin:0 auto; font-family:var(--sans); font-size:12px; letter-spacing:.03em; color:var(--soft); opacity:.85; text-wrap:pretty; text-align:center; }
 html[data-lang="ar"] .built__note{ font-family:var(--ar-sans); letter-spacing:0; }
+@media(prefers-reduced-motion:reduce){ .reveal__stage{ cursor:default; } }
 
 /* ============================================================ 5 · STATS */
 .stats{ max-width:var(--maxw); margin:0 auto; padding:clamp(70px,11vh,150px) var(--pad); display:grid; gap:clamp(44px,6vw,90px); grid-template-columns:1fr; }
@@ -603,8 +612,7 @@ html[data-lang="ar"] .ed__line{ font-family:var(--ar-serif); }
 @media(max-width:860px){
   .compare{ aspect-ratio:4/5; }
   .stats__grid{ grid-template-columns:1fr 1fr; gap:30px; }
-  .built__ba{ grid-template-columns:1fr; }
-  .ba--1, .ba--2, .ba--3, .ba--4{ grid-column:auto; grid-row:auto; margin-top:0; }
+  .reveal__stage{ height:auto; width:min(88vw,440px); aspect-ratio:3/4; }
   .ed__grid{ display:flex; flex-direction:column; gap:44px; }
   .ed__item--a, .ed__item--b, .ed__item--c{ grid-column:auto; margin-top:0; width:min(80vw,360px); margin-inline:auto; }
   .ed__item--b{ width:min(86vw,400px); }
@@ -744,33 +752,26 @@ html[data-lang="ar"] .ed__line{ font-family:var(--ar-serif); }
       <span class="ar"><span class="ln"><i>الشعر ليس أحد ما نقدّمه،</i></span><span class="ln"><i>بل هو ما <em>بنت عليه باتو اسمها.</em></i></span></span>
     </h2>
   </div>
-  <div class="built__ba" data-reveal style="--d:200ms">
-    <figure class="ba ba--1" data-reveal style="--rv:translateY(40px); --d:0ms">
-      <picture><source type="image/webp" srcset="assets/ba-1.webp"><img src="assets/ba-1.jpg" alt="Before and after a BATO hair treatment showing fuller volume" loading="lazy"></picture>
-      <span class="ba__seam" aria-hidden="true"></span>
-      <span class="ba__tag ba__tag--before"><span class="en-i">Before</span><span class="ar-i">قبل</span></span>
-      <span class="ba__tag ba__tag--after"><span class="en-i">After</span><span class="ar-i">بعد</span></span>
-    </figure>
-    <figure class="ba ba--2" data-reveal style="--rv:translateY(40px); --d:120ms">
-      <picture><source type="image/webp" srcset="assets/ba-2.webp"><img src="assets/ba-2.jpg" alt="Before and after a BATO hair treatment showing denser parting" loading="lazy"></picture>
-      <span class="ba__seam" aria-hidden="true"></span>
-      <span class="ba__tag ba__tag--before"><span class="en-i">Before</span><span class="ar-i">قبل</span></span>
-      <span class="ba__tag ba__tag--after"><span class="en-i">After</span><span class="ar-i">بعد</span></span>
-    </figure>
-    <figure class="ba ba--3" data-reveal style="--rv:translateY(40px); --d:240ms">
-      <picture><source type="image/webp" srcset="assets/ba-3.webp"><img src="assets/ba-3.jpg" alt="Before and after a BATO hair treatment showing a stronger hairline" loading="lazy"></picture>
-      <span class="ba__seam" aria-hidden="true"></span>
-      <span class="ba__tag ba__tag--before"><span class="en-i">Before</span><span class="ar-i">قبل</span></span>
-      <span class="ba__tag ba__tag--after"><span class="en-i">After</span><span class="ar-i">بعد</span></span>
-    </figure>
-    <figure class="ba ba--4" data-reveal style="--rv:translateY(40px); --d:360ms">
-      <picture><source type="image/webp" srcset="assets/ba-4.webp"><img src="assets/ba-4.jpg" alt="Before and after a BATO hair treatment showing improved density" loading="lazy"></picture>
-      <span class="ba__seam" aria-hidden="true"></span>
-      <span class="ba__tag ba__tag--before"><span class="en-i">Before</span><span class="ar-i">قبل</span></span>
-      <span class="ba__tag ba__tag--after"><span class="en-i">After</span><span class="ar-i">بعد</span></span>
-    </figure>
+  <!-- "Shine the light" — cursor-torch reveal: results show in full; a shaft of gold light uncovers the before -->
+  <div class="reveal" data-reveal style="--d:200ms">
+    <div class="reveal__stage" id="baStage" aria-label="Hair before and after — move across to shine a light on the before">
+      <img class="reveal__img reveal__after" id="baAfter" src="assets/ba-2-after.webp" alt="After a BATO hair treatment — restored density">
+      <img class="reveal__img reveal__before" id="baBefore" src="assets/ba-2-before.webp" alt="" aria-hidden="true">
+      <span class="reveal__torch" aria-hidden="true"></span>
+      <span class="reveal__cue"><span class="en-i">Shine the light · reveal the before</span><span class="ar-i">سلّطي الضوء · اكشفي قبل</span></span>
+      <span class="reveal__tag reveal__tag--after"><span class="en-i">After</span><span class="ar-i">بعد</span></span>
+    </div>
+    <div class="reveal__rail" aria-label="Choose a transformation">
+      <button class="reveal__chip is-active" type="button" data-a="assets/ba-2-after.webp" data-b="assets/ba-2-before.webp" data-en="Restored density" data-ar="كثافة مُستعادة" aria-label="Restored density"><img src="assets/ba-2.jpg" alt="" loading="lazy"></button>
+      <button class="reveal__chip" type="button" data-a="assets/ba-1-after.webp" data-b="assets/ba-1-before.webp" data-en="Fuller volume" data-ar="كثافة أوفر" aria-label="Fuller volume"><img src="assets/ba-1.jpg" alt="" loading="lazy"></button>
+      <button class="reveal__chip" type="button" data-a="assets/ba-3-after.webp" data-b="assets/ba-3-before.webp" data-en="Stronger hairline" data-ar="خط شعر أقوى" aria-label="Stronger hairline"><img src="assets/ba-3.jpg" alt="" loading="lazy"></button>
+      <button class="reveal__chip" type="button" data-a="assets/ba-4-after.webp" data-b="assets/ba-4-before.webp" data-en="Renewed density" data-ar="كثافة متجددة" aria-label="Renewed density"><img src="assets/ba-4.jpg" alt="" loading="lazy"></button>
+    </div>
+    <div class="reveal__foot">
+      <span class="reveal__label" id="baLabel"><span class="en-i">Restored density</span><span class="ar-i">كثافة مُستعادة</span></span>
+      <p class="built__note"><span class="en-i">Individual results may vary. Images shared with patient consent.</span><span class="ar-i">النتائج تختلف من شخصٍ لآخر. الصور منشورة بموافقة المريضة.</span></p>
+    </div>
   </div>
-  <p class="built__note" data-reveal style="--d:300ms"><span class="en-i">Individual results may vary. Images shared with patient consent.</span><span class="ar-i">النتائج تختلف من شخصٍ لآخر. الصور منشورة بموافقة المريضة.</span></p>
 </section>
 
 <!-- ============================================================ 5 · STATS -->
@@ -1000,6 +1001,29 @@ html[data-lang="ar"] .ed__line{ font-family:var(--ar-serif); }
     if(reduce || !('IntersectionObserver' in window)){ nums.forEach(countUp); }
     else { var io=new IntersectionObserver(function(es){ es.forEach(function(e){ if(e.isIntersecting){ countUp(e.target); io.unobserve(e.target); } }); },{threshold:.25,rootMargin:'0px 0px -8% 0px'}); nums.forEach(function(n){ io.observe(n); }); }
   }
+})();
+/* "Shine the light" before/after — a soft gold torch reveals the BEFORE beneath the result; ambient drift until the pointer takes over */
+(function(){
+  var stage=document.getElementById('baStage'); if(!stage) return;
+  var before=document.getElementById('baBefore'), after=document.getElementById('baAfter'), label=document.getElementById('baLabel');
+  var chips=[].slice.call(document.querySelectorAll('.reveal__chip'));
+  var reduce=matchMedia('(prefers-reduced-motion:reduce)').matches;
+  function set(mx,my){ stage.style.setProperty('--mx',mx.toFixed(1)+'%'); stage.style.setProperty('--my',my.toFixed(1)+'%'); }
+  var roaming=false, t=1.2, raf=null;
+  function roam(){ if(!roaming) return; t+=0.007; set(50+30*Math.sin(t), 40+15*Math.sin(t*1.6+0.6)); raf=requestAnimationFrame(roam); }
+  function stopRoam(){ roaming=false; if(raf){ cancelAnimationFrame(raf); raf=null; } }
+  function startRoam(){ if(reduce){ set(50,42); return; } if(roaming) return; roaming=true; raf=requestAnimationFrame(roam); }
+  stage.addEventListener('pointermove', function(e){ stopRoam(); var r=stage.getBoundingClientRect();
+    set(Math.max(0,Math.min(100,(e.clientX-r.left)/r.width*100)), Math.max(0,Math.min(100,(e.clientY-r.top)/r.height*100))); });
+  stage.addEventListener('pointerleave', function(){ startRoam(); });
+  chips.forEach(function(chip){ chip.addEventListener('click', function(){
+    chips.forEach(function(c){ c.classList.remove('is-active'); }); chip.classList.add('is-active');
+    after.src=chip.getAttribute('data-a'); before.src=chip.getAttribute('data-b');
+    var en=label.querySelector('.en-i'), ar=label.querySelector('.ar-i');
+    if(en) en.textContent=chip.getAttribute('data-en'); if(ar) ar.textContent=chip.getAttribute('data-ar');
+    after.alt='After a BATO hair treatment — '+chip.getAttribute('data-en');
+  }); });
+  startRoam();
 })();
 </script>
 <script>
