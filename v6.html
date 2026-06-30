@@ -1,12 +1,13 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl" data-lang="ar">
+<html lang="en" dir="ltr" data-lang="en">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <!-- restore language before paint (zero flash) -->
-<script>(function(){try{var L=localStorage.getItem('bato-lang');if(L!=='en'&&L!=='ar')L='ar';var h=document.documentElement;h.setAttribute('lang',L);h.setAttribute('dir',L==='ar'?'rtl':'ltr');h.setAttribute('data-lang',L);}catch(e){}})();</script>
+<script>(function(){try{var L=localStorage.getItem('bato-lang');if(L!=='en'&&L!=='ar')L='en';var h=document.documentElement;h.setAttribute('lang',L);h.setAttribute('dir',L==='ar'?'rtl':'ltr');h.setAttribute('data-lang',L);}catch(e){}})();</script>
 <title>BATO — حيث يبدأ الجمال بالصحة · Al Safa, Dubai</title>
 <meta name="description" content="باتو — عيادة للجمال والعافية في الصفا، دبي. نفهم أولاً، ثم نعالج. BATO — an aesthetic & wellness clinic in Al Safa, Dubai. First we understand, then we treat.">
+<link rel="canonical" href="https://batoclinic.com/">
 <meta name="theme-color" content="#f4efe6">
 <link rel="icon" type="image/png" href="assets/bato-logo.png">
 <link rel="apple-touch-icon" href="assets/bato-logo.png">
@@ -63,6 +64,10 @@ body{
   overflow-x:hidden;
 }
 /* language-aware base font */
+.skip-link{ position:fixed; top:-120px; inset-inline-start:14px; z-index:10000; background:#1c1a17; color:#fff; padding:11px 18px; border-radius:10px; font-family:var(--sans); font-size:13px; letter-spacing:.04em; text-decoration:none; box-shadow:0 8px 30px rgba(0,0,0,.28); transition:top .22s var(--ease,ease); }
+.skip-link:focus{ top:14px; outline:2px solid var(--gold,#b8924a); outline-offset:2px; }
+main:focus{ outline:none; }
+html[data-lang="ar"] .skip-link{ font-family:var(--ar-sans); }
 html[data-lang="ar"] body{ font-family:var(--ar-sans); }
 html[data-lang="ar"] .manifesto__body, html[data-lang="ar"] .process__body, html[data-lang="ar"] .card__desc{ font-weight:500; }
 ::selection{ background:var(--gold); color:var(--ink); }
@@ -507,7 +512,7 @@ html[data-lang="ar"] .stat__l{ font-size:1rem; }
 .gItem--2{ grid-column:9 / span 4;  grid-row:1; margin-top:clamp(48px,11vh,140px); }
 .gItem--3{ grid-column:1 / span 4;  grid-row:2; margin-top:clamp(28px,5vh,70px); }
 .gItem--4{ grid-column:6 / span 7;  grid-row:2; margin-top:clamp(40px,8vh,108px); }
-.gItem__frame{ position:relative; overflow:hidden; border-radius:var(--radius); background:#efe8dc; will-change:transform; }
+.gItem__frame{ position:relative; width:100%; overflow:hidden; border-radius:var(--radius); background:#efe8dc; will-change:transform; }
 .gItem--1 .gItem__frame{ aspect-ratio:16/10; }   /* the hero interior */
 .gItem--2 .gItem__frame{ aspect-ratio:3/4; }
 .gItem--3 .gItem__frame{ aspect-ratio:4/5; }
@@ -564,8 +569,8 @@ html[data-lang="ar"] .ed__line{ font-family:var(--ar-serif); }
   .ed__grid{ display:flex; flex-direction:column; gap:44px; }
   .ed__item--a, .ed__item--b, .ed__item--c{ grid-column:auto; margin-top:0; width:min(80vw,360px); margin-inline:auto; }
   .ed__item--b{ width:min(86vw,400px); }
-  .calm__grid{ display:flex; flex-direction:column; gap:34px; }
-  .gItem--1, .gItem--2, .gItem--3, .gItem--4{ grid-column:auto; grid-row:auto; margin-top:0; }
+  .calm__grid{ display:flex; flex-direction:column; align-items:center; gap:34px; }
+  .gItem--1, .gItem--2, .gItem--3, .gItem--4{ grid-column:auto; grid-row:auto; margin-top:0; width:min(86vw,420px); }
 }
 
 /* ============================================================ MOTION GUARDS */
@@ -579,6 +584,7 @@ html[data-lang="ar"] .ed__line{ font-family:var(--ar-serif); }
 </script>
 </head>
 <body class="no-js">
+<a class="skip-link" href="#top"><span class="en-i">Skip to content</span><span class="ar-i">تخطَّ إلى المحتوى</span></a>
 
 <!-- ============================================================ NAV -->
 <nav class="nav is-hidden" id="nav">
@@ -615,11 +621,11 @@ html[data-lang="ar"] .ed__line{ font-family:var(--ar-serif); }
   </div>
 </div>
 
-<main id="top">
+<main id="top" tabindex="-1">
 
 <!-- ============================================================ 1 · INTRO -->
 <section class="intro" id="intro" data-theme="light">
-  <div class="intro__dna" id="dna" aria-hidden="true"><video src="assets/dna-helix.mp4" autoplay loop muted playsinline poster="assets/dna-helix.png"></video></div>
+  <div class="intro__dna" id="dna" aria-hidden="true"><video autoplay loop muted playsinline preload="metadata" poster="assets/dna-poster.jpg"><source src="assets/dna-helix.webm" type="video/webm"><source src="assets/dna-helix.mp4" type="video/mp4"></video></div>
   <div class="intro__stage">
     <div class="intro__word" role="img" aria-label="BATO">
       <img class="ltr" data-x="-26vw" src="assets/bato-B.png" alt="">
@@ -649,7 +655,7 @@ html[data-lang="ar"] .ed__line{ font-family:var(--ar-serif); }
     </h1>
     <div class="hero__cta" data-reveal style="--d:300ms">
       <a class="btn btn--solid" href="#contact"><span class="en-i">Book a consultation</span><span class="ar-i">احجزي استشارة</span><span class="i" aria-hidden="true">↗</span></a>
-      <a class="btn" href="#manifesto"><span class="en-i">Discover BATO</span><span class="ar-i">اكتشفي باتو</span></a>
+      <a class="btn" href="#built"><span class="en-i">Discover BATO</span><span class="ar-i">اكتشفي باتو</span></a>
     </div>
     <div class="hero__meta" data-reveal style="--d:420ms">
       <span class="en-i">Al&nbsp;Safa, Dubai&nbsp;&nbsp;·&nbsp;&nbsp;DHA Licence&nbsp;<span class="num">5346564</span></span>
@@ -700,10 +706,10 @@ html[data-lang="ar"] .ed__line{ font-family:var(--ar-serif); }
     </h2>
   </div>
   <div class="built__row" data-reveal style="--d:200ms" aria-hidden="true">
-    <picture class="built__pic"><source type="image/webp" srcset="assets/result-1.webp"><img src="assets/result-1.jpg" alt="" loading="lazy"></picture>
-    <picture class="built__pic"><source type="image/webp" srcset="assets/result-2.webp"><img src="assets/result-2.jpg" alt="" loading="lazy"></picture>
-    <picture class="built__pic"><source type="image/webp" srcset="assets/result-3.webp"><img src="assets/result-3.jpg" alt="" loading="lazy"></picture>
-    <picture class="built__pic"><source type="image/webp" srcset="assets/result-4.webp"><img src="assets/result-4.jpg" alt="" loading="lazy"></picture>
+    <picture class="built__pic"><source type="image/webp" srcset="assets/result-1.webp"><img src="assets/result-1.jpg" alt="Portrait of a woman with healthy, full hair and clear skin" loading="lazy"></picture>
+    <picture class="built__pic"><source type="image/webp" srcset="assets/result-2.webp"><img src="assets/result-2.jpg" alt="Portrait of a woman with thick, healthy hair and luminous skin" loading="lazy"></picture>
+    <picture class="built__pic"><source type="image/webp" srcset="assets/result-3.webp"><img src="assets/result-3.jpg" alt="Smiling woman with full, healthy hair and glowing skin" loading="lazy"></picture>
+    <picture class="built__pic"><source type="image/webp" srcset="assets/result-4.webp"><img src="assets/result-4.jpg" alt="Portrait of a woman with strong, healthy hair" loading="lazy"></picture>
   </div>
 </section>
 
@@ -743,14 +749,14 @@ html[data-lang="ar"] .ed__line{ font-family:var(--ar-serif); }
 <section class="svcs" id="services" data-theme="dark">
   <div class="svcs__stage">
   <article class="svc svc--intro" id="skin" data-theme="dark">
-    <div class="svc__media" aria-hidden="true"><picture><source type="image/webp" srcset="assets/skin.webp"><img src="assets/skin.jpg" alt="" loading="lazy"></picture></div>
+    <div class="svc__media" aria-hidden="true"><picture><source type="image/webp" srcset="assets/skin.webp"><img src="assets/skin.jpg" alt="Woman in a cream headscarf with radiant, healthy skin" loading="lazy"></picture></div>
     <div class="svc__copy">
       <h3 class="svc__h serif" data-reveal><span class="en-i">Skin</span><span class="ar-i">البشرة</span></h3>
       <p class="svc__d" data-reveal style="--d:120ms"><span class="en-i">Facials, peels, hydration, and plasma treatments — designed to refresh, renew, and improve skin quality.</span><span class="ar-i">تنظيف، تقشير، ترطيب، وعلاجات بلازما — لتجديد البشرة وتحسين نضارتها.</span></p>
     </div>
   </article>
   <article class="svc" data-theme="dark">
-    <div class="svc__media" aria-hidden="true"><picture><source type="image/webp" srcset="assets/svc-boosters.webp"><img src="assets/svc-boosters.jpg" alt="" loading="lazy"></picture></div>
+    <div class="svc__media" aria-hidden="true"><picture><source type="image/webp" srcset="assets/svc-boosters.webp"><img src="assets/svc-boosters.jpg" alt="Close portrait of a woman with luminous, hydrated skin" loading="lazy"></picture></div>
     <div class="svc__copy">
       <span class="svc__idx num">01</span>
       <h3 class="svc__h serif" data-reveal><span class="en-i">Skin Boosters</span><span class="ar-i">معزّزات البشرة</span></h3>
@@ -758,7 +764,7 @@ html[data-lang="ar"] .ed__line{ font-family:var(--ar-serif); }
     </div>
   </article>
   <article class="svc" data-theme="dark">
-    <div class="svc__media" aria-hidden="true"><picture><source type="image/webp" srcset="assets/svc-aesthetics.webp"><img src="assets/svc-aesthetics.jpg" alt="" loading="lazy"></picture></div>
+    <div class="svc__media" aria-hidden="true"><picture><source type="image/webp" srcset="assets/svc-aesthetics.webp"><img src="assets/svc-aesthetics.jpg" alt="Portrait of a woman with refined, glowing skin" loading="lazy"></picture></div>
     <div class="svc__copy">
       <span class="svc__idx num">02</span>
       <h3 class="svc__h serif" data-reveal><span class="en-i">Refined Aesthetics</span><span class="ar-i">جماليات راقية</span></h3>
@@ -766,7 +772,7 @@ html[data-lang="ar"] .ed__line{ font-family:var(--ar-serif); }
     </div>
   </article>
   <article class="svc" data-theme="dark">
-    <div class="svc__media" aria-hidden="true"><picture><source type="image/webp" srcset="assets/svc-laser.webp"><img src="assets/svc-laser.jpg" alt="" loading="lazy"></picture></div>
+    <div class="svc__media" aria-hidden="true"><picture><source type="image/webp" srcset="assets/svc-laser.webp"><img src="assets/svc-laser.jpg" alt="Laser skin-treatment device at the BATO clinic" loading="lazy"></picture></div>
     <div class="svc__copy">
       <span class="svc__idx num">03</span>
       <h3 class="svc__h serif" data-reveal><span class="en-i">Laser Smooth</span><span class="ar-i">ليزر ناعم</span></h3>
@@ -774,7 +780,7 @@ html[data-lang="ar"] .ed__line{ font-family:var(--ar-serif); }
     </div>
   </article>
   <article class="svc" data-theme="dark">
-    <div class="svc__media" aria-hidden="true"><picture><source type="image/webp" srcset="assets/svc-lab.webp"><img src="assets/svc-lab.jpg" alt="" loading="lazy"></picture></div>
+    <div class="svc__media" aria-hidden="true"><picture><source type="image/webp" srcset="assets/svc-lab.webp"><img src="assets/svc-lab.jpg" alt="Microscope used for diagnostic lab tests at BATO" loading="lazy"></picture></div>
     <div class="svc__copy">
       <span class="svc__idx num">04</span>
       <h3 class="svc__h serif" data-reveal><span class="en-i">Beauty from within</span><span class="ar-i">الجمال من الداخل</span></h3>
@@ -796,19 +802,19 @@ html[data-lang="ar"] .ed__line{ font-family:var(--ar-serif); }
   <!-- broken editorial grid of interiors -->
   <div class="calm__grid" id="calmGrid">
     <figure class="gItem gItem--1" data-reveal style="--rv:translateY(34px); --d:0ms">
-      <div class="gItem__frame"><picture><source type="image/webp" srcset="assets/clinic-1.webp"><img src="assets/clinic-1.jpg" alt="" loading="lazy"></picture></div>
+      <div class="gItem__frame"><picture><source type="image/webp" srcset="assets/clinic-1.webp"><img src="assets/clinic-1.jpg" alt="The arrival lounge at BATO, a softly lit arched reception space" loading="lazy"></picture></div>
       <figcaption class="gItem__cap"><span class="gItem__idx">01</span><span class="gItem__lbl"><span class="en-i">The Arrival</span><span class="ar-i">الاستقبال</span></span><span class="gItem__dot" aria-hidden="true"></span></figcaption>
     </figure>
     <figure class="gItem gItem--2" data-reveal style="--rv:translateY(34px); --d:120ms">
-      <div class="gItem__frame"><picture><source type="image/webp" srcset="assets/clinic-2.webp"><img src="assets/clinic-2.jpg" alt="" loading="lazy"></picture></div>
+      <div class="gItem__frame"><picture><source type="image/webp" srcset="assets/clinic-2.webp"><img src="assets/clinic-2.jpg" alt="A BATO treatment room with a reclining chair in daylight" loading="lazy"></picture></div>
       <figcaption class="gItem__cap"><span class="gItem__idx">02</span><span class="gItem__lbl"><span class="en-i">Treatment Suite</span><span class="ar-i">غرفة العلاج</span></span><span class="gItem__dot" aria-hidden="true"></span></figcaption>
     </figure>
     <figure class="gItem gItem--3" data-reveal style="--rv:translateY(34px); --d:240ms">
-      <div class="gItem__frame"><picture><source type="image/webp" srcset="assets/clinic-3.webp"><img src="assets/clinic-3.jpg" alt="" loading="lazy"></picture></div>
+      <div class="gItem__frame"><picture><source type="image/webp" srcset="assets/clinic-3.webp"><img src="assets/clinic-3.jpg" alt="Interior detail at BATO, an arched window with a sculptural vase" loading="lazy"></picture></div>
       <figcaption class="gItem__cap"><span class="gItem__idx">03</span><span class="gItem__lbl"><span class="en-i">The Detail</span><span class="ar-i">التفاصيل</span></span><span class="gItem__dot" aria-hidden="true"></span></figcaption>
     </figure>
     <figure class="gItem gItem--4" data-reveal style="--rv:translateY(34px); --d:360ms">
-      <div class="gItem__frame"><picture><source type="image/webp" srcset="assets/clinic-4.webp"><img src="assets/clinic-4.jpg" alt="" loading="lazy"></picture></div>
+      <div class="gItem__frame"><picture><source type="image/webp" srcset="assets/clinic-4.webp"><img src="assets/clinic-4.jpg" alt="A sunlit consultation lounge at BATO with a curved sofa" loading="lazy"></picture></div>
       <figcaption class="gItem__cap"><span class="gItem__idx">04</span><span class="gItem__lbl"><span class="en-i">Consultation</span><span class="ar-i">الاستشارة</span></span><span class="gItem__dot" aria-hidden="true"></span></figcaption>
     </figure>
   </div>
@@ -819,15 +825,15 @@ html[data-lang="ar"] .ed__line{ font-family:var(--ar-serif); }
   <div class="ed__intro" data-reveal><span class="ed__kicker"><span class="en-i">The approach</span><span class="ar-i">المنهج</span></span></div>
   <div class="ed__grid" id="edGrid">
     <figure class="ed__item ed__item--a" data-reveal style="--rv:translateY(34px); --d:0ms">
-      <div class="ed__frame"><picture><source type="image/webp" srcset="assets/ed-understand.webp"><img src="assets/ed-understand.jpg" alt="" loading="lazy"></picture></div>
+      <div class="ed__frame"><picture><source type="image/webp" srcset="assets/ed-understand.webp"><img src="assets/ed-understand.jpg" alt="A woman seated at a consultation desk at the BATO clinic" loading="lazy"></picture></div>
       <figcaption class="ed__cap"><span class="ed__idx">01</span><span class="ed__lbl"><span class="en-i">Understand</span><span class="ar-i">نفهم</span></span><span class="ed__dot" aria-hidden="true"></span></figcaption>
     </figure>
     <figure class="ed__item ed__item--b" data-reveal style="--rv:translateY(34px); --d:130ms">
-      <div class="ed__frame"><picture><source type="image/webp" srcset="assets/ed-treat.webp"><img src="assets/ed-treat.jpg" alt="" loading="lazy"></picture></div>
+      <div class="ed__frame"><picture><source type="image/webp" srcset="assets/ed-treat.webp"><img src="assets/ed-treat.jpg" alt="A gloved clinician applying a facial skincare treatment" loading="lazy"></picture></div>
       <figcaption class="ed__cap"><span class="ed__idx">02</span><span class="ed__lbl"><span class="en-i">Treat</span><span class="ar-i">نعالج</span></span><span class="ed__dot" aria-hidden="true"></span></figcaption>
     </figure>
     <figure class="ed__item ed__item--c" data-reveal style="--rv:translateY(34px); --d:260ms">
-      <div class="ed__frame"><picture><source type="image/webp" srcset="assets/ed-renew.webp"><img src="assets/ed-renew.jpg" alt="" loading="lazy"></picture></div>
+      <div class="ed__frame"><picture><source type="image/webp" srcset="assets/ed-renew.webp"><img src="assets/ed-renew.jpg" alt="Smiling woman with radiant, refreshed skin" loading="lazy"></picture></div>
       <figcaption class="ed__cap"><span class="ed__idx">03</span><span class="ed__lbl"><span class="en-i">Renew</span><span class="ar-i">نجدّد</span></span><span class="ed__dot" aria-hidden="true"></span></figcaption>
     </figure>
   </div>
