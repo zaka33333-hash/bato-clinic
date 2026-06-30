@@ -537,7 +537,14 @@ html[data-lang="ar"] .built__note{ font-family:var(--ar-sans); letter-spacing:0;
 /* ============================================================ 5 · STATS */
 /* stats — dark "proof" band: framed by a headline, gold numbers with a drawn rule */
 .stats{ background:var(--ink); color:var(--paper); padding:clamp(58px,10vh,140px) var(--pad); position:relative; }
-.stats__field{ position:absolute; inset:0; z-index:0; pointer-events:none; }   /* the living gold strand-field — numbers rise from restored density */
+/* soft warm gold radiance rising from the base behind the numbers — "first light on the field", no busy strands */
+.stats__field{ position:absolute; inset:0; z-index:0; pointer-events:none;
+  background:
+    radial-gradient(70% 58% at 70% 117%, rgba(230,196,106,.26), rgba(230,196,106,0) 62%),
+    radial-gradient(135% 80% at 46% 126%, rgba(201,162,75,.14), rgba(201,162,75,0) 66%);
+  animation:statsGlow 9s ease-in-out infinite; }
+@keyframes statsGlow{ 0%,100%{ opacity:.8; } 50%{ opacity:1; } }
+@media(prefers-reduced-motion:reduce){ .stats__field{ animation:none; opacity:.9; } }
 .stats__inner{ position:relative; z-index:1; max-width:var(--maxw); margin:0 auto; display:grid; gap:clamp(34px,5vw,64px); grid-template-columns:1fr; }
 .stats__head{ max-width:none; }
 .stats .eyebrow{ color:var(--gold-hi); } .stats .eyebrow::before{ background:var(--gold); }
@@ -821,7 +828,7 @@ html[data-lang="ar"] .ed__line{ font-family:var(--ar-serif); }
 
 <!-- ============================================================ 5 · STATS -->
 <section class="stats" id="stats" data-theme="dark">
-  <canvas class="stats__field" aria-hidden="true"></canvas>
+  <div class="stats__field" aria-hidden="true"></div>
   <div class="stats__inner">
     <header class="stats__head" data-reveal>
       <span class="eyebrow"><span class="en-i">By the numbers</span><span class="ar-i">بالأرقام</span></span>
@@ -1299,95 +1306,6 @@ window.addEventListener('load', function(){
 });
 </script>
 
-<!-- stats "Density" — a living field of fine gold strands grows as the section arrives; numbers rise from restored density -->
-<script>
-(function(){
-  var sec=document.querySelector('.stats'); if(!sec) return;
-  var cv=sec.querySelector('.stats__field'); if(!cv) return;
-  var ctx=cv.getContext('2d'); if(!ctx) return;
-  var reduce=matchMedia('(prefers-reduced-motion:reduce)').matches;
-  var DPR=Math.min(2, window.devicePixelRatio||1);
-  var GOLD='230,196,106', INK='27,21,16';
-  var W=0,H=0, strands=[], fade=null, glow=null, started=false, raf=null, t0=0, near=false;
-
-  function build(){
-    var r=sec.getBoundingClientRect();
-    W=Math.max(1,Math.round(r.width)); H=Math.max(1,Math.round(r.height));
-    cv.width=Math.round(W*DPR); cv.height=Math.round(H*DPR);
-    cv.style.width=W+'px'; cv.style.height=H+'px';
-    ctx.setTransform(DPR,0,0,DPR,0,0);
-    // tip-fade: strands dissolve into the section's espresso toward the top
-    fade=ctx.createLinearGradient(0,0,0,H);
-    fade.addColorStop(0,    'rgba('+INK+',1)');
-    fade.addColorStop(0.30, 'rgba('+INK+',0)');
-    fade.addColorStop(1,    'rgba('+INK+',0)');
-    // a low warm wash at the base — first light on the field
-    glow=ctx.createLinearGradient(0,H,0,H*0.46);
-    glow.addColorStop(0, 'rgba('+GOLD+',0.12)');
-    glow.addColorStop(1, 'rgba('+GOLD+',0)');
-    var dense = W<700 ? 2.2 : 1.7;
-    var n=Math.round(Math.min(W,1500)/dense);
-    strands=[];
-    for(var i=0;i<n;i++){
-      var x=Math.random()*W, u=Math.random();
-      var tall=Math.random()<0.34, bright=Math.random()<0.09;
-      var len=tall ? (0.40+Math.random()*0.42)*H        // reaching strands rise around the numbers
-                   : (0.10+Math.pow(u,1.6)*0.34)*H;      // a dense ground of shorter strands
-      strands.push({
-        x:x, len:len, bright:bright,
-        bend:(Math.random()-0.5)*Math.min(60,len*0.5),
-        w:(bright?1.0:0.6)+Math.random()*1.2,
-        a:bright ? (0.28+Math.random()*0.26) : (tall ? 0.07+Math.random()*0.12 : 0.13+Math.random()*0.20),
-        phase:Math.random()*6.283,
-        sway:5+Math.random()*16,
-        delay:(x/W)*620+Math.random()*260,               // growth sweeps left -> right
-        dur:880+Math.random()*760
-      });
-    }
-  }
-
-  function draw(now){
-    ctx.clearRect(0,0,W,H);
-    ctx.globalCompositeOperation='source-over';
-    ctx.fillStyle=glow; ctx.fillRect(0,0,W,H);
-    ctx.lineCap='round';
-    ctx.globalCompositeOperation='lighter';   /* strands add up -> dense growth glows */
-    for(var i=0;i<strands.length;i++){
-      var s=strands[i];
-      var g = reduce ? 1 : (started ? (now - t0 - s.delay)/s.dur : 0);
-      if(g<=0) continue; if(g>1) g=1;
-      var ge=1-Math.pow(1-g,3);
-      var grown=s.len*ge;
-      var swayX=reduce ? 0 : Math.sin(now*0.00065 + s.phase)*s.sway*ge;
-      var tipX=s.x + s.bend + swayX, tipY=H-grown;
-      ctx.beginPath();
-      ctx.moveTo(s.x, H);
-      ctx.quadraticCurveTo(s.x + s.bend*0.4 + swayX*0.5, H-grown*0.5, tipX, tipY);
-      ctx.lineWidth=s.w;
-      ctx.strokeStyle='rgba('+GOLD+','+s.a+')';
-      ctx.stroke();
-    }
-    ctx.globalCompositeOperation='source-over';
-    ctx.fillStyle=fade; ctx.fillRect(0,0,W,H);   // dissolve tips into the dark
-  }
-
-  function start(){ if(!started){ started=true; t0=performance.now(); } }
-  /* always-on rAF — checks its own viewport rect each frame (IntersectionObserver & scroll events proved unreliable under Lenis/offscreen paint); draws only when on screen, pauses when the tab is hidden */
-  function frame(now){
-    raf=requestAnimationFrame(frame);
-    if(document.hidden) return;
-    var r=sec.getBoundingClientRect();
-    near = r.top < window.innerHeight*1.05 && r.bottom > -window.innerHeight*0.1;
-    if(near && !started){ if(reduce){ started=true; } else { start(); } }
-    if(near || (reduce && started)) draw(now);
-  }
-
-  build();
-  draw(performance.now());
-  raf=requestAnimationFrame(frame);
-  var rt; window.addEventListener('resize', function(){ clearTimeout(rt); rt=setTimeout(function(){ var was=started; build(); started=was; draw(performance.now()); }, 200); });
-})();
-</script>
 
 </body>
 </html>
