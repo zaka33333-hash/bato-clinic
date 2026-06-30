@@ -362,6 +362,8 @@ html[data-lang="ar"] .foot__h em{ font-style:normal; color:var(--gold-hi); }
 .foot__col h3{ font-family:var(--sans); font-weight:500; font-size:11px; letter-spacing:.2em; text-transform:uppercase; color:var(--gold-hi); margin-bottom:1.1em; }
 html[data-lang="ar"] .foot__col h3{ font-family:var(--ar-sans); letter-spacing:.02em; font-size:13px; }
 .foot__col p,.foot__col a{ display:block; color:var(--night-soft); font-size:.96rem; line-height:1.9; text-wrap:pretty; }
+.foot__col .num{ white-space:nowrap; }   /* never split a time range mid-way (was breaking '11:00–19:00' across lines) */
+@media(max-width:860px){ .foot__col p,.foot__col a{ font-size:.86rem; line-height:1.65; } }   /* two cards per row on phones — smaller type keeps lines whole */
 .foot__col a:hover{ color:var(--paper); }
 .foot__brand{ margin-top:0; display:flex; align-items:flex-end; justify-content:space-between; gap:24px; flex-wrap:wrap; }
 .foot__word{ display:block; width:clamp(138px,17vw,280px); aspect-ratio:1300/540; background:currentColor; -webkit-mask:url(assets/bato-wordmark.png) left bottom/contain no-repeat; mask:url(assets/bato-wordmark.png) left bottom/contain no-repeat; }
@@ -503,6 +505,8 @@ html[data-lang="ar"] .compare__tag{ font-family:var(--ar-sans); letter-spacing:.
 .reveal__cue{ position:absolute; top:14px; left:50%; transform:translateX(-50%); z-index:4; font-family:var(--sans); font-size:10.5px; letter-spacing:.14em; text-transform:uppercase; color:rgba(255,255,255,.85); background:rgba(20,15,8,.36); padding:.5em 1.05em; border-radius:20px; -webkit-backdrop-filter:blur(6px); backdrop-filter:blur(6px); white-space:nowrap; transition:opacity .5s var(--ease); }
 .reveal__stage:hover .reveal__cue, .reveal__stage.is-touched .reveal__cue{ opacity:0; }
 html[data-lang="ar"] .reveal__cue{ font-family:var(--ar-sans); letter-spacing:.02em; }
+.cue-coarse{ display:none; }   /* desktop shows the "shine the light" cursor metaphor; touch shows a tap hint instead */
+@media (hover:none),(pointer:coarse){ .cue-fine{ display:none; } .cue-coarse{ display:inline; } }
 .reveal__tag{ position:absolute; bottom:14px; z-index:4; font-family:var(--sans); font-weight:500; font-size:10.5px; letter-spacing:.16em; text-transform:uppercase; color:#fff; background:rgba(20,15,8,.5); padding:.45em .85em; border-radius:7px; -webkit-backdrop-filter:blur(6px); backdrop-filter:blur(6px); }
 .reveal__tag--after{ right:14px; }
 .reveal__tag--before{ left:14px; opacity:0; transition:opacity .4s var(--ease); }
@@ -556,6 +560,7 @@ html[data-lang="ar"] .stat__l{ font-size:1rem; }
 .skin__media, .svc__media{ position:absolute; inset:0; z-index:0; }
 .skin__media .ph, .svc__media .ph, .skin__media picture, .skin__media img, .svc__media picture, .svc__media img{ height:100%; width:100%; object-fit:cover; display:block; }
 .skin__media::after, .svc__media::after{ content:""; position:absolute; inset:0; z-index:1; background:linear-gradient(180deg, rgba(10,7,3,.12) 0%, rgba(10,7,3,.2) 45%, rgba(10,7,3,.74) 100%); }
+@media(max-width:860px){ .svc{ min-height:82svh; } }   /* phones: ease the 5-slide stack so services isn't 5 full screens of scroll — the next treatment peeks in, giving a sense of progression */
 .skin__copy, .svc__copy{ position:relative; z-index:2; width:100%; max-width:var(--maxw); margin:0 auto; padding:0 var(--pad) clamp(54px,9vh,120px); }
 .skin__h{ font-size:clamp(4rem,13vw,12rem); line-height:.86; }
 .skin__body{ margin-top:.4em; max-width:42ch; color:var(--night-soft); font-size:clamp(1.05rem,1.5vw,1.45rem); line-height:1.55; text-wrap:pretty; }
@@ -789,7 +794,7 @@ html[data-lang="ar"] .ed__line{ font-family:var(--ar-serif); }
       <img class="reveal__img reveal__after" id="baAfter" src="assets/ba-2-after.webp" alt="After a BATO hair treatment — restored density">
       <img class="reveal__img reveal__before" id="baBefore" src="assets/ba-2-before.webp" alt="Before the treatment — restored density">
       <span class="reveal__torch" aria-hidden="true"></span>
-      <span class="reveal__cue"><span class="en-i">Shine the light · reveal the before</span><span class="ar-i">سلّطي الضوء · اكشفي قبل</span></span>
+      <span class="reveal__cue"><span class="cue-fine"><span class="en-i">Shine the light · reveal the before</span><span class="ar-i">سلّطي الضوء · اكشفي قبل</span></span><span class="cue-coarse"><span class="en-i">Tap to reveal the before</span><span class="ar-i">المسي لكشف قبل</span></span></span>
       <span class="reveal__tag reveal__tag--before" aria-hidden="true"><span class="en-i">Before</span><span class="ar-i">قبل</span></span>
       <span class="reveal__tag reveal__tag--after" aria-hidden="true"><span class="en-i">After</span><span class="ar-i">بعد</span></span>
     </div>
