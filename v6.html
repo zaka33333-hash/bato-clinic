@@ -465,8 +465,13 @@ html[data-lang="ar"] .hair__sub{ font-family:var(--ar-sans); }
 .compare__media .ph, .compare__media picture, .compare__media img{ height:100%; width:100%; display:block; border:0; border-radius:0; object-fit:cover; }
 .compare__before{ clip-path:inset(0 calc(100% - var(--pos)) 0 0); }
 .compare__handle{ position:absolute; top:0; bottom:0; left:var(--pos); transform:translateX(-50%); width:48px; background:none; border:0; padding:0; cursor:ew-resize; display:grid; place-items:center; z-index:3; -webkit-tap-highlight-color:transparent; }
-.compare__handle::before{ content:""; position:absolute; top:0; bottom:0; width:2px; background:rgba(255,255,255,.92); box-shadow:0 0 0 1px rgba(27,21,16,.18); }
-.compare__arrows{ position:relative; width:46px; height:46px; border-radius:50%; background:rgba(255,255,255,.94); color:var(--ink); display:grid; place-items:center; box-shadow:0 8px 22px rgba(27,21,16,.28); font-size:17px; }
+.compare__handle::before{ content:""; position:absolute; top:0; bottom:0; width:1.5px; background:linear-gradient(rgba(255,255,255,0), rgba(255,255,255,.78) 10%, rgba(255,255,255,.78) 90%, rgba(255,255,255,0)); box-shadow:0 0 8px rgba(0,0,0,.14); }
+.compare__arrows{ position:relative; width:38px; height:38px; border-radius:50%; color:#fff; display:grid; place-items:center; font-size:12px; letter-spacing:-.5px; text-shadow:0 1px 4px rgba(0,0,0,.28);
+  background:rgba(255,255,255,.14); border:1px solid rgba(255,255,255,.55);
+  -webkit-backdrop-filter:blur(16px) saturate(1.4); backdrop-filter:blur(16px) saturate(1.4);
+  box-shadow:0 4px 18px rgba(0,0,0,.18), inset 0 1px 0 rgba(255,255,255,.5); transition:background .4s var(--ease), border-color .4s var(--ease); }
+.compare:hover .compare__arrows{ background:rgba(255,255,255,.2); border-color:rgba(255,255,255,.72); }
+@supports not ((backdrop-filter:blur(1px)) or (-webkit-backdrop-filter:blur(1px))){ .compare__arrows{ background:rgba(255,255,255,.55); } }
 .compare--hint .compare__arrows{ animation:cmpHintPulse 1.95s ease-in-out; }
 @keyframes cmpHintPulse{ 0%,100%{ transform:scale(1); box-shadow:0 8px 22px rgba(27,21,16,.28); } 22%,78%{ transform:scale(1.16); box-shadow:0 10px 30px rgba(27,21,16,.4), 0 0 0 7px rgba(255,255,255,.16); } }
 .compare__tag{ position:absolute; bottom:14px; z-index:2; font-family:var(--sans); font-weight:500; font-size:10.5px; letter-spacing:.16em; text-transform:uppercase; color:#fff; background:rgba(27,21,16,.42); padding:.45em .85em; border-radius:7px; -webkit-backdrop-filter:blur(6px); backdrop-filter:blur(6px); }
