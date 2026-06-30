@@ -243,7 +243,7 @@ html[data-lang="ar"] .intro__cue{ font-family:var(--ar-sans); letter-spacing:.02
 .hero__h em{ color:var(--gold-hi); font-style:italic; }
 html[data-lang="ar"] .hero__h{ max-width:14ch; line-height:1.16; }
 html[data-lang="ar"] .hero__h em{ font-style:normal; color:var(--gold-hi); }
-.hero__cta{ display:flex; gap:14px 22px; flex-wrap:wrap; align-items:center; margin-top:clamp(26px,3.6vh,44px); }
+.hero__cta{ display:flex; gap:14px 22px; flex-wrap:wrap; align-items:center; margin-top:clamp(18px,2.6vh,32px); }   /* keep the action connected to the headline (spacing rule: CTA hugs its text) */
 .hero__textlink{ display:inline-flex; align-items:center; gap:.7em; font-family:var(--sans); font-size:13px; letter-spacing:.08em; text-transform:uppercase; color:var(--paper); }
 html[data-lang="ar"] .hero__textlink{ font-family:var(--ar-sans); letter-spacing:0; text-transform:none; font-size:15px; }
 .hero__bare-i{ width:30px; height:1px; background:var(--gold-deep); opacity:.8; transition:width .45s var(--ease); }
@@ -356,6 +356,7 @@ html[data-lang="ar"] .card__desc{ font-size:1.04rem; }
   filter:blur(4px); }
 .foot__inner{ position:relative; z-index:1; max-width:var(--maxw); margin:0 auto; width:100%; display:flex; flex-direction:column; justify-content:space-between; gap:clamp(16px,2.6vh,34px); }
 .foot__cta{ display:grid; grid-template-columns:1fr; gap:clamp(20px,3vh,38px); align-items:end; padding-bottom:clamp(24px,4vh,48px); border-bottom:1px solid rgba(244,239,230,.16); }
+@media(max-width:859px){ .foot__cta{ gap:16px; } }   /* mobile: "Book on WhatsApp" hugs the headline it answers */
 @media(min-width:860px){ .foot__cta{ grid-template-columns:1.2fr .8fr; } }
 .foot__h{ font-family:var(--serif); font-weight:300; font-size:clamp(2rem,4.6vw,4.2rem); line-height:.98; }
 html[data-lang="ar"] .foot__h{ font-family:var(--ar-serif); line-height:1.2; }
@@ -468,6 +469,7 @@ html[data-lang="ar"] .hair__h em{ font-style:normal; }
 .hair__sub{ margin-top:1em; font-family:var(--sans); font-weight:500; color:var(--soft); font-size:clamp(1rem,1.5vw,1.3rem); }
 html[data-lang="ar"] .hair__sub{ font-family:var(--ar-sans); }
 .hair__foot{ margin-top:clamp(40px,6vh,80px); display:grid; gap:28px; align-items:end; }
+@media(max-width:859px){ .hair__foot{ gap:16px; } }   /* mobile: button hugs its disclaimer line */
 @media(min-width:860px){ .hair__foot{ grid-template-columns:1.3fr .7fr; } }
 .hair__body{ font-size:clamp(1.05rem,1.5vw,1.4rem); line-height:1.6; color:var(--soft); max-width:48ch; text-wrap:pretty; }
 @media(min-width:860px){ .hair__foot .btn{ justify-self:end; } }
@@ -575,7 +577,7 @@ html[data-lang="ar"] .stat__l{ font-size:1rem; }
 .svc__idx{ display:block; font-family:var(--sans); font-weight:500; font-size:12px; letter-spacing:.22em; color:var(--gold-hi); margin-bottom:1.1em; }
 .svc__h{ font-size:clamp(2.6rem,6.5vw,6rem); line-height:.98; }
 .svc__d{ margin-top:.5em; max-width:42ch; color:var(--night-soft); font-size:clamp(1.02rem,1.4vw,1.3rem); line-height:1.55; text-wrap:pretty; }
-.svc__cta{ margin-top:clamp(20px,2.8vh,36px); }
+.svc__cta{ margin-top:clamp(14px,2vh,24px); }   /* CTA sits close to the treatment copy it belongs to */
 /* services — locked slideshow deck (JS adds .svcs--deck on desktop+motion): the section is held still while
    scrolling crossfades through the cards' images and animates each card's text. Lenis-proof manual transform pin. */
 .svcs--deck{ position:relative; height:500svh; overflow:visible; }
