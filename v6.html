@@ -615,9 +615,10 @@ html[data-lang="ar"] .gItem__lbl{ font-family:var(--ar-sans); letter-spacing:.02
 @media (prefers-reduced-motion:reduce){ .gItem__frame img{ transition:none; } .gItem:hover .gItem__frame img{ transform:none; } }
 
 /* ============================================================ 10 · EDITORIAL CLOSER (asymmetric staggered gallery — KO-inspired, Bato-warm) */
-.editorial{ max-width:var(--maxw); margin:0 auto; padding:clamp(80px,12vh,180px) var(--pad); overflow:hidden; }
+.editorial{ padding:clamp(80px,12vh,180px) var(--pad); overflow:hidden; background:var(--night); }   /* full-bleed dark band — the dusk-toned approach trio reads as one immersive scene */
+.editorial > *{ max-width:var(--maxw); margin-inline:auto; }
 .ed__intro{ margin-bottom:clamp(30px,5vh,64px); }
-.ed__kicker{ font-family:var(--sans); font-weight:500; font-size:12px; letter-spacing:.24em; text-transform:uppercase; color:var(--gold-deep); }
+.ed__kicker{ font-family:var(--sans); font-weight:500; font-size:12px; letter-spacing:.24em; text-transform:uppercase; color:var(--gold-hi); }
 html[data-lang="ar"] .ed__kicker{ font-family:var(--ar-sans); letter-spacing:.04em; }
 
 /* the broken grid: three frames placed across 12 columns, each starting at a different height (margin-top) and a different aspect — the staggered top + bottom edges are what read as 'editorial' */
@@ -637,14 +638,14 @@ html[data-lang="ar"] .ed__kicker{ font-family:var(--ar-sans); letter-spacing:.04
 
 /* caption: index · label ........ gold dot (the dot blooms on hover — KO's accent cue, in Bato gold) */
 .ed__cap{ display:flex; align-items:center; gap:.85em; margin-top:1.1em; }
-.ed__idx{ font-family:var(--sans); font-size:11px; letter-spacing:.16em; color:var(--gold); font-variant-numeric:tabular-nums; opacity:.8; }
-.ed__lbl{ font-family:var(--sans); font-weight:500; font-size:12px; letter-spacing:.18em; text-transform:uppercase; color:var(--gold-deep); }
+.ed__idx{ font-family:var(--sans); font-size:11px; letter-spacing:.16em; color:var(--gold-hi); font-variant-numeric:tabular-nums; opacity:.8; }
+.ed__lbl{ font-family:var(--sans); font-weight:500; font-size:12px; letter-spacing:.18em; text-transform:uppercase; color:var(--gold-hi); }
 html[data-lang="ar"] .ed__lbl{ font-family:var(--ar-sans); letter-spacing:.02em; }
 .ed__dot{ width:7px; height:7px; border-radius:50%; background:var(--gold); margin-inline-start:auto; opacity:0; transform:scale(.5); transition:opacity .45s var(--ease), transform .45s var(--ease); }
 .ed__item:hover .ed__dot{ opacity:1; transform:scale(1); }
 @media (prefers-reduced-motion:reduce){ .ed__frame img{ transition:none; } .ed__item:hover .ed__frame img{ transform:none; } }
 
-.ed__line{ text-align:center; margin-top:clamp(58px,9vh,124px); font-family:var(--serif); font-optical-sizing:auto; font-weight:300; font-size:clamp(1.4rem,3.1vw,2.6rem); line-height:1.2; color:var(--ink); }
+.ed__line{ text-align:center; margin-top:clamp(58px,9vh,124px); font-family:var(--serif); font-optical-sizing:auto; font-weight:300; font-size:clamp(1.4rem,3.1vw,2.6rem); line-height:1.2; color:var(--paper); }
 html[data-lang="ar"] .ed__line{ font-family:var(--ar-serif); }
 
 /* ============================================================ NEW-BODY MOBILE + MOTION */
@@ -940,11 +941,11 @@ html[data-lang="ar"] .ed__line{ font-family:var(--ar-serif); }
 </section>
 
 <!-- ============================================================ 10 · EDITORIAL CLOSER (moving labelled row) -->
-<section class="editorial" id="editorial" data-theme="light">
+<section class="editorial" id="editorial" data-theme="dark">
   <div class="ed__intro" data-reveal><span class="ed__kicker"><span class="en-i">The approach</span><span class="ar-i">المنهج</span></span></div>
   <div class="ed__grid" id="edGrid">
     <figure class="ed__item ed__item--a" data-reveal style="--rv:translateY(34px); --d:0ms">
-      <div class="ed__frame"><picture><source type="image/webp" srcset="assets/ed-understand.webp"><img src="assets/ed-understand.jpg" alt="A woman seated at a consultation desk at the BATO clinic" loading="lazy"></picture></div>
+      <div class="ed__frame"><picture><source type="image/webp" srcset="assets/ed-understand.webp"><img src="assets/ed-understand.jpg" alt="A clinician examining a patient's scalp with a dermatoscope beside a diagnostic scan at the BATO clinic" loading="lazy"></picture></div>
       <figcaption class="ed__cap"><span class="ed__idx">01</span><span class="ed__lbl"><span class="en-i">Understand</span><span class="ar-i">نفهم</span></span><span class="ed__dot" aria-hidden="true"></span></figcaption>
     </figure>
     <figure class="ed__item ed__item--b" data-reveal style="--rv:translateY(34px); --d:130ms">
@@ -952,7 +953,7 @@ html[data-lang="ar"] .ed__line{ font-family:var(--ar-serif); }
       <figcaption class="ed__cap"><span class="ed__idx">02</span><span class="ed__lbl"><span class="en-i">Treat</span><span class="ar-i">نعالج</span></span><span class="ed__dot" aria-hidden="true"></span></figcaption>
     </figure>
     <figure class="ed__item ed__item--c" data-reveal style="--rv:translateY(34px); --d:260ms">
-      <div class="ed__frame"><picture><source type="image/webp" srcset="assets/ed-renew.webp"><img src="assets/ed-renew.jpg" alt="Smiling woman with radiant, refreshed skin" loading="lazy"></picture></div>
+      <div class="ed__frame"><picture><source type="image/webp" srcset="assets/ed-renew.webp"><img src="assets/ed-renew.jpg" alt="A woman with calm, radiant, refreshed skin in warm light" loading="lazy"></picture></div>
       <figcaption class="ed__cap"><span class="ed__idx">03</span><span class="ed__lbl"><span class="en-i">Renew</span><span class="ar-i">نجدّد</span></span><span class="ed__dot" aria-hidden="true"></span></figcaption>
     </figure>
   </div>
