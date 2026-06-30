@@ -114,7 +114,11 @@ html[data-lang="ar"] .frame-label{ font-family:var(--ar-sans); letter-spacing:.0
 }
 .nav.is-hidden{ transform:translateY(-110%); opacity:0; }
 body.menu-open .nav{ transform:none!important; opacity:1!important; mix-blend-mode:normal; }  /* drop the blend so the glass Close pill reads as dark ink */
-.nav__brand{ display:none; } /* the morphing intro logo is the persistent center-top brand */
+.nav__brand{ display:none; } /* on the landing, the morphing intro logo is the persistent center-top brand */
+/* sub-pages have no intro splash, so the nav carries a real wordmark logo (center-top, blends per-section via the nav's mix-blend) */
+.is-subpage .nav__brand{ display:block; position:absolute; left:50%; top:50%; transform:translate(-50%,-50%);
+  width:clamp(58px,6.4vw,92px); aspect-ratio:1300/540; background:currentColor;
+  -webkit-mask:url(assets/bato-wordmark.png) center/contain no-repeat; mask:url(assets/bato-wordmark.png) center/contain no-repeat; }
 
 /* ---- menu trigger: a labelled mark that becomes a frosted-glass "Close ×" ---- */
 .menu-btn{ display:inline-flex; align-items:center; justify-content:center; gap:.85em; min-height:44px; min-width:44px; background:none; cursor:pointer; color:inherit;
@@ -1242,15 +1246,23 @@ window.addEventListener('load', function(){
   ScrollTrigger.batch('[data-reveal], .lines', { start:'top 80%', onEnter:function(els){ els.forEach(function(e){ e.classList.add('in'); }); } });
 
   /* logo morph — scrubbed across the first viewport */
-  applyMorph(0);
-  var morphST=ScrollTrigger.create({ trigger:introEl, start:'top top', end:function(){ return '+='+(window.innerHeight*0.9); }, scrub:0.5, onUpdate:function(self){ applyMorph(self.progress); } });
+  if(introEl){
+    applyMorph(0);
+    var morphST=ScrollTrigger.create({ trigger:introEl, start:'top top', end:function(){ return '+='+(window.innerHeight*0.9); }, scrub:0.5, onUpdate:function(self){ applyMorph(self.progress); } });
+  }
 
   /* nav: hidden during the splash, then hide-on-down / show-on-up */
   ScrollTrigger.create({ start:0, end:'max', onUpdate:function(self){
-    var y=self.scroll(), ih=introEl?introEl.offsetHeight:window.innerHeight;
-    if(y<ih*0.55) nav.classList.add('is-hidden');
-    else if(self.direction===1 && y>ih) nav.classList.add('is-hidden');
-    else nav.classList.remove('is-hidden');
+    var y=self.scroll();
+    if(introEl){                                   /* landing: nav stays hidden through the splash */
+      var ih=introEl.offsetHeight;
+      if(y<ih*0.55) nav.classList.add('is-hidden');
+      else if(self.direction===1 && y>ih) nav.classList.add('is-hidden');
+      else nav.classList.remove('is-hidden');
+    } else {                                        /* sub-page: nav visible at top, hide on scroll-down, show on up */
+      if(self.direction===1 && y>160) nav.classList.add('is-hidden');
+      else nav.classList.remove('is-hidden');
+    }
   }});
 
   /* hero SCROLL-CINEMA — a pinned establishing shot: the camera dollies into the villa (scale + drift) while the title card lifts away and fades. Desktop + motion only; arm by adding .hero--cinema so the base hero stays a clean still otherwise. */
@@ -1313,7 +1325,7 @@ window.addEventListener('load', function(){
     edFrames.forEach(function(fr,i){ gsap.fromTo(fr,{yPercent:(edDrift[i]||0)*0.18},{yPercent:-(edDrift[i]||0)*0.18,ease:'none',scrollTrigger:{trigger:'.editorial',start:'top bottom',end:'bottom top',scrub:true}}); });
   }
 
-  window.addEventListener('resize', function(){ applyMorph(morphST.progress); });
+  window.addEventListener('resize', function(){ if(morphST) applyMorph(morphST.progress); });
   ScrollTrigger.refresh();
 
   /* smooth anchor jumps */
