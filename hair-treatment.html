@@ -788,6 +788,63 @@ html[data-lang="ar"] .cidx__name{ font-family:var(--ar-serif); }
 .cidx__meta{ font-family:var(--sans); font-size:.9rem; letter-spacing:.01em; color:var(--night-soft); text-align:end; max-width:30ch; line-height:1.5; }
 html[data-lang="ar"] .cidx__meta{ font-family:var(--ar-sans); text-align:start; }
 @media(max-width:720px){ .cidx__row{ grid-template-columns:auto 1fr; gap:16px; } .cidx__meta{ display:none; } }
+
+/* ============================================================================
+   HAIR SELL, persuasion layer: hero lede · THE SCIENCE (miniaturisation) · FAQ
+   ============================================================================ */
+.hero__lede{ margin-top:clamp(14px,2vh,22px); max-width:32ch; font-family:var(--sans); font-size:clamp(1.02rem,1.4vw,1.28rem); line-height:1.5; color:var(--paper); opacity:.94; text-shadow:0 1px 20px rgba(0,0,0,.45); }
+html[data-lang="ar"] .hero__lede{ font-family:var(--ar-sans); }
+
+/* ---- THE SCIENCE, follicular miniaturisation: authority + a calm, factual urgency (replaces the numbers) */
+.science{ background:var(--ink); color:var(--paper); padding:clamp(74px,12vh,180px) var(--pad); position:relative; overflow:hidden; }
+.science::before{ content:""; position:absolute; inset:0; z-index:0; pointer-events:none; background:radial-gradient(72% 60% at 50% 122%, rgba(201,162,75,.18), transparent 68%); }
+.science__inner{ position:relative; z-index:1; max-width:1180px; margin:0 auto; }
+.science__head{ text-align:center; margin-bottom:clamp(46px,7vh,96px); }
+.science .eyebrow{ justify-content:center; color:var(--gold-hi); } .science .eyebrow::before{ background:var(--gold); }
+.science__h{ font-family:var(--serif); font-optical-sizing:auto; font-weight:300; font-size:clamp(2rem,4.6vw,4.2rem); line-height:1.05; letter-spacing:-.01em; color:var(--paper); margin-top:.4em; }
+.science__h em{ font-style:italic; color:var(--gold-hi); } html[data-lang="ar"] .science__h em{ font-style:normal; }
+html[data-lang="ar"] .science__h{ font-family:var(--ar-serif); line-height:1.26; }
+.science__sub{ margin:1.15em auto 0; max-width:58ch; color:var(--night-soft); font-size:clamp(1rem,1.35vw,1.22rem); line-height:1.62; text-wrap:pretty; }
+html[data-lang="ar"] .science__sub{ font-family:var(--ar-sans); }
+.mini{ display:grid; grid-template-columns:repeat(4,1fr); gap:clamp(10px,1.6vw,26px); align-items:start; }
+.mstage{ display:flex; flex-direction:column; align-items:center; text-align:center; }
+.mstage__plot{ width:100%; display:flex; align-items:flex-end; justify-content:center; min-height:150px; padding:14px 6px; border-radius:14px; }
+.mstage--win .mstage__plot{ background:linear-gradient(180deg, rgba(230,196,106,.13), rgba(230,196,106,0) 80%); box-shadow:inset 0 0 0 1px rgba(230,196,106,.28); }
+.mstage__svg{ width:100%; max-width:120px; height:auto; display:block; }
+.mstage__svg .strand{ stroke:var(--gold-hi); stroke-linecap:round; fill:none; }
+.mstage__svg .pore{ fill:rgba(244,239,230,.24); }
+.mstage__no{ font-family:var(--sans); font-size:11px; letter-spacing:.2em; color:var(--gold); margin-top:18px; }
+.mstage__t{ font-family:var(--serif); font-weight:300; font-size:clamp(1.05rem,1.7vw,1.5rem); margin-top:.35em; color:var(--paper); }
+html[data-lang="ar"] .mstage__t{ font-family:var(--ar-serif); }
+.mstage__d{ font-family:var(--sans); font-size:.85rem; line-height:1.5; color:var(--night-soft); max-width:20ch; margin-top:.55em; }
+html[data-lang="ar"] .mstage__d{ font-family:var(--ar-sans); }
+.mini__note{ margin:clamp(28px,4.5vh,50px) auto 0; text-align:center; font-family:var(--sans); font-size:clamp(.92rem,1.15vw,1.05rem); letter-spacing:.01em; color:var(--gold-hi); max-width:46ch; }
+html[data-lang="ar"] .mini__note{ font-family:var(--ar-sans); }
+.science__take{ margin:clamp(40px,6vh,80px) auto 0; text-align:center; font-family:var(--serif); font-weight:300; font-style:italic; font-size:clamp(1.3rem,2.5vw,2.1rem); line-height:1.32; color:var(--paper); max-width:34ch; }
+.science__take em{ color:var(--gold-hi); font-style:italic; }
+html[data-lang="ar"] .science__take{ font-family:var(--ar-serif); font-style:normal; }
+@media(max-width:720px){ .mini{ grid-template-columns:repeat(2,1fr); gap:30px 14px; } .mstage__plot{ min-height:120px; } .mstage__svg{ max-width:96px; } }
+
+/* ---- FAQ, the objections a $3,000 decision actually has (native accordion, no JS) */
+.faq{ max-width:920px; margin:0 auto; padding:clamp(74px,12vh,180px) var(--pad); }
+.faq__head{ text-align:center; margin-bottom:clamp(34px,6vh,72px); }
+.faq .eyebrow{ justify-content:center; }
+.faq__h{ font-size:clamp(2rem,4.4vw,3.6rem); margin-top:.4em; }
+.faq__h em{ color:var(--gold-deep); font-style:italic; } html[data-lang="ar"] .faq__h em{ font-style:normal; }
+.faq__list{ border-top:1px solid var(--line); }
+.faq__item{ border-bottom:1px solid var(--line); }
+.faq__q{ list-style:none; cursor:pointer; display:flex; align-items:baseline; justify-content:space-between; gap:1.4em; padding:clamp(20px,3vh,34px) 0; font-family:var(--serif); font-weight:400; font-size:clamp(1.12rem,1.9vw,1.55rem); line-height:1.3; color:var(--ink); transition:color .3s var(--ease); -webkit-tap-highlight-color:transparent; }
+.faq__q::-webkit-details-marker{ display:none; }
+html[data-lang="ar"] .faq__q{ font-family:var(--ar-serif); }
+.faq__q:hover, .faq__item[open] .faq__q{ color:var(--gold-deep); }
+.faq__icon{ position:relative; flex:0 0 auto; width:19px; height:19px; margin-top:.4em; }
+.faq__icon::before,.faq__icon::after{ content:""; position:absolute; background:var(--gold-deep); transition:transform .35s var(--ease); }
+.faq__icon::before{ top:50%; left:0; right:0; height:1.5px; transform:translateY(-50%); }
+.faq__icon::after{ left:50%; top:0; bottom:0; width:1.5px; transform:translateX(-50%); }
+.faq__item[open] .faq__icon::after{ transform:translateX(-50%) scaleY(0); }
+.faq__a{ padding:0 2.4em clamp(22px,3.4vh,36px) 0; max-width:64ch; color:var(--soft); font-size:clamp(1rem,1.25vw,1.14rem); line-height:1.66; text-wrap:pretty; }
+html[data-lang="ar"] .faq__a{ font-family:var(--ar-sans); }
+.faq__cta{ margin-top:clamp(38px,6vh,72px); text-align:center; }
 </style>
 <script type="application/ld+json">
 {"@context":"https://schema.org","@type":"MedicalClinic","@id":"https://batoclinic.com/#clinic","name":"BATO, Hair Treatment","alternateName":"باتو، علاج الشعر","url":"https://batoclinic.com/hair-treatment.html","description":"Non-surgical hair restoration for thinning, shedding, and weak density, diagnosed before it is treated. BATO Clinic, Al Safa, Dubai. DHA Licence 5346564.","image":"https://batoclinic.com/assets/ed-understand.jpg","priceRange":"$$$","sameAs":["https://instagram.com/batoclinic"],"medicalSpecialty":["Dermatology","CosmeticProcedure"],"address":{"@type":"PostalAddress","streetAddress":"Al Safa First, Al Wasl Road","addressLocality":"Dubai","addressCountry":"AE"},"areaServed":"Dubai","slogan":"Where beauty starts with health","openingHoursSpecification":[{"@type":"OpeningHoursSpecification","dayOfWeek":["Saturday","Sunday","Monday","Tuesday","Wednesday"],"opens":"11:00","closes":"19:00"},{"@type":"OpeningHoursSpecification","dayOfWeek":["Thursday","Friday"],"opens":"11:00","closes":"18:00"}]}
@@ -843,7 +900,8 @@ html[data-lang="ar"] .cidx__meta{ font-family:var(--ar-sans); text-align:start; 
       <span class="en"><span class="ln"><i>Hair, treated</i></span><span class="ln"><i>at the <em>root.</em></i></span></span>
       <span class="ar"><span class="ln"><i>الشعر، يُعالَج</i></span><span class="ln"><i>من <em>الجذر.</em></i></span></span>
     </h1>
-    <div class="hero__cta" data-reveal style="--d:300ms">
+    <p class="hero__lede" data-reveal style="--d:230ms"><span class="en-i">The Dubai clinic that diagnoses your hair loss before it treats it.</span><span class="ar-i">عيادة دبي التي تُشخّص تساقط شعركِ قبل أن تعالجه.</span></p>
+    <div class="hero__cta" data-reveal style="--d:340ms">
       <a class="btn btn--glass" href="#contact"><span class="en-i">Book a consultation</span><span class="ar-i">احجزي استشارة</span><span class="i" aria-hidden="true">↗</span></a>
     </div>
     <div class="hero__meta" data-reveal style="--d:420ms">
@@ -870,7 +928,7 @@ html[data-lang="ar"] .cidx__meta{ font-family:var(--ar-sans); text-align:start; 
       <span class="en"><span class="ln"><i>We read the scalp</i></span><span class="ln"><i><em>before</em> we touch</i></span><span class="ln"><i>the hair.</i></span></span>
       <span class="ar"><span class="ln"><i>نقرأ الفروة</i></span><span class="ln"><i><em>قبل</em> أن نلمس</i></span><span class="ln"><i>الشعر.</i></span></span>
     </h2>
-    <p class="lead__body" data-reveal style="--d:240ms"><span class="en-i">Hair loss is a symptom, not a diagnosis. Before a single session, we examine the scalp under magnification, read the blood markers, and find what is actually driving the loss, so the plan answers the cause, never a guess.</span><span class="ar-i">تساقط الشعر عَرَض، لا تشخيص. قبل أي جلسة، نفحص الفروة تحت التكبير، ونقرأ مؤشّرات الدم، ونجد ما يسبّب التساقط فعلاً، لتُجيب الخطة على السبب، لا على تخمين.</span></p>
+    <p class="lead__body" data-reveal style="--d:240ms"><span class="en-i">Hair loss is a symptom, not a diagnosis. Most places reach for the same treatment for everyone; we begin by finding what is actually driving your loss, under magnification and in your blood work, so the plan answers the cause, not a catalogue. It is the difference between treating hair and treating yours.</span><span class="ar-i">تساقط الشعر عَرَض، لا تشخيص. أغلب الأماكن تلجأ إلى العلاج نفسه للجميع؛ أمّا نحن فنبدأ بإيجاد ما يسبّب تساقطكِ فعلاً، تحت التكبير وفي تحاليل دمكِ، لتُجيب الخطة على السبب لا على قائمة. إنه الفرق بين معالجة الشعر ومعالجة شعركِ.</span></p>
   </div>
 </section>
 
@@ -995,42 +1053,99 @@ html[data-lang="ar"] .cidx__meta{ font-family:var(--ar-sans); text-align:start; 
     </div>
     <div class="reveal__foot">
       <span class="reveal__label" id="baLabel"><span class="en-i">Restored density</span><span class="ar-i">كثافة مُستعادة</span></span>
-      <p class="built__note"><span class="en-i">Individual results may vary. Images shared with patient consent.</span><span class="ar-i">النتائج تختلف من شخصٍ لآخر. الصور منشورة بموافقة المريضة.</span></p>
+      <p class="built__note"><span class="en-i">Illustration only, not a specific patient. Individual results vary.</span><span class="ar-i">لأغراض التوضيح فقط، وليست نتيجة مريضة بعينها. النتائج تختلف من شخصٍ لآخر.</span></p>
     </div>
   </div>
 </section>
 
 <!-- ============================================================ 5 · STATS -->
-<section class="stats" id="stats" data-theme="dark">
-  <div class="stats__field" aria-hidden="true"></div>
-  <div class="stats__inner">
-    <header class="stats__head" data-reveal>
-      <span class="eyebrow"><span class="en-i">By the numbers</span><span class="ar-i">بالأرقام</span></span>
-      <h2 class="stats__h"><span class="en-i">The numbers behind the name.</span><span class="ar-i">الأرقام التي بنَت الاسم.</span></h2>
+<section class="science" id="science" data-theme="dark">
+  <div class="science__inner">
+    <header class="science__head" data-reveal>
+      <span class="eyebrow"><span class="en-i">The science</span><span class="ar-i">العِلم</span></span>
+      <h2 class="science__h"><span class="en-i">Caught early, a follicle can still <em>respond</em>.</span><span class="ar-i">بالاكتشاف المبكر، تبقى البُصيلة قادرة على <em>الاستجابة</em>.</span></h2>
+      <p class="science__sub"><span class="en-i">Hair loss is gradual. With each cycle the follicle grows a little finer, until one day it stops. Read early, the process can be slowed and the follicle re-activated. Left to guesswork, the window quietly closes.</span><span class="ar-i">تساقط الشعر تدريجي. مع كل دورة تصير البُصيلة أدقّ قليلاً، حتى تتوقّف يوماً ما. بالقراءة المبكرة يمكن إبطاء العملية وإعادة تنشيط البُصيلة. ومع التخمين، تُغلَق النافذة بهدوء.</span></p>
     </header>
-    <div class="stats__media" data-reveal style="--d:120ms" aria-hidden="true"><picture><source type="image/webp" srcset="assets/scalp.webp"><img src="assets/scalp.jpg" alt="" loading="lazy"></picture></div>
-    <div class="stats__grid">
-      <div class="stat" data-reveal style="--d:160ms">
-        <span class="stat__n num" data-count="11000" data-suffix="+">0</span>
-        <span class="stat__rule" aria-hidden="true"></span>
-        <span class="stat__l"><span class="en-i">Patients treated for hair &amp; scalp concerns</span><span class="ar-i">مريضة عُولِجت لمشكلات الشعر والفروة</span></span>
+    <div class="mini" data-reveal style="--d:120ms" role="img" aria-label="A hair follicle thins over successive growth cycles, from healthy to dormant, with a treatable window in between">
+      <div class="mstage">
+        <div class="mstage__plot"><svg class="mstage__svg" viewBox="0 0 120 108" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <path class="strand" stroke-width="4.5" d="M20 104 Q15 54 20 8"/>
+          <path class="strand" stroke-width="4.5" d="M40 104 Q45 52 39 12"/>
+          <path class="strand" stroke-width="4.5" d="M60 104 Q55 50 60 6"/>
+          <path class="strand" stroke-width="4.5" d="M80 104 Q85 54 79 14"/>
+          <path class="strand" stroke-width="4.5" d="M100 104 Q95 52 100 10"/>
+        </svg></div>
+        <span class="mstage__no num">01</span>
+        <span class="mstage__t"><span class="en-i">Healthy</span><span class="ar-i">كثيفة</span></span>
+        <span class="mstage__d"><span class="en-i">Full, anchored, growing.</span><span class="ar-i">كثيفة، راسخة، تنمو.</span></span>
       </div>
-      <div class="stat" data-reveal style="--d:240ms">
-        <span class="stat__n num" data-count="100" data-suffix="%">0</span>
-        <span class="stat__rule" aria-hidden="true"></span>
-        <span class="stat__l"><span class="en-i">Non-surgical hair treatment</span><span class="ar-i">علاج شعر غير جراحي</span></span>
+      <div class="mstage mstage--win">
+        <div class="mstage__plot"><svg class="mstage__svg" viewBox="0 0 120 108" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <path class="strand" stroke-width="3" d="M28 104 Q24 66 28 30"/>
+          <path class="strand" stroke-width="3" d="M50 104 Q54 64 49 32"/>
+          <path class="strand" stroke-width="3" d="M72 104 Q68 64 72 28"/>
+          <path class="strand" stroke-width="3" d="M94 104 Q90 66 94 34"/>
+        </svg></div>
+        <span class="mstage__no num">02</span>
+        <span class="mstage__t"><span class="en-i">Thinning</span><span class="ar-i">تخِفّ</span></span>
+        <span class="mstage__d"><span class="en-i">Each cycle a little finer.</span><span class="ar-i">كل دورة أدقّ قليلاً.</span></span>
       </div>
-      <div class="stat" data-reveal style="--d:320ms">
-        <span class="stat__n num" data-count="47000" data-suffix="+">0</span>
-        <span class="stat__rule" aria-hidden="true"></span>
-        <span class="stat__l"><span class="en-i">Treatment sessions delivered</span><span class="ar-i">جلسة علاجية مُقدَّمة</span></span>
+      <div class="mstage mstage--win">
+        <div class="mstage__plot"><svg class="mstage__svg" viewBox="0 0 120 108" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <path class="strand" stroke-width="2" d="M40 104 Q36 84 40 58"/>
+          <path class="strand" stroke-width="2" d="M64 104 Q68 82 63 56"/>
+          <path class="strand" stroke-width="2" d="M88 104 Q84 84 88 60"/>
+        </svg></div>
+        <span class="mstage__no num">03</span>
+        <span class="mstage__t"><span class="en-i">Weakening</span><span class="ar-i">تضعُف</span></span>
+        <span class="mstage__d"><span class="en-i">Shorter, softer, slower.</span><span class="ar-i">أقصر، أنعم، أبطأ.</span></span>
       </div>
-      <div class="stat" data-reveal style="--d:400ms">
-        <span class="stat__n num" data-count="92" data-suffix="%">0</span>
-        <span class="stat__rule" aria-hidden="true"></span>
-        <span class="stat__l"><span class="en-i">Reported improvement from the first sessions</span><span class="ar-i">أبلغن عن تحسّن منذ الجلسات الأولى</span></span>
+      <div class="mstage">
+        <div class="mstage__plot"><svg class="mstage__svg" viewBox="0 0 120 108" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <path class="strand" stroke-width="1.5" opacity=".4" d="M60 104 Q57 96 60 86"/>
+          <circle class="pore" cx="36" cy="103" r="1.8"/>
+          <circle class="pore" cx="84" cy="103" r="1.8"/>
+        </svg></div>
+        <span class="mstage__no num">04</span>
+        <span class="mstage__t"><span class="en-i">Dormant</span><span class="ar-i">خامدة</span></span>
+        <span class="mstage__d"><span class="en-i">The follicle goes quiet.</span><span class="ar-i">تخمد البُصيلة.</span></span>
       </div>
     </div>
+    <p class="mini__note" data-reveal><span class="en-i">The gold window, between thinning and dormant, is where treatment still reaches the follicle.</span><span class="ar-i">النافذة الذهبية، بين الخِفّة والخمود، حيث ما زال العلاج يصل إلى البُصيلة.</span></p>
+    <p class="science__take" data-reveal><span class="en-i">This is why we read before we treat, and why sooner is never the same as <em>later</em>.</span><span class="ar-i">لهذا نقرأ قبل أن نعالج، ولهذا ليس المبكّر كالمتأخّر <em>أبداً</em>.</span></p>
+  </div>
+</section>
+
+<!-- ============================================================ FAQ, objection handling -->
+<section class="faq" id="faq" data-theme="light">
+  <header class="faq__head">
+    <div class="eyebrow" data-reveal><span class="en-i">Before you decide</span><span class="ar-i">قبل أن تقرّري</span></div>
+    <h2 class="faq__h serif" data-reveal style="--d:100ms"><span class="en-i">The questions worth <em>asking</em>.</span><span class="ar-i">الأسئلة التي <em>تستحقّ</em> السؤال.</span></h2>
+  </header>
+  <div class="faq__list" data-reveal style="--d:160ms">
+    <details class="faq__item" open>
+      <summary class="faq__q"><span><span class="en-i">Does non-surgical treatment actually work?</span><span class="ar-i">هل العلاج غير الجراحي فعّال حقاً؟</span></span><span class="faq__icon" aria-hidden="true"></span></summary>
+      <div class="faq__a"><span class="en-i">For hair that is thinning or shedding, yes, as long as the follicle is still viable. That is exactly why we diagnose first: we confirm what is treatable before we begin, instead of promising a result we cannot yet know. Where a follicle has been dormant for years, we tell you honestly rather than sell you a course.</span><span class="ar-i">لعلاج الشعر الخفيف أو المتساقط، نعم، ما دامت البُصيلة قابلة للحياة. ولهذا نبدأ بالتشخيص: نتأكّد ممّا يمكن علاجه قبل أن نبدأ، بدل وعدٍ بنتيجة لا نعرفها بعد. وحين تكون البُصيلة خامدة منذ سنوات، نصارحكِ بذلك بدل أن نبيعكِ برنامجاً.</span></div>
+    </details>
+    <details class="faq__item">
+      <summary class="faq__q"><span><span class="en-i">Is it safe?</span><span class="ar-i">هل هو آمن؟</span></span><span class="faq__icon" aria-hidden="true"></span></summary>
+      <div class="faq__a"><span class="en-i">Every plan is medically supervised and carried out by registered nurses in a licensed clinic (DHA 5346564). Non-surgical means no cutting and no downtime, and the protocols we use are established and measured, never experimental.</span><span class="ar-i">كل خطة بإشراف طبي وتُنفَّذ على يد ممرّضات مسجّلات في عيادة مرخّصة (هيئة الصحة بدبي 5346564). وغير الجراحي يعني بلا جراحة وبلا فترة نقاهة، والبروتوكولات التي نستخدمها معتمدة ومدروسة، لا تجريبية.</span></div>
+    </details>
+    <details class="faq__item">
+      <summary class="faq__q"><span><span class="en-i">How is this different from a salon or an off-the-shelf product?</span><span class="ar-i">بمَ يختلف هذا عن صالون أو منتجٍ جاهز؟</span></span><span class="faq__icon" aria-hidden="true"></span></summary>
+      <div class="faq__a"><span class="en-i">A salon treats the strand; a shelf product treats everyone the same. We treat the cause, found through scalp analysis and blood work, with a plan built for your biology alone. That is the difference between spending money on hair and solving what is happening to it.</span><span class="ar-i">الصالون يعالج الخصلة؛ والمنتج الجاهز يعامل الجميع بالمثل. أمّا نحن فنعالج السبب، الذي نجده عبر تحليل الفروة والدم، بخطةٍ مبنية على تكوينكِ وحدكِ. هذا هو الفرق بين إنفاق المال على الشعر وحلّ ما يحدث له.</span></div>
+    </details>
+    <details class="faq__item">
+      <summary class="faq__q"><span><span class="en-i">What happens in the first consultation?</span><span class="ar-i">ماذا يحدث في الاستشارة الأولى؟</span></span><span class="faq__icon" aria-hidden="true"></span></summary>
+      <div class="faq__a"><span class="en-i">We read your scalp under magnification, review the relevant blood markers, and talk through your history. You leave understanding what is driving your hair loss and exactly what a plan would involve, with no obligation to begin.</span><span class="ar-i">نفحص فروتكِ تحت التكبير، ونراجع مؤشّرات الدم المعنيّة، ونتحدّث عن تاريخكِ الصحّي. تغادرين وأنتِ تفهمين سبب تساقط شعركِ وما الذي تتضمّنه الخطة تماماً، دون أي التزام بالبدء.</span></div>
+    </details>
+    <details class="faq__item">
+      <summary class="faq__q"><span><span class="en-i">How soon would I see a difference?</span><span class="ar-i">متى ألاحظ فرقاً؟</span></span><span class="faq__icon" aria-hidden="true"></span></summary>
+      <div class="faq__a"><span class="en-i">Hair works on its own clock. Shedding often settles first, with visible density building over a supervised course of months, not days. We measure against your own baseline, so progress is real rather than imagined. Individual results vary.</span><span class="ar-i">الشعر يسير على إيقاعه الخاص. غالباً ما يهدأ التساقط أولاً، وتُبنى الكثافة الظاهرة عبر برنامجٍ تحت الإشراف يمتدّ أشهراً، لا أياماً. ونقيس على نقطة انطلاقكِ أنتِ، لتكون النتيجة حقيقية لا متخيَّلة. النتائج تختلف من شخصٍ لآخر.</span></div>
+    </details>
+  </div>
+  <div class="faq__cta" data-reveal style="--d:120ms">
+    <a class="btn btn--glass" href="#contact"><span class="en-i">Book a consultation</span><span class="ar-i">احجزي استشارة</span><span class="i" aria-hidden="true">↗</span></a>
   </div>
 </section>
 
