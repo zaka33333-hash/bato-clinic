@@ -693,6 +693,101 @@ html[data-lang="ar"] .ed__line{ font-family:var(--ar-serif); }
   *{ animation-duration:.001ms!important; transition-duration:.001ms!important; }
   .hero__media img,.atmos__media img,.atmos__media video{ transform:none; }
 }
+
+/* ============================================================================
+   HAIR-PAGE SIGNATURE — native to this page only (not on the homepage):
+   a diagnostic scan-line hero · the drawn "Protocol" spine · the concern index
+   ============================================================================ */
+
+/* ---- hero: a slow diagnostic scan sweeps the clinician/scalp shot (the page reads as an instrument) */
+.hero__scan{ position:absolute; left:0; right:0; top:0; height:34vh; z-index:1; pointer-events:none; mix-blend-mode:screen;
+  background:linear-gradient(180deg, rgba(230,196,106,0) 0%, rgba(230,196,106,.06) 62%, rgba(245,226,170,.34) 96%, rgba(245,226,170,0) 100%);
+  border-bottom:1px solid rgba(245,226,170,.5);
+  transform:translateY(-40vh); animation:heroScan 8.5s cubic-bezier(.5,0,.5,1) infinite; }
+@keyframes heroScan{ 0%{ transform:translateY(-40vh); opacity:0; } 9%{ opacity:1; } 68%{ transform:translateY(100svh); opacity:1; } 76%,100%{ transform:translateY(100svh); opacity:0; } }
+@media(prefers-reduced-motion:reduce){ .hero__scan{ display:none; } }
+
+/* ---- lead: the philosophy statement (replaces the reused dark service card) */
+.lead{ max-width:var(--maxw); margin:0 auto; padding:clamp(92px,15vh,210px) var(--pad) clamp(52px,8vh,120px); }
+.lead__grid{ display:grid; gap:clamp(26px,4.5vh,58px); }
+@media(min-width:900px){ .lead__grid{ grid-template-columns:1.32fr .68fr; align-items:end; column-gap:clamp(46px,7vw,118px); } }
+.lead__h{ font-size:clamp(2.2rem,5.2vw,5.2rem); }
+.lead__h em{ color:var(--gold-deep); font-style:italic; }
+html[data-lang="ar"] .lead__h em{ font-style:normal; }
+.lead__body{ font-size:clamp(1.05rem,1.4vw,1.35rem); line-height:1.62; color:var(--soft); max-width:44ch; text-wrap:pretty; align-self:end; }
+html[data-lang="ar"] .lead__body{ font-family:var(--ar-sans); font-size:clamp(1.1rem,1.5vw,1.45rem); }
+
+/* ---- THE PROTOCOL — a gold spine draws root→crown as it enters; nodes light in sequence (signature) */
+.proto{ position:relative; max-width:1160px; margin:0 auto; padding:clamp(20px,3vh,50px) var(--pad) clamp(80px,12vh,180px); }
+.proto__head{ text-align:center; margin-bottom:clamp(48px,8vh,120px); }
+.proto .eyebrow{ justify-content:center; }
+.proto__sub{ margin:1.1em auto 0; color:var(--soft); font-size:clamp(1rem,1.35vw,1.25rem); line-height:1.6; max-width:50ch; text-wrap:pretty; }
+html[data-lang="ar"] .proto__sub{ font-family:var(--ar-sans); }
+
+.proto__track{ position:relative; }
+.proto__spine{ position:absolute; top:.4em; bottom:.4em; left:50%; transform:translateX(-50%); width:2px; background:var(--line); overflow:hidden; z-index:0; }
+.proto__spine::before{ content:""; position:absolute; inset:0; transform-origin:top; transform:scaleY(0);
+  background:linear-gradient(180deg, var(--gold-hi), var(--gold) 52%, var(--gold-deep));
+  transition:transform 1.6s var(--ease); }
+.proto.in .proto__spine::before, .no-js .proto__spine::before, .reduce .proto__spine::before{ transform:scaleY(1); }
+
+.proto__steps{ list-style:none; display:grid; gap:clamp(44px,7vh,92px); }
+.proto__step{ position:relative; display:grid; }
+.proto__node{ position:absolute; left:50%; top:50%; transform:translate(-50%,-50%); z-index:2;
+  width:15px; height:15px; border-radius:50%; background:var(--paper); border:2px solid var(--line);
+  transition:border-color .55s var(--ease), background .55s var(--ease), box-shadow .55s var(--ease); }
+.proto.in .proto__node, .no-js .proto__node, .reduce .proto__node{
+  border-color:var(--gold); background:var(--gold-hi); box-shadow:0 0 0 5px rgba(230,196,106,.15), 0 0 20px rgba(230,196,106,.55); }
+.proto__step:nth-child(1) .proto__node{ transition-delay:.3s; }
+.proto__step:nth-child(2) .proto__node{ transition-delay:.65s; }
+.proto__step:nth-child(3) .proto__node{ transition-delay:1s; }
+.proto__step:nth-child(4) .proto__node{ transition-delay:1.35s; }
+.proto__idx{ display:block; font-family:var(--sans); font-weight:500; font-size:13px; letter-spacing:.2em; color:var(--gold-deep); }
+.proto__t{ font-family:var(--serif); font-optical-sizing:auto; font-weight:300; font-size:clamp(1.7rem,3vw,2.8rem); line-height:1.05; margin:.32em 0 .38em; }
+html[data-lang="ar"] .proto__t{ font-family:var(--ar-serif); line-height:1.25; }
+.proto__d{ color:var(--soft); font-size:clamp(1rem,1.2vw,1.16rem); line-height:1.6; max-width:38ch; text-wrap:pretty; }
+html[data-lang="ar"] .proto__d{ font-family:var(--ar-sans); }
+.proto__tag{ display:inline-block; margin-top:1.05em; font-family:var(--sans); font-size:11px; letter-spacing:.15em; text-transform:uppercase; color:var(--gold-deep); border:1px solid var(--line); border-radius:22px; padding:.5em 1.05em; }
+html[data-lang="ar"] .proto__tag{ font-family:var(--ar-sans); letter-spacing:.02em; text-transform:none; }
+@media(min-width:820px){
+  .proto__step{ grid-template-columns:1fr 1fr; column-gap:clamp(56px,8vw,132px); align-items:center; }
+  .proto__step:nth-child(odd) .proto__card{ grid-column:1; text-align:end; }
+  .proto__step:nth-child(even) .proto__card{ grid-column:2; text-align:start; }
+  .proto__step:nth-child(odd) .proto__d{ margin-inline-start:auto; }
+}
+@media(max-width:819px){
+  .proto__spine{ left:11px; transform:none; }
+  .proto__step{ padding-inline-start:46px; }
+  .proto__node{ left:11px; top:.7em; transform:translate(-50%,0); }
+  html[dir="rtl"] .proto__spine{ left:auto; right:11px; }
+  html[dir="rtl"] .proto__node{ left:auto; right:11px; transform:translate(50%,0); }
+}
+
+/* ---- WHAT WE TREAT — a dark editorial concern index (real service depth, page-native) */
+.concerns{ background:var(--night); color:var(--paper); padding:clamp(78px,13vh,196px) var(--pad); }
+.concerns__inner{ max-width:var(--maxw); margin:0 auto; }
+.concerns .eyebrow{ color:var(--gold-hi); } .concerns .eyebrow::before{ background:var(--gold); }
+.concerns__head{ display:grid; gap:22px; margin-bottom:clamp(38px,6vh,78px); }
+@media(min-width:900px){ .concerns__head{ grid-template-columns:1.18fr .82fr; align-items:end; column-gap:clamp(46px,6vw,108px); } }
+.concerns__h{ font-family:var(--serif); font-optical-sizing:auto; font-weight:300; font-size:clamp(2.1rem,5vw,4.6rem); line-height:1.02; letter-spacing:-.01em; color:var(--paper); margin-top:.35em; }
+.concerns__h em{ font-style:italic; color:var(--gold-hi); } html[data-lang="ar"] .concerns__h em{ font-style:normal; }
+html[data-lang="ar"] .concerns__h{ font-family:var(--ar-serif); line-height:1.24; }
+.concerns__lead{ color:var(--night-soft); font-size:clamp(1rem,1.3vw,1.2rem); line-height:1.6; max-width:40ch; align-self:end; text-wrap:pretty; }
+html[data-lang="ar"] .concerns__lead{ font-family:var(--ar-sans); }
+.cidx{ list-style:none; border-top:1px solid rgba(244,239,230,.18); }
+.cidx__row{ position:relative; display:grid; grid-template-columns:auto 1fr auto; align-items:baseline; gap:clamp(16px,3vw,52px);
+  padding:clamp(19px,3vh,34px) 0; border-bottom:1px solid rgba(244,239,230,.16);
+  transition:padding-inline-start .5s var(--ease), background .5s var(--ease); }
+.cidx__row::before{ content:""; position:absolute; inset-inline-start:0; top:0; bottom:0; width:2px; background:var(--gold-hi); transform:scaleY(0); transform-origin:center; transition:transform .5s var(--ease); }
+.cidx__row:hover{ padding-inline-start:clamp(14px,1.7vw,26px); background:linear-gradient(90deg, rgba(230,196,106,.05), transparent 60%); }
+html[dir="rtl"] .cidx__row:hover{ background:linear-gradient(270deg, rgba(230,196,106,.05), transparent 60%); }
+.cidx__row:hover::before{ transform:scaleY(1); }
+.cidx__no{ font-family:var(--sans); font-size:12px; letter-spacing:.16em; color:var(--gold); font-variant-numeric:tabular-nums; opacity:.72; }
+.cidx__name{ font-family:var(--serif); font-optical-sizing:auto; font-weight:300; font-size:clamp(1.45rem,3.2vw,2.6rem); line-height:1.06; color:var(--paper); }
+html[data-lang="ar"] .cidx__name{ font-family:var(--ar-serif); }
+.cidx__meta{ font-family:var(--sans); font-size:.9rem; letter-spacing:.01em; color:var(--night-soft); text-align:end; max-width:30ch; line-height:1.5; }
+html[data-lang="ar"] .cidx__meta{ font-family:var(--ar-sans); text-align:start; }
+@media(max-width:720px){ .cidx__row{ grid-template-columns:auto 1fr; gap:16px; } .cidx__meta{ display:none; } }
 </style>
 <script type="application/ld+json">
 {"@context":"https://schema.org","@type":"MedicalClinic","@id":"https://batoclinic.com/#clinic","name":"BATO — Hair Treatment","alternateName":"باتو — علاج الشعر","url":"https://batoclinic.com/hair-treatment.html","description":"Non-surgical hair restoration for thinning, shedding, and weak density — diagnosed before it is treated. BATO Clinic, Al Safa, Dubai. DHA Licence 5346564.","image":"https://batoclinic.com/assets/ed-understand.jpg","priceRange":"$$$","sameAs":["https://instagram.com/batoclinic"],"medicalSpecialty":["Dermatology","CosmeticProcedure"],"address":{"@type":"PostalAddress","streetAddress":"Al Safa First, Al Wasl Road","addressLocality":"Dubai","addressCountry":"AE"},"areaServed":"Dubai","slogan":"Where beauty starts with health","openingHoursSpecification":[{"@type":"OpeningHoursSpecification","dayOfWeek":["Saturday","Sunday","Monday","Tuesday","Wednesday"],"opens":"11:00","closes":"19:00"},{"@type":"OpeningHoursSpecification","dayOfWeek":["Thursday","Friday"],"opens":"11:00","closes":"18:00"}]}
@@ -763,17 +858,113 @@ html[data-lang="ar"] .ed__line{ font-family:var(--ar-serif); }
       <img src="assets/ed-understand.jpg" alt="A clinician examining a patient's scalp with a dermatoscope beside a diagnostic scan at the BATO clinic" loading="eager" fetchpriority="high" width="2400" height="1350">
     </picture>
   </div>
+  <div class="hero__scan" aria-hidden="true"></div>
   </div>
 </section>
 
-<!-- ============================================================ 2 · APPROACH — DIAGNOSE BEFORE WE TREAT (full-bleed dark card) -->
-<section class="skin" id="approach" data-theme="dark">
-  <div class="svc__media" aria-hidden="true"><picture><source type="image/webp" srcset="assets/scalp.webp"><img src="assets/scalp.jpg" alt="Macro detail of a hair parting showing scalp and density" loading="lazy"></picture></div>
-  <div class="svc__copy">
-    <span class="svc__idx num" data-reveal>01</span>
-    <h2 class="svc__h serif" data-reveal style="--d:120ms"><span class="en-i">We diagnose before we treat.</span><span class="ar-i">نُشخّص قبل أن نعالج.</span></h2>
-    <p class="svc__d" data-reveal style="--d:220ms"><span class="en-i">Scalp and hair analysis, blood markers, and a real look at what's driving the loss — so we find the root cause before a single plan is written, never guesswork.</span><span class="ar-i">تحليل للفروة والشعر، ومؤشّرات الدم، ونظرة حقيقية لما يسبّب التساقط — لنصل إلى السبب الجذري قبل كتابة أي خطة، لا تخمين.</span></p>
-    <a class="btn btn--glass svc__cta" href="#contact" data-reveal style="--d:320ms"><span class="en-i">How it works</span><span class="ar-i">كيف نعمل</span><span class="i" aria-hidden="true">↗</span></a>
+<!-- ============================================================ 2 · LEAD — the philosophy -->
+<section class="lead" id="approach" data-theme="light">
+  <div class="eyebrow" data-reveal><span class="en-i">The BATO method</span><span class="ar-i">منهج باتو</span></div>
+  <div class="lead__grid" style="margin-top:clamp(24px,4vh,50px)">
+    <h2 class="lead__h serif lines" data-reveal style="--d:80ms">
+      <span class="en"><span class="ln"><i>We read the scalp</i></span><span class="ln"><i><em>before</em> we touch</i></span><span class="ln"><i>the hair.</i></span></span>
+      <span class="ar"><span class="ln"><i>نقرأ الفروة</i></span><span class="ln"><i><em>قبل</em> أن نلمس</i></span><span class="ln"><i>الشعر.</i></span></span>
+    </h2>
+    <p class="lead__body" data-reveal style="--d:240ms"><span class="en-i">Hair loss is a symptom, not a diagnosis. Before a single session, we examine the scalp under magnification, read the blood markers, and find what is actually driving the loss — so the plan answers the cause, never a guess.</span><span class="ar-i">تساقط الشعر عَرَض، لا تشخيص. قبل أي جلسة، نفحص الفروة تحت التكبير، ونقرأ مؤشّرات الدم، ونجد ما يسبّب التساقط فعلاً — لتُجيب الخطة على السبب، لا على تخمين.</span></p>
+  </div>
+</section>
+
+<!-- ============================================================ 3 · THE PROTOCOL — a gold spine draws through four stages (page-native signature) -->
+<section class="proto" id="protocol" data-theme="light" aria-label="The BATO hair protocol">
+  <header class="proto__head">
+    <div class="eyebrow" data-reveal><span class="en-i">The protocol · four stages</span><span class="ar-i">المنهج · أربع مراحل</span></div>
+    <p class="proto__sub" data-reveal style="--d:120ms"><span class="en-i">Every plan moves through the same four stages — each one shaped entirely around your reading.</span><span class="ar-i">كل خطة تمرّ بالمراحل الأربع نفسها — كلٌّ منها مصمّمة بالكامل حول قراءتك.</span></p>
+  </header>
+  <div class="proto__track">
+    <div class="proto__spine" aria-hidden="true"></div>
+    <ol class="proto__steps">
+      <li class="proto__step">
+        <span class="proto__node" aria-hidden="true"></span>
+        <div class="proto__card" data-reveal>
+          <span class="proto__idx num">01</span>
+          <h3 class="proto__t"><span class="en-i">Diagnose</span><span class="ar-i">التشخيص</span></h3>
+          <p class="proto__d"><span class="en-i">Trichoscopy, scalp mapping and blood markers locate the real cause of the loss — before anything is treated.</span><span class="ar-i">تنظير الشعر، وخريطة الفروة، ومؤشّرات الدم تحدّد السبب الحقيقي للتساقط — قبل أي علاج.</span></p>
+          <span class="proto__tag"><span class="en-i">Trichoscopy · Bloodwork</span><span class="ar-i">تنظير · تحاليل</span></span>
+        </div>
+      </li>
+      <li class="proto__step">
+        <span class="proto__node" aria-hidden="true"></span>
+        <div class="proto__card" data-reveal>
+          <span class="proto__idx num">02</span>
+          <h3 class="proto__t"><span class="en-i">Activate</span><span class="ar-i">التحفيز</span></h3>
+          <p class="proto__d"><span class="en-i">Targeted, non-surgical therapy wakes the follicle and feeds the root — matched to what the diagnosis found.</span><span class="ar-i">علاج غير جراحي مُوجَّه يوقظ البُصيلة ويُغذّي الجذر — وفق ما كشفه التشخيص.</span></p>
+          <span class="proto__tag"><span class="en-i">Non-surgical</span><span class="ar-i">غير جراحي</span></span>
+        </div>
+      </li>
+      <li class="proto__step">
+        <span class="proto__node" aria-hidden="true"></span>
+        <div class="proto__card" data-reveal>
+          <span class="proto__idx num">03</span>
+          <h3 class="proto__t"><span class="en-i">Strengthen</span><span class="ar-i">التقوية</span></h3>
+          <p class="proto__d"><span class="en-i">Density and shaft rebuild over a supervised course, reviewed session by session against your baseline.</span><span class="ar-i">تُبنى الكثافة والخصلة عبر برنامج تحت الإشراف، يُراجَع جلسةً بجلسة مقارنةً بنقطة انطلاقك.</span></p>
+          <span class="proto__tag"><span class="en-i">Supervised course</span><span class="ar-i">برنامج بإشراف</span></span>
+        </div>
+      </li>
+      <li class="proto__step">
+        <span class="proto__node" aria-hidden="true"></span>
+        <div class="proto__card" data-reveal>
+          <span class="proto__idx num">04</span>
+          <h3 class="proto__t"><span class="en-i">Sustain</span><span class="ar-i">الاستدامة</span></h3>
+          <p class="proto__d"><span class="en-i">A maintenance rhythm holds the result — measured against the record, not promised against a poster.</span><span class="ar-i">إيقاع محافظة يُبقي النتيجة — يُقاس على السجل، لا يُوعَد على ملصق.</span></p>
+          <span class="proto__tag"><span class="en-i">Maintenance</span><span class="ar-i">محافظة</span></span>
+        </div>
+      </li>
+    </ol>
+  </div>
+</section>
+
+<!-- ============================================================ 4 · WHAT WE TREAT — dark editorial concern index -->
+<section class="concerns" id="concerns" data-theme="dark">
+  <div class="concerns__inner">
+    <header class="concerns__head">
+      <div>
+        <div class="eyebrow" data-reveal><span class="en-i">What we treat</span><span class="ar-i">ما نعالجه</span></div>
+        <h2 class="concerns__h serif" data-reveal style="--d:100ms"><span class="en-i">If it starts at the <em>root</em>, it starts here.</span><span class="ar-i">إن بدأ من <em>الجذر</em>، يبدأ من هنا.</span></h2>
+      </div>
+      <p class="concerns__lead" data-reveal style="--d:200ms"><span class="en-i">The concerns we see most — each one read individually before it is ever treated.</span><span class="ar-i">أكثر ما نراه من حالات — كلٌّ منها يُقرأ على حِدة قبل أن يُعالَج.</span></p>
+    </header>
+    <ol class="cidx">
+      <li class="cidx__row" data-reveal>
+        <span class="cidx__no num">01</span>
+        <span class="cidx__name"><span class="en-i">Thinning &amp; shedding</span><span class="ar-i">تساقُط وخِفّة</span></span>
+        <span class="cidx__meta"><span class="en-i">Diffuse loss across the crown and parting</span><span class="ar-i">تساقط منتشر في التاج والفرق</span></span>
+      </li>
+      <li class="cidx__row" data-reveal style="--d:80ms">
+        <span class="cidx__no num">02</span>
+        <span class="cidx__name"><span class="en-i">Weak density</span><span class="ar-i">كثافة ضعيفة</span></span>
+        <span class="cidx__meta"><span class="en-i">Fewer follicular units per zone</span><span class="ar-i">وحدات بُصيلية أقل في المنطقة</span></span>
+      </li>
+      <li class="cidx__row" data-reveal style="--d:160ms">
+        <span class="cidx__no num">03</span>
+        <span class="cidx__name"><span class="en-i">Receding hairline</span><span class="ar-i">تراجُع خط الشعر</span></span>
+        <span class="cidx__meta"><span class="en-i">Temple and frontline recession</span><span class="ar-i">تراجع في الصدغين ومقدّمة الرأس</span></span>
+      </li>
+      <li class="cidx__row" data-reveal style="--d:240ms">
+        <span class="cidx__no num">04</span>
+        <span class="cidx__name"><span class="en-i">Post-partum loss</span><span class="ar-i">تساقُط ما بعد الولادة</span></span>
+        <span class="cidx__meta"><span class="en-i">Hormonal shedding after birth</span><span class="ar-i">تساقط هرموني بعد الولادة</span></span>
+      </li>
+      <li class="cidx__row" data-reveal style="--d:320ms">
+        <span class="cidx__no num">05</span>
+        <span class="cidx__name"><span class="en-i">Scalp health</span><span class="ar-i">صحة الفروة</span></span>
+        <span class="cidx__meta"><span class="en-i">Flaking, oil balance and irritation</span><span class="ar-i">قشرة وتوازن الدهون وتهيّج</span></span>
+      </li>
+      <li class="cidx__row" data-reveal style="--d:400ms">
+        <span class="cidx__no num">06</span>
+        <span class="cidx__name"><span class="en-i">Breakage &amp; weak shafts</span><span class="ar-i">تكسُّر وضعف الخِصلة</span></span>
+        <span class="cidx__meta"><span class="en-i">Fragile strands and split ends</span><span class="ar-i">خصلات هشّة وأطراف متقصّفة</span></span>
+      </li>
+    </ol>
   </div>
 </section>
 
@@ -901,7 +1092,7 @@ html[data-lang="ar"] .ed__line{ font-family:var(--ar-serif); }
 <script>document.body.classList.remove('no-js');
 /* safety net: if window.load never fires (a hung font/script/image), reveal everything anyway so the page is never blank */
 window.__engineUp=false;
-setTimeout(function(){ if(window.__engineUp) return; document.querySelectorAll('[data-reveal], .lines').forEach(function(e){ e.classList.add('in'); }); var n=document.getElementById('nav'); if(n) n.classList.remove('is-hidden'); }, 4000);</script>
+setTimeout(function(){ if(window.__engineUp) return; document.querySelectorAll('[data-reveal], .lines, .proto').forEach(function(e){ e.classList.add('in'); }); var n=document.getElementById('nav'); if(n) n.classList.remove('is-hidden'); }, 4000);</script>
 <script>
 /* before/after comparison slider + stat count-up (run independent of scroll engine, reduced-motion aware) */
 (function(){
@@ -1091,7 +1282,7 @@ window.addEventListener('load', function(){
     wordEl.classList.toggle('themed', p>0.8);  // turn on the smart blend once it's the mini mark (DNA gone)
     if(p>0){ ltrs.forEach(function(el){ el.style.transform='translateX('+(lpx(el)*(1-p)).toFixed(1)+'px)'; }); if(dnaC) dnaC.style.opacity=Math.max(0,1-p*1.25).toFixed(3); }
   }
-  function showAll(){ document.querySelectorAll('[data-reveal], .lines').forEach(function(e){ e.classList.add('in'); }); if(nav) nav.classList.remove('is-hidden'); }
+  function showAll(){ document.querySelectorAll('[data-reveal], .lines, .proto').forEach(function(e){ e.classList.add('in'); }); if(nav) nav.classList.remove('is-hidden'); }
 
   /* graceful fallback if motion is off or libs failed to load */
   if(reduce || !window.gsap || !window.ScrollTrigger){ document.body.classList.add('reduce'); showAll(); applyMorph(0); return; }
@@ -1107,7 +1298,7 @@ window.addEventListener('load', function(){
   }
 
   /* reveals — batched, fire as each enters */
-  ScrollTrigger.batch('[data-reveal], .lines', { start:'top 80%', onEnter:function(els){ els.forEach(function(e){ e.classList.add('in'); }); } });
+  ScrollTrigger.batch('[data-reveal], .lines, .proto', { start:'top 80%', onEnter:function(els){ els.forEach(function(e){ e.classList.add('in'); }); } });
 
   /* logo morph — scrubbed across the first viewport */
   if(introEl){
