@@ -690,6 +690,122 @@ html[data-lang="ar"] .ed__line{ font-family:var(--ar-serif); }
   .gItem--1, .gItem--2, .gItem--3, .gItem--4{ grid-column:auto; grid-row:auto; margin-top:0; width:min(86vw,420px); }
 }
 
+/* ============================================================
+   ABOUT-PAGE SIGNATURE — native to this page only (not on the homepage):
+   a warm window-light hero glow · "The house" architectural walk-through
+   (each frame's gold threshold-line draws as it enters) · a typographic
+   People creed · a quiet Standard credentials band.
+   ============================================================ */
+
+/* ---- hero: a soft warm light breathes from the villa windows (the house feels lived-in, not staged) */
+.hero__glow{ position:absolute; inset:0; z-index:1; pointer-events:none; mix-blend-mode:screen;
+  background:radial-gradient(38% 30% at 72% 58%, rgba(230,196,106,.30), rgba(230,196,106,0) 62%),
+             radial-gradient(30% 24% at 60% 66%, rgba(255,214,140,.22), rgba(255,214,140,0) 66%);
+  animation:houseBreath 7.5s var(--ease-in-out) infinite; }
+html[dir="rtl"] .hero__glow{ background:radial-gradient(38% 30% at 28% 58%, rgba(230,196,106,.30), rgba(230,196,106,0) 62%),
+             radial-gradient(30% 24% at 40% 66%, rgba(255,214,140,.22), rgba(255,214,140,0) 66%); }
+@keyframes houseBreath{ 0%,100%{ opacity:.55; } 50%{ opacity:1; } }
+@media(prefers-reduced-motion:reduce){ .hero__glow{ animation:none; opacity:.7; } }
+
+/* ---- THE HOUSE — a vertical filmstrip walk-through of the real interiors */
+.walk{ background:var(--paper); }
+.walk__head{ max-width:var(--maxw); margin:0 auto; padding:clamp(90px,15vh,200px) var(--pad) clamp(40px,6vh,88px); display:grid; gap:20px; }
+@media(min-width:900px){ .walk__head{ grid-template-columns:1.25fr .75fr; align-items:end; column-gap:clamp(40px,6vw,110px); } }
+.walk__h{ font-size:clamp(2.6rem,6.4vw,6.4rem); }
+.walk__h em{ color:var(--gold-deep); font-style:italic; } html[data-lang="ar"] .walk__h em{ font-style:normal; color:var(--gold-deep); }
+.walk__sub{ color:var(--soft); max-width:40ch; font-size:clamp(1rem,1.35vw,1.25rem); line-height:1.6; text-wrap:pretty; align-self:end; }
+html[data-lang="ar"] .walk__sub{ font-family:var(--ar-sans); }
+
+.walk__strip{ list-style:none; max-width:var(--maxw); margin:0 auto; padding:0 var(--pad) clamp(70px,11vh,150px); display:grid; gap:clamp(56px,10vh,150px); }
+.walk__scene{ display:grid; gap:clamp(20px,3vh,40px); align-items:center; }
+@media(min-width:860px){
+  .walk__scene{ grid-template-columns:1.35fr .65fr; column-gap:clamp(40px,5vw,90px); }
+  .walk__scene--flip .walk__frame{ order:2; }
+  .walk__scene--flip .walk__cap{ order:1; text-align:end; }
+  html[dir="rtl"] .walk__scene--flip .walk__cap{ text-align:start; }
+  .walk__scene--flip .walk__cap .walk__d{ margin-inline-start:auto; }
+}
+.walk__frame{ position:relative; width:100%; overflow:hidden; border-radius:var(--radius); background:#efe8dc; box-shadow:0 34px 80px -40px rgba(27,21,16,.5); }
+.walk__scene--wide .walk__frame{ aspect-ratio:16/10; }
+.walk__scene--tall .walk__frame{ aspect-ratio:4/5; }
+@media(max-width:859px){ .walk__scene--tall .walk__frame{ aspect-ratio:4/5; } .walk__scene--wide .walk__frame{ aspect-ratio:3/2; } }
+.walk__frame picture, .walk__frame img{ width:100%; height:100%; object-fit:cover; display:block; transition:transform .8s var(--ease); }
+.walk__scene:hover .walk__frame img{ transform:scale(1.04); }
+@media(prefers-reduced-motion:reduce){ .walk__frame img{ transition:none; } .walk__scene:hover .walk__frame img{ transform:none; } }
+/* the signature: a dark cover wipes off left→right as the frame enters, led by a thin gold "threshold" line
+   (a door of light opening across the room). The finished/default state is a fully-clear image — so the
+   photo is NEVER hidden without JS: .in, .no-js and .reduce all resolve to the revealed state. */
+.walk__frame{ isolation:isolate; }
+.walk__frame::after{ content:""; position:absolute; inset:0; z-index:1; pointer-events:none; background:#14100a;
+  transform-origin:left; transform:scaleX(0); transition:transform 1.2s var(--ease) var(--d,0ms); }
+html[dir="rtl"] .walk__frame::after{ transform-origin:right; }
+/* only while armed (JS present, not yet revealed) is the cover drawn over the image */
+body:not(.no-js) .walk__scene:not(.in) .walk__frame::after{ transform:scaleX(1); }
+.reduce .walk__scene .walk__frame::after{ transform:scaleX(0)!important; }   /* reduced-motion: image always clear */
+.walk__thresh{ position:absolute; top:0; bottom:0; left:0; z-index:2; width:2px; pointer-events:none; opacity:0;
+  background:linear-gradient(rgba(230,196,106,0), rgba(230,196,106,.95) 12%, rgba(255,246,220,1) 50%, rgba(230,196,106,.95) 88%, rgba(230,196,106,0));
+  box-shadow:0 0 22px 3px rgba(230,196,106,.5); }
+.walk__scene.in .walk__thresh{ animation:threshSweep 1.25s var(--ease) var(--d,0ms) both; }
+html[dir="rtl"] .walk__scene.in .walk__thresh{ animation-name:threshSweepRTL; }
+@keyframes threshSweep{ 0%{ left:0; opacity:0; } 10%{ opacity:1; } 90%{ opacity:1; } 100%{ left:100%; opacity:0; } }
+@keyframes threshSweepRTL{ 0%{ right:0; left:auto; opacity:0; } 10%{ opacity:1; } 90%{ opacity:1; } 100%{ right:100%; left:auto; opacity:0; } }
+.no-js .walk__thresh, .reduce .walk__thresh{ display:none; }
+@media(prefers-reduced-motion:reduce){ .walk__thresh{ display:none; } .walk__frame::after{ transition:none; } }
+
+.walk__cap{ display:flex; flex-direction:column; gap:.2em; }
+.walk__num{ font-family:var(--sans); font-weight:500; font-size:13px; letter-spacing:.2em; color:var(--gold-deep); }
+.walk__t{ font-size:clamp(1.9rem,3.4vw,3rem); margin:.28em 0 .3em; }
+.walk__d{ color:var(--soft); font-size:clamp(1rem,1.25vw,1.2rem); line-height:1.6; max-width:34ch; text-wrap:pretty; }
+html[data-lang="ar"] .walk__d{ font-family:var(--ar-sans); }
+
+/* ---- THE PEOPLE — a dark typographic creed (no invented names or portraits) */
+.people{ background:var(--night); color:var(--paper); padding:clamp(80px,14vh,200px) var(--pad); }
+.people__inner{ max-width:var(--maxw); margin:0 auto; }
+.people .eyebrow{ color:var(--gold-hi); } .people .eyebrow::before{ background:var(--gold); }
+.people__head{ display:grid; gap:22px; margin-bottom:clamp(46px,8vh,110px); }
+@media(min-width:900px){ .people__head{ grid-template-columns:1.15fr .85fr; align-items:end; column-gap:clamp(46px,6vw,108px); } }
+.people__h{ font-family:var(--serif); font-optical-sizing:auto; font-weight:300; font-size:clamp(2.2rem,5.4vw,5rem); line-height:1.02; letter-spacing:-.01em; color:var(--paper); }
+.people__h em{ font-style:italic; color:var(--gold-hi); } html[data-lang="ar"] .people__h em{ font-style:normal; color:var(--gold-hi); }
+html[data-lang="ar"] .people__h{ font-family:var(--ar-serif); line-height:1.24; }
+.people__lead{ color:var(--night-soft); font-size:clamp(1rem,1.3vw,1.2rem); line-height:1.65; max-width:44ch; align-self:end; text-wrap:pretty; }
+html[data-lang="ar"] .people__lead{ font-family:var(--ar-sans); }
+.people__creed{ display:grid; gap:clamp(38px,6vh,74px); }
+@media(min-width:900px){ .people__creed{ grid-template-columns:.9fr 1.1fr; column-gap:clamp(48px,6vw,110px); align-items:start; } }
+.people__q{ font-optical-sizing:auto; font-weight:300; font-size:clamp(1.8rem,3.4vw,3.2rem); line-height:1.18; color:var(--gold-hi); text-wrap:pretty; }
+html[data-lang="ar"] .people__q{ font-family:var(--ar-serif); line-height:1.4; }
+.people__vals{ list-style:none; display:grid; gap:0; }
+.people__val{ padding:clamp(20px,3vh,34px) 0; border-top:1px solid rgba(244,239,230,.16); }
+.people__val:last-child{ border-bottom:1px solid rgba(244,239,230,.16); }
+.people__valn{ font-family:var(--sans); font-weight:500; font-size:12px; letter-spacing:.2em; color:var(--gold-hi); }
+.people__valt{ font-family:var(--serif); font-weight:400; font-size:clamp(1.4rem,2.4vw,2rem); margin:.25em 0 .3em; color:var(--paper); }
+html[data-lang="ar"] .people__valt{ font-family:var(--ar-serif); }
+.people__vald{ color:var(--night-soft); font-size:clamp(.98rem,1.2vw,1.12rem); line-height:1.6; max-width:44ch; text-wrap:pretty; }
+html[data-lang="ar"] .people__vald{ font-family:var(--ar-sans); }
+
+/* ---- THE STANDARD — a restrained light credentials band (a definition list of the promise) */
+.standard{ background:var(--paper); }
+.standard__inner{ max-width:var(--maxw); margin:0 auto; padding:clamp(80px,13vh,190px) var(--pad); display:grid; gap:clamp(40px,6vh,80px); }
+@media(min-width:960px){ .standard__inner{ grid-template-columns:.9fr 1.1fr; column-gap:clamp(48px,6vw,120px); align-items:start; } }
+.standard__h{ font-size:clamp(2.4rem,5.4vw,5.2rem); }
+.standard__h em{ color:var(--gold-deep); font-style:italic; } html[data-lang="ar"] .standard__h em{ font-style:normal; color:var(--gold-deep); }
+.standard__list{ list-style:none; display:grid; gap:0; }
+.standard__row{ display:grid; grid-template-columns:auto 1fr; gap:clamp(16px,4vw,64px); align-items:baseline;
+  padding:clamp(18px,2.6vh,28px) 0; border-top:1px solid var(--line); }
+.standard__row:last-child{ border-bottom:1px solid var(--line); }
+.standard__k{ font-family:var(--sans); font-weight:500; font-size:12px; letter-spacing:.18em; text-transform:uppercase; color:var(--gold-deep); min-width:5.5em; }
+html[data-lang="ar"] .standard__k{ font-family:var(--ar-sans); letter-spacing:.02em; text-transform:none; font-size:14px; }
+.standard__v{ font-family:var(--serif); font-weight:300; font-size:clamp(1.3rem,2.4vw,2rem); line-height:1.25; color:var(--ink); text-wrap:pretty; }
+html[data-lang="ar"] .standard__v{ font-family:var(--ar-serif); line-height:1.4; }
+.standard__cta{ grid-column:1 / -1; display:flex; flex-wrap:wrap; align-items:center; gap:18px 28px; margin-top:clamp(6px,2vh,18px); }
+@media(min-width:960px){ .standard__cta{ grid-column:2; } }
+
+/* ---- ABOUT mobile refinements ---- */
+@media(max-width:859px){
+  .walk__scene{ grid-template-columns:1fr; }
+  .walk__cap{ text-align:start; }
+  .people__val{ padding:22px 0; }
+}
+
 /* ============================================================ MOTION GUARDS */
 @media(prefers-reduced-motion:reduce){
   *{ animation-duration:.001ms!important; transition-duration:.001ms!important; }
@@ -744,19 +860,21 @@ html[data-lang="ar"] .ed__line{ font-family:var(--ar-serif); }
 <section class="hero" id="hero" data-theme="dark">
   <div class="hero__stage">
   <div class="hero__inner">
-    <div class="eyebrow hero__eyebrow" data-reveal style="--d:120ms"><span class="en-i">Al&nbsp;Safa, Dubai · DHA&nbsp;<span class="num">5346564</span></span><span class="ar-i">الصفا، دبي · ترخيص هيئة الصحة بدبي&nbsp;<span class="num">5346564</span></span></div>
+    <div class="eyebrow hero__eyebrow" data-reveal style="--d:120ms"><span class="en-i">The house on Al&nbsp;Wasl · Al&nbsp;Safa, Dubai</span><span class="ar-i">البيت على شارع الوصل · الصفا، دبي</span></div>
     <h1 class="hero__h serif lines">
-      <span class="en"><span class="ln"><i>Where beauty</i></span><span class="ln"><i>starts with <em>health.</em></i></span></span>
-      <span class="ar"><span class="ln"><i>حيث يبدأ الجمال</i></span><span class="ln"><i><em>بالصحة.</em></i></span></span>
+      <span class="en"><span class="ln"><i>A clinic that</i></span><span class="ln"><i>feels like a <em>home.</em></i></span></span>
+      <span class="ar"><span class="ln"><i>عيادة تشبه</i></span><span class="ln"><i><em>البيت.</em></i></span></span>
     </h1>
     <div class="hero__cta" data-reveal style="--d:300ms">
-      <a class="btn btn--glass" href="#contact"><span class="en-i">Book a consultation</span><span class="ar-i">احجزي استشارة</span><span class="i" aria-hidden="true">↗</span></a>
+      <a class="btn btn--glass" href="#walk"><span class="en-i">Step inside</span><span class="ar-i">ادخلي</span><span class="i" aria-hidden="true">↗</span></a>
     </div>
     <div class="hero__meta" data-reveal style="--d:420ms">
-      <span class="en-i">A medical-aesthetic clinic in a villa · Al&nbsp;Safa, Dubai</span>
-      <span class="ar-i">عيادة طبية تجميلية داخل فيلا · الصفا، دبي</span>
+      <span class="en-i">A real villa in Al&nbsp;Safa — where beauty starts with health</span>
+      <span class="ar-i">فيلا حقيقية في الصفا — حيث يبدأ الجمال بالصحة</span>
     </div>
   </div>
+
+  <div class="hero__glow" aria-hidden="true"></div>
 
   <div class="hero__media" aria-hidden="true">
     <picture>
@@ -769,56 +887,134 @@ html[data-lang="ar"] .ed__line{ font-family:var(--ar-serif); }
   </div>
 </section>
 
-<!-- ============================================================ 2 · PHILOSOPHY (full-bleed dark card — a clinic, not a salon) -->
-<section class="skin" id="philosophy" data-theme="dark">
-  <div class="skin__media" aria-hidden="true"><picture><source type="image/webp" srcset="assets/clinic-2.webp"><img src="assets/clinic-2.jpg" alt="A BATO treatment room with a reclining chair in warm daylight" loading="lazy"></picture></div>
-  <div class="skin__copy">
-    <span class="svc__idx num" data-reveal>01</span>
-    <h2 class="skin__h serif" data-reveal style="--d:120ms"><span class="en-i">A clinic, not a salon.</span><span class="ar-i">عيادة، لا صالون.</span></h2>
-    <p class="skin__body" data-reveal style="--d:220ms"><span class="en-i">Every treatment is medically supervised and begins with a real evaluation — never guesswork. Registered nurses, evidence over trends, and a plan built around your health before anything else.</span><span class="ar-i">كل علاج يجري بإشراف طبي ويبدأ بتقييم حقيقي — لا بالتخمين. ممرّضات مسجّلات، والدليل قبل الموضة، وخطة تُبنى حول صحتك أولاً.</span></p>
-    <a class="btn btn--glass svc__cta" href="#contact" data-reveal style="--d:320ms"><span class="en-i">Our approach</span><span class="ar-i">منهجنا</span><span class="i" aria-hidden="true">↗</span></a>
-  </div>
-</section>
-
-<!-- ============================================================ 3 · THE SPACE (calm gallery — the real villa) -->
-<section class="calm" id="space" data-theme="light">
-  <div class="calm__head">
-    <h2 class="calm__h serif lines" data-reveal>
-      <span class="en"><span class="ln"><i>Designed to Feel Calm,</i></span><span class="ln"><i>Built to <em>Treat Seriously.</em></i></span></span>
-      <span class="ar"><span class="ln"><i>مصمَّمة لتشعري بالطمأنينة،</i></span><span class="ln"><i>مبنيّة <em>لتعالج بجدية.</em></i></span></span>
+<!-- ============================================================ 2 · THE HOUSE (page-native architectural walk-through of the real interiors) -->
+<section class="walk" id="walk" data-theme="light">
+  <header class="walk__head">
+    <div class="eyebrow" data-reveal><span class="en-i">The house</span><span class="ar-i">البيت</span></div>
+    <h2 class="walk__h serif lines" data-reveal style="--d:100ms">
+      <span class="en"><span class="ln"><i>A walk through</i></span><span class="ln"><i>the <em>villa.</em></i></span></span>
+      <span class="ar"><span class="ln"><i>جولة داخل</i></span><span class="ln"><i>ال<em>فيلا.</em></i></span></span>
     </h2>
-    <p class="calm__sub" data-reveal style="--d:160ms"><span class="en-i">Private, refined, and medically guided from the moment you walk in.</span><span class="ar-i">خصوصية ورقيّ وإشراف طبي منذ لحظة دخولك.</span></p>
-  </div>
-  <!-- broken editorial grid of interiors -->
-  <div class="calm__grid" id="calmGrid">
-    <figure class="gItem gItem--1" data-reveal style="--rv:translateY(34px); --d:0ms">
-      <div class="gItem__frame"><picture><source type="image/webp" srcset="assets/clinic-1.webp"><img src="assets/clinic-1.jpg" alt="The BATO clinic villa at dusk, a warmly lit arched façade" loading="lazy"></picture></div>
-      <figcaption class="gItem__cap"><span class="gItem__idx">01</span><span class="gItem__lbl"><span class="en-i">The Arrival</span><span class="ar-i">الوصول</span></span><span class="gItem__dot" aria-hidden="true"></span></figcaption>
-    </figure>
-    <figure class="gItem gItem--2" data-reveal style="--rv:translateY(34px); --d:120ms">
-      <div class="gItem__frame"><picture><source type="image/webp" srcset="assets/clinic-2.webp"><img src="assets/clinic-2.jpg" alt="A BATO treatment room with a reclining chair in daylight" loading="lazy"></picture></div>
-      <figcaption class="gItem__cap"><span class="gItem__idx">02</span><span class="gItem__lbl"><span class="en-i">Treatment Suite</span><span class="ar-i">غرفة العلاج</span></span><span class="gItem__dot" aria-hidden="true"></span></figcaption>
-    </figure>
-    <figure class="gItem gItem--3" data-reveal style="--rv:translateY(34px); --d:240ms">
-      <div class="gItem__frame"><picture><source type="image/webp" srcset="assets/clinic-3.webp"><img src="assets/clinic-3.jpg" alt="A sculptural curved staircase inside the BATO clinic" loading="lazy"></picture></div>
-      <figcaption class="gItem__cap"><span class="gItem__idx">03</span><span class="gItem__lbl"><span class="en-i">The Detail</span><span class="ar-i">التفصيل</span></span><span class="gItem__dot" aria-hidden="true"></span></figcaption>
-    </figure>
-    <figure class="gItem gItem--4" data-reveal style="--rv:translateY(34px); --d:360ms">
-      <div class="gItem__frame"><picture><source type="image/webp" srcset="assets/clinic-4.webp"><img src="assets/clinic-4.jpg" alt="A sunlit consultation lounge at BATO with an arched window" loading="lazy"></picture></div>
-      <figcaption class="gItem__cap"><span class="gItem__idx">04</span><span class="gItem__lbl"><span class="en-i">Consultation</span><span class="ar-i">الاستشارة</span></span><span class="gItem__dot" aria-hidden="true"></span></figcaption>
-    </figure>
+    <p class="walk__sub" data-reveal style="--d:200ms"><span class="en-i">Not a clinic floor — a home in Al Safa, kept quiet, private and unhurried. Follow the light from the door to the room.</span><span class="ar-i">ليست ردهة عيادة — بل بيت في الصفا، هادئ وخاص وبلا عجلة. اتبعي الضوء من الباب إلى الغرفة.</span></p>
+  </header>
+
+  <ol class="walk__strip">
+    <li class="walk__scene walk__scene--wide" data-reveal>
+      <div class="walk__frame">
+        <span class="walk__thresh" aria-hidden="true"></span>
+        <picture><source type="image/webp" srcset="assets/clinic-1.webp"><img src="assets/clinic-1.jpg" alt="The warmly lit arched façade of the BATO villa at dusk" loading="lazy"></picture>
+      </div>
+      <div class="walk__cap">
+        <span class="walk__num num">01</span>
+        <h3 class="walk__t serif"><span class="en-i">The arrival</span><span class="ar-i">الوصول</span></h3>
+        <p class="walk__d"><span class="en-i">An arched door on Al Wasl Road. You are met, not processed.</span><span class="ar-i">باب مقوّس على شارع الوصل. نستقبلكِ، لا نُنجِز معاملة.</span></p>
+      </div>
+    </li>
+
+    <li class="walk__scene walk__scene--tall" data-reveal>
+      <div class="walk__frame">
+        <span class="walk__thresh" aria-hidden="true"></span>
+        <picture><source type="image/webp" srcset="assets/clinic-2.webp"><img src="assets/clinic-2.jpg" alt="A private BATO treatment room with a reclining chair in warm daylight" loading="lazy"></picture>
+      </div>
+      <div class="walk__cap">
+        <span class="walk__num num">02</span>
+        <h3 class="walk__t serif"><span class="en-i">The room</span><span class="ar-i">الغرفة</span></h3>
+        <p class="walk__d"><span class="en-i">One chair, daylight, and the door closed. Every treatment here is medically supervised.</span><span class="ar-i">كرسي واحد، وضوء النهار، وباب مغلق. كل علاج هنا يجري بإشراف طبي.</span></p>
+      </div>
+    </li>
+
+    <li class="walk__scene walk__scene--tall walk__scene--flip" data-reveal>
+      <div class="walk__frame">
+        <span class="walk__thresh" aria-hidden="true"></span>
+        <picture><source type="image/webp" srcset="assets/clinic-3.webp"><img src="assets/clinic-3.jpg" alt="A sculptural staircase inside the BATO villa" loading="lazy"></picture>
+      </div>
+      <div class="walk__cap">
+        <span class="walk__num num">03</span>
+        <h3 class="walk__t serif"><span class="en-i">The stair</span><span class="ar-i">الدرج</span></h3>
+        <p class="walk__d"><span class="en-i">A house has more than one floor. Space to move, and space to think.</span><span class="ar-i">للبيت أكثر من طابق. مساحة للحركة، ومساحة للتفكير.</span></p>
+      </div>
+    </li>
+
+    <li class="walk__scene walk__scene--wide" data-reveal>
+      <div class="walk__frame">
+        <span class="walk__thresh" aria-hidden="true"></span>
+        <picture><source type="image/webp" srcset="assets/clinic-4.webp"><img src="assets/clinic-4.jpg" alt="A sunlit consultation lounge at the BATO villa with an arched window" loading="lazy"></picture>
+      </div>
+      <div class="walk__cap">
+        <span class="walk__num num">04</span>
+        <h3 class="walk__t serif"><span class="en-i">The calm</span><span class="ar-i">الطمأنينة</span></h3>
+        <p class="walk__d"><span class="en-i">A lounge under an arched window — where the consultation begins, unhurried.</span><span class="ar-i">صالة تحت نافذة مقوّسة — حيث تبدأ الاستشارة، بلا عجلة.</span></p>
+      </div>
+    </li>
+  </ol>
+</section>
+
+<!-- ============================================================ 3 · THE PEOPLE (typographic ethos / credit block — no invented names or portraits) -->
+<section class="people" id="people" data-theme="dark">
+  <div class="people__inner">
+    <header class="people__head">
+      <div class="eyebrow" data-reveal><span class="en-i">The people</span><span class="ar-i">النّاس</span></div>
+      <h2 class="people__h serif lines" data-reveal style="--d:100ms">
+        <span class="en"><span class="ln"><i>Kept by a small,</i></span><span class="ln"><i>careful <em>team.</em></i></span></span>
+        <span class="ar"><span class="ln"><i>يديره فريق</i></span><span class="ln"><i>صغير <em>ودقيق.</em></i></span></span>
+      </h2>
+      <p class="people__lead" data-reveal style="--d:200ms"><span class="en-i">No conveyor belt, no upsell. A handful of registered nurses, working under medical supervision, who would rather see you twice than rush you once.</span><span class="ar-i">لا خطّ إنتاج، ولا بيع إضافي. عدد قليل من الممرّضات المسجّلات، يعملن بإشراف طبي، يفضّلن أن يرَينكِ مرّتين على أن يستعجلنكِ مرّة.</span></p>
+    </header>
+
+    <div class="people__creed">
+      <blockquote class="people__q serif" data-reveal>
+        <span class="en-i">“Where beauty starts with health.”</span><span class="ar-i">«حيث يبدأ الجمال بالصحة.»</span>
+      </blockquote>
+      <ul class="people__vals">
+        <li class="people__val" data-reveal style="--d:60ms">
+          <span class="people__valn num">01</span>
+          <h3 class="people__valt"><span class="en-i">Medically supervised</span><span class="ar-i">بإشراف طبي</span></h3>
+          <p class="people__vald"><span class="en-i">Every plan is reviewed by the clinic, not left to a device or a trend.</span><span class="ar-i">كل خطة تُراجَع من العيادة، لا تُترك لجهاز أو موضة.</span></p>
+        </li>
+        <li class="people__val" data-reveal style="--d:140ms">
+          <span class="people__valn num">02</span>
+          <h3 class="people__valt"><span class="en-i">Registered nurses</span><span class="ar-i">ممرّضات مسجّلات</span></h3>
+          <p class="people__vald"><span class="en-i">Hands you can trust, licensed and accountable to the Dubai Health Authority.</span><span class="ar-i">أيدٍ تثقين بها، مرخّصة ومسؤولة أمام هيئة الصحة بدبي.</span></p>
+        </li>
+        <li class="people__val" data-reveal style="--d:220ms">
+          <span class="people__valn num">03</span>
+          <h3 class="people__valt"><span class="en-i">Unhurried by design</span><span class="ar-i">بلا عجلة، عن قصد</span></h3>
+          <p class="people__vald"><span class="en-i">Time to ask, time to understand. Individual results vary, and we say so.</span><span class="ar-i">وقت للسؤال، ووقت للفهم. النتائج تختلف من شخص لآخر، ونقول ذلك بصراحة.</span></p>
+        </li>
+      </ul>
+    </div>
   </div>
 </section>
 
-<!-- ============================================================ 4 · CREDENTIALS / CLOSING (dark bridge CTA band) -->
-<section class="bridge" id="credentials" data-theme="dark" style="background:var(--ink);color:var(--paper)">
-  <h2 class="bridge__h serif lines" data-reveal>
-    <span class="en"><span class="ln"><i>Medically supervised.</i></span><span class="ln"><i><em>Always.</em></i></span></span>
-    <span class="ar"><span class="ln"><i>بإشراف طبي.</i></span><span class="ln"><i><em>دائماً.</em></i></span></span>
-  </h2>
-  <p class="bridge__body" data-reveal style="--d:140ms"><span class="en-i">DHA Licence <span class="num">5346564</span> · Registered nurses</span><span class="ar-i">ترخيص هيئة الصحة بدبي <span class="num">5346564</span> · ممرّضات مسجّلات</span></p>
-  <div class="hero__cta" data-reveal style="--d:240ms;justify-content:center;display:flex">
-    <a class="btn btn--glass" href="https://wa.me/"><span class="en-i">Book on WhatsApp</span><span class="ar-i">احجزي عبر واتساب</span><span class="i" aria-hidden="true">↗</span></a>
+<!-- ============================================================ 4 · THE STANDARD (restrained trust / credentials band) -->
+<section class="standard" id="standard" data-theme="light">
+  <div class="standard__inner">
+    <h2 class="standard__h serif lines" data-reveal>
+      <span class="en"><span class="ln"><i>A medical standard,</i></span><span class="ln"><i>held <em>quietly.</em></i></span></span>
+      <span class="ar"><span class="ln"><i>معيار طبي،</i></span><span class="ln"><i><em>بهدوء.</em></i></span></span>
+    </h2>
+    <ul class="standard__list">
+      <li class="standard__row" data-reveal>
+        <span class="standard__k"><span class="en-i">Licence</span><span class="ar-i">الترخيص</span></span>
+        <span class="standard__v"><span class="en-i">Dubai Health Authority · <span class="num">5346564</span></span><span class="ar-i">هيئة الصحة بدبي · <span class="num">5346564</span></span></span>
+      </li>
+      <li class="standard__row" data-reveal style="--d:80ms">
+        <span class="standard__k"><span class="en-i">Care</span><span class="ar-i">الرعاية</span></span>
+        <span class="standard__v"><span class="en-i">Registered nurses · medically supervised</span><span class="ar-i">ممرّضات مسجّلات · بإشراف طبي</span></span>
+      </li>
+      <li class="standard__row" data-reveal style="--d:160ms">
+        <span class="standard__k"><span class="en-i">Ethos</span><span class="ar-i">المبدأ</span></span>
+        <span class="standard__v"><span class="en-i">Where beauty starts with health</span><span class="ar-i">حيث يبدأ الجمال بالصحة</span></span>
+      </li>
+      <li class="standard__row" data-reveal style="--d:240ms">
+        <span class="standard__k"><span class="en-i">Place</span><span class="ar-i">المكان</span></span>
+        <span class="standard__v"><span class="en-i">A villa · Al Safa First, Al Wasl Road, Dubai</span><span class="ar-i">فيلا · الصفا الأولى، شارع الوصل، دبي</span></span>
+      </li>
+    </ul>
+    <div class="standard__cta" data-reveal style="--d:300ms">
+      <a class="btn btn--glass" href="https://wa.me/"><span class="en-i">Book on WhatsApp</span><span class="ar-i">احجزي عبر واتساب</span><span class="i" aria-hidden="true">↗</span></a>
+      <a class="hero__textlink" href="#walk" style="color:var(--ink)"><span class="en-i">See the house again</span><span class="ar-i">شاهدي البيت مجدداً</span><span class="hero__bare-i" aria-hidden="true"></span></a>
+    </div>
   </div>
 </section>
 

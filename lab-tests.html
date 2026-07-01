@@ -5,8 +5,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <!-- restore language before paint (zero flash) -->
 <script>(function(){try{var L=localStorage.getItem('bato-lang');if(L!=='en'&&L!=='ar')L='en';var h=document.documentElement;h.setAttribute('lang',L);h.setAttribute('dir',L==='ar'?'rtl':'ltr');h.setAttribute('data-lang',L);}catch(e){}})();</script>
-<title>Lab Tests & Diagnostics — Understand the Body First — BATO Clinic, Dubai</title>
-<meta name="description" content="Diagnostic blood panels and analysis that guide hair, skin and wellness treatment at BATO, Al Safa, Dubai. We evaluate before we treat. DHA Licence 5346564.">
+<title>Lab Tests & Diagnostics — Test. Then Treat. — BATO Clinic, Dubai · التحاليل</title>
+<meta name="description" content="The reading before the plan — diagnostic blood panels that guide hair, skin and wellness care at BATO, Al Safa, Dubai. We test, then we treat. DHA Licence 5346564. القراءة قبل الخطة: تحاليل تُوجّه العناية.">
 <link rel="canonical" href="https://batoclinic.com/">
 <meta name="theme-color" content="#f4efe6">
 <link rel="icon" type="image/png" href="assets/bato-logo.png">
@@ -16,14 +16,14 @@
 <meta property="og:site_name" content="BATO Medical Clinic">
 <meta property="og:locale" content="ar_AE">
 <meta property="og:locale:alternate" content="en_US">
-<meta property="og:title" content="Lab Tests & Diagnostics — Understand the Body First — BATO Clinic, Dubai">
+<meta property="og:title" content="Lab Tests & Diagnostics — Test. Then Treat. — BATO Clinic, Dubai">
 <meta property="og:description" content="Diagnostic blood panels and analysis that guide hair, skin and wellness treatment. We evaluate before we treat. Al Safa, Dubai · DHA Licence 5346564.">
 <meta property="og:image" content="https://batoclinic.com/assets/svc-lab.jpg">
 <meta property="og:image:width" content="2200">
 <meta property="og:image:height" content="972">
 <meta property="og:image:alt" content="BATO Lab Tests — amber serum vials and a microscope for diagnostic analysis">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Lab Tests & Diagnostics — Understand the Body First — BATO Clinic">
+<meta name="twitter:title" content="Lab Tests & Diagnostics — Test. Then Treat. — BATO Clinic">
 <meta name="twitter:description" content="Diagnostic blood panels and analysis that guide hair, skin and wellness treatment. We evaluate before we treat. Al Safa, Dubai.">
 <meta name="twitter:image" content="https://batoclinic.com/assets/svc-lab.jpg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -695,6 +695,117 @@ html[data-lang="ar"] .ed__line{ font-family:var(--ar-serif); }
   *{ animation-duration:.001ms!important; transition-duration:.001ms!important; }
   .hero__media img,.atmos__media img,.atmos__media video{ transform:none; }
 }
+
+/* ============================================================================
+   LAB-PAGE SIGNATURE — native to this page only (not on the homepage or Hair):
+   a faint clinical grid + thin indicator line in the hero · "The Panel"
+   (biomarker tiles whose fine indicator bars draw on enter) · a horizontal
+   "Sample → Analysis → Report → Plan" pipeline stepper · a why-it-matters line.
+   Register "beauty starts with health": the most clinical, precise page —
+   thin rules, tabular numerals, restrained gold.
+   ============================================================================ */
+
+/* ---- hero clinical accents: a faint measurement grid + one thin indicator line that sweeps (the page reads as an instrument, not a decoration) */
+.hero__grid{ position:absolute; inset:0; z-index:1; pointer-events:none; opacity:.5;
+  background-image:linear-gradient(rgba(245,226,170,.05) 1px, transparent 1px), linear-gradient(90deg, rgba(245,226,170,.05) 1px, transparent 1px);
+  background-size:clamp(46px,6vw,88px) clamp(46px,6vw,88px);
+  -webkit-mask:linear-gradient(105deg, transparent 0%, #000 46%, #000 100%); mask:linear-gradient(105deg, transparent 0%, #000 46%, #000 100%); }
+html[dir="rtl"] .hero__grid{ -webkit-mask:linear-gradient(255deg, transparent 0%, #000 46%, #000 100%); mask:linear-gradient(255deg, transparent 0%, #000 46%, #000 100%); }
+.hero__line{ position:absolute; left:0; right:0; top:0; height:1px; z-index:1; pointer-events:none;
+  background:linear-gradient(90deg, rgba(245,226,170,0) 0%, rgba(245,226,170,.7) 50%, rgba(245,226,170,0) 100%);
+  box-shadow:0 0 18px 1px rgba(230,196,106,.28);
+  transform:translateY(0); animation:labScan 9s cubic-bezier(.5,0,.5,1) infinite; }
+@keyframes labScan{ 0%{ transform:translateY(0); opacity:0; } 8%{ opacity:1; } 72%{ transform:translateY(100svh); opacity:1; } 80%,100%{ transform:translateY(100svh); opacity:0; } }
+@media(prefers-reduced-motion:reduce){ .hero__line{ display:none; } }
+
+/* ---- THE PANEL — the offered biomarker panels as an editorial grid; each tile's fine indicator bar draws on section-enter (signature) */
+.panel{ max-width:var(--maxw); margin:0 auto; padding:clamp(90px,15vh,210px) var(--pad) clamp(70px,11vh,150px); }
+.panel__head{ display:grid; gap:22px; align-items:end; margin-bottom:clamp(46px,8vh,104px); }
+@media(min-width:900px){ .panel__head{ grid-template-columns:1.15fr .85fr; column-gap:clamp(46px,6vw,110px); } }
+.panel__h{ font-size:clamp(2.3rem,5.4vw,5.2rem); margin-top:.35em; }
+.panel__h em{ color:var(--gold-deep); font-style:italic; } html[data-lang="ar"] .panel__h em{ font-style:normal; }
+.panel__lead{ color:var(--soft); font-size:clamp(1rem,1.35vw,1.25rem); line-height:1.62; max-width:42ch; align-self:end; text-wrap:pretty; }
+html[data-lang="ar"] .panel__lead{ font-family:var(--ar-sans); }
+
+/* the grid: thin-ruled tiles, hairline gaps — a clinical register, not cards */
+.panel__grid{ display:grid; grid-template-columns:1fr; gap:1px; background:var(--line); border:1px solid var(--line); border-radius:var(--radius); overflow:hidden; }
+@media(min-width:680px){ .panel__grid{ grid-template-columns:repeat(2,1fr); } }
+@media(min-width:1040px){ .panel__grid{ grid-template-columns:repeat(3,1fr); } }
+.panelItem{ background:var(--paper); padding:clamp(24px,2.6vw,40px); display:flex; flex-direction:column; min-height:clamp(210px,26vh,290px); transition:background .5s var(--ease); }
+.panelItem:hover{ background:var(--paper-2); }
+.panelItem__top{ display:flex; align-items:baseline; justify-content:space-between; gap:1em; }
+.panelItem__idx{ font-family:var(--sans); font-weight:500; font-size:12px; letter-spacing:.16em; color:var(--gold); font-variant-numeric:tabular-nums; }
+.panelItem__unit{ font-family:var(--sans); font-size:11px; letter-spacing:.14em; text-transform:uppercase; color:var(--faint); font-variant-numeric:tabular-nums; }
+html[data-lang="ar"] .panelItem__unit{ font-family:var(--ar-sans); letter-spacing:.02em; }
+.panelItem__label{ font-family:var(--serif); font-optical-sizing:auto; font-weight:400; font-size:clamp(1.5rem,2.1vw,2rem); line-height:1.08; margin:.5em 0 0; }
+html[data-lang="ar"] .panelItem__label{ font-family:var(--ar-serif); line-height:1.3; }
+/* the fine indicator: a hairline track with a gold fill that draws left→right on enter (each tile staggered) */
+.panelItem__bar{ position:relative; height:2px; margin:1.1em 0 .1em; background:var(--line); overflow:hidden; }
+.panelItem__bar::before{ content:""; position:absolute; inset:0; transform-origin:left; transform:scaleX(0);
+  background:linear-gradient(90deg, var(--gold), var(--gold-hi));
+  transition:transform 1.15s var(--ease) var(--d,0ms); }
+html[dir="rtl"] .panelItem__bar::before{ transform-origin:right; }
+.panel.in .panelItem__bar::before, .no-js .panelItem__bar::before, .reduce .panelItem__bar::before{ transform:scaleX(var(--fill,.62)); }
+.panelItem__d{ margin-top:auto; padding-top:1.1em; font-size:.96rem; line-height:1.6; color:var(--soft); max-width:32ch; text-wrap:pretty; }
+html[data-lang="ar"] .panelItem__d{ font-family:var(--ar-sans); font-size:1rem; }
+.panel__note{ margin:clamp(30px,4.5vh,60px) 0 0; font-family:var(--sans); font-size:12px; letter-spacing:.02em; color:var(--soft); opacity:.85; max-width:60ch; text-wrap:pretty; }
+html[data-lang="ar"] .panel__note{ font-family:var(--ar-sans); }
+
+/* ---- THE PIPELINE — Sample → Analysis → Report → Plan as a HORIZONTAL stepper (vertical on mobile); tick/number-led, a single connecting rule that draws across on enter. Deliberately unlike Hair's vertical alternating spine. */
+.pipe{ background:var(--night); color:var(--paper); padding:clamp(74px,12vh,180px) var(--pad); }
+.pipe__inner{ max-width:var(--maxw); margin:0 auto; }
+.pipe .eyebrow{ color:var(--gold-hi); } .pipe .eyebrow::before{ background:var(--gold); }
+.pipe__head{ text-align:center; margin-bottom:clamp(48px,8vh,110px); }
+.pipe__h{ font-family:var(--serif); font-optical-sizing:auto; font-weight:300; font-size:clamp(2rem,4.4vw,4rem); line-height:1.05; letter-spacing:-.01em; color:var(--paper); margin-top:.4em; }
+html[data-lang="ar"] .pipe__h{ font-family:var(--ar-serif); line-height:1.26; }
+.pipe__h em{ font-style:italic; color:var(--gold-hi); } html[data-lang="ar"] .pipe__h em{ font-style:normal; }
+.pipe__track{ position:relative; display:grid; grid-template-columns:1fr; gap:clamp(30px,5vh,50px); }
+/* the connecting rule (behind the nodes) */
+.pipe__rail{ position:absolute; z-index:0; background:rgba(244,239,230,.16); }
+.pipe__rail::before{ content:""; position:absolute; inset:0; transform-origin:top; transform:scaleY(0);
+  background:linear-gradient(180deg, var(--gold-hi), var(--gold)); transition:transform 1.6s var(--ease) .15s; }
+.pipe.in .pipe__rail::before, .no-js .pipe__rail::before, .reduce .pipe__rail::before{ transform:scaleY(1); }
+/* mobile: the rail runs vertically down the left gutter */
+.pipe__rail{ left:15px; top:16px; bottom:16px; width:1.5px; }
+.pipeStep{ position:relative; padding-inline-start:52px; }
+.pipeStep__node{ position:absolute; inset-inline-start:0; top:2px; width:31px; height:31px; border-radius:50%; z-index:1;
+  display:grid; place-items:center; background:var(--night); border:1px solid rgba(244,239,230,.3);
+  font-family:var(--sans); font-weight:500; font-size:12px; letter-spacing:.02em; color:var(--gold-hi); font-variant-numeric:tabular-nums;
+  transform:scale(.6); opacity:0; transition:transform .55s var(--ease), opacity .55s var(--ease), border-color .55s var(--ease), background .55s var(--ease); }
+.pipe.in .pipeStep__node, .no-js .pipeStep__node, .reduce .pipeStep__node{ transform:scale(1); opacity:1; border-color:var(--gold); background:linear-gradient(160deg, rgba(230,196,106,.18), rgba(23,16,9,.6)); }
+.pipe.in .pipeStep:nth-child(1) .pipeStep__node{ transition-delay:.25s; }
+.pipe.in .pipeStep:nth-child(2) .pipeStep__node{ transition-delay:.55s; }
+.pipe.in .pipeStep:nth-child(3) .pipeStep__node{ transition-delay:.85s; }
+.pipe.in .pipeStep:nth-child(4) .pipeStep__node{ transition-delay:1.15s; }
+.pipeStep__t{ font-family:var(--serif); font-optical-sizing:auto; font-weight:400; font-size:clamp(1.35rem,2.1vw,1.9rem); line-height:1.06; color:var(--paper); }
+html[data-lang="ar"] .pipeStep__t{ font-family:var(--ar-serif); line-height:1.3; }
+.pipeStep__d{ margin-top:.5em; color:var(--night-soft); font-size:clamp(.98rem,1.1vw,1.1rem); line-height:1.58; max-width:30ch; text-wrap:pretty; }
+html[data-lang="ar"] .pipeStep__d{ font-family:var(--ar-sans); }
+/* desktop: four columns, the rail runs horizontally across the top of the nodes */
+@media(min-width:820px){
+  .pipe__track{ grid-template-columns:repeat(4,1fr); gap:clamp(30px,3.4vw,64px); }
+  .pipe__rail{ left:calc(15px); right:calc(15px); top:15px; bottom:auto; width:auto; height:1.5px; }
+  .pipe__rail::before{ transform-origin:left; transform:scaleX(0); transition:transform 1.6s var(--ease) .15s; }
+  html[dir="rtl"] .pipe__rail::before{ transform-origin:right; }
+  .pipe.in .pipe__rail::before, .no-js .pipe__rail::before, .reduce .pipe__rail::before{ transform:scaleX(1); }
+  .pipeStep{ padding-inline-start:0; padding-top:52px; }
+  .pipeStep__node{ inset-inline-start:0; top:0; }
+}
+
+/* ---- WHY IT MATTERS — one editorial line: at BATO the treatment follows the reading, not the reverse */
+.why{ max-width:var(--maxw); margin:0 auto; padding:clamp(90px,15vh,210px) var(--pad); }
+.why__inner{ max-width:24ch; }
+.why__h{ font-family:var(--serif); font-optical-sizing:auto; font-weight:300; font-size:clamp(1.9rem,4.4vw,4rem); line-height:1.14; letter-spacing:-.01em; color:var(--ink); text-wrap:balance; }
+html[data-lang="ar"] .why__h{ font-family:var(--ar-serif); line-height:1.4; max-width:26ch; }
+.why__h em{ font-style:italic; color:var(--gold-deep); } html[data-lang="ar"] .why__h em{ font-style:normal; }
+.why__rule{ width:44px; height:2px; background:var(--gold); margin:clamp(28px,4vh,48px) 0 clamp(24px,3.5vh,40px); }
+.why__body{ font-size:clamp(1.05rem,1.5vw,1.4rem); line-height:1.62; color:var(--soft); max-width:50ch; text-wrap:pretty; }
+html[data-lang="ar"] .why__body{ font-family:var(--ar-sans); }
+
+/* ---- LAB-PAGE MOBILE ---- */
+@media(max-width:819px){
+  .panelItem{ min-height:clamp(180px,24vh,240px); }
+}
 </style>
 <script type="application/ld+json">
 {"@context":"https://schema.org","@type":"MedicalClinic","@id":"https://batoclinic.com/lab-tests.html#clinic","name":"BATO — Lab Tests","alternateName":"باتو — التحاليل","description":"Diagnostic blood panels, hormone and vitamin testing, and scalp and skin analysis that guide hair, skin and wellness treatment at BATO, Al Safa, Dubai. We evaluate before we treat.","url":"https://batoclinic.com/lab-tests.html","image":"https://batoclinic.com/assets/svc-lab.jpg","priceRange":"$$$","sameAs":["https://instagram.com/batoclinic"],"medicalSpecialty":["Dermatology","CosmeticProcedure"],"address":{"@type":"PostalAddress","streetAddress":"Al Safa First, Al Wasl Road","addressLocality":"Dubai","addressCountry":"AE"},"areaServed":"Dubai","slogan":"Where beauty starts with health","openingHoursSpecification":[{"@type":"OpeningHoursSpecification","dayOfWeek":["Saturday","Sunday","Monday","Tuesday","Wednesday"],"opens":"11:00","closes":"19:00"},{"@type":"OpeningHoursSpecification","dayOfWeek":["Thursday","Friday"],"opens":"11:00","closes":"18:00"}]}
@@ -740,14 +851,14 @@ html[data-lang="ar"] .ed__line{ font-family:var(--ar-serif); }
 
 <main id="top" tabindex="-1">
 
-<!-- ============================================================ HERO -->
+<!-- ============================================================ HERO — data-forward, clinical accents (page-native) -->
 <section class="hero" id="hero" data-theme="dark">
   <div class="hero__stage">
   <div class="hero__inner">
-    <div class="eyebrow hero__eyebrow" data-reveal style="--d:120ms"><span class="en-i">Evidence-based · Diagnostic-first</span><span class="ar-i">قائم على الأدلة · يبدأ بالتشخيص</span></div>
+    <div class="eyebrow hero__eyebrow" data-reveal style="--d:120ms"><span class="en-i">Diagnostics · The reading before the plan</span><span class="ar-i">التشخيص · القراءة قبل الخطة</span></div>
     <h1 class="hero__h serif lines">
-      <span class="en"><span class="ln"><i>Understand the</i></span><span class="ln"><i><em>body</em> first.</i></span></span>
-      <span class="ar"><span class="ln"><i>افهمي <em>الجسد</em></i></span><span class="ln"><i>أولاً.</i></span></span>
+      <span class="en"><span class="ln"><i>Test.</i></span><span class="ln"><i>Then <em>treat.</em></i></span></span>
+      <span class="ar"><span class="ln"><i>نُحلّل،</i></span><span class="ln"><i>ثم <em>نعالج.</em></i></span></span>
     </h1>
     <div class="hero__cta" data-reveal style="--d:300ms">
       <a class="btn btn--glass" href="#contact"><span class="en-i">Book a consultation</span><span class="ar-i">احجزي استشارة</span><span class="i" aria-hidden="true">↗</span></a>
@@ -766,41 +877,112 @@ html[data-lang="ar"] .ed__line{ font-family:var(--ar-serif); }
       <img src="assets/svc-lab.jpg" alt="Amber serum vials and a microscope for diagnostic lab tests at the BATO clinic" loading="eager" fetchpriority="high" width="2400" height="1350">
     </picture>
   </div>
+  <div class="hero__grid" aria-hidden="true"></div>
+  <div class="hero__line" aria-hidden="true"></div>
   </div>
 </section>
 
-<!-- ============================================================ 2 · BEAUTY FROM WITHIN (full-bleed dark card) -->
-<section class="skin" id="within" data-theme="dark">
-  <div class="skin__media" aria-hidden="true"><picture><source type="image/webp" srcset="assets/ed-understand.webp"><img src="assets/ed-understand.jpg" alt="A clinician examining a patient with a dermatoscope beside a diagnostic scan at the BATO clinic" loading="lazy"></picture></div>
-  <div class="skin__copy">
-    <span class="svc__idx num" data-reveal>01</span>
-    <h2 class="skin__h serif" data-reveal style="--d:120ms"><span class="en-i">Beauty from within.</span><span class="ar-i">الجمال من الداخل.</span></h2>
-    <p class="skin__body" data-reveal style="--d:220ms"><span class="en-i">Blood markers, hormones, vitamins, and scalp and skin analysis that reveal the real cause — before any treatment begins.</span><span class="ar-i">مؤشّرات الدم والهرمونات والفيتامينات وتحليل الفروة والبشرة، لكشف السبب الحقيقي قبل أن يبدأ أي علاج.</span></p>
-    <a class="btn btn--glass svc__cta" href="#contact" data-reveal style="--d:320ms"><span class="en-i">What we test</span><span class="ar-i">ماذا نُحلّل</span><span class="i" aria-hidden="true">↗</span></a>
+<!-- ============================================================ 2 · THE PANEL — biomarker panels; each fine indicator bar draws on section-enter (page-native signature) -->
+<section class="panel" id="the-panel" data-theme="light">
+  <header class="panel__head">
+    <div>
+      <div class="eyebrow" data-reveal><span class="en-i">The panel</span><span class="ar-i">لوحة التحاليل</span></div>
+      <h2 class="panel__h serif" data-reveal style="--d:90ms"><span class="en-i">Reading the <em>body</em>.</span><span class="ar-i">قراءة <em>الجسد</em>.</span></h2>
+    </div>
+    <p class="panel__lead" data-reveal style="--d:180ms"><span class="en-i">A focused set of blood markers we review to understand the terrain beneath hair, skin and wellness — so care is guided by what the body is actually saying.</span><span class="ar-i">مجموعة مدروسة من مؤشّرات الدم نقرؤها لفهم الأساس الذي تقوم عليه صحّة الشعر والبشرة والعافية، لتكون العناية موجَّهة بما يقوله الجسد فعلاً.</span></p>
+  </header>
+
+  <div class="panel__grid">
+    <article class="panelItem" style="--fill:.58; --d:0ms">
+      <div class="panelItem__top"><span class="panelItem__idx num">01</span><span class="panelItem__unit num">nmol/L</span></div>
+      <h3 class="panelItem__label"><span class="en-i">Hormones</span><span class="ar-i">الهرمونات</span></h3>
+      <span class="panelItem__bar" aria-hidden="true"></span>
+      <p class="panelItem__d"><span class="en-i">The signals behind shedding, oiliness and skin changes — read to shape a calmer, better-suited plan.</span><span class="ar-i">الإشارات وراء تساقط الشعر والدهنية وتغيّرات البشرة، نقرؤها لتصميم خطة أهدأ وأنسب لكِ.</span></p>
+    </article>
+
+    <article class="panelItem" style="--fill:.7; --d:90ms">
+      <div class="panelItem__top"><span class="panelItem__idx num">02</span><span class="panelItem__unit num">ng/mL · pg/mL</span></div>
+      <h3 class="panelItem__label"><span class="en-i">Vitamin D &amp; B12</span><span class="ar-i">فيتامين د و ب12</span></h3>
+      <span class="panelItem__bar" aria-hidden="true"></span>
+      <p class="panelItem__d"><span class="en-i">Everyday levels that quietly shape energy, hair strength and skin quality.</span><span class="ar-i">مستويات يومية تؤثّر بهدوء في الطاقة وقوّة الشعر ونضارة البشرة.</span></p>
+    </article>
+
+    <article class="panelItem" style="--fill:.5; --d:180ms">
+      <div class="panelItem__top"><span class="panelItem__idx num">03</span><span class="panelItem__unit num">µg/dL · ng/mL</span></div>
+      <h3 class="panelItem__label"><span class="en-i">Iron &amp; Ferritin</span><span class="ar-i">الحديد والفيريتين</span></h3>
+      <span class="panelItem__bar" aria-hidden="true"></span>
+      <p class="panelItem__d"><span class="en-i">The body's iron stores — often part of the picture in thinning and shedding.</span><span class="ar-i">مخزون الحديد في الجسم، وكثيراً ما يكون جزءاً من صورة خفّة الشعر وتساقطه.</span></p>
+    </article>
+
+    <article class="panelItem" style="--fill:.64; --d:270ms">
+      <div class="panelItem__top"><span class="panelItem__idx num">04</span><span class="panelItem__unit num">mIU/L</span></div>
+      <h3 class="panelItem__label"><span class="en-i">Thyroid</span><span class="ar-i">الغدّة الدرقية</span></h3>
+      <span class="panelItem__bar" aria-hidden="true"></span>
+      <p class="panelItem__d"><span class="en-i">A regulator that touches hair cycles, skin and overall wellbeing.</span><span class="ar-i">منظّم يؤثّر في دورات الشعر والبشرة والعافية العامة.</span></p>
+    </article>
+
+    <article class="panelItem" style="--fill:.55; --d:360ms">
+      <div class="panelItem__top"><span class="panelItem__idx num">05</span><span class="panelItem__unit num">mg/dL</span></div>
+      <h3 class="panelItem__label"><span class="en-i">Metabolic &amp; Glucose</span><span class="ar-i">الأيض والسكر</span></h3>
+      <span class="panelItem__bar" aria-hidden="true"></span>
+      <p class="panelItem__d"><span class="en-i">How the body handles sugar and energy — context for lasting, balanced results.</span><span class="ar-i">كيف يتعامل الجسم مع السكر والطاقة، سياقٌ لنتائج متوازنة ومستدامة.</span></p>
+    </article>
+
+    <article class="panelItem" style="--fill:.42; --d:450ms">
+      <div class="panelItem__top"><span class="panelItem__idx num">06</span><span class="panelItem__unit num">mg/L</span></div>
+      <h3 class="panelItem__label"><span class="en-i">Inflammation (CRP)</span><span class="ar-i">الالتهاب (CRP)</span></h3>
+      <span class="panelItem__bar" aria-hidden="true"></span>
+      <p class="panelItem__d"><span class="en-i">A general marker of inflammation that helps us read overall balance.</span><span class="ar-i">مؤشّر عام للالتهاب يساعدنا على قراءة التوازن العام.</span></p>
+    </article>
+  </div>
+
+  <p class="panel__note"><span class="en-i">Panels are selected with you at consultation and reviewed under medical supervision. This is wellness and aesthetic care, not a diagnosis; individual results vary.</span><span class="ar-i">تُختار التحاليل معكِ أثناء الاستشارة وتُراجَع بإشراف طبي. هذه عناية تجميلية وصحّية عامة وليست تشخيصاً؛ وتختلف النتائج من شخص لآخر.</span></p>
+</section>
+
+<!-- ============================================================ 3 · THE PIPELINE — Sample → Analysis → Report → Plan, a horizontal stepper (page-native; distinct from Hair's vertical spine) -->
+<section class="pipe" id="pipeline" data-theme="dark">
+  <div class="pipe__inner">
+    <header class="pipe__head">
+      <div class="eyebrow eyebrow--center" data-reveal><span class="en-i">The pipeline</span><span class="ar-i">المسار</span></div>
+      <h2 class="pipe__h" data-reveal style="--d:90ms"><span class="en-i">From <em>sample</em> to plan.</span><span class="ar-i">من <em>العيّنة</em> إلى الخطة.</span></h2>
+    </header>
+
+    <ol class="pipe__track">
+      <div class="pipe__rail" aria-hidden="true"></div>
+      <li class="pipeStep">
+        <span class="pipeStep__node num" aria-hidden="true">01</span>
+        <h3 class="pipeStep__t"><span class="en-i">Sample</span><span class="ar-i">العيّنة</span></h3>
+        <p class="pipeStep__d"><span class="en-i">A brief, careful draw with a registered nurse — quiet and unhurried.</span><span class="ar-i">سحبٌ قصير ولطيف مع ممرّضة مسجّلة، بهدوء ودون استعجال.</span></p>
+      </li>
+      <li class="pipeStep">
+        <span class="pipeStep__node num" aria-hidden="true">02</span>
+        <h3 class="pipeStep__t"><span class="en-i">Analysis</span><span class="ar-i">التحليل</span></h3>
+        <p class="pipeStep__d"><span class="en-i">Your markers are processed by an accredited laboratory.</span><span class="ar-i">تُحلَّل مؤشّراتكِ في مختبر معتمَد.</span></p>
+      </li>
+      <li class="pipeStep">
+        <span class="pipeStep__node num" aria-hidden="true">03</span>
+        <h3 class="pipeStep__t"><span class="en-i">Report</span><span class="ar-i">التقرير</span></h3>
+        <p class="pipeStep__d"><span class="en-i">Results are read with you, clearly — what they mean, in plain terms.</span><span class="ar-i">تُقرأ النتائج معكِ بوضوح، وما تعنيه بلغة بسيطة.</span></p>
+      </li>
+      <li class="pipeStep">
+        <span class="pipeStep__node num" aria-hidden="true">04</span>
+        <h3 class="pipeStep__t"><span class="en-i">Plan</span><span class="ar-i">الخطة</span></h3>
+        <p class="pipeStep__d"><span class="en-i">Care is shaped around the reading — and around you.</span><span class="ar-i">تُصمَّم العناية حول القراءة، وحولكِ أنتِ.</span></p>
+      </li>
+    </ol>
   </div>
 </section>
 
-<!-- ============================================================ 3 · WHAT WE TEST (editorial broken grid) -->
-<section class="editorial" id="what-we-test" data-theme="light">
-  <div class="ed__intro" data-reveal><span class="ed__kicker"><span class="en-i">What we test</span><span class="ar-i">ماذا نُحلّل</span></span></div>
-  <div class="ed__grid" id="edGrid">
-    <figure class="ed__item ed__item--a" data-reveal style="--rv:translateY(34px); --d:0ms">
-      <div class="ed__frame"><picture><source type="image/webp" srcset="assets/scalp.webp"><img src="assets/scalp.jpg" alt="Close diagnostic analysis of the scalp at the BATO clinic" loading="lazy"></picture></div>
-      <figcaption class="ed__cap"><span class="ed__idx">01</span><span class="ed__lbl"><span class="en-i">Blood panels</span><span class="ar-i">تحاليل الدم</span></span><span class="ed__dot" aria-hidden="true"></span></figcaption>
-    </figure>
-    <figure class="ed__item ed__item--b" data-reveal style="--rv:translateY(34px); --d:130ms">
-      <div class="ed__frame"><picture><source type="image/webp" srcset="assets/ed-understand.webp"><img src="assets/ed-understand.jpg" alt="A clinician examining a patient's scalp and skin with a dermatoscope beside a diagnostic scan" loading="lazy"></picture></div>
-      <figcaption class="ed__cap"><span class="ed__idx">02</span><span class="ed__lbl"><span class="en-i">Scalp &amp; skin analysis</span><span class="ar-i">تحليل الفروة والبشرة</span></span><span class="ed__dot" aria-hidden="true"></span></figcaption>
-    </figure>
-    <figure class="ed__item ed__item--c" data-reveal style="--rv:translateY(34px); --d:260ms">
-      <div class="ed__frame"><picture><source type="image/webp" srcset="assets/clinic-2.webp"><img src="assets/clinic-2.jpg" alt="A calm BATO treatment room where diagnostics are reviewed" loading="lazy"></picture></div>
-      <figcaption class="ed__cap"><span class="ed__idx">03</span><span class="ed__lbl"><span class="en-i">Vitamins &amp; hormones</span><span class="ar-i">الفيتامينات والهرمونات</span></span><span class="ed__dot" aria-hidden="true"></span></figcaption>
-    </figure>
+<!-- ============================================================ 4 · WHY IT MATTERS — the treatment follows the reading (page-native editorial line) -->
+<section class="why" id="why" data-theme="light">
+  <div class="why__inner">
+    <h2 class="why__h" data-reveal><span class="en-i">The treatment follows the <em>reading</em> — not the reverse.</span><span class="ar-i">العلاج يتبع <em>القراءة</em> — لا العكس.</span></h2>
+    <div class="why__rule" data-reveal style="--d:150ms" aria-hidden="true"></div>
+    <p class="why__body" data-reveal style="--d:240ms"><span class="en-i">At BATO, beauty starts with health. Before anything is recommended, we read what the body is telling us — then let that evidence guide a plan made for you. It is the slower, more honest way, and it is the only one we practise.</span><span class="ar-i">في باتو، يبدأ الجمال بالصحة. قبل أن نوصي بأي شيء، نقرأ ما يخبرنا به الجسد، ثم ندع هذا الدليل يوجّه خطةً وُضِعت لكِ. إنه الطريق الأبطأ والأكثر صدقاً، وهو الوحيد الذي نتّبعه.</span></p>
   </div>
-  <p class="ed__line" data-reveal><span class="en-i">We measure, then we treat.</span><span class="ar-i">نقيس، ثم نعالج.</span></p>
 </section>
 
-<!-- ============================================================ 4 · CLOSING CTA BAND (dark bridge) -->
+<!-- ============================================================ 5 · CLOSING CTA BAND (dark bridge — kept) -->
 <section class="bridge" id="proof" data-theme="dark" style="background:var(--ink);color:var(--paper)">
   <h2 class="bridge__h serif lines" data-reveal style="color:var(--paper)">
     <span class="en"><span class="ln"><i>Treatment that starts</i></span><span class="ln"><i>with <em>proof.</em></i></span></span>
@@ -858,7 +1040,7 @@ html[data-lang="ar"] .ed__line{ font-family:var(--ar-serif); }
 <script>document.body.classList.remove('no-js');
 /* safety net: if window.load never fires (a hung font/script/image), reveal everything anyway so the page is never blank */
 window.__engineUp=false;
-setTimeout(function(){ if(window.__engineUp) return; document.querySelectorAll('[data-reveal], .lines').forEach(function(e){ e.classList.add('in'); }); var n=document.getElementById('nav'); if(n) n.classList.remove('is-hidden'); }, 4000);</script>
+setTimeout(function(){ if(window.__engineUp) return; document.querySelectorAll('[data-reveal], .lines, .panel, .pipe').forEach(function(e){ e.classList.add('in'); }); var n=document.getElementById('nav'); if(n) n.classList.remove('is-hidden'); }, 4000);</script>
 <script>
 /* before/after comparison slider + stat count-up (run independent of scroll engine, reduced-motion aware) */
 (function(){
@@ -1048,7 +1230,7 @@ window.addEventListener('load', function(){
     wordEl.classList.toggle('themed', p>0.8);  // turn on the smart blend once it's the mini mark (DNA gone)
     if(p>0){ ltrs.forEach(function(el){ el.style.transform='translateX('+(lpx(el)*(1-p)).toFixed(1)+'px)'; }); if(dnaC) dnaC.style.opacity=Math.max(0,1-p*1.25).toFixed(3); }
   }
-  function showAll(){ document.querySelectorAll('[data-reveal], .lines').forEach(function(e){ e.classList.add('in'); }); if(nav) nav.classList.remove('is-hidden'); }
+  function showAll(){ document.querySelectorAll('[data-reveal], .lines, .panel, .pipe').forEach(function(e){ e.classList.add('in'); }); if(nav) nav.classList.remove('is-hidden'); }
 
   /* graceful fallback if motion is off or libs failed to load */
   if(reduce || !window.gsap || !window.ScrollTrigger){ document.body.classList.add('reduce'); showAll(); applyMorph(0); return; }
@@ -1064,7 +1246,7 @@ window.addEventListener('load', function(){
   }
 
   /* reveals — batched, fire as each enters */
-  ScrollTrigger.batch('[data-reveal], .lines', { start:'top 80%', onEnter:function(els){ els.forEach(function(e){ e.classList.add('in'); }); } });
+  ScrollTrigger.batch('[data-reveal], .lines, .panel, .pipe', { start:'top 80%', onEnter:function(els){ els.forEach(function(e){ e.classList.add('in'); }); } });
 
   /* logo morph — scrubbed across the first viewport */
   if(introEl){

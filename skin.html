@@ -695,6 +695,154 @@ html[data-lang="ar"] .ed__line{ font-family:var(--ar-serif); }
   *{ animation-duration:.001ms!important; transition-duration:.001ms!important; }
   .hero__media img,.atmos__media img,.atmos__media video{ transform:none; }
 }
+
+/* ============================================================================
+   SKIN-PAGE SIGNATURE — native to this page only (concept: "Read in light"):
+   a breathing luminance bloom on the hero · the concern→approach matcher
+   (pure-CSS radios) · a refined editorial treatment menu
+   ============================================================================ */
+
+/* ---- hero: a soft warm bloom breathes over the portrait + a slow diagonal light sweep (light reading the skin — not Hair's hard vertical scan) */
+.hero__bloom{ position:absolute; inset:0; z-index:1; pointer-events:none; mix-blend-mode:screen;
+  background:radial-gradient(42% 40% at 66% 40%, rgba(245,226,170,.34) 0%, rgba(230,196,106,.14) 42%, rgba(230,196,106,0) 72%);
+  opacity:.7; animation:skinBloom 9s ease-in-out infinite; }
+@keyframes skinBloom{ 0%,100%{ opacity:.5; transform:scale(1); } 50%{ opacity:.9; transform:scale(1.06); } }
+html[dir="rtl"] .hero__bloom{ background:radial-gradient(42% 40% at 34% 40%, rgba(245,226,170,.34) 0%, rgba(230,196,106,.14) 42%, rgba(230,196,106,0) 72%); }
+.hero__sweep{ position:absolute; inset:-20% -40%; z-index:1; pointer-events:none; mix-blend-mode:screen;
+  background:linear-gradient(112deg, rgba(245,226,170,0) 40%, rgba(245,226,170,.10) 50%, rgba(245,226,170,0) 60%);
+  transform:translateX(-40%); animation:skinSweep 11s cubic-bezier(.5,0,.5,1) infinite; }
+@keyframes skinSweep{ 0%{ transform:translateX(-46%); opacity:0; } 12%{ opacity:1; } 60%{ transform:translateX(46%); opacity:1; } 72%,100%{ transform:translateX(46%); opacity:0; } }
+@media(prefers-reduced-motion:reduce){ .hero__bloom{ animation:none; opacity:.62; transform:none; } .hero__sweep{ display:none; } }
+
+/* ---- reading: quiet philosophy lead (replaces the reused dark full-bleed card) */
+.reading{ max-width:var(--maxw); margin:0 auto; padding:clamp(92px,15vh,210px) var(--pad) clamp(40px,7vh,110px); }
+.reading__grid{ display:grid; gap:clamp(24px,4vh,54px); }
+@media(min-width:900px){ .reading__grid{ grid-template-columns:1.32fr .68fr; align-items:end; column-gap:clamp(46px,7vw,118px); } }
+.reading__h{ font-size:clamp(2.1rem,5vw,5rem); }
+.reading__h em{ color:var(--gold-deep); font-style:italic; } html[data-lang="ar"] .reading__h em{ font-style:normal; }
+.reading__body{ font-size:clamp(1.05rem,1.4vw,1.35rem); line-height:1.62; color:var(--soft); max-width:44ch; text-wrap:pretty; align-self:end; }
+html[data-lang="ar"] .reading__body{ font-family:var(--ar-sans); font-size:clamp(1.1rem,1.5vw,1.45rem); }
+
+/* ---- THE MATCHER — concern → approach, switched purely by CSS radios (signature interactive moment) */
+.matcher{ background:linear-gradient(180deg, var(--paper) 0%, #faf6ee 100%); }
+.matcher__inner{ max-width:1180px; margin:0 auto; padding:clamp(70px,11vh,170px) var(--pad) clamp(80px,12vh,180px); }
+.matcher__head{ text-align:center; margin-bottom:clamp(38px,6vh,74px); }
+.matcher .eyebrow{ justify-content:center; }
+.matcher__h{ font-size:clamp(2.2rem,5.4vw,5rem); margin-top:.4em; }
+.matcher__h em{ color:var(--gold-deep); font-style:italic; } html[data-lang="ar"] .matcher__h em{ font-style:normal; }
+.matcher__sub{ margin:1em auto 0; color:var(--soft); font-size:clamp(1rem,1.35vw,1.24rem); line-height:1.6; max-width:52ch; text-wrap:pretty; }
+html[data-lang="ar"] .matcher__sub{ font-family:var(--ar-sans); }
+
+.matcher__radio{ position:absolute; width:1px; height:1px; opacity:0; overflow:hidden; clip:rect(0 0 0 0); }
+.matcher__panel{ position:relative; display:grid; gap:clamp(22px,3.4vw,44px); align-items:start; }
+@media(min-width:840px){ .matcher__panel{ grid-template-columns:.82fr 1.18fr; column-gap:clamp(38px,5vw,80px); } }
+
+/* chip rail — vertical tab-list on desktop, wrapped chips on mobile */
+.matcher__chips{ display:flex; flex-wrap:wrap; gap:10px; }
+@media(min-width:840px){ .matcher__chips{ flex-direction:column; gap:clamp(8px,1.2vh,14px); } }
+.mchip{ display:inline-flex; align-items:center; gap:.7em; cursor:pointer; -webkit-tap-highlight-color:transparent;
+  padding:.85em 1.15em; border:1px solid var(--line); border-radius:var(--radius); background:rgba(255,255,255,.5);
+  font-family:var(--sans); font-weight:500; font-size:clamp(.9rem,1.05vw,1.02rem); letter-spacing:.01em; color:var(--soft);
+  transition:border-color .4s var(--ease), background .4s var(--ease), color .4s var(--ease), transform .3s var(--ease); }
+html[data-lang="ar"] .mchip{ font-family:var(--ar-sans); }
+@media(min-width:840px){ .mchip{ justify-content:flex-start; width:100%; } }
+.mchip:hover{ border-color:rgba(111,86,22,.4); color:var(--ink); transform:translateY(-1px); }
+.mchip__dot{ width:9px; height:9px; border-radius:50%; flex:0 0 auto; background:var(--line);
+  box-shadow:0 0 0 0 rgba(201,162,75,.4); transition:background .4s var(--ease), box-shadow .5s var(--ease); }
+.mchip:focus-visible{ outline:2px solid var(--gold); outline-offset:3px; }
+
+/* stage — the matched approach card sits over a soft luminance glow */
+.matcher__stage{ position:relative; min-height:clamp(280px,42vh,360px); border-radius:var(--radius);
+  border:1px solid var(--line); background:linear-gradient(158deg, #fff 0%, #fbf7ef 100%); overflow:hidden;
+  box-shadow:0 30px 70px -40px rgba(27,21,16,.3); }
+.matcher__glow{ position:absolute; inset:0; z-index:0; pointer-events:none; mix-blend-mode:normal;
+  background:radial-gradient(60% 60% at 78% 12%, rgba(245,226,170,.55) 0%, rgba(230,196,106,.12) 42%, rgba(230,196,106,0) 72%);
+  opacity:.85; transition:opacity .6s var(--ease); animation:matchGlow 8s ease-in-out infinite; }
+@keyframes matchGlow{ 0%,100%{ opacity:.6; } 50%{ opacity:.95; } }
+html[dir="rtl"] .matcher__glow{ background:radial-gradient(60% 60% at 22% 12%, rgba(245,226,170,.55) 0%, rgba(230,196,106,.12) 42%, rgba(230,196,106,0) 72%); }
+@media(prefers-reduced-motion:reduce){ .matcher__glow{ animation:none; opacity:.7; } }
+
+.mcard{ position:absolute; inset:0; z-index:1; display:flex; flex-direction:column; align-items:flex-start;
+  padding:clamp(26px,3.4vw,52px); opacity:0; transform:translateY(16px);
+  transition:opacity .55s var(--ease), transform .6s var(--ease); pointer-events:none; }
+.mcard__idx{ font-family:var(--serif); font-weight:300; font-size:clamp(1.4rem,2vw,2rem); color:var(--gold-deep); line-height:1; }
+.mcard__concern{ font-family:var(--sans); font-weight:500; font-size:12px; letter-spacing:.18em; text-transform:uppercase; color:var(--gold-deep); margin-top:1.2em; }
+html[data-lang="ar"] .mcard__concern{ font-family:var(--ar-sans); letter-spacing:.02em; text-transform:none; font-size:14px; }
+.mcard__d{ margin-top:.7em; font-family:var(--serif); font-optical-sizing:auto; font-weight:300; font-size:clamp(1.4rem,2.5vw,2.3rem); line-height:1.28; letter-spacing:-.01em; color:var(--ink); max-width:26ch; text-wrap:pretty; }
+html[data-lang="ar"] .mcard__d{ font-family:var(--ar-serif); font-weight:400; line-height:1.5; }
+.mcard__fam{ margin-top:auto; padding-top:1.4em; display:flex; align-items:baseline; gap:.7em; flex-wrap:wrap; }
+.mcard__fam-l{ font-family:var(--sans); font-size:11px; letter-spacing:.16em; text-transform:uppercase; color:var(--faint); }
+html[data-lang="ar"] .mcard__fam-l{ font-family:var(--ar-sans); letter-spacing:.02em; text-transform:none; font-size:13px; }
+.mcard__fam-v{ font-family:var(--serif); font-style:italic; font-size:clamp(1.05rem,1.5vw,1.4rem); color:var(--gold-deep); }
+html[data-lang="ar"] .mcard__fam-v{ font-family:var(--ar-serif); font-style:normal; }
+
+/* the switch: checked radio → lit chip + shown card. Chips ordered same as inputs; :checked targets by index via ~ */
+#cn-1:checked ~ .matcher__chips .mchip:nth-child(1),
+#cn-2:checked ~ .matcher__chips .mchip:nth-child(2),
+#cn-3:checked ~ .matcher__chips .mchip:nth-child(3),
+#cn-4:checked ~ .matcher__chips .mchip:nth-child(4),
+#cn-5:checked ~ .matcher__chips .mchip:nth-child(5),
+#cn-6:checked ~ .matcher__chips .mchip:nth-child(6){ border-color:var(--gold); background:#fff; color:var(--ink); box-shadow:0 6px 22px -12px rgba(201,162,75,.6); }
+#cn-1:checked ~ .matcher__chips .mchip:nth-child(1) .mchip__dot,
+#cn-2:checked ~ .matcher__chips .mchip:nth-child(2) .mchip__dot,
+#cn-3:checked ~ .matcher__chips .mchip:nth-child(3) .mchip__dot,
+#cn-4:checked ~ .matcher__chips .mchip:nth-child(4) .mchip__dot,
+#cn-5:checked ~ .matcher__chips .mchip:nth-child(5) .mchip__dot,
+#cn-6:checked ~ .matcher__chips .mchip:nth-child(6) .mchip__dot{ background:var(--gold); box-shadow:0 0 0 4px rgba(201,162,75,.18); }
+#cn-1:checked ~ .matcher__stage .mcard--1,
+#cn-2:checked ~ .matcher__stage .mcard--2,
+#cn-3:checked ~ .matcher__stage .mcard--3,
+#cn-4:checked ~ .matcher__stage .mcard--4,
+#cn-5:checked ~ .matcher__stage .mcard--5,
+#cn-6:checked ~ .matcher__stage .mcard--6{ opacity:1; transform:none; pointer-events:auto; }
+/* keyboard focus on a label lifts a ring on the matched chip */
+.mchip:focus-visible{ outline:2px solid var(--gold); outline-offset:3px; }
+.matcher__note{ margin:clamp(30px,5vh,58px) auto 0; max-width:52ch; text-align:center; font-family:var(--sans); font-size:12px; letter-spacing:.03em; color:var(--soft); opacity:.85; text-wrap:pretty; }
+html[data-lang="ar"] .matcher__note{ font-family:var(--ar-sans); letter-spacing:0; }
+
+/* ---- THE MENU — a refined editorial treatment list (light; distinct from Hair's dark concern index) */
+.menut{ max-width:var(--maxw); margin:0 auto; padding:clamp(80px,13vh,190px) var(--pad); }
+.menut__head{ text-align:center; margin-bottom:clamp(40px,6vh,86px); }
+.menut .eyebrow{ justify-content:center; }
+.menut__h{ font-size:clamp(2.2rem,5.4vw,5rem); margin-top:.4em; }
+.menut__h em{ color:var(--gold-deep); font-style:italic; } html[data-lang="ar"] .menut__h em{ font-style:normal; }
+.menut__list{ list-style:none; border-top:1px solid var(--line); }
+.mrow{ display:grid; grid-template-columns:auto 1fr; align-items:baseline; gap:.4em 1.1em;
+  padding:clamp(24px,4vh,50px) clamp(4px,1.4vw,20px); border-bottom:1px solid var(--line);
+  transition:background .5s var(--ease); }
+.mrow:hover{ background:linear-gradient(90deg, rgba(245,226,170,.14), rgba(245,226,170,0) 70%); }
+html[dir="rtl"] .mrow:hover{ background:linear-gradient(270deg, rgba(245,226,170,.14), rgba(245,226,170,0) 70%); }
+.mrow__idx{ font-family:var(--serif); font-weight:300; font-size:clamp(1.1rem,1.6vw,1.6rem); color:var(--gold-deep); grid-row:1; }
+.mrow__name{ font-weight:300; font-size:clamp(1.9rem,4.4vw,3.4rem); line-height:1; grid-row:1; }
+html[data-lang="ar"] .mrow__name{ font-family:var(--ar-serif); }
+/* fine leader rule filling the gap to the descriptor — an editorial menu cue */
+.mrow__lead{ grid-row:1; align-self:center; height:1px; min-width:20px;
+  background:repeating-linear-gradient(90deg, var(--line) 0 2px, transparent 2px 7px); opacity:.7; }
+.mrow__d{ grid-column:2; grid-row:2; margin-top:.55em; color:var(--soft); font-size:clamp(1rem,1.25vw,1.18rem); line-height:1.6; max-width:52ch; text-wrap:pretty; }
+html[data-lang="ar"] .mrow__d{ font-family:var(--ar-sans); }
+@media(min-width:900px){
+  .mrow{ grid-template-columns:auto auto 1fr auto; column-gap:clamp(18px,2vw,34px); align-items:center; }
+  .mrow__idx{ grid-row:1; } .mrow__name{ grid-row:1; }
+  .mrow__lead{ grid-row:1; width:auto; }
+  .mrow__d{ grid-column:4; grid-row:1; margin-top:0; text-align:end; max-width:34ch; justify-self:end; }
+  html[dir="rtl"] .mrow__d{ text-align:start; }
+}
+.menut__cta{ margin:clamp(44px,7vh,86px) auto 0; }
+@media(min-width:900px){ .menut__cta{ margin-inline-start:0; } }
+.menut{ text-align:center; }
+.menut__list{ text-align:start; }
+
+/* ---- new-body responsive: matcher + menu at 390px */
+@media(max-width:840px){
+  .matcher__stage{ min-height:0; }
+  .mcard{ position:relative; inset:auto; opacity:0; height:0; overflow:hidden; padding:0; pointer-events:none; transform:none; transition:opacity .45s var(--ease); }
+  #cn-1:checked ~ .matcher__stage .mcard--1,
+  #cn-2:checked ~ .matcher__stage .mcard--2,
+  #cn-3:checked ~ .matcher__stage .mcard--3,
+  #cn-4:checked ~ .matcher__stage .mcard--4,
+  #cn-5:checked ~ .matcher__stage .mcard--5,
+  #cn-6:checked ~ .matcher__stage .mcard--6{ opacity:1; height:auto; padding:clamp(24px,6vw,34px); pointer-events:auto; }
+}
 </style>
 <script type="application/ld+json">
 {"@context":"https://schema.org","@type":"MedicalClinic","@id":"https://batoclinic.com/#clinic","name":"BATO — Skin","alternateName":"باتو","url":"https://batoclinic.com/skin.html","description":"Medical-grade facials, chemical peels, hydration and plasma treatments to refresh, renew and improve skin quality at BATO Clinic, Al Safa, Dubai.","image":"https://batoclinic.com/assets/skin.jpg","priceRange":"$$$","sameAs":["https://instagram.com/batoclinic"],"medicalSpecialty":["Dermatology","CosmeticProcedure"],"address":{"@type":"PostalAddress","streetAddress":"Al Safa First, Al Wasl Road","addressLocality":"Dubai","addressCountry":"AE"},"areaServed":"Dubai","slogan":"Where beauty starts with health","openingHoursSpecification":[{"@type":"OpeningHoursSpecification","dayOfWeek":["Saturday","Sunday","Monday","Tuesday","Wednesday"],"opens":"11:00","closes":"19:00"},{"@type":"OpeningHoursSpecification","dayOfWeek":["Thursday","Friday"],"opens":"11:00","closes":"18:00"}]}
@@ -766,42 +914,136 @@ html[data-lang="ar"] .ed__line{ font-family:var(--ar-serif); }
       <source type="image/webp" srcset="assets/skin.webp">
       <img src="assets/skin.jpg" alt="Chiaroscuro portrait of a woman with radiant, healthy skin in warm light" loading="eager" fetchpriority="high" width="2400" height="1350">
     </picture>
+    <!-- soft luminance bloom + slow diagonal light sweep — light reads the skin (distinct from Hair's hard scan-line) -->
+    <span class="hero__bloom" aria-hidden="true"></span>
+    <span class="hero__sweep" aria-hidden="true"></span>
   </div>
   </div>
 </section>
 
-<!-- ============================================================ 3 · APPROACH (full-bleed dark card) -->
-<section class="skin" id="approach" data-theme="dark">
-  <div class="skin__media" aria-hidden="true"><picture><source type="image/webp" srcset="assets/ed-treat.webp"><img src="assets/ed-treat.jpg" alt="A gloved clinician applying a medical-grade facial skincare treatment" loading="lazy"></picture></div>
-  <div class="skin__copy">
-    <span class="svc__idx num" data-reveal>01</span>
-    <h2 class="skin__h serif" data-reveal style="--d:120ms"><span class="en-i">Facials, peels, hydration, plasma.</span><span class="ar-i">تنظيف، تقشير، ترطيب، بلازما.</span></h2>
-    <p class="skin__body" data-reveal style="--d:220ms"><span class="en-i">Tailored protocols that refresh, renew, and improve skin quality — built on assessment and real understanding, never guesswork.</span><span class="ar-i">بروتوكولات مُصمَّمة خصيصاً لتنعش البشرة وتجدّدها وتحسّن نضارتها — مبنيّة على التقييم والفهم الحقيقي، لا على التخمين.</span></p>
-    <a class="btn btn--glass svc__cta" href="#contact" data-reveal style="--d:320ms"><span class="en-i">Explore treatments</span><span class="ar-i">اكتشفي العلاجات</span><span class="i" aria-hidden="true">↗</span></a>
+<!-- ============================================================ 3 · READING (philosophy lead — replaces the reused dark card) -->
+<section class="reading" id="reading" data-theme="light">
+  <div class="reading__grid">
+    <h2 class="reading__h serif" data-reveal>
+      <span class="en-i">Skin is <em>read</em> before it is treated.</span><span class="ar-i">البشرة <em>تُقرأ</em> قبل أن تُعالَج.</span>
+    </h2>
+    <p class="reading__body" data-reveal style="--d:140ms">
+      <span class="en-i">In good light, the skin tells its own story — where it holds water, where it dulls, where it needs support. Every plan begins with that reading, then answers only what shows.</span>
+      <span class="ar-i">في الضوء الجيّد، تروي البشرة قصّتها — أين تحتفظ بالماء، وأين يخفت إشراقها، وأين تحتاج إلى دعم. تبدأ كل خطة بهذه القراءة، ثم تعالج ما يظهر فقط.</span>
+    </p>
   </div>
 </section>
 
-<!-- ============================================================ 4 · EDITORIAL (broken grid — Assess / Treat / Glow) -->
-<section class="editorial" id="editorial" data-theme="light">
-  <div class="ed__intro" data-reveal><span class="ed__kicker"><span class="en-i">The approach</span><span class="ar-i">المنهج</span></span></div>
-  <div class="ed__grid" id="edGrid">
-    <figure class="ed__item ed__item--a" data-reveal style="--rv:translateY(34px); --d:0ms">
-      <div class="ed__frame"><picture><source type="image/webp" srcset="assets/ed-renew.webp"><img src="assets/ed-renew.jpg" alt="A woman with calm, radiant, refreshed skin in warm light" loading="lazy"></picture></div>
-      <figcaption class="ed__cap"><span class="ed__idx">01</span><span class="ed__lbl"><span class="en-i">Assess</span><span class="ar-i">نُقيّم</span></span><span class="ed__dot" aria-hidden="true"></span></figcaption>
-    </figure>
-    <figure class="ed__item ed__item--b" data-reveal style="--rv:translateY(34px); --d:130ms">
-      <div class="ed__frame"><picture><source type="image/webp" srcset="assets/ed-treat.webp"><img src="assets/ed-treat.jpg" alt="A gloved clinician applying a facial skincare treatment" loading="lazy"></picture></div>
-      <figcaption class="ed__cap"><span class="ed__idx">02</span><span class="ed__lbl"><span class="en-i">Treat</span><span class="ar-i">نعالج</span></span><span class="ed__dot" aria-hidden="true"></span></figcaption>
-    </figure>
-    <figure class="ed__item ed__item--c" data-reveal style="--rv:translateY(34px); --d:260ms">
-      <div class="ed__frame"><picture><source type="image/webp" srcset="assets/refinement-1080.webp"><img src="assets/refinement.jpg" alt="A portrait of refined, luminous skin in soft light" loading="lazy"></picture></div>
-      <figcaption class="ed__cap"><span class="ed__idx">03</span><span class="ed__lbl"><span class="en-i">Glow</span><span class="ar-i">إشراق</span></span><span class="ed__dot" aria-hidden="true"></span></figcaption>
-    </figure>
+<!-- ============================================================ 4 · THE MATCHER (concern → approach · pure-CSS radios; signature) -->
+<section class="matcher" id="matcher" data-theme="light" aria-label="Match a skin concern to an approach">
+  <div class="matcher__inner">
+    <header class="matcher__head">
+      <div class="eyebrow" data-reveal><span class="en-i">Read your skin</span><span class="ar-i">اقرئي بشرتكِ</span></div>
+      <h2 class="matcher__h serif" data-reveal style="--d:120ms"><span class="en-i">What shows in the <em>light?</em></span><span class="ar-i">ما الذي يظهر في <em>الضوء؟</em></span></h2>
+      <p class="matcher__sub" data-reveal style="--d:220ms"><span class="en-i">Choose what you notice most. We match it to an approach and the treatment family it points to.</span><span class="ar-i">اختاري ما تلاحظينه أكثر، ونربطه بمنهجٍ وبعائلة العلاج التي يشير إليها.</span></p>
+    </header>
+
+    <div class="matcher__panel" data-reveal style="--d:120ms">
+      <!-- pure-CSS radios: the checked input drives the chip highlight + the matched approach card -->
+      <input type="radio" name="concern" id="cn-1" class="matcher__radio" checked>
+      <input type="radio" name="concern" id="cn-2" class="matcher__radio">
+      <input type="radio" name="concern" id="cn-3" class="matcher__radio">
+      <input type="radio" name="concern" id="cn-4" class="matcher__radio">
+      <input type="radio" name="concern" id="cn-5" class="matcher__radio">
+      <input type="radio" name="concern" id="cn-6" class="matcher__radio">
+
+      <div class="matcher__chips" role="tablist" aria-label="Skin concerns">
+        <label class="mchip" for="cn-1" tabindex="0"><span class="mchip__dot" aria-hidden="true"></span><span class="mchip__t"><span class="en-i">Pigmentation</span><span class="ar-i">التصبّغات</span></span></label>
+        <label class="mchip" for="cn-2" tabindex="0"><span class="mchip__dot" aria-hidden="true"></span><span class="mchip__t"><span class="en-i">Texture &amp; pores</span><span class="ar-i">الملمس والمسام</span></span></label>
+        <label class="mchip" for="cn-3" tabindex="0"><span class="mchip__dot" aria-hidden="true"></span><span class="mchip__t"><span class="en-i">Dullness</span><span class="ar-i">البهتان</span></span></label>
+        <label class="mchip" for="cn-4" tabindex="0"><span class="mchip__dot" aria-hidden="true"></span><span class="mchip__t"><span class="en-i">Laxity &amp; firmness</span><span class="ar-i">الترهّل والثبات</span></span></label>
+        <label class="mchip" for="cn-5" tabindex="0"><span class="mchip__dot" aria-hidden="true"></span><span class="mchip__t"><span class="en-i">Dehydration</span><span class="ar-i">الجفاف</span></span></label>
+        <label class="mchip" for="cn-6" tabindex="0"><span class="mchip__dot" aria-hidden="true"></span><span class="mchip__t"><span class="en-i">Congestion</span><span class="ar-i">انسداد المسام</span></span></label>
+      </div>
+
+      <div class="matcher__stage">
+        <div class="matcher__glow" aria-hidden="true"></div>
+        <!-- one card per concern; :checked reveals the matching one -->
+        <article class="mcard mcard--1">
+          <span class="mcard__idx num">01</span>
+          <span class="mcard__concern"><span class="en-i">Pigmentation</span><span class="ar-i">التصبّغات</span></span>
+          <p class="mcard__d"><span class="en-i">Uneven tone, sun-marks and post-blemish shadows are lifted gradually — brightening the surface while calming what drives the darkening.</span><span class="ar-i">عدم توحّد اللون، وأثر الشمس، وظلال ما بعد الحبوب تُعالَج تدريجياً — لتفتيح السطح مع تهدئة ما يسبّب الاسمرار.</span></p>
+          <span class="mcard__fam"><span class="mcard__fam-l"><span class="en-i">Points to</span><span class="ar-i">يشير إلى</span></span><span class="mcard__fam-v"><span class="en-i">Peels &amp; brightening facials</span><span class="ar-i">التقشير وجلسات التفتيح</span></span></span>
+        </article>
+        <article class="mcard mcard--2">
+          <span class="mcard__idx num">02</span>
+          <span class="mcard__concern"><span class="en-i">Texture &amp; pores</span><span class="ar-i">الملمس والمسام</span></span>
+          <p class="mcard__d"><span class="en-i">Rough surface and visible pores are refined through gentle resurfacing that encourages smoother, more even skin over time.</span><span class="ar-i">الملمس الخشن والمسام الظاهرة تُنعَّم عبر تجديدٍ لطيف للسطح يشجّع بشرةً أكثر نعومةً وتجانساً مع الوقت.</span></p>
+          <span class="mcard__fam"><span class="mcard__fam-l"><span class="en-i">Points to</span><span class="ar-i">يشير إلى</span></span><span class="mcard__fam-v"><span class="en-i">Peels &amp; resurfacing facials</span><span class="ar-i">التقشير وجلسات تجديد السطح</span></span></span>
+        </article>
+        <article class="mcard mcard--3">
+          <span class="mcard__idx num">03</span>
+          <span class="mcard__concern"><span class="en-i">Dullness</span><span class="ar-i">البهتان</span></span>
+          <p class="mcard__d"><span class="en-i">Skin that looks tired and flat is refreshed — clearing the surface and restoring the light that healthy skin reflects.</span><span class="ar-i">البشرة المُتعبة والباهتة تُنعَش — بتنقية السطح واستعادة الإشراق الذي تعكسه البشرة الصحّية.</span></p>
+          <span class="mcard__fam"><span class="mcard__fam-l"><span class="en-i">Points to</span><span class="ar-i">يشير إلى</span></span><span class="mcard__fam-v"><span class="en-i">Signature facials</span><span class="ar-i">جلسات التنظيف المميّزة</span></span></span>
+        </article>
+        <article class="mcard mcard--4">
+          <span class="mcard__idx num">04</span>
+          <span class="mcard__concern"><span class="en-i">Laxity &amp; firmness</span><span class="ar-i">الترهّل والثبات</span></span>
+          <p class="mcard__d"><span class="en-i">Skin that has lost a little of its bounce is supported with treatments that encourage the skin's own renewal. Individual results vary.</span><span class="ar-i">البشرة التي فقدت بعض مرونتها تُدعَم بعلاجاتٍ تحفّز تجديدها الطبيعي. النتائج تختلف من شخصٍ لآخر.</span></p>
+          <span class="mcard__fam"><span class="mcard__fam-l"><span class="en-i">Points to</span><span class="ar-i">يشير إلى</span></span><span class="mcard__fam-v"><span class="en-i">Plasma / PRP &amp; firming facials</span><span class="ar-i">البلازما وجلسات الشدّ</span></span></span>
+        </article>
+        <article class="mcard mcard--5">
+          <span class="mcard__idx num">05</span>
+          <span class="mcard__concern"><span class="en-i">Dehydration</span><span class="ar-i">الجفاف</span></span>
+          <p class="mcard__d"><span class="en-i">Skin that feels tight and drinks up moisture is replenished — restoring softness, comfort and a fresh, dewy finish.</span><span class="ar-i">البشرة التي تشعرين بشدّها وتمتصّ الترطيب سريعاً تُروى من جديد — لاستعادة النعومة والراحة وإطلالةٍ رطبة ونديّة.</span></p>
+          <span class="mcard__fam"><span class="mcard__fam-l"><span class="en-i">Points to</span><span class="ar-i">يشير إلى</span></span><span class="mcard__fam-v"><span class="en-i">Hydration treatments</span><span class="ar-i">جلسات الترطيب</span></span></span>
+        </article>
+        <article class="mcard mcard--6">
+          <span class="mcard__idx num">06</span>
+          <span class="mcard__concern"><span class="en-i">Congestion</span><span class="ar-i">انسداد المسام</span></span>
+          <p class="mcard__d"><span class="en-i">Blocked, breakout-prone skin is cleared with a deep, considered cleanse that calms the surface and keeps it comfortable.</span><span class="ar-i">البشرة المُسدّة والمُعرّضة للحبوب تُنقّى بتنظيفٍ عميقٍ ومدروس يهدّئ السطح ويحافظ على راحته.</span></p>
+          <span class="mcard__fam"><span class="mcard__fam-l"><span class="en-i">Points to</span><span class="ar-i">يشير إلى</span></span><span class="mcard__fam-v"><span class="en-i">Deep-cleanse facials</span><span class="ar-i">جلسات التنظيف العميق</span></span></span>
+        </article>
+      </div>
+    </div>
+    <p class="matcher__note" data-reveal><span class="en-i">A guide, not a diagnosis. Your plan is confirmed in consultation. Individual results vary.</span><span class="ar-i">هذا دليلٌ إرشادي وليس تشخيصاً. تُحدَّد خطّتكِ في الاستشارة، والنتائج تختلف من شخصٍ لآخر.</span></p>
   </div>
-  <p class="ed__line" data-reveal><span class="en-i">Understand the skin first. Then treat what shows.</span><span class="ar-i">نفهم البشرة أولاً، ثم نعالج ما يظهر.</span></p>
 </section>
 
-<!-- ============================================================ 5 · CLOSING CTA BAND -->
+<!-- ============================================================ 5 · THE MENU (real treatments — refined editorial list; light) -->
+<section class="menut" id="treatments" data-theme="light" aria-label="Skin treatment families">
+  <div class="menut__inner">
+    <header class="menut__head">
+      <div class="eyebrow" data-reveal><span class="en-i">The treatment menu</span><span class="ar-i">قائمة العلاجات</span></div>
+      <h2 class="menut__h serif" data-reveal style="--d:120ms"><span class="en-i">Four families of <em>care.</em></span><span class="ar-i">أربع عائلاتٍ من <em>العناية.</em></span></h2>
+    </header>
+    <ul class="menut__list">
+      <li class="mrow" data-reveal>
+        <span class="mrow__idx num">01</span>
+        <span class="mrow__name serif"><span class="en-i">Facials</span><span class="ar-i">جلسات التنظيف</span></span>
+        <span class="mrow__lead" aria-hidden="true"></span>
+        <span class="mrow__d"><span class="en-i">Medical-grade cleansing and renewal — refreshing tired skin and restoring its natural light.</span><span class="ar-i">تنظيفٌ طبّي وتجديد — لإنعاش البشرة المتعبة واستعادة إشراقها الطبيعي.</span></span>
+      </li>
+      <li class="mrow" data-reveal style="--d:90ms">
+        <span class="mrow__idx num">02</span>
+        <span class="mrow__name serif"><span class="en-i">Peels</span><span class="ar-i">التقشير</span></span>
+        <span class="mrow__lead" aria-hidden="true"></span>
+        <span class="mrow__d"><span class="en-i">Considered chemical resurfacing to soften texture and even tone, matched to your skin.</span><span class="ar-i">تقشيرٌ كيميائي مدروس لتنعيم الملمس وتوحيد اللون، مُختارٌ لبشرتكِ.</span></span>
+      </li>
+      <li class="mrow" data-reveal style="--d:180ms">
+        <span class="mrow__idx num">03</span>
+        <span class="mrow__name serif"><span class="en-i">Hydration</span><span class="ar-i">الترطيب</span></span>
+        <span class="mrow__lead" aria-hidden="true"></span>
+        <span class="mrow__d"><span class="en-i">Deep replenishment for skin that feels tight — restoring softness and a dewy finish.</span><span class="ar-i">ترطيبٌ عميق للبشرة المشدودة — لاستعادة النعومة وإطلالةٍ نديّة.</span></span>
+      </li>
+      <li class="mrow" data-reveal style="--d:270ms">
+        <span class="mrow__idx num">04</span>
+        <span class="mrow__name serif"><span class="en-i">Plasma / PRP</span><span class="ar-i">البلازما / PRP</span></span>
+        <span class="mrow__lead" aria-hidden="true"></span>
+        <span class="mrow__d"><span class="en-i">Using your own plasma to support the skin's natural renewal. Individual results vary.</span><span class="ar-i">باستخدام بلازما جسمكِ لدعم التجديد الطبيعي للبشرة. النتائج تختلف من شخصٍ لآخر.</span></span>
+      </li>
+    </ul>
+    <a class="btn btn--glass menut__cta" href="#contact" data-reveal style="--d:120ms"><span class="en-i">Book a consultation</span><span class="ar-i">احجزي استشارة</span><span class="i" aria-hidden="true">↗</span></a>
+  </div>
+</section>
+
+<!-- ============================================================ 6 · CLOSING CTA BAND -->
 <section class="bridge" id="bridge" data-theme="dark" style="background:var(--ink);color:var(--paper)">
   <h2 class="bridge__h serif lines" data-reveal>
     <span class="en"><span class="ln"><i>Skin that reflects</i></span><span class="ln"><i>your <em>health.</em></i></span></span>
@@ -858,7 +1100,7 @@ html[data-lang="ar"] .ed__line{ font-family:var(--ar-serif); }
 <script>document.body.classList.remove('no-js');
 /* safety net: if window.load never fires (a hung font/script/image), reveal everything anyway so the page is never blank */
 window.__engineUp=false;
-setTimeout(function(){ if(window.__engineUp) return; document.querySelectorAll('[data-reveal], .lines').forEach(function(e){ e.classList.add('in'); }); var n=document.getElementById('nav'); if(n) n.classList.remove('is-hidden'); }, 4000);</script>
+setTimeout(function(){ if(window.__engineUp) return; document.querySelectorAll('[data-reveal], .lines, .matcher').forEach(function(e){ e.classList.add('in'); }); var n=document.getElementById('nav'); if(n) n.classList.remove('is-hidden'); }, 4000);</script>
 <script>
 /* before/after comparison slider + stat count-up (run independent of scroll engine, reduced-motion aware) */
 (function(){
@@ -1048,7 +1290,7 @@ window.addEventListener('load', function(){
     wordEl.classList.toggle('themed', p>0.8);  // turn on the smart blend once it's the mini mark (DNA gone)
     if(p>0){ ltrs.forEach(function(el){ el.style.transform='translateX('+(lpx(el)*(1-p)).toFixed(1)+'px)'; }); if(dnaC) dnaC.style.opacity=Math.max(0,1-p*1.25).toFixed(3); }
   }
-  function showAll(){ document.querySelectorAll('[data-reveal], .lines').forEach(function(e){ e.classList.add('in'); }); if(nav) nav.classList.remove('is-hidden'); }
+  function showAll(){ document.querySelectorAll('[data-reveal], .lines, .matcher').forEach(function(e){ e.classList.add('in'); }); if(nav) nav.classList.remove('is-hidden'); }
 
   /* graceful fallback if motion is off or libs failed to load */
   if(reduce || !window.gsap || !window.ScrollTrigger){ document.body.classList.add('reduce'); showAll(); applyMorph(0); return; }
@@ -1064,7 +1306,7 @@ window.addEventListener('load', function(){
   }
 
   /* reveals — batched, fire as each enters */
-  ScrollTrigger.batch('[data-reveal], .lines', { start:'top 80%', onEnter:function(els){ els.forEach(function(e){ e.classList.add('in'); }); } });
+  ScrollTrigger.batch('[data-reveal], .lines, .matcher', { start:'top 80%', onEnter:function(els){ els.forEach(function(e){ e.classList.add('in'); }); } });
 
   /* logo morph — scrubbed across the first viewport */
   if(introEl){
