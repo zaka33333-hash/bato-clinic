@@ -752,7 +752,7 @@ html[data-lang="ar"] .mchip{ font-family:var(--ar-sans); }
 .mchip:focus-visible{ outline:2px solid var(--gold); outline-offset:3px; }
 
 /* stage — the matched approach card sits over a soft luminance glow */
-.matcher__stage{ position:relative; min-height:clamp(280px,42vh,360px); border-radius:var(--radius);
+.matcher__stage{ position:relative; display:grid; min-height:clamp(240px,32vh,300px); border-radius:var(--radius);
   border:1px solid var(--line); background:linear-gradient(158deg, #fff 0%, #fbf7ef 100%); overflow:hidden;
   box-shadow:0 30px 70px -40px rgba(27,21,16,.3); }
 .matcher__glow{ position:absolute; inset:0; z-index:0; pointer-events:none; mix-blend-mode:normal;
@@ -762,7 +762,7 @@ html[data-lang="ar"] .mchip{ font-family:var(--ar-sans); }
 html[dir="rtl"] .matcher__glow{ background:radial-gradient(60% 60% at 22% 12%, rgba(245,226,170,.55) 0%, rgba(230,196,106,.12) 42%, rgba(230,196,106,0) 72%); }
 @media(prefers-reduced-motion:reduce){ .matcher__glow{ animation:none; opacity:.7; } }
 
-.mcard{ position:absolute; inset:0; z-index:1; display:flex; flex-direction:column; align-items:flex-start;
+.mcard{ grid-area:1/1; z-index:1; display:flex; flex-direction:column; align-items:flex-start;
   padding:clamp(26px,3.4vw,52px); opacity:0; transform:translateY(16px);
   transition:opacity .55s var(--ease), transform .6s var(--ease); pointer-events:none; }
 .mcard__idx{ font-family:var(--serif); font-weight:300; font-size:clamp(1.4rem,2vw,2rem); color:var(--gold-deep); line-height:1; }
@@ -834,8 +834,8 @@ html[data-lang="ar"] .mrow__d{ font-family:var(--ar-sans); }
 
 /* ---- new-body responsive: matcher + menu at 390px */
 @media(max-width:840px){
-  .matcher__stage{ min-height:0; }
-  .mcard{ position:relative; inset:auto; opacity:0; height:0; overflow:hidden; padding:0; pointer-events:none; transform:none; transition:opacity .45s var(--ease); }
+  .matcher__stage{ display:block; min-height:0; }
+  .mcard{ position:relative; inset:auto; grid-area:auto; opacity:0; height:0; overflow:hidden; padding:0; pointer-events:none; transform:none; transition:opacity .45s var(--ease); }
   #cn-1:checked ~ .matcher__stage .mcard--1,
   #cn-2:checked ~ .matcher__stage .mcard--2,
   #cn-3:checked ~ .matcher__stage .mcard--3,
@@ -1044,14 +1044,12 @@ html[data-lang="ar"] .mrow__d{ font-family:var(--ar-sans); }
 </section>
 
 <!-- ============================================================ 6 · CLOSING CTA BAND -->
-<section class="bridge" id="bridge" data-theme="dark" style="background:var(--ink);color:var(--paper)">
+<section class="bridge" id="bridge" data-theme="dark" style="background:var(--night);color:var(--paper)">
   <h2 class="bridge__h serif lines" data-reveal>
     <span class="en"><span class="ln"><i>Skin that reflects</i></span><span class="ln"><i>your <em>health.</em></i></span></span>
     <span class="ar"><span class="ln"><i>بشرة تعكس</i></span><span class="ln"><i><em>صحتك.</em></i></span></span>
   </h2>
-  <div class="hero__cta" data-reveal style="--d:160ms;justify-content:center">
-    <a class="btn btn--glass" href="https://wa.me/"><span class="en-i">Book on WhatsApp</span><span class="ar-i">احجزي عبر واتساب</span><span class="i" aria-hidden="true">↗</span></a>
-  </div>
+  <p class="bridge__body" data-reveal style="--d:160ms;color:var(--night-soft);margin-inline:auto;text-align:center"><span class="en-i">Every plan begins with a reading of your skin — then care shaped only for you.</span><span class="ar-i">كل خطة تبدأ بقراءةٍ لبشرتكِ — ثم عنايةٌ مصمّمة لكِ وحدك.</span></p>
 </section>
 
 <!-- ============================================================ 6 · CONTACT / FOOTER -->
